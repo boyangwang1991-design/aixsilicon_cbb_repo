@@ -77,7 +77,50 @@ bash scripts/init_structure.sh
 python3 scripts/build_cbb_structure.py
 ```
 
-**新增/修改 CBB**：编辑 `cbb_repo_list.md` 对应章节行 → 重跑生成器 → 编辑生成的 README 补充需求。
+**新增/修改 CBB（占位）**：编辑 `cbb_repo_list.md` 对应章节行 → 重跑生成器 → 编辑生成的 README 补充需求。
+
+## 4.1 外部 CBB 交付件合并入库（stage_cbb）
+
+适用于「**外部写好的 CBB 交付件 → 处理 → 合并到 cbbrepo → 上传**」工作流：
+
+```bash
+SUITE_DIR="${SUITE_DIR:-.roo/skills/cbbrepo-management}"
+
+# 1) 校验 + 规划（dry-run，只读）
+uv run python "$SUITE_DIR/scripts/stage_cbb.py" <交付件目录> --repo . --dry-run
+
+# 2) 合并入库（自动定位 components/<类别>/<功能名> 或 adapters/、templates/）
+uv run python "$SUITE_DIR/scripts/stage_cbb.py" <交付件目录> --repo . --id QUE-099
+
+# 3) 全量重建 cbbs 索引（扫描 components/adapters/templates 的 ip-package.yaml）
+uv run python "$SUITE_DIR/scripts/stage_cbb.py" . --repo . --rebuild
+
+# 4) 上传（git commit + push；R1 白名单已含 components/adapters/templates）
+uv run python "$SUITE_DIR/scripts/publish_repo.py" .
+```
+
+**身份解析优先级**：`cbb.yaml`（cbb.name / classification）> `ip-package.yaml` > 交付件目录名。
+
+**目标定位规则**：
+- A0 → `adapters/<功能名>/`；A4 → `templates/<功能名>/`
+- A1~A3 → `components/<类别>/<功能名>/`；类别由 `--category` 显式指定，或由 `cbb.yaml` 的 `primary_domain` 经内置映射表推断
+- 可选覆盖：`--name`、`--abstraction`、`--priority`、`--id`
+
+**合并动作**：复制交付件内容（排除 `.git/.venv/__pycache__` 等）→ 生成/刷新 `ip-package.yaml`（schema 2.0）→ upsert `registry.yaml` 的 `cbbs` 条目（status=merged）。
+
+### 4.2 分工：LLM vs 脚本（务必区分）
+
+| 环节 | 由谁 | 说明 |
+| --- | --- | --- |
+| 交付件规范审查、身份/类别/抽象/优先级/ID 判断 | **LLM** | 需要权衡与知识判断 |
+| 质量门禁审查（G0~G5）、是否可合并 | **LLM** | 决定是否放行 |
+| 文件复制/合并、SHA 校验、生成 ip-package.yaml/registry.yaml | **脚本**（stage_cbb 确定性操作） | 幂等、可 dry-run |
+| 重建 cbbs 索引 | **脚本**（stage_cbb --rebuild） | 扫描 ip-package.yaml 生成 |
+| `git status` / `git ls-remote --tags` 侦查 | **脚本**（只读） | 纯事实采集 |
+| git add 范围审查（R1 白名单）、提交信息、tag 策略 | **LLM** | 判断与决策 |
+| **git add/commit/push/tag 执行** | **LLM 授权后执行** | 不放给脚本盲跑；先 dry-run + 白名单审查，再执行；push/tag 覆盖等不可逆动作必须 LLM 明确确认 |
+
+> **关键原则**：脚本只做确定性操作与只读侦查；**git 写操作（add/commit/push/tag）存在误跟踪、误推送、tag 冲突等风险，必须由 LLM 判断后手动执行**（或脚本仅在 LLM 明确授权 + R1~R6 门禁全过时才执行）。`publish_repo.py` 默认先 dry-run、白名单校验，实际推送需 LLM 确认。
 
 ## 5. CBB 元数据与索引
 

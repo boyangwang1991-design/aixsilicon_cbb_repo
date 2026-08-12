@@ -297,8 +297,9 @@ uv run python "$SUITE_DIR/scripts/stage_ip.py" . --unified ../ip-unified --then-
 
 ### 规则驱动与决策分工
 
-本套件采用「**规则驱动**」：脚本只做**确定性操作**（复制、校验、生成、git 原子命令），
-所有需要**判断、权衡、应变**的决策由大模型按本规则执行。**不得用固定脚本接管全流程**，
+本套件采用「**规则驱动**」：脚本只做**确定性操作**（复制、校验、生成）与**只读侦查**，
+所有需要**判断、权衡、应变**的决策由大模型按本规则执行。**git 写操作（add/commit/push/tag）
+必须由 LLM 判断后执行或显式授权，脚本不自动执行不可逆动作**。**不得用固定脚本接管全流程**，
 尤其禁止脚本自动执行不可逆动作（`git add -A`、push、删 tag）而不经判断。
 
 #### 四阶段执行模型
@@ -390,7 +391,7 @@ uv run python "$SUITE_DIR/scripts/stage_ip.py" . --unified ../ip-unified --then-
 
 | 资源 | 说明 |
 |---|---|
-| [`scripts/`](scripts/) | Python 脚本（config / validate_release / stage_ip / publish_repo / update_registry / ipkg_cli） |
+| [`scripts/`](scripts/) | Python 脚本（config / validate_release / stage_ip / stage_cbb / publish_repo / update_registry / ipkg_cli） |
 | [`templates/`](templates/) | 模板文件（ipkg.yaml / ip-package.yaml / README / CHANGELOG / CI workflow） |
 | [`references/`](references/) | 参考文档（FuseSoC Library / VLNV & SemVer / ip-package schema / 交付件清单 / ipkg CLI / 索引与依赖 / CBB 平台适配） |
 | [`unified-repo-template/`](unified-repo-template/) | 统一仓初始化模板（ips/ + registry.yaml + CI） |

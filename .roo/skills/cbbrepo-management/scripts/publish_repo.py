@@ -122,8 +122,9 @@ def publish_repo(
     # 2. Stage + commit
     # R1: add 白名单，绝不 `git add -A`（避免误跟踪开发工作区/EDA scratch）
     # R3: dry-run 只读，不执行任何写操作（含 add/commit）
-    WHITELIST = ("ips/", "registry.yaml", ".github/", "docs/",
-                 "README.md", "LICENSE", "CHANGELOG.md")
+    WHITELIST = ("ips/", "components/", "adapters/", "templates/",
+                 "registry.yaml", "cbb_repo_list.md", "fusesoc.conf",
+                 ".github/", "docs/", "README.md", "LICENSE", "CHANGELOG.md")
     status = run(["git", "status", "--porcelain"], cwd=unified, check=False)
     lines = status.stdout.strip().splitlines() if status.stdout.strip() else []
     paths = [ln[3:] for ln in lines]  # strip "XY " status prefix
@@ -137,16 +138,24 @@ def publish_repo(
         return 1
     ip_names = sorted({p.split("/")[2] for p in paths
                        if p.startswith("ips/") and len(p.split("/")) > 2})
-    commit_msg = (f"Update unified IP repository "
-                  f"({', '.join(ip_names) if ip_names else 'ips + registry'})")
+    cbb_names = sorted({p.split("/")[2] for p in paths
+                        if p.startswith("components/") and len(p.split("/")) > 2})
+    cbb_names += sorted({p.split("/")[1] for p in paths
+                         if (p.startswith("adapters/") or p.startswith("templates/"))
+                         and len(p.split("/")) > 1})
+    names = sorted(set(ip_names + cbb_names))
+    commit_msg = (f"Update unified repository "
+                  f"({', '.join(names) if names else 'registry + content'})")
     if not paths:
         print("  nothing to commit")
     elif dry_run:
         print(f"  (dry-run) would add: {', '.join(WHITELIST)}")
         print(f"  (dry-run) would commit: {commit_msg}")
     else:
-        run(["git", "add", "ips/", "registry.yaml", ".github/", "docs/",
-             "README.md", "LICENSE", "CHANGELOG.md"], cwd=unified)
+        run(["git", "add", "ips/", "components/", "adapters/", "templates/",
+             "registry.yaml", "cbb_repo_list.md", "fusesoc.conf",
+             ".github/", "docs/", "README.md", "LICENSE", "CHANGELOG.md"],
+            cwd=unified)
         run(["git", "commit", "-m", commit_msg], cwd=unified)
         print(f"  committed: {commit_msg}")
 
