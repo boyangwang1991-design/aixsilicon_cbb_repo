@@ -29,4 +29,4 @@
 | TMP-023 | Memory BIST接入模板 | A4 | P3 | DFT一致接入 |
 | TMP-024 | DSP双缓冲数据通路 | A4 | P3 | 搬运计算重叠 |
 
-> 各 CBB 目录以**功能名**命名；当前为**空工程包 + README 需求说明**，开发时按 [docs/cbb_spec](../../docs/cbb_spec/README.md) 展开标准工程包。
+> 各 CBB 目录以**功能名**命名；当前为**空工程包 + README 需求说明**，开发时按 [docs/cbb_spec](../docs/cbb_spec/README.md) 展开标准工程包。

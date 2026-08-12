@@ -460,6 +460,8 @@ def build():
             category_path = "{top}/{cat}".format(top=top, cat=cat)
 
         os.makedirs(group_dir, exist_ok=True)
+        # 类别 README 到仓库根的相对路径：adapters/templates 深度为 1，components/<cat> 深度为 2
+        group_rel = rel_to_root(category_path)
 
         lines = ["# {cat} — {title}".format(cat=cat or top, title=title), ""]
         lines.append("对应 cbb_repo_list.md 第 {sec} 节。".format(sec=sec))
@@ -471,7 +473,7 @@ def build():
                 id=row["id"], name=row["name"], level=row["level"],
                 priority=row["priority"], ppa=row["ppa"]))
         lines.append("")
-        lines.append("> 各 CBB 目录以**功能名**命名；当前为**空工程包 + README 需求说明**，开发时按 [docs/cbb_spec](../../docs/cbb_spec/README.md) 展开标准工程包。")
+        lines.append("> 各 CBB 目录以**功能名**命名；当前为**空工程包 + README 需求说明**，开发时按 [docs/cbb_spec]({rel}docs/cbb_spec/README.md) 展开标准工程包。".format(rel=group_rel))
         with open(os.path.join(group_dir, "README.md"), "w", encoding="utf-8") as f:
             f.write("\n".join(lines) + "\n")
 

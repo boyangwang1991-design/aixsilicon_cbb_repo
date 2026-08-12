@@ -2,6 +2,15 @@
 
 本仓库遵循语义化版本（SemVer）管理 CBB 平台整体版本；单个 CBB 在其工程包内独立维护版本。
 
+## [0.1.1] - 2026-08-12
+
+### Fixed
+- 修复 `adapters/README.md` 与 `templates/README.md` 中 `docs/cbb_spec` 失效相对链接（`../../` → `../`）
+- 修复 `scripts/build_cbb_structure.py` 类别 README 相对路径写死问题（按类别深度动态计算，防止 adapters/templates 复发）
+- 补齐 `fusesoc.conf` 的 `sync-uri` / `sync-type` / `sync-branch`（含 `init_structure.sh` 模板同步）
+- 扩展 `schemas/cbb.schema.yaml` 的 abstraction 枚举，支持组合级别（如 `A1/A2`），与 `registry.yaml` 保持一致
+- 修正 `init_structure.sh` 注释中规划文档文件名（`plan.md` → `cbb_repo_plan.md`）
+
 ## [0.1.0] - 2026-08-12
 
 ### Added

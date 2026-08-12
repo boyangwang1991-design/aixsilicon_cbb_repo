@@ -27,4 +27,4 @@
 | TEC-021 | FPGA Memory Wrapper | A0 | P1 | ASIC/FPGA双实现映射 |
 | TEC-022 | FPGA DSP Wrapper | A0 | P2 | 推断稳定性与流水位置 |
 
-> 各 CBB 目录以**功能名**命名；当前为**空工程包 + README 需求说明**，开发时按 [docs/cbb_spec](../../docs/cbb_spec/README.md) 展开标准工程包。
+> 各 CBB 目录以**功能名**命名；当前为**空工程包 + README 需求说明**，开发时按 [docs/cbb_spec](../docs/cbb_spec/README.md) 展开标准工程包。

@@ -7,7 +7,7 @@
 #
 # 说明:
 #   - 本仓库是 FuseSoC Library，布局遵循 iprepo-management-suite 统一仓规范
-#   - 顶层形态参考 plan.md 9.1 节：
+#   - 顶层形态参考 cbb_repo_plan.md 9.1 节：
 #       components/  A1~A3 构件（按 cbb_repo_list.md 功能类别组织）
 #       adapters/    A0 技术适配；templates/ A4 子系统模板（独立治理）
 #       recipes/ 参考架构与优化配方；schemas/ 元数据 Schema；verification/ 公共验证框架
@@ -117,10 +117,9 @@ cat > fusesoc.conf <<EOF
 [library.${VENDOR}-${LIBRARY}]
 location = .
 auto-sync = false
-# 发布后填写远程地址
-# sync-uri = https://github.com/<org>/aixsilicon_cbb_repo.git
-# sync-type = git
-# sync-branch = main
+sync-uri = https://github.com/boyangwang1991-design/aixsilicon_cbb_repo.git
+sync-type = git
+sync-branch = main
 EOF
 
 # 6.2 GitHub Actions CI —— 扫描 *.core 做 FuseSoC lint

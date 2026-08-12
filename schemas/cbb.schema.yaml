@@ -19,7 +19,9 @@ properties:
     required: [abstraction, primary_domain]
     properties:
       abstraction:
-        enum: [A0, A1, A2, A3, A4]
+        # A0~A4 单一级别，或组合级别（如 A1/A2、A2/A3、A1/A0、A0/A2、A3/A4、A2/A4），
+        # 与 cbb_repo_list.md / registry.yaml 保持一致（组合表示该构件跨多个抽象粒度）
+        enum: [A0, A1, A2, A3, A4, A1/A0, A1/A2, A2/A3, A2/A4, A3/A4, A0/A2]
       primary_domain: string
       secondary_domains: [string]
 
