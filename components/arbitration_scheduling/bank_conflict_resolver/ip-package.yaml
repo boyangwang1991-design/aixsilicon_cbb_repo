@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: bank_conflict_resolver
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  ARB-017 Bank Conflict Resolver - 冲突率和吞吐
+license: internal
+path: components/arbitration_scheduling/bank_conflict_resolver
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:bank_conflict_resolver:0.1.0

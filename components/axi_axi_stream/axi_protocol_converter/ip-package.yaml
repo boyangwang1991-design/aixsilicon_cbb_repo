@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: axi_protocol_converter
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  AXI-016 AXI Protocol Converter - Burst拆分与错误
+license: internal
+path: components/axi_axi_stream/axi_protocol_converter
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:axi_protocol_converter:0.1.0

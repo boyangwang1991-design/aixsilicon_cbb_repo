@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: multi_enqueue_fifo
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  QUE-014 Multi-enqueue FIFO - 写合并与指针更新
+license: internal
+path: components/fifo_queue_buffer/multi_enqueue_fifo
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:multi_enqueue_fifo:0.1.0

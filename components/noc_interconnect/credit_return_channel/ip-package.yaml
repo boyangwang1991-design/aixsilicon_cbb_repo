@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: credit_return_channel
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  NOC-009 Credit Return Channel - 反馈延迟与位宽
+license: internal
+path: components/noc_interconnect/credit_return_channel
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:credit_return_channel:0.1.0

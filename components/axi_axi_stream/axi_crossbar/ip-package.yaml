@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: axi_crossbar
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  AXI-022 AXI Crossbar - 面积、布线、并发
+license: internal
+path: components/axi_axi_stream/axi_crossbar
+maturity: E0
+classification:
+  abstraction: A4
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:axi_crossbar:0.1.0

@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: tie_cell_wrapper
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  TEC-013 Tie/Constant Cell Wrapper - 避免逻辑常量不规范直连
+license: internal
+path: adapters/tie_cell_wrapper
+maturity: E0
+classification:
+  abstraction: A0
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:tie_cell_wrapper:0.1.0

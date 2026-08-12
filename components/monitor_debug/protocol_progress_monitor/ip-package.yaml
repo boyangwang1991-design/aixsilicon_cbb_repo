@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: protocol_progress_monitor
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  MON-014 Protocol Progress Monitor - 误报和状态开销
+license: internal
+path: components/monitor_debug/protocol_progress_monitor
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:protocol_progress_monitor:0.1.0

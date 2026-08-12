@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: noc_output_port
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  NOC-006 NoC Output Port - 扇入与信用返回
+license: internal
+path: components/noc_interconnect/noc_output_port
+maturity: E0
+classification:
+  abstraction: A3/A4
+  priority: P3
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:noc_output_port:0.1.0

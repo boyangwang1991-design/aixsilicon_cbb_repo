@@ -1,0 +1,3287 @@
+schema_version: "2.0"
+updated: "2026-08-12T03:47:37Z"
+vendor: aixsilicon
+library: cbb
+unified_repo: ""
+
+cbbs:
+  - id: TEC-001
+    name: generic_comb_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: adapters/generic_comb_wrapper
+  - id: TEC-002
+    name: dff_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: adapters/dff_wrapper
+  - id: TEC-003
+    name: mbff_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: adapters/mbff_wrapper
+  - id: TEC-004
+    name: latch_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: adapters/latch_wrapper
+  - id: TEC-005
+    name: icg_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: adapters/icg_wrapper
+  - id: TEC-006
+    name: glitch_free_clock_mux
+    group: adapters
+    abstraction: A0
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: adapters/glitch_free_clock_mux
+  - id: TEC-007
+    name: clock_divider_cell_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: adapters/clock_divider_cell_wrapper
+  - id: TEC-008
+    name: clock_buffer_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: adapters/clock_buffer_wrapper
+  - id: TEC-009
+    name: level_shifter_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: adapters/level_shifter_wrapper
+  - id: TEC-010
+    name: isolation_cell_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: adapters/isolation_cell_wrapper
+  - id: TEC-011
+    name: retention_ff_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: adapters/retention_ff_wrapper
+  - id: TEC-012
+    name: power_switch_ctrl_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: adapters/power_switch_ctrl_wrapper
+  - id: TEC-013
+    name: tie_cell_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: adapters/tie_cell_wrapper
+  - id: TEC-014
+    name: scan_lockup_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: adapters/scan_lockup_wrapper
+  - id: TEC-015
+    name: sram_macro_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: adapters/sram_macro_wrapper
+  - id: TEC-016
+    name: register_file_macro_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: adapters/register_file_macro_wrapper
+  - id: TEC-017
+    name: rom_macro_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: adapters/rom_macro_wrapper
+  - id: TEC-018
+    name: cam_macro_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: adapters/cam_macro_wrapper
+  - id: TEC-019
+    name: efuse_otp_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: adapters/efuse_otp_wrapper
+  - id: TEC-020
+    name: pll_dll_osc_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: adapters/pll_dll_osc_wrapper
+  - id: TEC-021
+    name: fpga_memory_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: adapters/fpga_memory_wrapper
+  - id: TEC-022
+    name: fpga_dsp_wrapper
+    group: adapters
+    abstraction: A0
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: adapters/fpga_dsp_wrapper
+  - id: SEL-001
+    name: binary_mux
+    group: components/selection_decode
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/binary_mux
+  - id: SEL-002
+    name: onehot_mux
+    group: components/selection_decode
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/onehot_mux
+  - id: SEL-003
+    name: priority_mux
+    group: components/selection_decode
+    abstraction: A1
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/priority_mux
+  - id: SEL-004
+    name: sparse_masked_mux
+    group: components/selection_decode
+    abstraction: A1
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/sparse_masked_mux
+  - id: SEL-005
+    name: cross_point_switch
+    group: components/selection_decode
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/cross_point_switch
+  - id: SEL-006
+    name: binary_encoder
+    group: components/selection_decode
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/binary_encoder
+  - id: SEL-007
+    name: onehot_encoder
+    group: components/selection_decode
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/onehot_encoder
+  - id: SEL-008
+    name: decoder
+    group: components/selection_decode
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/decoder
+  - id: SEL-009
+    name: priority_encoder
+    group: components/selection_decode
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/priority_encoder
+  - id: SEL-010
+    name: thermometer_codec
+    group: components/selection_decode
+    abstraction: A1
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/thermometer_codec
+  - id: SEL-011
+    name: lzc_lzd
+    group: components/selection_decode
+    abstraction: A1
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/lzc_lzd
+  - id: SEL-012
+    name: tzc_lzd
+    group: components/selection_decode
+    abstraction: A1
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/tzc_lzd
+  - id: SEL-013
+    name: bit_scan_first_set
+    group: components/selection_decode
+    abstraction: A1
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/bit_scan_first_set
+  - id: SEL-014
+    name: popcount
+    group: components/selection_decode
+    abstraction: A1
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/popcount
+  - id: SEL-015
+    name: onehot_checker
+    group: components/selection_decode
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/onehot_checker
+  - id: SEL-016
+    name: range_comparator
+    group: components/selection_decode
+    abstraction: A1
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/range_comparator
+  - id: SEL-017
+    name: address_decoder
+    group: components/selection_decode
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/address_decoder
+  - id: SEL-018
+    name: hierarchical_address_decoder
+    group: components/selection_decode
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/hierarchical_address_decoder
+  - id: SEL-019
+    name: configurable_truth_table
+    group: components/selection_decode
+    abstraction: A1
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/configurable_truth_table
+  - id: SEL-020
+    name: bit_permutation_network
+    group: components/selection_decode
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/selection_decode/bit_permutation_network
+  - id: ARI-001
+    name: incrementer_decrementer
+    group: components/arithmetic_datapath
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/incrementer_decrementer
+  - id: ARI-002
+    name: adder_subtractor
+    group: components/arithmetic_datapath
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/adder_subtractor
+  - id: ARI-003
+    name: carry_save_adder
+    group: components/arithmetic_datapath
+    abstraction: A1
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/carry_save_adder
+  - id: ARI-004
+    name: multi_operand_adder
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/multi_operand_adder
+  - id: ARI-005
+    name: adder_tree
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/adder_tree
+  - id: ARI-006
+    name: accumulator
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/accumulator
+  - id: ARI-007
+    name: absolute_value_negate
+    group: components/arithmetic_datapath
+    abstraction: A1
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/absolute_value_negate
+  - id: ARI-008
+    name: comparator
+    group: components/arithmetic_datapath
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/comparator
+  - id: ARI-009
+    name: multiway_min_max
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/multiway_min_max
+  - id: ARI-010
+    name: clamp_clip
+    group: components/arithmetic_datapath
+    abstraction: A1
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/clamp_clip
+  - id: ARI-011
+    name: saturating_add_sub
+    group: components/arithmetic_datapath
+    abstraction: A1
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/saturating_add_sub
+  - id: ARI-012
+    name: fixed_point_round
+    group: components/arithmetic_datapath
+    abstraction: A1
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/fixed_point_round
+  - id: ARI-013
+    name: fixed_point_resize
+    group: components/arithmetic_datapath
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/fixed_point_resize
+  - id: ARI-014
+    name: scale_shift
+    group: components/arithmetic_datapath
+    abstraction: A1
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/scale_shift
+  - id: ARI-015
+    name: logical_arith_shifter
+    group: components/arithmetic_datapath
+    abstraction: A1/A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/logical_arith_shifter
+  - id: ARI-016
+    name: rotator_funnel_shifter
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/rotator_funnel_shifter
+  - id: ARI-017
+    name: integer_multiplier
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/integer_multiplier
+  - id: ARI-018
+    name: constant_multiplier
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/constant_multiplier
+  - id: ARI-019
+    name: mac
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/mac
+  - id: ARI-020
+    name: dot_product_engine
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/dot_product_engine
+  - id: ARI-021
+    name: integer_divider
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/integer_divider
+  - id: ARI-022
+    name: constant_divider
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/constant_divider
+  - id: ARI-023
+    name: modulo_reducer
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/modulo_reducer
+  - id: ARI-024
+    name: square_sum_squares
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/square_sum_squares
+  - id: ARI-025
+    name: average_weighted_sum
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/average_weighted_sum
+  - id: ARI-026
+    name: reciprocal_rsqrt_approx
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/reciprocal_rsqrt_approx
+  - id: ARI-027
+    name: cordic
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/cordic
+  - id: ARI-028
+    name: polynomial_evaluator
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/polynomial_evaluator
+  - id: ARI-029
+    name: bcd_binary_converter
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/bcd_binary_converter
+  - id: ARI-030
+    name: decimal_bcd_arith
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/decimal_bcd_arith
+  - id: ARI-031
+    name: fp_classify_compare
+    group: components/arithmetic_datapath
+    abstraction: A1/A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/fp_classify_compare
+  - id: ARI-032
+    name: fp_math_shell
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/fp_math_shell
+  - id: ARI-033
+    name: block_fp_scale
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/block_fp_scale
+  - id: ARI-034
+    name: quantize_dequantize
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/quantize_dequantize
+  - id: ARI-035
+    name: packed_simd_lane_op
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/arithmetic_datapath/packed_simd_lane_op
+  - id: COD-001
+    name: parity_gen_check
+    group: components/coding_integrity
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/coding_integrity/parity_gen_check
+  - id: COD-002
+    name: crc_gen_check
+    group: components/coding_integrity
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/coding_integrity/crc_gen_check
+  - id: COD-003
+    name: secded_ecc
+    group: components/coding_integrity
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/coding_integrity/secded_ecc
+  - id: COD-004
+    name: hamming_ecc
+    group: components/coding_integrity
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/coding_integrity/hamming_ecc
+  - id: COD-005
+    name: bch_rs_codec_wrapper
+    group: components/coding_integrity
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/coding_integrity/bch_rs_codec_wrapper
+  - id: COD-006
+    name: gray_binary_converter
+    group: components/coding_integrity
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/coding_integrity/gray_binary_converter
+  - id: COD-007
+    name: scrambler_descrambler
+    group: components/coding_integrity
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/coding_integrity/scrambler_descrambler
+  - id: COD-008
+    name: lfsr_prbs
+    group: components/coding_integrity
+    abstraction: A1/A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/coding_integrity/lfsr_prbs
+  - id: COD-009
+    name: run_length_codec
+    group: components/coding_integrity
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/coding_integrity/run_length_codec
+  - id: COD-010
+    name: zero_suppress_bitmap_codec
+    group: components/coding_integrity
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/coding_integrity/zero_suppress_bitmap_codec
+  - id: COD-011
+    name: byte_bit_order_converter
+    group: components/coding_integrity
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/coding_integrity/byte_bit_order_converter
+  - id: COD-012
+    name: data_packer_unpacker
+    group: components/coding_integrity
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/coding_integrity/data_packer_unpacker
+  - id: MEM-001
+    name: parameter_register
+    group: components/register_memory
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/parameter_register
+  - id: MEM-002
+    name: shadowed_register
+    group: components/register_memory
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/shadowed_register
+  - id: MEM-003
+    name: sticky_status_register
+    group: components/register_memory
+    abstraction: A1/A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/sticky_status_register
+  - id: MEM-004
+    name: register_array
+    group: components/register_memory
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/register_array
+  - id: MEM-005
+    name: rf_1r1w
+    group: components/register_memory
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/rf_1r1w
+  - id: MEM-006
+    name: rf_multi_read
+    group: components/register_memory
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/rf_multi_read
+  - id: MEM-007
+    name: rf_multi_write
+    group: components/register_memory
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/rf_multi_write
+  - id: MEM-008
+    name: sram_width_composer
+    group: components/register_memory
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/sram_width_composer
+  - id: MEM-009
+    name: sram_depth_composer
+    group: components/register_memory
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/sram_depth_composer
+  - id: MEM-010
+    name: sram_bank_mapper
+    group: components/register_memory
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/sram_bank_mapper
+  - id: MEM-011
+    name: sram_port_adapter
+    group: components/register_memory
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/sram_port_adapter
+  - id: MEM-012
+    name: memory_raw_bypass
+    group: components/register_memory
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/memory_raw_bypass
+  - id: MEM-013
+    name: memory_byte_write_adapter
+    group: components/register_memory
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/memory_byte_write_adapter
+  - id: MEM-014
+    name: memory_init_load_adapter
+    group: components/register_memory
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/memory_init_load_adapter
+  - id: MEM-015
+    name: memory_sleep_ctrl
+    group: components/register_memory
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/memory_sleep_ctrl
+  - id: MEM-016
+    name: memory_ecc_shell
+    group: components/register_memory
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/memory_ecc_shell
+  - id: MEM-017
+    name: memory_scrubber
+    group: components/register_memory
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/memory_scrubber
+  - id: MEM-018
+    name: memory_bist_if_adapter
+    group: components/register_memory
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/memory_bist_if_adapter
+  - id: MEM-019
+    name: multi_bank_access_scheduler
+    group: components/register_memory
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/multi_bank_access_scheduler
+  - id: MEM-020
+    name: ping_pong_buffer
+    group: components/register_memory
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/ping_pong_buffer
+  - id: MEM-021
+    name: line_buffer
+    group: components/register_memory
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/line_buffer
+  - id: MEM-022
+    name: circular_buffer
+    group: components/register_memory
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/circular_buffer
+  - id: MEM-023
+    name: lookup_table_rom
+    group: components/register_memory
+    abstraction: A1/A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/lookup_table_rom
+  - id: MEM-024
+    name: cam
+    group: components/register_memory
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/cam
+  - id: MEM-025
+    name: content_tag_array
+    group: components/register_memory
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/register_memory/content_tag_array
+  - id: QUE-001
+    name: sync_fifo
+    group: components/fifo_queue_buffer
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/sync_fifo
+  - id: QUE-002
+    name: async_fifo
+    group: components/fifo_queue_buffer
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/async_fifo
+  - id: QUE-003
+    name: fall_through_fifo
+    group: components/fifo_queue_buffer
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/fall_through_fifo
+  - id: QUE-004
+    name: shift_reg_fifo
+    group: components/fifo_queue_buffer
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/shift_reg_fifo
+  - id: QUE-005
+    name: sram_fifo
+    group: components/fifo_queue_buffer
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/sram_fifo
+  - id: QUE-006
+    name: elastic_buffer
+    group: components/fifo_queue_buffer
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/elastic_buffer
+  - id: QUE-007
+    name: skid_buffer
+    group: components/fifo_queue_buffer
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/skid_buffer
+  - id: QUE-008
+    name: pipeline_fifo
+    group: components/fifo_queue_buffer
+    abstraction: A2/A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/pipeline_fifo
+  - id: QUE-009
+    name: packet_fifo
+    group: components/fifo_queue_buffer
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/packet_fifo
+  - id: QUE-010
+    name: frame_buffer_queue
+    group: components/fifo_queue_buffer
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/frame_buffer_queue
+  - id: QUE-011
+    name: credit_fifo
+    group: components/fifo_queue_buffer
+    abstraction: A2/A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/credit_fifo
+  - id: QUE-012
+    name: width_conversion_fifo
+    group: components/fifo_queue_buffer
+    abstraction: A2/A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/width_conversion_fifo
+  - id: QUE-013
+    name: multi_channel_fifo
+    group: components/fifo_queue_buffer
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/multi_channel_fifo
+  - id: QUE-014
+    name: multi_enqueue_fifo
+    group: components/fifo_queue_buffer
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/multi_enqueue_fifo
+  - id: QUE-015
+    name: multi_dequeue_fifo
+    group: components/fifo_queue_buffer
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/multi_dequeue_fifo
+  - id: QUE-016
+    name: reorder_queue
+    group: components/fifo_queue_buffer
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/reorder_queue
+  - id: QUE-017
+    name: priority_queue
+    group: components/fifo_queue_buffer
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/priority_queue
+  - id: QUE-018
+    name: descriptor_queue
+    group: components/fifo_queue_buffer
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/descriptor_queue
+  - id: QUE-019
+    name: replay_retry_buffer
+    group: components/fifo_queue_buffer
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/replay_retry_buffer
+  - id: QUE-020
+    name: broadcast_replication_buffer
+    group: components/fifo_queue_buffer
+    abstraction: A2/A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/fifo_queue_buffer/broadcast_replication_buffer
+  - id: STR-001
+    name: fixed_delay_line
+    group: components/streaming_pipeline
+    abstraction: A1/A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/fixed_delay_line
+  - id: STR-002
+    name: enable_delay_line
+    group: components/streaming_pipeline
+    abstraction: A1/A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/enable_delay_line
+  - id: STR-003
+    name: data_control_aligner
+    group: components/streaming_pipeline
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/data_control_aligner
+  - id: STR-004
+    name: forward_register_slice
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/forward_register_slice
+  - id: STR-005
+    name: backward_register_slice
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/backward_register_slice
+  - id: STR-006
+    name: full_register_slice
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/full_register_slice
+  - id: STR-007
+    name: bypassable_register_slice
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/bypassable_register_slice
+  - id: STR-008
+    name: stream_mux
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_mux
+  - id: STR-009
+    name: stream_demux
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_demux
+  - id: STR-010
+    name: stream_fork
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_fork
+  - id: STR-011
+    name: stream_join
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_join
+  - id: STR-012
+    name: stream_merge
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_merge
+  - id: STR-013
+    name: stream_split
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_split
+  - id: STR-014
+    name: stream_width_converter
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_width_converter
+  - id: STR-015
+    name: stream_gearbox
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_gearbox
+  - id: STR-016
+    name: stream_rate_matcher
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_rate_matcher
+  - id: STR-017
+    name: stream_packetizer
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_packetizer
+  - id: STR-018
+    name: stream_depacketizer
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_depacketizer
+  - id: STR-019
+    name: stream_arbiter
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_arbiter
+  - id: STR-020
+    name: stream_multicast
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_multicast
+  - id: STR-021
+    name: stream_broadcaster
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_broadcaster
+  - id: STR-022
+    name: stream_throttler
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_throttler
+  - id: STR-023
+    name: stream_traffic_shaper
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_traffic_shaper
+  - id: STR-024
+    name: stream_monitor_tap
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/stream_monitor_tap
+  - id: STR-025
+    name: bubble_inserter_remover
+    group: components/streaming_pipeline
+    abstraction: A3
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/streaming_pipeline/bubble_inserter_remover
+  - id: ARB-001
+    name: fixed_priority_arbiter
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/fixed_priority_arbiter
+  - id: ARB-002
+    name: round_robin_arbiter
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/round_robin_arbiter
+  - id: ARB-003
+    name: weighted_rr_arbiter
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/weighted_rr_arbiter
+  - id: ARB-004
+    name: deficit_rr_arbiter
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/deficit_rr_arbiter
+  - id: ARB-005
+    name: age_based_arbiter
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/age_based_arbiter
+  - id: ARB-006
+    name: lottery_arbiter
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/lottery_arbiter
+  - id: ARB-007
+    name: multi_grant_arbiter
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/multi_grant_arbiter
+  - id: ARB-008
+    name: hierarchical_arbiter
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/hierarchical_arbiter
+  - id: ARB-009
+    name: pipelined_arbiter
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/pipelined_arbiter
+  - id: ARB-010
+    name: packet_locking_arbiter
+    group: components/arbitration_scheduling
+    abstraction: A2/A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/packet_locking_arbiter
+  - id: ARB-011
+    name: credit_manager
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/credit_manager
+  - id: ARB-012
+    name: token_allocator
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/token_allocator
+  - id: ARB-013
+    name: resource_pool_manager
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/resource_pool_manager
+  - id: ARB-014
+    name: request_coalescer
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/request_coalescer
+  - id: ARB-015
+    name: request_distributor
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/request_distributor
+  - id: ARB-016
+    name: shared_operator_scheduler
+    group: components/arbitration_scheduling
+    abstraction: A2/A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/shared_operator_scheduler
+  - id: ARB-017
+    name: bank_conflict_resolver
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/bank_conflict_resolver
+  - id: ARB-018
+    name: outstanding_tracker
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/outstanding_tracker
+  - id: ARB-019
+    name: reservation_lock_manager
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/reservation_lock_manager
+  - id: ARB-020
+    name: barrier_join_controller
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/arbitration_scheduling/barrier_join_controller
+  - id: CDC-001
+    name: single_bit_synchronizer
+    group: components/cdc_rdc
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/single_bit_synchronizer
+  - id: CDC-002
+    name: multibit_static_synchronizer
+    group: components/cdc_rdc
+    abstraction: A1/A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/multibit_static_synchronizer
+  - id: CDC-003
+    name: pulse_synchronizer
+    group: components/cdc_rdc
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/pulse_synchronizer
+  - id: CDC-004
+    name: toggle_synchronizer
+    group: components/cdc_rdc
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/toggle_synchronizer
+  - id: CDC-005
+    name: handshake_synchronizer
+    group: components/cdc_rdc
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/handshake_synchronizer
+  - id: CDC-006
+    name: bundled_data_cdc
+    group: components/cdc_rdc
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/bundled_data_cdc
+  - id: CDC-007
+    name: bus_snapshot_cdc
+    group: components/cdc_rdc
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/bus_snapshot_cdc
+  - id: CDC-008
+    name: gray_counter_cdc
+    group: components/cdc_rdc
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/gray_counter_cdc
+  - id: CDC-009
+    name: async_fifo_cdc
+    group: components/cdc_rdc
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/async_fifo_cdc
+  - id: CDC-010
+    name: mesochronous_elastic_buffer
+    group: components/cdc_rdc
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/mesochronous_elastic_buffer
+  - id: CDC-011
+    name: plesiochronous_rate_matcher
+    group: components/cdc_rdc
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/plesiochronous_rate_matcher
+  - id: CDC-012
+    name: cdc_event_aggregator
+    group: components/cdc_rdc
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/cdc_event_aggregator
+  - id: CDC-013
+    name: cdc_config_bridge
+    group: components/cdc_rdc
+    abstraction: A2/A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/cdc_config_bridge
+  - id: RDC-001
+    name: async_assert_sync_release_reset
+    group: components/cdc_rdc
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/async_assert_sync_release_reset
+  - id: RDC-002
+    name: sync_reset_bridge
+    group: components/cdc_rdc
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/sync_reset_bridge
+  - id: RDC-003
+    name: reset_pulse_stretcher
+    group: components/cdc_rdc
+    abstraction: A1/A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/reset_pulse_stretcher
+  - id: RDC-004
+    name: reset_domain_isolation
+    group: components/cdc_rdc
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/reset_domain_isolation
+  - id: RDC-005
+    name: reset_sequencer
+    group: components/cdc_rdc
+    abstraction: A2/A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/reset_sequencer
+  - id: RDC-006
+    name: warm_cold_reset_ctrl
+    group: components/cdc_rdc
+    abstraction: A2/A4
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/cdc_rdc/warm_cold_reset_ctrl
+  - id: CRP-001
+    name: local_clock_enable
+    group: components/clock_reset_power
+    abstraction: A1/A0
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/local_clock_enable
+  - id: CRP-002
+    name: hierarchical_clock_gating
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/hierarchical_clock_gating
+  - id: CRP-003
+    name: auto_clock_gating_detector
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/auto_clock_gating_detector
+  - id: CRP-004
+    name: clock_divider
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/clock_divider
+  - id: CRP-005
+    name: clock_switch_ctrl
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/clock_switch_ctrl
+  - id: CRP-006
+    name: clock_request_ack
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/clock_request_ack
+  - id: CRP-007
+    name: reset_synchronizer
+    group: components/clock_reset_power
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/reset_synchronizer
+  - id: CRP-008
+    name: reset_filter_deglitch
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/reset_filter_deglitch
+  - id: CRP-009
+    name: reset_cause_collector
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/reset_cause_collector
+  - id: CRP-010
+    name: reset_distribution_helper
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/reset_distribution_helper
+  - id: CRP-011
+    name: operand_isolation
+    group: components/clock_reset_power
+    abstraction: A1/A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/operand_isolation
+  - id: CRP-012
+    name: data_gating
+    group: components/clock_reset_power
+    abstraction: A1/A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/data_gating
+  - id: CRP-013
+    name: pipeline_freeze_ctrl
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/pipeline_freeze_ctrl
+  - id: CRP-014
+    name: idle_detector
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/idle_detector
+  - id: CRP-015
+    name: activity_detector
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/activity_detector
+  - id: CRP-016
+    name: power_domain_handshake
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/power_domain_handshake
+  - id: CRP-017
+    name: isolation_ctrl_sequencer
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/isolation_ctrl_sequencer
+  - id: CRP-018
+    name: retention_ctrl_sequencer
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/retention_ctrl_sequencer
+  - id: CRP-019
+    name: mem_sleep_controller
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/mem_sleep_controller
+  - id: CRP-020
+    name: high_fanout_replicator
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/high_fanout_replicator
+  - id: CRP-021
+    name: config_mirror_local_decode
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/config_mirror_local_decode
+  - id: CRP-022
+    name: enable_tree_helper
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/clock_reset_power/enable_tree_helper
+  - id: CTL-001
+    name: up_down_counter
+    group: components/control_event_status
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/up_down_counter
+  - id: CTL-002
+    name: modulo_counter
+    group: components/control_event_status
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/modulo_counter
+  - id: CTL-003
+    name: timestamp_counter
+    group: components/control_event_status
+    abstraction: A1/A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/timestamp_counter
+  - id: CTL-004
+    name: timer
+    group: components/control_event_status
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/timer
+  - id: CTL-005
+    name: timeout_monitor
+    group: components/control_event_status
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/timeout_monitor
+  - id: CTL-006
+    name: watchdog
+    group: components/control_event_status
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/watchdog
+  - id: CTL-007
+    name: prescaler_rate_divider
+    group: components/control_event_status
+    abstraction: A1/A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/prescaler_rate_divider
+  - id: CTL-008
+    name: fsm_shell
+    group: components/control_event_status
+    abstraction: A1/A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/fsm_shell
+  - id: CTL-009
+    name: hierarchical_fsm
+    group: components/control_event_status
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/hierarchical_fsm
+  - id: CTL-010
+    name: micro_sequencer
+    group: components/control_event_status
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/micro_sequencer
+  - id: CTL-011
+    name: command_sequencer
+    group: components/control_event_status
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/command_sequencer
+  - id: CTL-012
+    name: retry_controller
+    group: components/control_event_status
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/retry_controller
+  - id: CTL-013
+    name: event_edge_detector
+    group: components/control_event_status
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/event_edge_detector
+  - id: CTL-014
+    name: pulse_stretcher_compressor
+    group: components/control_event_status
+    abstraction: A1
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/pulse_stretcher_compressor
+  - id: CTL-015
+    name: event_collector
+    group: components/control_event_status
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/event_collector
+  - id: CTL-016
+    name: event_router
+    group: components/control_event_status
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/event_router
+  - id: CTL-017
+    name: event_debouncer_filter
+    group: components/control_event_status
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/event_debouncer_filter
+  - id: CTL-018
+    name: token_credit_counter
+    group: components/control_event_status
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/token_credit_counter
+  - id: CTL-019
+    name: sequence_number_manager
+    group: components/control_event_status
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/sequence_number_manager
+  - id: CTL-020
+    name: bitmap_allocator
+    group: components/control_event_status
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/bitmap_allocator
+  - id: CTL-021
+    name: free_list_manager
+    group: components/control_event_status
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/free_list_manager
+  - id: CTL-022
+    name: scoreboard
+    group: components/control_event_status
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/scoreboard
+  - id: CTL-023
+    name: dependency_tracker
+    group: components/control_event_status
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/dependency_tracker
+  - id: CTL-024
+    name: quiesce_drain_ctrl
+    group: components/control_event_status
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/control_event_status/quiesce_drain_ctrl
+  - id: SAF-001
+    name: parity_protected_register
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/parity_protected_register
+  - id: SAF-002
+    name: ecc_protected_memory_shell
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/ecc_protected_memory_shell
+  - id: SAF-003
+    name: dual_modular_comparator
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/dual_modular_comparator
+  - id: SAF-004
+    name: lockstep_alignment_buffer
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/lockstep_alignment_buffer
+  - id: SAF-005
+    name: lockstep_comparator
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/lockstep_comparator
+  - id: SAF-006
+    name: temporal_redundancy_ctrl
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/temporal_redundancy_ctrl
+  - id: SAF-007
+    name: tmr_voter
+    group: components/interrupt_safety
+    abstraction: A1/A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/tmr_voter
+  - id: SAF-008
+    name: safety_bypass_mode
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/safety_bypass_mode
+  - id: SAF-009
+    name: fault_injection_point
+    group: components/interrupt_safety
+    abstraction: A1/A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/fault_injection_point
+  - id: SAF-010
+    name: error_status_latch
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/error_status_latch
+  - id: SAF-011
+    name: error_aggregator
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/error_aggregator
+  - id: SAF-012
+    name: error_router
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/error_router
+  - id: SAF-013
+    name: error_escalation_ctrl
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/error_escalation_ctrl
+  - id: SAF-014
+    name: alarm_handler_core
+    group: components/interrupt_safety
+    abstraction: A4
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/alarm_handler_core
+  - id: SAF-015
+    name: bus_transaction_monitor
+    group: components/interrupt_safety
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/bus_transaction_monitor
+  - id: SAF-016
+    name: e2e_protection_codec
+    group: components/interrupt_safety
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/e2e_protection_codec
+  - id: SAF-017
+    name: duplicate_sequence_checker
+    group: components/interrupt_safety
+    abstraction: A2/A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/duplicate_sequence_checker
+  - id: SAF-018
+    name: heartbeat_monitor
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/heartbeat_monitor
+  - id: SAF-019
+    name: clock_monitor_shell
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/clock_monitor_shell
+  - id: SAF-020
+    name: reset_monitor
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/reset_monitor
+  - id: SAF-021
+    name: vt_monitor_wrapper
+    group: components/interrupt_safety
+    abstraction: A0/A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/vt_monitor_wrapper
+  - id: SAF-022
+    name: safe_state_ctrl
+    group: components/interrupt_safety
+    abstraction: A2/A4
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/safe_state_ctrl
+  - id: SAF-023
+    name: mem_addr_data_protection
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/mem_addr_data_protection
+  - id: SAF-024
+    name: latent_fault_test_ctrl
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/latent_fault_test_ctrl
+  - id: SAF-025
+    name: safety_counter_checker
+    group: components/interrupt_safety
+    abstraction: A1/A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/safety_counter_checker
+  - id: SAF-026
+    name: safety_fsm_checker
+    group: components/interrupt_safety
+    abstraction: A1/A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/safety_fsm_checker
+  - id: SAF-027
+    name: interrupt_source_conditioner
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/interrupt_source_conditioner
+  - id: SAF-028
+    name: interrupt_aggregator
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/interrupt_aggregator
+  - id: SAF-029
+    name: interrupt_router
+    group: components/interrupt_safety
+    abstraction: A2/A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/interrupt_router
+  - id: SAF-030
+    name: interrupt_rate_limiter
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/interrupt_safety/interrupt_rate_limiter
+  - id: BUS-001
+    name: generic_csr_adapter
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/apb_ahb_register/generic_csr_adapter
+  - id: BUS-002
+    name: apb_slave_adapter
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/apb_ahb_register/apb_slave_adapter
+  - id: BUS-003
+    name: apb_register_slice
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/apb_ahb_register/apb_register_slice
+  - id: BUS-004
+    name: apb_decoder
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/apb_ahb_register/apb_decoder
+  - id: BUS-005
+    name: apb_mux_interconnect
+    group: components/apb_ahb_register
+    abstraction: A3/A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/apb_ahb_register/apb_mux_interconnect
+  - id: BUS-006
+    name: apb_cdc_bridge
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/apb_ahb_register/apb_cdc_bridge
+  - id: BUS-007
+    name: apb_width_adapter
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/apb_ahb_register/apb_width_adapter
+  - id: BUS-008
+    name: apb_timeout_default_slave
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/apb_ahb_register/apb_timeout_default_slave
+  - id: BUS-009
+    name: ahb_lite_slave_adapter
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/apb_ahb_register/ahb_lite_slave_adapter
+  - id: BUS-010
+    name: ahb_lite_register_slice
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/apb_ahb_register/ahb_lite_register_slice
+  - id: BUS-011
+    name: ahb_lite_decoder_mux
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/apb_ahb_register/ahb_lite_decoder_mux
+  - id: BUS-012
+    name: ahb_lite_cdc_bridge
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/apb_ahb_register/ahb_lite_cdc_bridge
+  - id: BUS-013
+    name: ahb_apb_bridge
+    group: components/apb_ahb_register
+    abstraction: A3/A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/apb_ahb_register/ahb_apb_bridge
+  - id: BUS-014
+    name: csr_shadow_commit_adapter
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/apb_ahb_register/csr_shadow_commit_adapter
+  - id: BUS-015
+    name: csr_access_policy_filter
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/apb_ahb_register/csr_access_policy_filter
+  - id: BUS-016
+    name: register_broadcast_adapter
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/apb_ahb_register/register_broadcast_adapter
+  - id: AXI-001
+    name: axi_channel_register_slice
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_channel_register_slice
+  - id: AXI-002
+    name: axi_lite_register_slice
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_lite_register_slice
+  - id: AXI-003
+    name: axi_buffer
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_buffer
+  - id: AXI-004
+    name: axi_width_converter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_width_converter
+  - id: AXI-005
+    name: axi_addr_width_adapter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_addr_width_adapter
+  - id: AXI-006
+    name: axi_id_converter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_id_converter
+  - id: AXI-007
+    name: axi_user_signal_adapter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_user_signal_adapter
+  - id: AXI-008
+    name: axi_burst_splitter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_burst_splitter
+  - id: AXI-009
+    name: axi_burst_merger
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_burst_merger
+  - id: AXI-010
+    name: axi_burst_length_adapter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_burst_length_adapter
+  - id: AXI-011
+    name: axi_outstanding_limiter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_outstanding_limiter
+  - id: AXI-012
+    name: axi_id_remapper
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_id_remapper
+  - id: AXI-013
+    name: axi_transaction_serializer
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_transaction_serializer
+  - id: AXI-014
+    name: axi_rw_interleaver
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_rw_interleaver
+  - id: AXI-015
+    name: axi_clock_converter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_clock_converter
+  - id: AXI-016
+    name: axi_protocol_converter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_protocol_converter
+  - id: AXI-017
+    name: axi_apb_bridge
+    group: components/axi_axi_stream
+    abstraction: A3/A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_apb_bridge
+  - id: AXI-018
+    name: axi_ahb_bridge
+    group: components/axi_axi_stream
+    abstraction: A3/A4
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_ahb_bridge
+  - id: AXI-019
+    name: axi_address_decoder
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_address_decoder
+  - id: AXI-020
+    name: axi_demux
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_demux
+  - id: AXI-021
+    name: axi_mux
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_mux
+  - id: AXI-022
+    name: axi_crossbar
+    group: components/axi_axi_stream
+    abstraction: A4
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_crossbar
+  - id: AXI-023
+    name: axi_default_slave
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_default_slave
+  - id: AXI-024
+    name: axi_timeout_monitor
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_timeout_monitor
+  - id: AXI-025
+    name: axi_firewall_region_filter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_firewall_region_filter
+  - id: AXI-026
+    name: axi_exclusive_access_monitor
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_exclusive_access_monitor
+  - id: AXI-027
+    name: axi_atomic_adapter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_atomic_adapter
+  - id: AXI-028
+    name: axi_qos_mapper
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_qos_mapper
+  - id: AXI-029
+    name: axi_perf_monitor
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_perf_monitor
+  - id: AXI-030
+    name: axi_error_injector
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axi_error_injector
+  - id: AXIS-001
+    name: axis_register_slice
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axis_register_slice
+  - id: AXIS-002
+    name: axis_width_converter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axis_width_converter
+  - id: AXIS-003
+    name: axis_switch
+    group: components/axi_axi_stream
+    abstraction: A3/A4
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axis_switch
+  - id: AXIS-004
+    name: axis_packet_fifo
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axis_packet_fifo
+  - id: AXIS-005
+    name: axis_broadcaster
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axis_broadcaster
+  - id: AXIS-006
+    name: axis_combiner_subset
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axis_combiner_subset
+  - id: AXIS-007
+    name: axis_frame_length_monitor
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axis_frame_length_monitor
+  - id: AXIS-008
+    name: axis_rate_limiter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/axi_axi_stream/axis_rate_limiter
+  - id: NOC-001
+    name: flit_packer_unpacker
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/flit_packer_unpacker
+  - id: NOC-002
+    name: vc_fifo
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/vc_fifo
+  - id: NOC-003
+    name: vc_allocator
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/vc_allocator
+  - id: NOC-004
+    name: switch_allocator
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/switch_allocator
+  - id: NOC-005
+    name: noc_input_port
+    group: components/noc_interconnect
+    abstraction: A3/A4
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/noc_input_port
+  - id: NOC-006
+    name: noc_output_port
+    group: components/noc_interconnect
+    abstraction: A3/A4
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/noc_output_port
+  - id: NOC-007
+    name: crossbar_fabric
+    group: components/noc_interconnect
+    abstraction: A2/A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/crossbar_fabric
+  - id: NOC-008
+    name: route_compute
+    group: components/noc_interconnect
+    abstraction: A2/A3
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/route_compute
+  - id: NOC-009
+    name: credit_return_channel
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/credit_return_channel
+  - id: NOC-010
+    name: link_register_slice
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/link_register_slice
+  - id: NOC-011
+    name: link_cdc_adapter
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/link_cdc_adapter
+  - id: NOC-012
+    name: link_width_converter
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/link_width_converter
+  - id: NOC-013
+    name: link_crc_replay_shell
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/link_crc_replay_shell
+  - id: NOC-014
+    name: link_power_state_handshake
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/link_power_state_handshake
+  - id: NOC-015
+    name: deadlock_progress_monitor
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/deadlock_progress_monitor
+  - id: NOC-016
+    name: chi_ace_channel_slice
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/chi_ace_channel_slice
+  - id: NOC-017
+    name: chiplet_streaming_adapter
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/noc_interconnect/chiplet_streaming_adapter
+  - id: MON-001
+    name: event_counter
+    group: components/monitor_debug
+    abstraction: A1/A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/monitor_debug/event_counter
+  - id: MON-002
+    name: multi_event_counter_bank
+    group: components/monitor_debug
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/monitor_debug/multi_event_counter_bank
+  - id: MON-003
+    name: cycle_busy_idle_counter
+    group: components/monitor_debug
+    abstraction: A2
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/monitor_debug/cycle_busy_idle_counter
+  - id: MON-004
+    name: latency_monitor
+    group: components/monitor_debug
+    abstraction: A2/A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/monitor_debug/latency_monitor
+  - id: MON-005
+    name: bandwidth_monitor
+    group: components/monitor_debug
+    abstraction: A2/A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/monitor_debug/bandwidth_monitor
+  - id: MON-006
+    name: occupancy_monitor
+    group: components/monitor_debug
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/monitor_debug/occupancy_monitor
+  - id: MON-007
+    name: stall_backpressure_monitor
+    group: components/monitor_debug
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/monitor_debug/stall_backpressure_monitor
+  - id: MON-008
+    name: activity_toggle_sampler
+    group: components/monitor_debug
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/monitor_debug/activity_toggle_sampler
+  - id: MON-009
+    name: trace_event_encoder
+    group: components/monitor_debug
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/monitor_debug/trace_event_encoder
+  - id: MON-010
+    name: trace_fifo
+    group: components/monitor_debug
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/monitor_debug/trace_fifo
+  - id: MON-011
+    name: trace_funnel
+    group: components/monitor_debug
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/monitor_debug/trace_funnel
+  - id: MON-012
+    name: trigger_qualifier
+    group: components/monitor_debug
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/monitor_debug/trigger_qualifier
+  - id: MON-013
+    name: snapshot_register_bank
+    group: components/monitor_debug
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/monitor_debug/snapshot_register_bank
+  - id: MON-014
+    name: protocol_progress_monitor
+    group: components/monitor_debug
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/monitor_debug/protocol_progress_monitor
+  - id: MON-015
+    name: perf_counter_csr_adapter
+    group: components/monitor_debug
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/monitor_debug/perf_counter_csr_adapter
+  - id: MON-016
+    name: lightweight_logic_analyzer
+    group: components/monitor_debug
+    abstraction: A4
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/monitor_debug/lightweight_logic_analyzer
+  - id: DFT-001
+    name: test_mode_synchronizer
+    group: components/dft_test
+    abstraction: A1
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/dft_test/test_mode_synchronizer
+  - id: DFT-002
+    name: scan_enable_distribution
+    group: components/dft_test
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/dft_test/scan_enable_distribution
+  - id: DFT-003
+    name: clock_ctrl_test_override
+    group: components/dft_test
+    abstraction: A0/A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/dft_test/clock_ctrl_test_override
+  - id: DFT-004
+    name: reset_ctrl_test_override
+    group: components/dft_test
+    abstraction: A2
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/dft_test/reset_ctrl_test_override
+  - id: DFT-005
+    name: mbist_port_arbiter
+    group: components/dft_test
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/dft_test/mbist_port_arbiter
+  - id: DFT-006
+    name: lbist_misr
+    group: components/dft_test
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/dft_test/lbist_misr
+  - id: DFT-007
+    name: prpg
+    group: components/dft_test
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/dft_test/prpg
+  - id: DFT-008
+    name: signature_comparator
+    group: components/dft_test
+    abstraction: A1/A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/dft_test/signature_comparator
+  - id: DFT-009
+    name: test_access_mux
+    group: components/dft_test
+    abstraction: A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/dft_test/test_access_mux
+  - id: DFT-010
+    name: memory_repair_data_adapter
+    group: components/dft_test
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/dft_test/memory_repair_data_adapter
+  - id: DSP-001
+    name: lane_packer_unpacker
+    group: components/dsp_ai_datapath
+    abstraction: A2/A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/dsp_ai_datapath/lane_packer_unpacker
+  - id: DSP-002
+    name: vector_reduction
+    group: components/dsp_ai_datapath
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/dsp_ai_datapath/vector_reduction
+  - id: DSP-003
+    name: dot_product_tree
+    group: components/dsp_ai_datapath
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/dsp_ai_datapath/dot_product_tree
+  - id: DSP-004
+    name: sliding_window_generator
+    group: components/dsp_ai_datapath
+    abstraction: A2/A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/dsp_ai_datapath/sliding_window_generator
+  - id: DSP-005
+    name: tensor_layout_converter
+    group: components/dsp_ai_datapath
+    abstraction: A3
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/dsp_ai_datapath/tensor_layout_converter
+  - id: DSP-006
+    name: tile_address_generator
+    group: components/dsp_ai_datapath
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/dsp_ai_datapath/tile_address_generator
+  - id: DSP-007
+    name: stride_dilation_addr_gen
+    group: components/dsp_ai_datapath
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/dsp_ai_datapath/stride_dilation_addr_gen
+  - id: DSP-008
+    name: scatter_gather_index_gen
+    group: components/dsp_ai_datapath
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/dsp_ai_datapath/scatter_gather_index_gen
+  - id: DSP-009
+    name: dma_descriptor_walker
+    group: components/dsp_ai_datapath
+    abstraction: A4
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/dsp_ai_datapath/dma_descriptor_walker
+  - id: DSP-010
+    name: quantization_pipeline
+    group: components/dsp_ai_datapath
+    abstraction: A2/A3
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/dsp_ai_datapath/quantization_pipeline
+  - id: DSP-011
+    name: activation_approx
+    group: components/dsp_ai_datapath
+    abstraction: A2
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/dsp_ai_datapath/activation_approx
+  - id: DSP-012
+    name: sparse_bitmap_index_decoder
+    group: components/dsp_ai_datapath
+    abstraction: A2/A3
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: components/dsp_ai_datapath/sparse_bitmap_index_decoder
+  - id: DSP-013
+    name: accumulator_bank
+    group: components/dsp_ai_datapath
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/dsp_ai_datapath/accumulator_bank
+  - id: DSP-014
+    name: double_buffer_ctrl
+    group: components/dsp_ai_datapath
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/dsp_ai_datapath/double_buffer_ctrl
+  - id: DSP-015
+    name: loop_nested_counter_gen
+    group: components/dsp_ai_datapath
+    abstraction: A2
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: components/dsp_ai_datapath/loop_nested_counter_gen
+  - id: TMP-001
+    name: multi_bank_sram_subsystem
+    group: templates
+    abstraction: A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: templates/multi_bank_sram_subsystem
+  - id: TMP-002
+    name: low_latency_rf_subsystem
+    group: templates
+    abstraction: A4
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: templates/low_latency_rf_subsystem
+  - id: TMP-003
+    name: shared_operator_template
+    group: templates
+    abstraction: A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: templates/shared_operator_template
+  - id: TMP-004
+    name: high_throughput_add_mac_tree
+    group: templates
+    abstraction: A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: templates/high_throughput_add_mac_tree
+  - id: TMP-005
+    name: high_freq_ready_valid_channel
+    group: templates
+    abstraction: A4
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: templates/high_freq_ready_valid_channel
+  - id: TMP-006
+    name: long_distance_physical_link
+    group: templates
+    abstraction: A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: templates/long_distance_physical_link
+  - id: TMP-007
+    name: hierarchical_arbitration_network
+    group: templates
+    abstraction: A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: templates/hierarchical_arbitration_network
+  - id: TMP-008
+    name: hierarchical_decode_network
+    group: templates
+    abstraction: A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: templates/hierarchical_decode_network
+  - id: TMP-009
+    name: axi_shared_interconnect_template
+    group: templates
+    abstraction: A4
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: templates/axi_shared_interconnect_template
+  - id: TMP-010
+    name: axi_async_bridge_template
+    group: templates
+    abstraction: A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: templates/axi_async_bridge_template
+  - id: TMP-011
+    name: axi_width_bridge_template
+    group: templates
+    abstraction: A4
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: templates/axi_width_bridge_template
+  - id: TMP-012
+    name: apb_peripheral_cluster_template
+    group: templates
+    abstraction: A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: templates/apb_peripheral_cluster_template
+  - id: TMP-013
+    name: noc_router_template
+    group: templates
+    abstraction: A4
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: templates/noc_router_template
+  - id: TMP-014
+    name: safe_interrupt_frontend_template
+    group: templates
+    abstraction: A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: templates/safe_interrupt_frontend_template
+  - id: TMP-015
+    name: error_management_tree_template
+    group: templates
+    abstraction: A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: templates/error_management_tree_template
+  - id: TMP-016
+    name: power_domain_ctrl_template
+    group: templates
+    abstraction: A4
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: templates/power_domain_ctrl_template
+  - id: TMP-017
+    name: clock_reset_manager_template
+    group: templates
+    abstraction: A4
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: templates/clock_reset_manager_template
+  - id: TMP-018
+    name: low_power_pipeline_template
+    group: templates
+    abstraction: A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: templates/low_power_pipeline_template
+  - id: TMP-019
+    name: high_fanout_ctrl_recipe
+    group: templates
+    abstraction: A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: templates/high_fanout_ctrl_recipe
+  - id: TMP-020
+    name: streaming_data_shaping_template
+    group: templates
+    abstraction: A4
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: templates/streaming_data_shaping_template
+  - id: TMP-021
+    name: e2e_data_protection_channel
+    group: templates
+    abstraction: A4
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: templates/e2e_data_protection_channel
+  - id: TMP-022
+    name: perf_observation_subsystem
+    group: templates
+    abstraction: A4
+    priority: P2
+    status: planned
+    version: "0.1.0"
+    path: templates/perf_observation_subsystem
+  - id: TMP-023
+    name: memory_bist_access_template
+    group: templates
+    abstraction: A4
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: templates/memory_bist_access_template
+  - id: TMP-024
+    name: dsp_double_buffer_datapath
+    group: templates
+    abstraction: A4
+    priority: P3
+    status: planned
+    version: "0.1.0"
+    path: templates/dsp_double_buffer_datapath

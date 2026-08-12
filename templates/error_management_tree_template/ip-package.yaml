@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: error_management_tree_template
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  TMP-015 错误管理树模板 - 功能安全公共架构
+license: internal
+path: templates/error_management_tree_template
+maturity: E0
+classification:
+  abstraction: A4
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:error_management_tree_template:0.1.0

@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: fixed_priority_arbiter
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  ARB-001 Fixed-priority Arbiter - 优先级链
+license: internal
+path: components/arbitration_scheduling/fixed_priority_arbiter
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P0
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:fixed_priority_arbiter:0.1.0

@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: memory_repair_data_adapter
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  DFT-010 Memory Repair Data Adapter - 工艺相关元数据
+license: internal
+path: components/dft_test/memory_repair_data_adapter
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P3
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:memory_repair_data_adapter:0.1.0

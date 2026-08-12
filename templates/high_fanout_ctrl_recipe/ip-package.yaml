@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: high_fanout_ctrl_recipe
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  TMP-019 高扇出控制优化配方 - 布线和时序
+license: internal
+path: templates/high_fanout_ctrl_recipe
+maturity: E0
+classification:
+  abstraction: A4
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:high_fanout_ctrl_recipe:0.1.0

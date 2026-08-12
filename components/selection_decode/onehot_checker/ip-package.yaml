@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: onehot_checker
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  SEL-015 One-hot Checker - 安全检查复用
+license: internal
+path: components/selection_decode/onehot_checker
+maturity: E0
+classification:
+  abstraction: A1
+  priority: P0
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:onehot_checker:0.1.0

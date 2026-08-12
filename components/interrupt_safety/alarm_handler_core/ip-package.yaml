@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: alarm_handler_core
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  SAF-014 Alarm Handler Core - 接近IP，需边界治理
+license: internal
+path: components/interrupt_safety/alarm_handler_core
+maturity: E0
+classification:
+  abstraction: A4
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:alarm_handler_core:0.1.0

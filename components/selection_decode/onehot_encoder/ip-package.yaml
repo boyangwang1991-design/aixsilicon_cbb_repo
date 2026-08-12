@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: onehot_encoder
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  SEL-007 One-hot Encoder - 非法输入语义
+license: internal
+path: components/selection_decode/onehot_encoder
+maturity: E0
+classification:
+  abstraction: A1
+  priority: P0
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:onehot_encoder:0.1.0

@@ -1,0 +1,35 @@
+# PPA 结果 Schema（占位）
+# 每个表征结果绑定 run_id / dataset_version，不塞入 cbb.yaml。
+# 由 Characterization Runner 写入、PPA Comparator / Selector 消费。待正式定义。
+
+schema: ppa_result
+version: 1.0
+
+properties:
+  run_id: string                  # 不可变运行标识
+  dataset_version: string
+  benchmark_profile_id: string
+  cbb:
+    name: string
+    version: semver
+    implementation: string
+  parameters: object              # 功能参数快照
+  environment: object             # PVT / corner / tool / library revision
+  results:
+    area:
+      cell_area: number
+      registers: integer
+      combinational: number
+    timing:
+      wns: number
+      tns: number
+      fmax_mhz: number
+    power:
+      leakage: number
+      internal: number
+      switching: number
+      activity_scenario: string   # idle / typical / stress
+      sampling_window: string
+  confidence:
+    source: [measured, predicted]
+    error: number

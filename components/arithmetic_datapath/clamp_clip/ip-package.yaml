@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: clamp_clip
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  ARI-010 Clamp/Clip - 比较共享与常量特化
+license: internal
+path: components/arithmetic_datapath/clamp_clip
+maturity: E0
+classification:
+  abstraction: A1
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:clamp_clip:0.1.0

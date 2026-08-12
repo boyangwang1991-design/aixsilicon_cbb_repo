@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: interrupt_aggregator
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  SAF-028 Interrupt Aggregator - 大位宽扇入
+license: internal
+path: components/interrupt_safety/interrupt_aggregator
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P0
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:interrupt_aggregator:0.1.0

@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: fp_math_shell
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  ARI-032 FP Add/Multiply/FMA Shell - 不重复造完整FPU，重在适配
+license: internal
+path: components/arithmetic_datapath/fp_math_shell
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P3
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:fp_math_shell:0.1.0

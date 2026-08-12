@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: stride_dilation_addr_gen
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  DSP-007 Stride/Dilation Address Generator - 控制面积和吞吐
+license: internal
+path: components/dsp_ai_datapath/stride_dilation_addr_gen
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:stride_dilation_addr_gen:0.1.0

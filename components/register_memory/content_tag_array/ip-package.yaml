@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: content_tag_array
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  MEM-025 Content Tag Array - Cache/TLB公共结构
+license: internal
+path: components/register_memory/content_tag_array
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P3
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:content_tag_array:0.1.0

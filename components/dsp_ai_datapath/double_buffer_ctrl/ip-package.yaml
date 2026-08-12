@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: double_buffer_ctrl
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  DSP-014 Double-buffer Controller - 计算搬运重叠
+license: internal
+path: components/dsp_ai_datapath/double_buffer_ctrl
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:double_buffer_ctrl:0.1.0

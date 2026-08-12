@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: stream_mux
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  STR-008 Stream Mux - 选择与反压
+license: internal
+path: components/streaming_pipeline/stream_mux
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P0
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:stream_mux:0.1.0

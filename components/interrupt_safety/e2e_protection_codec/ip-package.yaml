@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: e2e_protection_codec
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  SAF-016 End-to-end Protection Codec - 带宽、延迟、标准配置
+license: internal
+path: components/interrupt_safety/e2e_protection_codec
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:e2e_protection_codec:0.1.0

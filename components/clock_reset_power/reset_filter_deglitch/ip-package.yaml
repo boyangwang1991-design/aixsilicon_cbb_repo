@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: reset_filter_deglitch
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  CRP-008 Reset Filter/Deglitch - 外部复位噪声
+license: internal
+path: components/clock_reset_power/reset_filter_deglitch
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:reset_filter_deglitch:0.1.0

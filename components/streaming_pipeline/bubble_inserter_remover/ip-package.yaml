@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: bubble_inserter_remover
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  STR-025 Bubble Inserter/Remover - 时序整形
+license: internal
+path: components/streaming_pipeline/bubble_inserter_remover
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P3
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:bubble_inserter_remover:0.1.0

@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: sram_depth_composer
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  MEM-009 SRAM Depth Composer - 译码/输出Mux关键路径
+license: internal
+path: components/register_memory/sram_depth_composer
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P0
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:sram_depth_composer:0.1.0

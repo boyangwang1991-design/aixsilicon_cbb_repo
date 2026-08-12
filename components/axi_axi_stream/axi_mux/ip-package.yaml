@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: axi_mux
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  AXI-021 AXI Mux - 五通道仲裁与锁定
+license: internal
+path: components/axi_axi_stream/axi_mux
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:axi_mux:0.1.0

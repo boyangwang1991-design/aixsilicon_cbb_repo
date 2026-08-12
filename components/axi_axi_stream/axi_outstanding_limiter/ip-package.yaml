@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: axi_outstanding_limiter
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  AXI-011 AXI Outstanding Limiter - 计数器和阻塞
+license: internal
+path: components/axi_axi_stream/axi_outstanding_limiter
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:axi_outstanding_limiter:0.1.0

@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: sram_port_adapter
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  MEM-011 SRAM Port Adapter - 冲突语义与吞吐
+license: internal
+path: components/register_memory/sram_port_adapter
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:sram_port_adapter:0.1.0

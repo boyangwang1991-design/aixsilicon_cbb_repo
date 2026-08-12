@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: axi_error_injector
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  AXI-030 AXI Error Injector - 验证模式隔离
+license: internal
+path: components/axi_axi_stream/axi_error_injector
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:axi_error_injector:0.1.0

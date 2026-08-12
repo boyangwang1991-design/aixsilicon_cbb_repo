@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: power_domain_ctrl_template
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  TMP-016 电源域控制模板 - UPF控制闭环
+license: internal
+path: templates/power_domain_ctrl_template
+maturity: E0
+classification:
+  abstraction: A4
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:power_domain_ctrl_template:0.1.0

@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: enable_delay_line
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  STR-002 Enable Delay Line - 空闲功耗
+license: internal
+path: components/streaming_pipeline/enable_delay_line
+maturity: E0
+classification:
+  abstraction: A1/A2
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:enable_delay_line:0.1.0

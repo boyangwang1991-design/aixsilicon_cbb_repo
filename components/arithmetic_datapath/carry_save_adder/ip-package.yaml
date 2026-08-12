@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: carry_save_adder
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  ARI-003 Carry-save Adder - 多操作数压缩
+license: internal
+path: components/arithmetic_datapath/carry_save_adder
+maturity: E0
+classification:
+  abstraction: A1
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:carry_save_adder:0.1.0

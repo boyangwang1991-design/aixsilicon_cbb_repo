@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: gray_counter_cdc
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  CDC-008 Gray Counter CDC - 最大跳变与约束
+license: internal
+path: components/cdc_rdc/gray_counter_cdc
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P0
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:gray_counter_cdc:0.1.0

@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: register_broadcast_adapter
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  BUS-016 Register Broadcast Adapter - 高扇出优化
+license: internal
+path: components/apb_ahb_register/register_broadcast_adapter
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:register_broadcast_adapter:0.1.0

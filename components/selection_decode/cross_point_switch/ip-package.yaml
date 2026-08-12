@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: cross_point_switch
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  SEL-005 Cross-point Switch - 交叉规模、布线与流水
+license: internal
+path: components/selection_decode/cross_point_switch
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:cross_point_switch:0.1.0

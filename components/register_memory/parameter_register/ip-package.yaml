@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: parameter_register
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  MEM-001 Parameter Register - Enable推断与时钟功耗
+license: internal
+path: components/register_memory/parameter_register
+maturity: E0
+classification:
+  abstraction: A1
+  priority: P0
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:parameter_register:0.1.0

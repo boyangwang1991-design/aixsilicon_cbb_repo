@@ -1,0 +1,9 @@
+# License
+
+本仓库为 **AixSilicon CBB Platform**（PPA-aware CBB 基础构件平台）。
+
+当前为**内部使用（Internal / Proprietary）** 工程库，尚未开放对外许可。
+对外发布前需由法务确定正式许可证（如 Apache-2.0 / BSD-3-Clause / 商业授权）。
+
+> 提示：公共仓库不得混入 Foundry、标准单元库、Memory Compiler 或工艺相关的敏感信息；
+> 技术适配内容应放置于受控私有仓库（`cbb-tech-<node>/`）。

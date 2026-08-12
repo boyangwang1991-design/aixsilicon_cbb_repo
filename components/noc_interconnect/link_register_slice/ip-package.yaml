@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: link_register_slice
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  NOC-010 Link Register Slice - 长距离切时序
+license: internal
+path: components/noc_interconnect/link_register_slice
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:link_register_slice:0.1.0

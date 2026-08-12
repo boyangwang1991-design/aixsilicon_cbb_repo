@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: lockstep_alignment_buffer
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  SAF-004 Lockstep Alignment Buffer - 双核对齐与状态
+license: internal
+path: components/interrupt_safety/lockstep_alignment_buffer
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:lockstep_alignment_buffer:0.1.0

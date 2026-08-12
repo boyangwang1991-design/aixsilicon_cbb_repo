@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: low_power_pipeline_template
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  TMP-018 低功耗流水线模板 - 活动相关功耗优化
+license: internal
+path: templates/low_power_pipeline_template
+maturity: E0
+classification:
+  abstraction: A4
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:low_power_pipeline_template:0.1.0

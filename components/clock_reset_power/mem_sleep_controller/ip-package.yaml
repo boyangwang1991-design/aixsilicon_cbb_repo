@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: mem_sleep_controller
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  CRP-019 Memory Sleep Controller - break-even与唤醒
+license: internal
+path: components/clock_reset_power/mem_sleep_controller
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:mem_sleep_controller:0.1.0

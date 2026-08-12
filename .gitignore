@@ -1,0 +1,64 @@
+# ---------- 编译与仿真产物 ----------
+*.o
+*.obj
+*.elf
+*.out
+*.log
+*.vcd
+*.fsdb
+*.fst
+*.lxt
+*.wlf
+*.syn
+*.svf
+*.ddd
+sim_workspace/
+run/
+transcript
+*.wdb
+
+# ---------- 综合/后端产物 ----------
+results/
+synth_*/
+work/
+*.sdc_orig
+*.def
+*.gds
+*.lef
+*.lib.bak
+
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+build/
+dist/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+
+# ---------- 编辑器/系统 ----------
+.vscode/
+.idea/
+*.swp
+*~
+.DS_Store
+
+# ---------- 大型数据产物（PPA 结果建议用版本库存储摘要，原始报告不入库） ----------
+*.gz
+*.zip
+*.tar
+
+# ---------- .roo（默认忽略；仅保留 cbbrepo-management skill，排除 venv/缓存） ----------
+.roo/*
+!.roo/skills/
+.roo/skills/*
+!.roo/skills/cbbrepo-management/
+.roo/skills/cbbrepo-management/.venv/
+.roo/skills/cbbrepo-management/.pytest_cache/
+.roo/skills/cbbrepo-management/scripts/__pycache__/
+.roo/skills/cbbrepo-management/scripts/tests/__pycache__/
+.roo/skills/cbbrepo-management/evals/files/

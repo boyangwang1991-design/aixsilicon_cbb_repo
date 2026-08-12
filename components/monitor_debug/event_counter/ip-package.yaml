@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: event_counter
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  MON-001 Event Counter - 位宽和门控
+license: internal
+path: components/monitor_debug/event_counter
+maturity: E0
+classification:
+  abstraction: A1/A2
+  priority: P0
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:event_counter:0.1.0

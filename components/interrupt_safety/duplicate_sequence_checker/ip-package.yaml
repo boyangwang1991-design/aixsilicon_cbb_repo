@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: duplicate_sequence_checker
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  SAF-017 Duplicate/Sequence Checker - 窗口容量
+license: internal
+path: components/interrupt_safety/duplicate_sequence_checker
+maturity: E0
+classification:
+  abstraction: A2/A3
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:duplicate_sequence_checker:0.1.0

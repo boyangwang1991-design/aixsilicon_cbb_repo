@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: dot_product_engine
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  ARI-020 Dot-product Engine - 并行度、累加宽度
+license: internal
+path: components/arithmetic_datapath/dot_product_engine
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:dot_product_engine:0.1.0

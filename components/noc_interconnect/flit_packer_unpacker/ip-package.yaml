@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: flit_packer_unpacker
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  NOC-001 Flit Packer/Unpacker - Mux、字段映射
+license: internal
+path: components/noc_interconnect/flit_packer_unpacker
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:flit_packer_unpacker:0.1.0

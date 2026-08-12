@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: fp_classify_compare
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  ARI-031 FP Classify/Compare - NaN/Inf/zero语义
+license: internal
+path: components/arithmetic_datapath/fp_classify_compare
+maturity: E0
+classification:
+  abstraction: A1/A2
+  priority: P3
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:fp_classify_compare:0.1.0

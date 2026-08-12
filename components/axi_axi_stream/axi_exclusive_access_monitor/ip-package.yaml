@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: axi_exclusive_access_monitor
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  AXI-026 AXI Exclusive Access Monitor - 表项与一致性范围
+license: internal
+path: components/axi_axi_stream/axi_exclusive_access_monitor
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P3
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:axi_exclusive_access_monitor:0.1.0

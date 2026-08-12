@@ -1,0 +1,49 @@
+{
+  "skill_name": "cbbrepo-management",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "把 /home/eda/workspace/ip_development_suite/.roo/skills/cbbrepo-management/evals/files/ip_demo 这个已完成 G5 的 IP 工作区发布到统一仓。请初始化一个统一仓 /tmp/eval-ip-unified，然后执行完整的三阶段统一建仓（stage → index → publish，publish 用 --dry-run 模拟），并展示最终的统一仓目录结构与 registry.yaml 索引。",
+      "expected_output": "初始化统一仓 /tmp/eval-ip-unified，将 ip_demo 的构建结果（按 manifest.yaml 从工作区复制，不基于 zip）入库到 ips/rtl-team/demo/1.0.0/，更新 registry.yaml 索引，dry-run 发布生成 demo-v1.0.0 tag。",
+      "files": [
+        "evals/files/ip_demo/release/demo_1.0.0/manifest.yaml",
+        "evals/files/ip_demo/rtl/demo_top.sv",
+        "evals/files/ip_demo/fusesoc/rtl_team_rtl_demo.core"
+      ],
+      "expectations": [
+        "统一仓根目录存在 registry.yaml 且 schema_version 为 2.0",
+        "IP 版本目录 ips/rtl-team/demo/1.0.0/ 存在且含 manifest.yaml、release_note.md、README.md、ip-package.yaml、fusesoc/rtl_team_rtl_demo.core",
+        "manifest.yaml 中列出的文件从工作区复制且 SHA-256 一致（未使用 zip）",
+        "registry.yaml 的 ips 包含 demo 条目，versions[0].version 为 1.0.0，tag 为 demo-v1.0.0",
+        "publish --dry-run 输出包含 'PUBLISH COMPLETE' 且收集 tag demo-v1.0.0"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "我有个 IP 工作区 ip_demo（路径 /home/eda/workspace/ip_development_suite/.roo/skills/cbbrepo-management/evals/files/ip_demo），它已经入库到统一仓 /tmp/eval-ip-unified 的 1.0.0 版本。现在发布新版本 1.1.0：先在 ip_demo 工作区把 release 目录改成 demo_1.1.0（修改 demo_top.sv 后重建 manifest 与 release_note），再把新版本入库并更新索引，最后 dry-run 发布。要求旧版本 1.0.0 保留在统一仓中。",
+      "expected_output": "ip_demo 构建结果升级到 1.1.0 并入库统一仓 ips/rtl-team/demo/1.1.0/，registry.yaml 同时含 1.0.0 与 1.1.0 两个版本（升序），dry-run 发布收集 demo-v1.0.0 与 demo-v1.1.0 两个 tag。",
+      "files": [
+        "evals/files/ip_demo/release/demo_1.0.0/manifest.yaml",
+        "evals/files/ip_demo/rtl/demo_top.sv"
+      ],
+      "expectations": [
+        "统一仓内同时存在 ips/rtl-team/demo/1.0.0/ 与 ips/rtl-team/demo/1.1.0/",
+        "registry.yaml 中 demo 的 versions 包含 1.0.0 和 1.1.0 且按升序排列",
+        "新版本 1.1.0 的 manifest.yaml 是重建的（demo_top.sv 内容已修改，哈希更新）",
+        "publish 收集的 tags 含 demo-v1.0.0 与 demo-v1.1.0"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "统一仓 /tmp/eval-ip-unified 里已入库了 demo IP（版本 1.0.0）。请演示如何让下游用户搜索、查看这个 IP 的信息，并展示如何通过 FuseSoC 添加统一仓后使用该 IP（依赖解析）。请输出 ipkg search / list / info 的预期命令与输出，以及 fusesoc library add 与 fusesoc run 的用法。",
+      "expected_output": "展示 ipkg search demo、ipkg list、ipkg info demo 1.0.0 的命令与预期输出（含 VLNV、tag、门禁），以及 fusesoc library add 统一仓 + fusesoc run --target sim rtl-team:rtl:demo:1.0.0 的消费流程。",
+      "files": [],
+      "expectations": [
+        "ipkg search demo 能匹配 demo IP",
+        "ipkg info demo 1.0.0 输出含 fusesoc core rtl-team:rtl:demo:1.0.0 与 tag demo-v1.0.0",
+        "fusesoc library add 使用统一仓 URL 且只需添加一次",
+        "依赖解析说明使用 FuseSoC depend + SemVer 约束"
+      ]
+    }
+  ]
+}

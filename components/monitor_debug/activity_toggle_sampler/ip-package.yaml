@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: activity_toggle_sampler
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  MON-008 Activity/Toggle Sampler - PPA数据采集开销
+license: internal
+path: components/monitor_debug/activity_toggle_sampler
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:activity_toggle_sampler:0.1.0

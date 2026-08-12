@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: long_distance_physical_link
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  TMP-006 长距离物理链路 - 跨分区时序收敛
+license: internal
+path: templates/long_distance_physical_link
+maturity: E0
+classification:
+  abstraction: A4
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:long_distance_physical_link:0.1.0

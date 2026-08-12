@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: hierarchical_address_decoder
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  SEL-018 Hierarchical Address Decoder - 大规模地址空间时序
+license: internal
+path: components/selection_decode/hierarchical_address_decoder
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:hierarchical_address_decoder:0.1.0

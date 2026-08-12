@@ -1,0 +1,19 @@
+# characterization/plan.yaml Schema（占位）
+# 表征计划：参数采样、基准环境、扫描策略。
+# 由 Characterization Runner 消费。待正式定义。
+
+schema: characterization_plan
+version: 1.0
+
+properties:
+  benchmark_profile_id: string   # 绑定统一基准环境
+  sampling:
+    anchor: object                # 锚点扫描
+    boundary: object              # 边界扫描
+    adaptive: boolean             # 是否自适应补点
+  tools:
+    synthesis: string
+    sta: string
+    power: string
+  corners: [string]
+  frequencies_mhz: [integer]

@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: reset_cause_collector
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  CRP-009 Reset Cause Collector - 软件可观测性
+license: internal
+path: components/clock_reset_power/reset_cause_collector
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:reset_cause_collector:0.1.0

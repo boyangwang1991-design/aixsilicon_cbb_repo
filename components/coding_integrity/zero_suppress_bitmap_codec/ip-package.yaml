@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: zero_suppress_bitmap_codec
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  COD-010 Zero Suppression/Bitmap Codec - 元数据开销与活动率
+license: internal
+path: components/coding_integrity/zero_suppress_bitmap_codec
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P3
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:zero_suppress_bitmap_codec:0.1.0

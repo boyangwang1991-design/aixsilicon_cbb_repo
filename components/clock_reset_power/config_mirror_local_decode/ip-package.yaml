@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: config_mirror_local_decode
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  CRP-021 Config Mirror/Local Decode - 布线与寄存器面积
+license: internal
+path: components/clock_reset_power/config_mirror_local_decode
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:config_mirror_local_decode:0.1.0

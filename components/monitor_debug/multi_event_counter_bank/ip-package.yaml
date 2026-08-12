@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: multi_event_counter_bank
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  MON-002 Multi-event Counter Bank - 多事件更新与面积
+license: internal
+path: components/monitor_debug/multi_event_counter_bank
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:multi_event_counter_bank:0.1.0

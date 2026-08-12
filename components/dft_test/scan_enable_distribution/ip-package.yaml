@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: scan_enable_distribution
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  DFT-002 Scan-enable Distribution Helper - 高扇出与CTS
+license: internal
+path: components/dft_test/scan_enable_distribution
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:scan_enable_distribution:0.1.0

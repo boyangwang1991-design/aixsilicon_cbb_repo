@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: plesiochronous_rate_matcher
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  CDC-011 Plesiochronous Rate Matcher - 频偏吸收
+license: internal
+path: components/cdc_rdc/plesiochronous_rate_matcher
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P3
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:plesiochronous_rate_matcher:0.1.0

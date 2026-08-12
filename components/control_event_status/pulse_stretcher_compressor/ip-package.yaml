@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: pulse_stretcher_compressor
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  CTL-014 Pulse Stretcher/Compressor - 最小脉宽
+license: internal
+path: components/control_event_status/pulse_stretcher_compressor
+maturity: E0
+classification:
+  abstraction: A1
+  priority: P0
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:pulse_stretcher_compressor:0.1.0

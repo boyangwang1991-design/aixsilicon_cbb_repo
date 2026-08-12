@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: reset_pulse_stretcher
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  RDC-003 Reset Pulse Stretcher - 最短复位周期
+license: internal
+path: components/cdc_rdc/reset_pulse_stretcher
+maturity: E0
+classification:
+  abstraction: A1/A2
+  priority: P0
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:reset_pulse_stretcher:0.1.0

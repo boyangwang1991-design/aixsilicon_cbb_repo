@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: enable_tree_helper
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  CRP-022 Enable Tree Helper - 时钟周期与控制对齐
+license: internal
+path: components/clock_reset_power/enable_tree_helper
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:enable_tree_helper:0.1.0

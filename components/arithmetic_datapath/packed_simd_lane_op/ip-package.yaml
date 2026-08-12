@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: packed_simd_lane_op
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  ARI-035 Packed SIMD Lane Operator - Lane复用与门控
+license: internal
+path: components/arithmetic_datapath/packed_simd_lane_op
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P3
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:packed_simd_lane_op:0.1.0

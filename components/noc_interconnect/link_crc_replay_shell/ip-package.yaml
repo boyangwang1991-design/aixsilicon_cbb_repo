@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: link_crc_replay_shell
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  NOC-013 Link CRC/Replay Shell - 可靠性和Buffer
+license: internal
+path: components/noc_interconnect/link_crc_replay_shell
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P3
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:link_crc_replay_shell:0.1.0

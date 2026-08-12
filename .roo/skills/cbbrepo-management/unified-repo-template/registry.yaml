@@ -1,0 +1,8 @@
+# IP Unified Repository - embedded index
+# This file is the source of truth for discovering IPs inside the unified repo.
+# It is updated by `ipkg index` (same commit as the ips/ changes).
+schema_version: "2.0"
+updated: "2026-08-10T00:00:00Z"
+unified_repo: "https://github.com/rtl-team/ip-unified.git"
+
+ips: []

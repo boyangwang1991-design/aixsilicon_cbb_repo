@@ -1,0 +1,64 @@
+# ============================================================
+# CBB 标准元数据模板 (cbb.yaml) —— SSOT
+# ------------------------------------------------------------
+# 每个 CBB 工程包的根目录都必须包含一个 cbb.yaml，作为该构件
+# 的机器可读单一事实来源 (SSOT)。字段定义与取值约定见
+# docs/architecture/README.md 第 8 节。
+# Markdown 文档应由本文件生成或校验，避免重复维护事实。
+# ============================================================
+
+schema_version: 1.0
+
+cbb:
+  name: <cbb_name>              # 构件名，如 async_fifo
+  version: 0.1.0                # 语义化版本（正式发布 1.0.0）
+  owner: <owner-team>           # 维护人/团队
+  maturity: E0                  # E0~E5，见架构文档 7.2 节
+
+# ---------------- 分类（六维坐标之抽象粒度与技术域） ----------------
+classification:
+  abstraction: <A0|A1|A2|A3|A4>  # 抽象粒度
+  primary_domain: <domain>        # 主技术域，见架构文档 3.2 节
+  secondary_domains: []           # 次技术域，如 [cdc_rdc]
+
+# ---------------- 功能契约 ----------------
+contract:
+  interface: <ready_valid|axi|apb|stream|...>
+  clock_domains: 1
+  ordering: <in_order|out_of_order|...>
+  throughput: <...>
+  # 顺序 / 背压 / 异常行为说明（按需补充字段）
+
+# ---------------- 可配置参数 ----------------
+parameters:
+  data_width:
+    type: integer
+    supported: [8, 16, 32, 64, 128, 256, 512, 1024]
+  depth:
+    type: integer
+    supported: [4, 8, 16, 32, 64, 128, 256]
+  # 功能参数（宽度/深度/端口数/协议特性）
+  # 微架构参数（流水级/Bank数/存储实现）按实现挂接
+
+# ---------------- 实现变体（微架构） ----------------
+implementations:
+  - id: impl_linear
+    source: rtl/impl/impl_linear/
+    constraints: constraints/impl_linear/
+  - id: impl_pipelined
+    source: rtl/impl/impl_pipelined/
+    constraints: constraints/impl_pipelined/
+
+# ---------------- 质量门禁（G0~G6 见架构文档 7.1 节） ----------------
+quality:
+  required_gates: [lint, simulation, formal, cdc, synthesis]
+
+# ---------------- PPA 表征 ----------------
+characterization:
+  benchmark_profiles: []          # 绑定 benchmark_profile_id
+  measured_region: {}             # 已表征参数区域，如 data_width: [8, 512]
+
+# ---------------- 发布 ----------------
+release:
+  fusesoc_core: aixsilicon:cbb:<cbb_name>:<version>
+  license: internal

@@ -1,0 +1,47 @@
+# cbb.yaml Schema（占位）
+# 参考架构文档第 8 节与 docs/cbb_spec/template/cbb.yaml
+# 由 Schema Validator 工具消费。待正式定义（JSON Schema 或类似格式）。
+
+schema: cbb
+version: 1.0
+
+properties:
+  cbb:
+    required: [name, version, owner, maturity]
+    properties:
+      name: string
+      version: semver
+      owner: string
+      maturity:
+        enum: [E0, E1, E2, E3, E4, E5]
+
+  classification:
+    required: [abstraction, primary_domain]
+    properties:
+      abstraction:
+        enum: [A0, A1, A2, A3, A4]
+      primary_domain: string
+      secondary_domains: [string]
+
+  contract:
+    properties:
+      interface: string
+      clock_domains: integer
+      ordering: string
+      throughput: string
+
+  parameters: object
+  implementations:
+    items:
+      properties: [id, source, constraints, dependencies]
+  quality:
+    properties:
+      required_gates: [string]
+  characterization:
+    properties:
+      benchmark_profiles: [string]
+      measured_region: object
+  release:
+    properties:
+      fusesoc_core: string
+      license: string

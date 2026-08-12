@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: loop_nested_counter_gen
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  DSP-015 Loop/Nested-counter Generator - 控制复用
+license: internal
+path: components/dsp_ai_datapath/loop_nested_counter_gen
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:loop_nested_counter_gen:0.1.0

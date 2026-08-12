@@ -1,0 +1,29 @@
+CAPI=2:
+
+name: aixsilicon:cbb:vector_reduction:0.1.0
+description: |
+  DSP-002 Vector Reduction - 树形、流水、精度
+
+filesets:
+  rtl_interface:
+    files:
+      - ../rtl/interface/*.sv
+    file_type: systemVerilogSource
+  rtl_impl:
+    files:
+      - ../rtl/impl/*.sv
+    file_type: systemVerilogSource
+  sim_tb:
+    files:
+      - ../verification/simulation/*.sv
+    file_type: systemVerilogSource
+
+targets:
+  rtl:
+    filesets: [rtl_interface, rtl_impl]
+  synth:
+    filesets: [rtl_interface, rtl_impl]
+  sim:
+    filesets: [rtl_interface, rtl_impl, sim_tb]
+  default:
+    filesets: [rtl_interface, rtl_impl]

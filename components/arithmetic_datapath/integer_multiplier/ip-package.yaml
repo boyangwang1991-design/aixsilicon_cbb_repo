@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: integer_multiplier
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  ARI-017 Integer Multiplier - 位宽、符号、流水
+license: internal
+path: components/arithmetic_datapath/integer_multiplier
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:integer_multiplier:0.1.0

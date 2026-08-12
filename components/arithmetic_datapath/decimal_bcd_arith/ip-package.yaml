@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: decimal_bcd_arith
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  ARI-030 Decimal/BCD Arithmetic - 专用业务驱动
+license: internal
+path: components/arithmetic_datapath/decimal_bcd_arith
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P3
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:decimal_bcd_arith:0.1.0

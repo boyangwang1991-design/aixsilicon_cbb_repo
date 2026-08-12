@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: packet_locking_arbiter
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  ARB-010 Packet-locking Arbiter - 锁定状态与公平性
+license: internal
+path: components/arbitration_scheduling/packet_locking_arbiter
+maturity: E0
+classification:
+  abstraction: A2/A3
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:packet_locking_arbiter:0.1.0

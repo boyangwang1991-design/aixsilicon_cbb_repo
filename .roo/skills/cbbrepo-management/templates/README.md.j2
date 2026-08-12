@@ -1,0 +1,34 @@
+# {{ ip_name }}
+
+{{ description }}
+
+## Version
+
+- **Version**: {{ version }}
+- **Released**: {{ released }}
+- **Unified repo path**: `{{ rel_dir }}`
+
+## Quality Gates
+
+| Gate | Status |
+|------|--------|
+{% for i in range(6) %}| G{{ i }} | {{ gates.get('G%d' % i, 'unknown') }} |
+{% endfor %}
+## License
+
+{{ license }}
+
+## Usage
+
+### With FuseSoC (unified repo)
+
+The unified repository is added once:
+
+```bash
+fusesoc library add {{ unified_repo }} https://github.com/{{ org }}/{{ unified_repo }}.git
+fusesoc run --target sim {{ vendor }}:{{ library }}:{{ ip_name }}:{{ version }}
+```
+
+## Release Notes
+
+{{ release_note }}

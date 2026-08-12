@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: descriptor_queue
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  QUE-018 Descriptor Queue - 控制开销与访存
+license: internal
+path: components/fifo_queue_buffer/descriptor_queue
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:descriptor_queue:0.1.0

@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: clock_switch_ctrl
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  CRP-005 Clock Switch Controller - 切换握手和无时钟场景
+license: internal
+path: components/clock_reset_power/clock_switch_ctrl
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:clock_switch_ctrl:0.1.0

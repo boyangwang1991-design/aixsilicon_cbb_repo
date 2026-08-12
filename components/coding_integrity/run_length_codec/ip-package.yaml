@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: run_length_codec
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  COD-009 Run-length Encoder/Decoder - 数据相关吞吐
+license: internal
+path: components/coding_integrity/run_length_codec
+maturity: E0
+classification:
+  abstraction: A2
+  priority: P3
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:run_length_codec:0.1.0

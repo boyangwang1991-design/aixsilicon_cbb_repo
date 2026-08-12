@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: level_shifter_wrapper
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  TEC-009 Level Shifter Wrapper - 电压域、方向、隔离组合
+license: internal
+path: adapters/level_shifter_wrapper
+maturity: E0
+classification:
+  abstraction: A0
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:level_shifter_wrapper:0.1.0

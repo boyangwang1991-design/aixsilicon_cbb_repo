@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: bus_transaction_monitor
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  SAF-015 Bus Transaction Monitor - 插入延迟与观测覆盖
+license: internal
+path: components/interrupt_safety/bus_transaction_monitor
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:bus_transaction_monitor:0.1.0

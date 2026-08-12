@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: vc_allocator
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  NOC-003 VC Allocator - 仲裁规模
+license: internal
+path: components/noc_interconnect/vc_allocator
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P3
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:vc_allocator:0.1.0

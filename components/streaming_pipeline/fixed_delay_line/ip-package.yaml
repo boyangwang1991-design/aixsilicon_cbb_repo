@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: fixed_delay_line
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  STR-001 Fixed Delay Line - 延迟、面积、初始化
+license: internal
+path: components/streaming_pipeline/fixed_delay_line
+maturity: E0
+classification:
+  abstraction: A1/A2
+  priority: P0
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:fixed_delay_line:0.1.0

@@ -1,0 +1,36 @@
+name: FuseSoC Core Lint
+
+on:
+  push:
+    paths: ["components/**", "adapters/**", "templates/**", "fusesoc.conf", "registry.yaml"]
+  pull_request:
+    paths: ["components/**", "adapters/**", "templates/**"]
+
+jobs:
+  fusesoc-lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install FuseSoC
+        run: pip install fusesoc
+      - name: Add CBB library
+        run: fusesoc library add aixsilicon-cbb .
+      - name: Lint all cores
+        run: |
+          set -e
+          found=0
+          for core in $(find components adapters templates -name '*.core' | sort); do
+            coredir=$(dirname "$core")
+            if ! compgen -G "${coredir}/../rtl/impl/*.sv" >/dev/null 2>&1; then
+              echo "skip (no RTL yet): ${core}"
+              continue
+            fi
+            vlnv=$(grep -m1 '^name:' "$core" | awk '{print $2}')
+            echo "== lint ${vlnv} =="
+            fusesoc core lint "$vlnv"
+            found=1
+          done
+          [ "$found" -eq 0 ] && echo "No RTL cores yet - nothing to lint"

@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: rom_macro_wrapper
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  TEC-017 ROM Macro Wrapper - 初始化、时序和测试接口
+license: internal
+path: adapters/rom_macro_wrapper
+maturity: E0
+classification:
+  abstraction: A0
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:rom_macro_wrapper:0.1.0

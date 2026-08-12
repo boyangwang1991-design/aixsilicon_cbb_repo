@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: reset_sequencer
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  RDC-005 Reset Sequencer - 扇出、启动延迟
+license: internal
+path: components/cdc_rdc/reset_sequencer
+maturity: E0
+classification:
+  abstraction: A2/A4
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:reset_sequencer:0.1.0

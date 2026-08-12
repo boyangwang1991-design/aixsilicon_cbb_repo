@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: e2e_data_protection_channel
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  TMP-021 端到端数据保护通道 - 安全通信链
+license: internal
+path: templates/e2e_data_protection_channel
+maturity: E0
+classification:
+  abstraction: A4
+  priority: P2
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:e2e_data_protection_channel:0.1.0

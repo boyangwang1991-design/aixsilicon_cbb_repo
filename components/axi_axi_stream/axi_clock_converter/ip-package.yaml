@@ -1,0 +1,23 @@
+schema_version: "2.0"
+name: axi_clock_converter
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  AXI-015 AXI Clock Converter - 全通道CDC正确性
+license: internal
+path: components/axi_axi_stream/axi_clock_converter
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P0
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:axi_clock_converter:0.1.0
