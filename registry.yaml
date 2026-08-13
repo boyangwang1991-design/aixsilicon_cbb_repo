@@ -3286,3 +3286,43 @@ cbbs:
     status: planned
     version: "0.1.0"
     path: templates/dsp_double_buffer_datapath
+  - id: HAC-001
+    name: hac_ap_ctrl_adapter
+    group: components/hac_if
+    abstraction: A3
+    priority: P0
+    status: planned
+    version: "0.1.0"
+    path: components/hac_if/hac_ap_ctrl_adapter
+  - id: HAC-002
+    name: hac_axi_adapter
+    group: components/hac_if
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/hac_if/hac_axi_adapter
+  - id: HAC-003
+    name: hac_stream_adapter
+    group: components/hac_if
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/hac_if/hac_stream_adapter
+  - id: HAC-004
+    name: hac_lmem_adapter
+    group: components/hac_if
+    abstraction: A3
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: components/hac_if/hac_lmem_adapter
+  - id: HAC-SHELL-001
+    name: hac_shell_template
+    group: templates
+    abstraction: A4
+    priority: P1
+    status: planned
+    version: "0.1.0"
+    path: templates/hac_shell_template

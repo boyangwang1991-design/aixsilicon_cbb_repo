@@ -1,0 +1,24 @@
+schema_version: "2.0"
+name: hac_lmem_adapter
+version: "0.1.0"
+vendor: aixsilicon
+library: cbb
+description: |
+  HAC-LMEM-001 SRAM/Bank/ECC Adapter - HAC-LMEM 抽象访问 与 Foundry SRAM Macro /
+  多 Bank 共享存储之间的适配，含 ECC 与修复控制（LMEM-FIXED / LMEM-DECOUPLED）。
+license: internal
+path: components/hac_if/hac_lmem_adapter
+maturity: E0
+classification:
+  abstraction: A3
+  priority: P1
+quality:
+  gates:
+    G0: pass
+    G1: unknown
+    G2: unknown
+    G3: unknown
+    G4: unknown
+    G5: unknown
+fusesoc:
+  core: aixsilicon:cbb:hac_lmem_adapter:0.1.0

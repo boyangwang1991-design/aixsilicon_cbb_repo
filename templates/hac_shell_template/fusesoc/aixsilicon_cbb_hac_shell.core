@@ -1,0 +1,39 @@
+CAPI=2:
+
+name: aixsilicon:cbb:hac_shell:0.1.0
+description: |
+  HAC-SHELL-001 HAC Shell 模板 - 组合 CSR/Queue/Event/Power 的 HAC Shell（按 Profile 配置）
+
+filesets:
+  rtl_interface:
+    depend:
+      - aix:interface:hac_ctrl:0.1.0
+      - aix:interface:hac_mem:0.1.0
+      - aix:interface:hac_stream:0.1.0
+      - aix:interface:hac_event:0.1.0
+      - aix:interface:hac_mgmt:0.1.0
+      - aixsilicon:cbb:hac_ap_ctrl_adapter:0.1.0
+      - aixsilicon:cbb:hac_axi_adapter:0.1.0
+      - aixsilicon:cbb:hac_stream_adapter:0.1.0
+      - aixsilicon:cbb:hac_lmem_adapter:0.1.0
+    files:
+      - ../rtl/interface/*.sv
+    file_type: systemVerilogSource
+  rtl_impl:
+    files:
+      - ../rtl/impl/*.sv
+    file_type: systemVerilogSource
+  sim_tb:
+    files:
+      - ../verification/simulation/*.sv
+    file_type: systemVerilogSource
+
+targets:
+  rtl:
+    filesets: [rtl_interface, rtl_impl]
+  synth:
+    filesets: [rtl_interface, rtl_impl]
+  sim:
+    filesets: [rtl_interface, rtl_impl, sim_tb]
+  default:
+    filesets: [rtl_interface, rtl_impl]
