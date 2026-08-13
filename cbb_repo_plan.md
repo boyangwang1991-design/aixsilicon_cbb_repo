@@ -422,7 +422,7 @@ characterization:
     depth: [4, 256]
 
 release:
-  fusesoc_core: company:cbb:async_fifo:1.2.0
+  fusesoc_core: aixsilicon:cbb:async_fifo:1.2.0
   license: internal
 ```
 
@@ -767,3 +767,14 @@ PPA-aware CBB Platform
 > **统一契约定义构件，以多个微架构承载Trade-off，以标准流程生成可信PPA证据，以Catalog和Selector完成自动选型，以FuseSoC和Skill Suite完成可追溯集成。**
 
 只有这条闭环建立起来，CBB库才会从公共代码仓升级为真正面向PPA优化的工程基础设施。
+
+---
+
+## 25. 跨仓一致性修订（2026-08-13）
+
+> 依据 [`plans/cross-repo-architecture-review.md`](../../plans/cross-repo-architecture-review.md)（ADR-0003/0005/0006）。
+
+- `cbb-catalog` → 统一 `aixsilicon_catalog_repo`；`cbb-tech-<node>` → 私有 overlay / 待建 `aixsilicon_techlib_repo`（A3/A4）；
+- VLNV 统一 `aixsilicon:cbb:*`（ADR-0003）；
+- 依赖方向（C5）：CBB 实现依赖 HWIF；CBB 验证可依赖 DV-Common/VIP，但实现不依赖；
+- P0 15 种子构件先 verified 再扩充，避免“只建清单不落地”（配合 build todolist）。
