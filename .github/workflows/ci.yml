@@ -1,10 +1,9 @@
 name: FuseSoC Core Lint
 
 on:
-  push:
-    paths: ["components/**", "adapters/**", "templates/**", "fusesoc.conf", "registry.yaml"]
-  pull_request:
-    paths: ["components/**", "adapters/**", "templates/**"]
+  # CI disabled (2026-08): local-first workflow; restore push/pull_request
+  # path triggers to re-enable.
+  workflow_dispatch:
 
 jobs:
   fusesoc-lint:
