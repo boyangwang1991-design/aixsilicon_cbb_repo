@@ -6,7 +6,7 @@
 bash scripts/init_structure.sh
 ```
 
-脚本会：建立 components / adapters / templates / recipes / schemas / verification / flows / tools 框架、
+脚本会：建立 components / adapters / templates / recipes / schemas / tools 框架、
 按 [`cbb_repo_list.md`](../../cbb_repo_list.md:1) 生成每个 CBB 的空工程包 + 需求 README 占位与 `registry.yaml`、
 生成 FuseSoC 脚手架（`fusesoc.conf`、CI）。可重复执行（幂等）。
 
@@ -33,12 +33,10 @@ VLNV 格式：`<vendor>:<library>:<name>:<version>` = `aixsilicon:cbb:<cbb_name>
 
 | 目录 | 说明 |
 | --- | --- |
-| [`components/`](../../components/README.md:1) | A1~A3 构件（17 类 364 个） |
-| [`adapters/`](../../adapters/README.md:1) | A0 技术适配构件（22 个） |
-| [`templates/`](../../templates/README.md:1) | A4 子系统模板（24 个） |
+| [`components/`](../../components/README.md:1) | A1~A3 构件（17 类；发布时填充） |
+| [`adapters/`](../../adapters/README.md:1) | A0 技术适配构件（发布时填充） |
+| [`templates/`](../../templates/README.md:1) | A4 子系统模板（发布时填充） |
 | [`recipes/`](../../recipes/README.md:1) | 参考架构与优化配方 |
 | [`schemas/`](../../schemas/README.md:1) | 元数据与结果 Schema |
-| [`verification/`](../../verification/README.md:1) | 公共验证框架 |
-| [`flows/`](../../flows/README.md:1) | 表征/回归/发布流程 |
 | [`tools/`](../../tools/README.md:1) | 工具链 |
 | [`docs/architecture/`](../architecture/README.md:1) | 总体规划（V1.0） |

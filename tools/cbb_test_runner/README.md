@@ -5,7 +5,7 @@
 ## 规划功能
 
 - 按 CBB 类型加载对应质量门禁（G1~G3）
-- 统一驱动验证框架（[`verification/`](../../verification/README.md:1)）
+- 统一驱动 CBB 工程包内 `verification/`（仿真/Formal/断言）与 `characterization/`（PPA）
 - 输出质量门禁结果与报告
 
 ## 状态

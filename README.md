@@ -24,13 +24,11 @@
 
 ```text
 .
-├── components/          # A1~A3 构件（按 cbb_repo_list.md 功能类别，17 类 364 个）
-├── adapters/            # A0 技术适配构件（22 个）
-├── templates/           # A4 子系统模板（24 个，独立治理）
+├── components/          # A1~A3 构件（按 cbb_repo_list.md 功能类别，17 类；发布时填充）
+├── adapters/            # A0 技术适配构件（发布时填充）
+├── templates/           # A4 子系统模板（发布时填充）
 ├── recipes/             # 参考架构与优化配方
 ├── schemas/             # cbb.yaml 与结果 Schema
-├── verification/        # 公共 VIP、Formal 与测试框架
-├── flows/               # 表征、回归和发布流程
 ├── tools/               # 工具链（10 个）
 ├── docs/                # 架构、PPA 体系、CBB 规范、入门
 ├── scripts/             # 通用脚本（目录初始化 + CBB 生成器）

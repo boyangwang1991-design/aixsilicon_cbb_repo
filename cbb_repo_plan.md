@@ -442,8 +442,6 @@ cbb-platform/             # 公共构件Monorepo
 ├── adapters/             # 开源/通用技术适配接口
 ├── recipes/              # 参考架构与优化配方
 ├── schemas/              # cbb.yaml与结果Schema
-├── verification/         # 公共VIP、Formal与测试框架
-├── flows/                # 表征、回归和发布流程
 └── tools/                # 检索、比较、选择和生成工具
 
 cbb-tech-<node>/          # 受控私有仓库
