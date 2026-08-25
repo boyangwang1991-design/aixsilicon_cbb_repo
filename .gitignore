@@ -52,13 +52,7 @@ venv/
 *.zip
 *.tar
 
-# ---------- .roo（默认忽略；仅保留 cbbrepo-management skill，排除 venv/缓存） ----------
+# ---------- .roo（默认忽略；CBB 方法由 cbb-development-suite 承载） ----------
 .roo/*
 !.roo/skills/
 .roo/skills/*
-!.roo/skills/cbbrepo-management/
-.roo/skills/cbbrepo-management/.venv/
-.roo/skills/cbbrepo-management/.pytest_cache/
-.roo/skills/cbbrepo-management/scripts/__pycache__/
-.roo/skills/cbbrepo-management/scripts/tests/__pycache__/
-.roo/skills/cbbrepo-management/evals/files/
