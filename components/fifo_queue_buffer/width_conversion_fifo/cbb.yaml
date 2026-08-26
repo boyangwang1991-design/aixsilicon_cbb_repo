@@ -94,11 +94,9 @@ constraints:
   - id: PC-003
     expression: "DEPTH >= 2"
     severity: error
-  # 宽侧位宽上限（NARROW_WIDTH * RATIO <= 4096）。求值器仅支持比较/逻辑，
-  # 故用分段可求值形式表达宽侧位宽策略；精确乘积拦截由 RTL 参数 $error 在
-  # elaboration 阶段强制（见 rtl/interface/width_conversion_fifo_pkg.svh）。
+  # 宽侧位宽上限（精确乘积形式，求值器自 0.1.1 支持算术 + - * / //）
   - id: PC-004
-    expression: "(NARROW_WIDTH <= 128 and RATIO <= 32) or (NARROW_WIDTH <= 256 and RATIO <= 16) or (NARROW_WIDTH <= 512 and RATIO <= 8)"
+    expression: "NARROW_WIDTH * RATIO <= 4096"
     severity: error
   # 死锁防护：一轮需 RATIO 个窄字槽，DEPTH < RATIO 时 N2W 凑不满、W2N 写不进 -> 死锁
   - id: PC-005

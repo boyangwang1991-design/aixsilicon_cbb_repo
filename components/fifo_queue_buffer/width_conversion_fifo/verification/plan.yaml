@@ -1,0 +1,55 @@
+# 验证计划（Verification Plan）— width_conversion_fifo
+# QUE-012，A2/A3，P1
+# 状态：已执行（G4/G5 通过，证据见 evidence/g4_functional 与 verification/configs）
+
+target: width_conversion_fifo
+cbb: aixsilicon:cbb:width_conversion_fifo
+revision: 0.1.0
+
+## 1. 验证目标
+- 证明宽度转换 + FIFO 缓冲的行为契约（REQ-001..004 / INV-001..006）在参数空间与边界条件下正确；
+- 关键不变量（无丢失/无重复/保序/满空安全/拼接拆分语义）由 SVA + 仿真参考模型共同验证；
+- 非法参数组合在 elaboration 阶段被 `$error` 拦截（负向）。
+
+## 2. 验证形态（verification-strategy §1 对齐）
+| 形态 | 用途 | 工具 |
+|---|---|---|
+| SVA/断言 | 计数不越界、满空互斥、beat_idx 单调 | RTL 内嵌（`rtl/impl/.../width_conversion_fifo.sv`）+ VCS |
+| 定向仿真 | N2W 拼接 / W2N 拆分 / 满空边界 | VCS + 参考模型自校验 TB |
+| 随机/背压 | 随机 backpressure 无丢失/无重复/保序 | VCS + TB（`$sampled` 同沿握手） |
+| 负向/非法参数 | DEPTH 越界 / DEPTH<RATIO → elaboration `$error` | VCS 编译 negativo |
+| 断言变异 | count<=DEPTH 反转为 count>DEPTH 应触发断言失败 | VCS（mutation） |
+| Lint | 语法/位宽/多次赋值/未用信号 | SpyGlass lint/lint_rtl |
+
+> 完整 UVM 环境为风险升级选项，本构件未启用（折中：轻量参考模型自校验）。
+
+## 3. 配置矩阵（对应 verification/configs/）
+| 集合 | 数量 | 内容 |
+|---|---|---|
+| mandatory | 1 | 默认 N2W 8b/4/8 |
+| boundary | 24 | 各参数 min/max/临界/非 2 次幂（含 W2N 方向） |
+| pairwise | 6 | 参数二元交互 |
+| negative | 6 | 非法值（NARROW_WIDTH 0/513、RATIO 1、DEPTH 越界等），预期 elaboration 失败 |
+
+## 4. 测试用例（映射到 RTM）
+| 用例 | 覆盖 | 对应需求 |
+|---|---|---|
+| tc_n2w_combine | N2W 拼接小端正确性 | REQ-001 / INV-004 |
+| tc_w2n_split | W2N 拆分 FIFO 顺序 | REQ-002 / INV-005 |
+| tc_order | 保序 | REQ-003 / INV-003 |
+| tc_n2w_stress / tc_w2n_stress | 随机数据无丢失/无重复/保序 | REQ-004 / INV-001/002 |
+| tc_backpressure | 随机背压下握手正确性 | REQ-004 / ASM-001 |
+
+## 5. 负向与变异（G4 要求）
+- 非法参数：边界越界/DEPTH<RATIO 由 RTL generate `$error` 在 elaboration 拦截；
+- 断言变异：`PROP-WC_CNTRL-001` 变异后断言失败（89 次触发），证明检测能力有效；
+- 故障注入：背压/满边界已覆盖；数据级注入（丢数/乱序）由参考模型终局序列比对检出。
+
+## 6. 结果解释与证据
+- 所有断言/仿真通过无未解释失败；每个 fail（若有）须映射稳定 ID + 根因 + 修复计划；
+- 证据：`evidence/g3_static/`（compile/lint/负向）、`evidence/g4_functional/`（n2w/w2n/mutation）；
+- 配置覆盖、用例→需求→属性链接见 `trace/rtm.yaml`（工具生成）。
+
+## 7. 局限与后续
+- 未做完整 UVM（轻量参考模型自校验已覆盖核心契约）；如需复杂协议/多 outstanding 再升级；
+- Formal 证明（VC Formal/JasperGold）未跑（工具可用但本构件以 Simulation+SVA 达标）；留待消费者需求驱动。

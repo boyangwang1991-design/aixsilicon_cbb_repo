@@ -20,6 +20,8 @@ filesets:
       - ../rtl/impl/impl_pointer_count/width_conversion_fifo.sv
     file_type: systemVerilogSource
 
+  # 注：verif_common/assertions/formal 文件集仅在对应目录存在独立文件时由 target 引用；
+  #     本构件 SVA 内嵌于 RTL（rtl/impl/.../width_conversion_fifo.sv），故 target 不引用它们。
   verif_common:
     files:
       - ../verification/common/*.sv
@@ -60,17 +62,13 @@ targets:
     filesets:
       - rtl_interface
       - rtl_impl
-      - verif_common
       - sim_tb
-      - assertions
     toplevel: width_conversion_fifo_tb
 
   formal:
     filesets:
       - rtl_interface
       - rtl_impl
-      - assertions
-      - formal
 
   default:
     filesets:

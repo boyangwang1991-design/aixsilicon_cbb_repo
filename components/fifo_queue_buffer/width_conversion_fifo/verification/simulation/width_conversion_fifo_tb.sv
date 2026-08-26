@@ -3,6 +3,14 @@
 // QUE-012 width_conversion_fifo
 // 覆盖：N2W 拼接 / W2N 拆分 / 保序 / 随机背压无丢失无重复 / 满空
 // 验证方式：参考模型自校验 + SVA 断言（PROP-WC-*）+ 结束统计
+//
+// 用例映射（对齐 verification/plan.yaml 与 trace/rtm.yaml，F8）：
+//   tc_n2w_combine : run_n2w + N2W 输出实时拼接校验（小端）
+//   tc_n2w_stress  : run_n2w 随机数据 + 终局残存 < RATIO 判定（无丢失）
+//   tc_w2n_split   : run_w2n + W2N 输出序列终局比对
+//   tc_w2n_stress  : run_w2n 随机数据 + got_seq 与 accepted 比对
+//   tc_order       : 两方向输出均按 FIFO 顺序（拼接/序列比对隐含保序断言）
+//   tc_backpressure: 背压下握手 accepted==实际输出（$sampled 同沿判定）
 // ============================================================
 module width_conversion_fifo_tb;
   import width_conversion_fifo_pkg::*;
