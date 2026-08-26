@@ -1,0 +1,162 @@
+cbb: width_conversion_fifo
+requirements:
+- id: REQ-001
+  type: requirement
+  description: 窄→宽：每 RATIO 个窄字组合为 1 个宽字，宽字低位对应先进窄字（小端）
+  properties:
+  - PROP-WC_N2W-001
+  tests:
+  - tc_n2w_combine
+  - tc_n2w_stress
+  configs:
+  - cfg_direction_n2w_ratio4_dep8
+  evidence: []
+- id: REQ-002
+  type: requirement
+  description: 宽→窄：1 个宽字拆为 RATIO 个窄字，按 FIFO 顺序输出（低段→高段，保序）
+  properties:
+  - PROP-WC_W2N-001
+  tests:
+  - tc_w2n_split
+  - tc_w2n_stress
+  configs:
+  - cfg_direction_w2n_ratio4_dep8
+  evidence: []
+- id: REQ-003
+  type: requirement
+  description: FIFO 保序：宽字/窄字输出顺序与写入顺序一致
+  properties:
+  - PROP-WC_ORD-001
+  tests:
+  - tc_order
+  - tc_n2w_stress
+  - tc_w2n_stress
+  configs:
+  - cfg_direction_n2w_ratio4_dep8
+  - cfg_direction_w2n_ratio4_dep8
+  evidence: []
+- id: REQ-004
+  type: requirement
+  description: 无丢失：握手上接受的数据不得被丢弃；无重复：数据不得重复输出
+  properties:
+  - PROP-WC_LOSSLESS-001
+  - PROP-WC_NODUP-001
+  tests:
+  - tc_n2w_stress
+  - tc_w2n_stress
+  - tc_backpressure
+  configs:
+  - cfg_direction_n2w_ratio4_dep8
+  - cfg_direction_w2n_ratio4_dep8
+  evidence: []
+- id: REQ-001
+  type: requirement
+  description: 窄→宽：每 RATIO 个窄字组合为 1 个宽字，宽字低位对应先进窄字（小端）
+  properties:
+  - PROP-WC_N2W-001
+  tests:
+  - tc_n2w_combine
+  - tc_n2w_stress
+  configs:
+  - cfg_direction_n2w_ratio4_dep8
+  evidence: []
+- id: REQ-002
+  type: requirement
+  description: 宽→窄：1 个宽字拆为 RATIO 个窄字，按 FIFO 顺序输出（低段→高段，保序）
+  properties:
+  - PROP-WC_W2N-001
+  tests:
+  - tc_w2n_split
+  - tc_w2n_stress
+  configs:
+  - cfg_direction_w2n_ratio4_dep8
+  evidence: []
+- id: REQ-003
+  type: requirement
+  description: FIFO 保序：宽字/窄字输出顺序与写入顺序一致
+  properties:
+  - PROP-WC_ORD-001
+  tests:
+  - tc_order
+  - tc_n2w_stress
+  - tc_w2n_stress
+  configs:
+  - cfg_direction_n2w_ratio4_dep8
+  - cfg_direction_w2n_ratio4_dep8
+  evidence: []
+- id: REQ-004
+  type: requirement
+  description: 无丢失：握手上接受的数据不得被丢弃；无重复：数据不得重复输出
+  properties:
+  - PROP-WC_LOSSLESS-001
+  - PROP-WC_NODUP-001
+  tests:
+  - tc_n2w_stress
+  - tc_w2n_stress
+  - tc_backpressure
+  configs:
+  - cfg_direction_n2w_ratio4_dep8
+  - cfg_direction_w2n_ratio4_dep8
+  evidence: []
+- id: INV-001
+  type: requirement
+  description: 无丢失：窄侧/宽侧握手上 accepted 的数据必须最终被输出（内部不丢数据）
+  properties:
+  - PROP-WC_LOSSLESS-001
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-002
+  type: requirement
+  description: 无重复：任一窄字/宽字不得被输出两次
+  properties:
+  - PROP-WC_NODUP-001
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-003
+  type: requirement
+  description: 保序：输出（宽字或窄字流）顺序与输入写入顺序一致
+  properties:
+  - PROP-WC_ORD-001
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-004
+  type: requirement
+  description: 窄→宽组合语义：宽字 = 连续 RATIO 个窄字按小端拼接（先入在低位）
+  properties:
+  - PROP-WC_N2W-001
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-005
+  type: requirement
+  description: 宽→窄拆分语义：窄字 = 宽字按低段到高段切片，FIFO 顺序输出（保序）
+  properties:
+  - PROP-WC_W2N-001
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-006
+  type: requirement
+  description: FIFO 满空安全：满时不接受新写，空时不输出新数据（指针/计数不越界）
+  properties:
+  - PROP-WC_FULLEMPTY-001
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-001
+  type: requirement
+  description: 输入/输出 ready 可任意周期拉低（无界背压，单周期返回）
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-002
+  type: requirement
+  description: 同一拍内窄侧/宽侧不同时写同一存储位置（读写并发安全由指针/计数保证）
+  properties: []
+  tests: []
+  configs: []
+  evidence: []

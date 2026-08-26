@@ -1,0 +1,6 @@
+cbb: width_conversion_fifo
+sets:
+  mandatory: 1
+  boundary: 24
+  pairwise: 6
+  negative: 6

@@ -1,0 +1,78 @@
+CAPI=2:
+
+# ============================================================
+# FuseSoC Core —— QUE-012 width_conversion_fifo
+# VLNV: aixsilicon:cbb:width_conversion_fifo:0.1.0
+# ============================================================
+name: aixsilicon:cbb:width_conversion_fifo:0.1.0
+description: |
+  width_conversion_fifo - 单时钟同步 FIFO + 整数比宽度转换（A2/A3）。
+  DIRECTION 参数切换 窄->宽 / 宽->窄；共享契约见 cbb.yaml / behavior.yaml。
+
+filesets:
+  rtl_interface:
+    files:
+      - ../rtl/interface/width_conversion_fifo_pkg.svh
+    file_type: systemVerilogSource
+
+  rtl_impl:
+    files:
+      - ../rtl/impl/impl_pointer_count/width_conversion_fifo.sv
+    file_type: systemVerilogSource
+
+  verif_common:
+    files:
+      - ../verification/common/*.sv
+    file_type: systemVerilogSource
+
+  sim_tb:
+    files:
+      - ../verification/simulation/*.sv
+    file_type: systemVerilogSource
+
+  assertions:
+    files:
+      - ../verification/assertions/*.sv
+    file_type: systemVerilogSource
+
+  formal:
+    files:
+      - ../verification/formal/*.sv
+      - ../verification/formal/*.sva
+    file_type: systemVerilogSource
+
+targets:
+  rtl:
+    filesets:
+      - rtl_interface
+      - rtl_impl
+
+  synth:
+    filesets:
+      - rtl_interface
+      - rtl_impl
+    tools:
+      dc:
+        synth_file: ../constraints/width_conversion_fifo.sdc
+    default_tool: dc
+
+  sim:
+    filesets:
+      - rtl_interface
+      - rtl_impl
+      - verif_common
+      - sim_tb
+      - assertions
+    toplevel: width_conversion_fifo_tb
+
+  formal:
+    filesets:
+      - rtl_interface
+      - rtl_impl
+      - assertions
+      - formal
+
+  default:
+    filesets:
+      - rtl_interface
+      - rtl_impl

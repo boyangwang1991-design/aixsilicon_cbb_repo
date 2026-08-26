@@ -1,0 +1,130 @@
+# ============================================================
+# cbb.yaml —— QUE-012 width_conversion_fifo SSOT 元数据
+# 单时钟同步 FIFO + 整数比宽度转换（A2/A3）
+# VLNV: aixsilicon:cbb:width_conversion_fifo:0.1.0
+# ============================================================
+schema_version: 1.0
+
+cbb:
+  id: aixsilicon:cbb:width_conversion_fifo
+  name: width_conversion_fifo
+  version: 0.1.0
+  owner: aixsilicon:cbb
+  maturity: E1
+  license: Apache-2.0
+
+# ---------------- 分类 ----------------
+classification:
+  abstraction: A2/A3            # A2 通用复合 + A3 ready/valid 语义
+  primary_domain: storage_queue
+  secondary_domains: [streaming_pipeline]
+
+# ---------------- 功能契约 ----------------
+contract:
+  interface: ready_valid         # 窄侧与宽侧均使用标准 ready/valid 握手
+  clock_domains: 1
+  ordering: in_order
+  throughput: 1_per_cycle
+  # 首拍延迟与背压语义由 DIRECTION/实现 Profile 决定（见 behavior.yaml / design.md）
+
+# ---------------- 需求 ----------------
+requirements:
+  - id: REQ-001
+    type: requirement
+    description: 窄→宽：每 RATIO 个窄字组合为 1 个宽字，宽字低位对应先进窄字（小端）
+    properties: [PROP-WC_N2W-001]
+    tests: [tc_n2w_combine, tc_n2w_stress]
+    configs: [cfg_direction_n2w_ratio4_dep8]
+  - id: REQ-002
+    type: requirement
+    description: 宽→窄：1 个宽字拆为 RATIO 个窄字，按 FIFO 顺序输出（低段→高段，保序）
+    properties: [PROP-WC_W2N-001]
+    tests: [tc_w2n_split, tc_w2n_stress]
+    configs: [cfg_direction_w2n_ratio4_dep8]
+  - id: REQ-003
+    type: requirement
+    description: FIFO 保序：宽字/窄字输出顺序与写入顺序一致
+    properties: [PROP-WC_ORD-001]
+    tests: [tc_order, tc_n2w_stress, tc_w2n_stress]
+    configs: [cfg_direction_n2w_ratio4_dep8, cfg_direction_w2n_ratio4_dep8]
+  - id: REQ-004
+    type: requirement
+    description: 无丢失：握手上接受的数据不得被丢弃；无重复：数据不得重复输出
+    properties: [PROP-WC_LOSSLESS-001, PROP-WC_NODUP-001]
+    tests: [tc_n2w_stress, tc_w2n_stress, tc_backpressure]
+    configs: [cfg_direction_n2w_ratio4_dep8, cfg_direction_w2n_ratio4_dep8]
+
+# ---------------- 参数模型（内嵌，params.yaml 可选拆分） ----------------
+parameters:
+  DIRECTION:
+    type: enum
+    default: NARROW_TO_WIDE
+    enum: [NARROW_TO_WIDE, WIDE_TO_NARROW]
+    description: 转换方向
+    affects: [interface_width, latency]
+  NARROW_WIDTH:
+    type: int
+    default: 8
+    legal: {min: 1, max: 512}
+    partitions: [1, 8, 32, 128]
+    description: 窄侧数据位宽（bit）
+    affects: [interface_width, area, timing]
+  RATIO:
+    type: int
+    default: 4
+    legal: {min: 2, max: 64}
+    partitions: [2, 4, 8, 16, 64]
+    description: 宽度转换比（宽侧位宽 = NARROW_WIDTH * RATIO）
+    affects: [interface_width, area, latency, state_space]
+  DEPTH:
+    type: int
+    default: 8
+    legal: {min: 2, max: 1024}
+    partitions: [2, 4, 8, 16, 64, 1024]
+    description: FIFO 深度（窄字单位，= 最大可缓存窄字个数）
+    affects: [area, state_space, latency]
+
+constraints:
+  - id: PC-001
+    expression: "NARROW_WIDTH >= 1"
+    severity: error
+  - id: PC-002
+    expression: "RATIO >= 2"
+    severity: error
+  - id: PC-003
+    expression: "DEPTH >= 2"
+    severity: error
+  # 宽侧位宽上限（NARROW_WIDTH * RATIO <= 4096）。求值器仅支持比较/逻辑，
+  # 故用分段可求值形式表达宽侧位宽策略；精确乘积拦截由 RTL 参数 $error 在
+  # elaboration 阶段强制（见 rtl/interface/width_conversion_fifo_pkg.svh）。
+  - id: PC-004
+    expression: "(NARROW_WIDTH <= 128 and RATIO <= 32) or (NARROW_WIDTH <= 256 and RATIO <= 16) or (NARROW_WIDTH <= 512 and RATIO <= 8)"
+    severity: error
+  # 死锁防护：一轮需 RATIO 个窄字槽，DEPTH < RATIO 时 N2W 凑不满、W2N 写不进 -> 死锁
+  - id: PC-005
+    expression: "DEPTH >= RATIO"
+    severity: error
+
+# ---------------- 实现变体（多实现，微架构放 profiles.yaml） ----------------
+implementations:
+  - id: impl_pointer_count
+    source: rtl/impl/impl_pointer_count/
+    constraints: constraints/impl_pointer_count/
+    dependencies: []
+    files:
+      - rtl/interface/width_conversion_fifo_pkg.svh
+      - rtl/impl/impl_pointer_count/width_conversion_fifo.sv
+
+# ---------------- 质量门禁 ----------------
+quality:
+  required_gates: [G0, G1, G2, G3, G4, G5, G6, G7]
+
+# ---------------- PPA 表征 ----------------
+characterization:
+  benchmark_profiles: [bench_std_8b_ratio4_dep8, bench_fmax_32b_ratio4_dep16, bench_w2n_8b_ratio4_dep8]
+  measured_region: {}
+  status: OPTIONAL_UNAVAILABLE   # G6：无标准单元库/PDK，门级综合不可行（E0），详见 characterization/plan.yaml
+
+# ---------------- 发布 ----------------
+release:
+  fusesoc_core: aixsilicon:cbb:width_conversion_fifo:0.1.0

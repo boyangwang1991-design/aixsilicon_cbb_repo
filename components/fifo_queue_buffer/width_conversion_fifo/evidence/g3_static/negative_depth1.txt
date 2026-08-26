@@ -1,0 +1,3 @@
+NEGATIVE-REJECTED-OK (elaboration $error, vcs rc=255)
+msg: width_conversion_fifo: DEPTH=1 < 2 非法（PC-003）
+msg: width_conversion_fifo: DEPTH=1 < RATIO=4 死锁风险（PC-005，需 DEPTH>=RATIO）

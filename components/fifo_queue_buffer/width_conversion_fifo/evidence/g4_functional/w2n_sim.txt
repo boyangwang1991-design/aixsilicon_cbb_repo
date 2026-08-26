@@ -1,0 +1,3 @@
+[TB] W2N: RATIO=4 DEPTH=8
+[TB] PASS: err_count=0 (sent_n=0 sent_w=11 got_n=44 got_w=0)
+[TB] PASS: W2N 输出序列与参考一致 (n=44)
