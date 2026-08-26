@@ -1,0 +1,35 @@
+# ============================================================
+# profiles.yaml —— QUE-001 sync_fifo 多实现 Profile
+# 共享同一可观察契约；差异仅在优化目标、参数覆盖与支持状态
+# ============================================================
+
+profiles:
+  area_opt:
+    implementation: impl_pointer_count
+    parameters: {DATA_WIDTH: 8, DEPTH: 8, OUTPUT_REG: false}
+    optimization_goal: area
+    support: supported
+    use_case: 面积/延迟敏感场景（浅缓冲、低数据带宽），无输出寄存，首拍延迟 1
+  fmax_opt:
+    implementation: impl_pointer_count
+    parameters: {DATA_WIDTH: 64, DEPTH: 16, OUTPUT_REG: true}
+    optimization_goal: fmax
+    support: supported
+    use_case: 高频数据通路，读侧输出寄存切短输出路径，首拍延迟 2
+  deep_buffer:
+    implementation: impl_pointer_count
+    parameters: {DATA_WIDTH: 64, DEPTH: 1024, OUTPUT_REG: true}
+    optimization_goal: area
+    support: experimental
+    use_case: 大深度缓冲（综合推断 RAM），证据不足（E0），允许试用
+
+# 实现声明
+implementation_notes:
+  impl_pointer_count:
+    max_recommended_scale: {DATA_WIDTH: 1024, DEPTH: 4096}
+    dependencies: []
+    characterized_region: {DATA_WIDTH: [8, 128], DEPTH: [8, 256]}
+    known_limits:
+      - 深度上限 4096（PC-003），数据位宽上限 1024（PC-004），超出为非法参数
+      - 存储由综合工具推断（random-access 或寄存器堆）——不同目标库推断结果可能不同
+      - OUTPUT_REG=0 时输出路径为存储+少量组合，频率边界低于 OUTPUT_REG=1

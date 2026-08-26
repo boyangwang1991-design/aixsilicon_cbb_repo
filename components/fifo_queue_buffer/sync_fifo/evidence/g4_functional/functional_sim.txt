@@ -1,0 +1,26 @@
+=== sync_fifo G4 Functional 仿真证据（VCS W-2024.09-SP1, -full64）===
+日期: 2026-08-26
+
+[RTL 修复记录]
+bug: OUTPUT_REG=1 分支 pop_ev 绑定寄存 rd_valid_q（滞后一拍）→ 空拍仍误弹，
+     count<=count+push-pop 在 count==0 时减 1 下溢回绕 DEPTH（波形：count 0→7→6→...）
+fix: pop_ev = ~empty && rd_ready（沿前 count 非空才弹），两种模式统一
+     验证：debug 波形弹空后 count 稳定 0、rd_valid 稳定 0、rd_data 无幽灵输出
+
+[主仿真 sync_fifo_tb（OUTPUT_REG=1, dw32/dep16, SVA 内嵌）]
+[tc_order]       PASS: sent=32 recv=32 保序/无丢失/无重复/满吞吐
+[tc_backpressure] PASS: sent=15 recv=15 满拒收（第16次写正确拒收）/空无输出
+[tc_stress]      PASS: sent=701 recv=701 随机背压800拍 无丢失/无重复/保序
+SVA 断言 0 失败（assert.report 空）
+
+[OUTPUT_REG=0 模式（dw8/dep4）]
+PASS: sent=8 recv=8 保序/无丢失/无重复（组合输出旁路）
+
+[故障注入/负向（checker 有效性）]
+满时 force wr_ready=1 → SVA full|->~wr_ready 与 (wr_valid&&wr_ready)|->~full 双双触发
+→ 断言能捕捉满时仍写故障（检测能力有效）
+非法参数 DEPTH=1/DEPTH=4097/DW=0/DW=1025：elaboration $error 拦截（G3 已证）
+
+[Formal 属性证明]
+vcst/JasperGold 本机缺失 → OPTIONAL_UNAVAILABLE；以 SVA+高覆盖随机仿真提供
+needs_verification 证据，不宣称 formal proof。

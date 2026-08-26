@@ -1,0 +1,129 @@
+# ============================================================
+# cbb.yaml —— QUE-001 sync_fifo SSOT 元数据
+# 基础同步 FIFO（单时钟域，标准 ready/valid 握手，A2）
+# VLNV: aixsilicon:cbb:sync_fifo:0.1.0
+#
+# 边界（见 docs/intake.md）：
+#   - 与本仓 QUE-003 Fall-through FIFO / QUE-004 Shift-register FIFO /
+#     QUE-005 SRAM FIFO 边界：本构件为通用标准同步 FIFO，存储实现交综合工具
+#     推断（AUTO 模式），非 FWFT、非纯移位寄存器、非专用 SRAM 封装。
+#   - 与 QUE-012 width_conversion_fifo 边界：本构件无宽度转换，两侧同宽。
+# ============================================================
+schema_version: 1.0
+
+cbb:
+  id: aixsilicon:cbb:sync_fifo
+  name: sync_fifo
+  version: 0.1.0
+  owner: aixsilicon:cbb
+  maturity: E0            # 新构件：契约候选，未过 G1 前不得升级
+  license: Apache-2.0
+
+# ---------------- 分类 ----------------
+classification:
+  abstraction: A2          # 通用复合：协议无关、多机制（RAM+指针+计数）构成
+  primary_domain: storage_queue
+  secondary_domains: [streaming_pipeline]
+
+# ---------------- 功能契约 ----------------
+contract:
+  interface: ready_valid   # 写侧/读侧均使用标准 ready/valid 握手（语义对齐 HWIF RV）
+  clock_domains: 1
+  ordering: in_order       # FIFO 保序
+  throughput: 1_per_cycle  # 满吞吐下每周期最多 1 进 1 出
+  # 首拍延迟与背压传播语义由 OUTPUT_REG 决定（见 behavior.yaml timing）
+
+# ---------------- 需求（可验证，映射到 PROP / tests / configs） ----------------
+requirements:
+  - id: REQ-001
+    type: requirement
+    description: 保序：输出数据顺序与写入顺序一致（严格 FIFO）
+    properties: [PROP-SF_ORD-001]
+    tests: [tc_order, tc_stress, tc_output_reg, tc_no_output_reg]
+    configs: [cfg_dw32_dep16_oreg1, cfg_dw8_dep4_oreg0]
+  - id: REQ-002
+    type: requirement
+    description: 无丢失：握手上 accepted 的数据不得被丢弃（满时拒收而非覆盖）
+    properties: [PROP-SF_LOSSLESS-001]
+    tests: [tc_stress, tc_backpressure]
+    configs: [cfg_dw32_dep16_oreg1, cfg_dw8_dep4_oreg0]
+  - id: REQ-003
+    type: requirement
+    description: 无重复：任一数据不得被输出两次
+    properties: [PROP-SF_NODUP-001]
+    tests: [tc_stress, tc_backpressure]
+    configs: [cfg_dw32_dep16_oreg1, cfg_dw8_dep4_oreg0]
+  - id: REQ-004
+    type: requirement
+    description: 满/空安全：满时不接受新写，空时不输出新数据；指针/计数不越界
+    properties: [PROP-SF_FULLEMPTY-001, PROP-SF_CNTRL-001]
+    tests: [tc_backpressure, tc_parallel, tc_output_reg, tc_no_output_reg]
+    configs: [cfg_dw32_dep16_oreg1, cfg_dw8_dep4_oreg0, cfg_dw64_dep64_oreg1]
+  - id: REQ-005
+    type: requirement
+    description: 满吞吐：连续 push/pop 下每拍 1 进 1 出，无气泡
+    properties: [PROP-SF_THROUGHPUT-001]
+    tests: [tc_parallel, tc_stress]
+    configs: [cfg_dw32_dep16_oreg1, cfg_dw64_dep64_oreg1]
+
+# ---------------- 参数模型（内嵌；简单构件不拆分 params.yaml） ----------------
+parameters:
+  DATA_WIDTH:
+    type: int
+    default: 32
+    legal: {min: 1, max: 1024}
+    partitions: [1, 8, 32, 64, 128, 1024]
+    description: 数据位宽（bit），两侧同宽
+    affects: [interface_width, area, timing]
+  DEPTH:
+    type: int
+    default: 16
+    legal: {min: 2, max: 4096}
+    partitions: [2, 4, 8, 16, 64, 256, 1024, 4096]
+    description: FIFO 深度（可缓存元素个数）
+    affects: [area, state_space, latency]
+  OUTPUT_REG:
+    type: bool
+    default: true
+    description: >
+      输出寄存器级。true：读侧数据与 valid 各寄存一拍（first_beat_latency=2，
+      切短输出路径）；false：直接从存储组合输出（first_beat_latency=1，省一寄存级）。
+      非 FWFT：即使 false，数据仍须写拍后下一拍才有效（标准握手弹出语义）。
+    affects: [latency, timing, area]
+
+constraints:
+  - id: PC-001
+    expression: "DATA_WIDTH >= 1"
+    severity: error
+  - id: PC-002
+    expression: "DEPTH >= 2"
+    severity: error
+  - id: PC-003
+    expression: "DEPTH <= 4096"
+    severity: error
+  - id: PC-004
+    expression: "DATA_WIDTH <= 1024"
+    severity: error
+
+# ---------------- 实现变体（微架构细节见 profiles.yaml） ----------------
+implementations:
+  - id: impl_pointer_count
+    source: rtl/
+    constraints: constraints/impl_pointer_count/
+    dependencies: []
+    files:
+      - rtl/sync_fifo.sv
+
+# ---------------- 质量门禁 ----------------
+quality:
+  required_gates: [G0, G1, G2, G3, G4, G5, G6, G7]
+
+# ---------------- PPA 表征 ----------------
+characterization:
+  benchmark_profiles: [bench_area_dw8_dep8, bench_fmax_dw64_dep64, bench_deep_dw128_dep1024]
+  measured_region: {}
+  status: OPTIONAL_UNAVAILABLE   # G6：无标准单元库/PDK，门级综合不可行（E0），见 characterization/plan.yaml
+
+# ---------------- 发布 ----------------
+release:
+  fusesoc_core: aixsilicon:cbb:sync_fifo:0.1.0

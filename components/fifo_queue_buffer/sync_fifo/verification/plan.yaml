@@ -1,0 +1,72 @@
+# 验证计划（Verification Plan）— sync_fifo
+# QUE-001 同步 FIFO（A2）。验证形态：SVA（内嵌）+ 定向/随机 Simulation（reference model 比对）
+# Formal 属性证明：本机无 vcst/JasperGold（OPTIONAL_UNAVAILABLE）→ 用时序 SVA + 高覆盖随机仿真
+# 提供 needs_verification 证据；不宣称 formal proof。
+target: sync_fifo
+
+# 验证形态
+verification_forms:
+  - sva_inline          # RTL 内嵌 5 条关键不变量断言（PROP-SF-*）
+  - simulation          # 定向（无背压/满背压/边界/复位）+ 随机 backpressure，reference model 比对
+  - negative            # 非法参数 elaboration 拦截（G3 已证）+ 断言变异性（故障注入）
+  # formal_proof: OPTIONAL_UNAVAILABLE（本机无 vcst/JasperGold；若引入工具后补充）
+
+# 配置矩阵集合
+configs:
+  - set: mandatory
+    items:
+      - cfg_dw32_dep16_oreg1        # 默认
+  - set: boundary
+    items:
+      - cfg_dw1_dep2_oreg0          # 最小宽/最小深、无输出寄存
+      - cfg_dw1024_dep4096_oreg1    # 最大宽/最大深（elaborate 已证）
+      - cfg_dw64_dep64_oreg1        # 临界（2 幂）
+      - cfg_dw8_dep33_oreg0         # 非 2 幂深度临界
+  - set: pairwise
+    items:
+      - cfg_dw32_dep16_oreg1        # DATA_WIDTH×DEPTH
+      - cfg_dw8_dep64_oreg1         # DEPTH×OUTPUT_REG
+      - cfg_dw128_dep4_oreg0        # DATA_WIDTH×OUTPUT_REG
+  - set: negative
+    items:
+      - cfg_dep1                     # DEPTH=1（<2，PC-002）→ G3 elaboration $error 拦截（已证）
+      - cfg_dep4097                  # DEPTH=4097（>4096，PC-003）→ 应被拦截
+      - cfg_dw0                      # DATA_WIDTH=0（<1，PC-001）→ 应被拦截
+      - cfg_dw1025                   # DATA_WIDTH=1025（>1024，PC-004）→ 应被拦截
+
+# 测试用例（→ 需求映射，RTM 追踪）
+testcases:
+  - id: tc_order
+    description: 定向保序：写 N 个连续数据（无背压）后连续读出，序列与写入一致
+    reqs: [REQ-001]
+    configs: [cfg_dw32_dep16_oreg1, cfg_dw8_dep4_oreg0]
+  - id: tc_stress
+    description: 随机背压 + 随机数据，排空后 recv==sent（去重/保序/无丢失）
+    reqs: [REQ-001, REQ-002, REQ-003, REQ-005]
+    configs: [cfg_dw32_dep16_oreg1, cfg_dw8_dep4_oreg0, cfg_dw64_dep64_oreg1]
+  - id: tc_backpressure
+    description: 满状态背压：写满后不接收新写；空状态弹出；边界计数不越界
+    reqs: [REQ-002, REQ-003, REQ-004]
+    configs: [cfg_dw32_dep16_oreg1, cfg_dw8_dep4_oreg0]
+  - id: tc_parallel
+    description: 满吞吐：持续 push+pop（非空非满）每拍 1 进 1 出，无气泡
+    reqs: [REQ-004, REQ-005]
+    configs: [cfg_dw32_dep16_oreg1, cfg_dw64_dep64_oreg1]
+  - id: tc_reset
+    description: 复位中断：事务中途复位，复位后状态清零、输出无效
+    reqs: [REQ-004]
+    configs: [cfg_dw32_dep16_oreg1]
+  - id: tc_fault_inject
+    description: 变异/故障注入：人为注入丢数/重复，断言必须触发（checker 有效性）
+    reqs: [REQ-002, REQ-003]
+    configs: [cfg_dw32_dep16_oreg1]
+
+# 结果解释与证据
+result_interpretation:
+  pass_criteria:
+    - 所有定向测试通过（SVA 无触发 + reference 比对一致）
+    - 随机背压测试排空后 recv==sent（无丢失/无重复/保序）
+    - 负向参数拦截（elaboration）在预期阶段失败，已达 G3
+    - 故障注入至少 1 例断言触发（证明 checker 有效）
+  evidence_location: evidence/g4_functional/
+  status: needs_verification     # 仅 Workflow Gate G4/G5 可转 verified

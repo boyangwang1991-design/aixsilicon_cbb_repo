@@ -1,0 +1,7 @@
+set: mandatory
+configs:
+- config_id: cfg_data_width32_depth16_output_regTrue
+  parameters:
+    DATA_WIDTH: 32
+    DEPTH: 16
+    OUTPUT_REG: true

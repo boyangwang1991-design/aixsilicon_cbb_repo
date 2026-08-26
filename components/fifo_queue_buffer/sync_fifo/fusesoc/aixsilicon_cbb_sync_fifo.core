@@ -1,0 +1,68 @@
+CAPI=2:
+
+# ============================================================
+# FuseSoC Core —— QUE-001 sync_fifo
+# VLNV: aixsilicon:cbb:sync_fifo:0.1.0
+# 轻量布局：单一 RTL 文件（不含 interface/impl 分级）。
+# 注：aix tool cbb-core-gen 未注册（tool_repo 缺插件），按模板人工填充。
+# ============================================================
+name: aixsilicon:cbb:sync_fifo:0.1.0
+description: |
+  sync_fifo - 通用单时钟同步 FIFO（A2）。DATA_WIDTH/DEPTH/OUTPUT_REG 参数化，
+  标准 ready/valid 握手；共享契约见 cbb.yaml / behavior.yaml。
+
+filesets:
+  rtl_impl:
+    files:
+      - ../rtl/sync_fifo.sv
+    file_type: systemVerilogSource
+
+  # 注：verif_common/assertions/formal/sim_tb 文件集仅在对应目录存在独立文件时由 target 引用；
+  #     本构件 SVA 内嵌于 RTL（rtl/sync_fifo.sv）。
+  verif_common:
+    files:
+      - ../verification/common/*.sv
+    file_type: systemVerilogSource
+
+  sim_tb:
+    files:
+      - ../verification/simulation/*.sv
+    file_type: systemVerilogSource
+
+  assertions:
+    files:
+      - ../verification/assertions/*.sv
+    file_type: systemVerilogSource
+
+  formal:
+    files:
+      - ../verification/formal/*.sv
+      - ../verification/formal/*.sva
+    file_type: systemVerilogSource
+
+targets:
+  rtl:
+    filesets:
+      - rtl_impl
+
+  synth:
+    filesets:
+      - rtl_impl
+    tools:
+      dc:
+        synth_file: ../constraints/sync_fifo.sdc
+    default_tool: dc
+
+  sim:
+    filesets:
+      - rtl_impl
+      - sim_tb
+    toplevel: sync_fifo_tb
+
+  formal:
+    filesets:
+      - rtl_impl
+
+  default:
+    filesets:
+      - rtl_impl

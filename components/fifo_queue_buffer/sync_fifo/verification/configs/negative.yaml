@@ -1,0 +1,22 @@
+set: negative
+configs:
+- config_id: cfg_data_width0_depth16_output_regTrue
+  parameters:
+    DATA_WIDTH: 0
+    DEPTH: 16
+    OUTPUT_REG: true
+- config_id: cfg_data_width1025_depth16_output_regTrue
+  parameters:
+    DATA_WIDTH: 1025
+    DEPTH: 16
+    OUTPUT_REG: true
+- config_id: cfg_data_width32_depth1_output_regTrue
+  parameters:
+    DATA_WIDTH: 32
+    DEPTH: 1
+    OUTPUT_REG: true
+- config_id: cfg_data_width32_depth4097_output_regTrue
+  parameters:
+    DATA_WIDTH: 32
+    DEPTH: 4097
+    OUTPUT_REG: true

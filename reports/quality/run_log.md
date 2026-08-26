@@ -20,3 +20,15 @@
     支持矩阵: 两方向+参数域+非法拦截一致; Gate G0-G5 pass, G6 blocked(库缺失,E0), G7/G8 candidate; Waiver: G6 PPA(缺库,替代E0趋势) + SpyGlass W240/W528(方向generate预期); 成熟度: E2(Implemented+Verified), 未达E3(缺PPA/消费者/全链); 已知限制 5 项; 输出 docs/qualification-report.md
 - `2026-08-26 05:38:51` | **release** | G8 | G8 Release: manifest/CHANGELOG/OWNERS 候选产出（qualified/released 待 Workflow Gate） | 结果(PASS)
     release/manifest.yaml(status=candidate, version=0.1.0, vlnv=aixsilicon:cbb:width_conversion_fifo:0.1.0, maturity=E2, SBOM: Apache-2.0 无依赖); CHANGELOG 0.1.0; OWNERS; 发布需 Workflow Gate 确认后固化 artifact SHA-256
+- `2026-08-26 08:22:20` | **specify** | G1 | QUE-001 sync_fifo G1 契约通过：cbb.yaml/behavior.yaml Schema+约束+稳定ID校验 OK，RTM 13 条唯一 | 结果(PASS)
+    check --cbb sync_fifo PASS；rtm 生成 trace/rtm.yaml（5 REQ + 5 INV + 3 ASM 去重后 13 条）并 --check-only 通过；config-gen 生成 mandatory(1)/boundary(18)/pairwise(3)/negative(4)
+- `2026-08-26 08:23:02` | **design** | G2 | QUE-001 sync_fifo G2 架构通过：单微架构 impl_pointer_count（指针+计数+可选输出寄存），3 个 Profile 覆盖 area/fmax/deep | 结果(PASS)
+    profiles.yaml 声明 impl_pointer_count + area_opt(fmax_opt/deep_buffer)；design.md 定义端口/状态更新/时钟复位/可验证性论证；存储交综合推断，G6 标 E0 OPTIONAL_UNAVAILABLE
+- `2026-08-26 08:43:09` | **implement** | G3 | QUE-001 sync_fifo G3 静态基线：RTL+core+SDC 就绪，VCS 正向/负向 compile PASS（12 参数矩阵），Lint 环境阻塞 | 结果(PASS)
+    RTL：rtl/interface/sync_fifo_pkg.svh + rtl/impl/impl_pointer_count/sync_fifo.sv（内嵌 5 条 SVA）。VCS -full64 compile/elaborate：默认 + dw∈{1,8,64,1024}×dep∈{2,16,4096} 12 点全 PASS；负向 DEPTH=1 hex EEST $error 拦截 exit 255。证据 evidence/g3_static/compile_sync_fifo.txt。SpyGlass batch lint 初始化卡死（>4min）-> Lint BLOCKED（环境）；aix tool cbb-core-gen OPTIONAL_UNAVAILABLE（tool_repo 未装），core 按模板人工填充
+- `2026-08-26 10:06:25` | **verify** | G4 | QUE-001 sync_fifo G4 Functional 通过：3 场景仿真全 PASS + SVA 0 失败 + 故障注入 checker 有效 + OUTPUT_REG 双模式 | 结果(PASS)
+    发现并修复 RTL bug：OUTPUT_REG=1 的 pop_ev 绑定寄存 rd_valid_q（滞后）→ 空拍误弹致 count 下溢回绕 DEPTH；修复为 pop_ev=~empty&&rd_ready。tc_order sent32/recv32、tc_backpressure 15/15（满拒收）、tc_stress 701/701（随机背压800拍）全保序无丢失无重复；OUTPUT_REG=0 8/8 PASS；fault inject 满时 force wr_ready → full|->~wr_ready 断言触发。Formal 证明工具 vcst/JasperGold 缺失 OPTIONAL_UNAVAILABLE，SVA+随机仿真支撑 needs_verification。证据 evidence/g4_functional/functional_sim.txt
+- `2026-08-26 10:06:26` | **verify** | G5 | QUE-001 sync_fifo G5 配置空间：mandatory/boundary/pairwise/negative 4 组 set 覆盖齐全 | 结果(PASS)
+    config-gen 确定性生成 mandatory(1)/boundary(18)/pairwise(3)/negative(4)；边界含 min/max/临界/非2幂(DATA_WIDTH×DEPTH×OUTPUT_REG)；negative 非法值由 elaboration $error 拦截（G3 已证）；验证计划 verification/plan.yaml 声明配置矩阵与用例映射
+- `2026-08-26 10:51:34` | **implement** | G3 | sync_fifo 轻量布局扁平化：rtl/interface+impl → 单一 rtl/sync_fifo.sv，全量回归 PASS | 结果(PASS)
+    按 artifact-contract §2 轻量选项：pkg 与 impl 合并为单文件（参数检查用 generate $error）；cbb.yaml/.core 同步更新；9 点参数矩阵 compile PASS + 负向 DEPTH=1 拦截 + G4 三场景仿真全 PASS；width_conversion_fifo 核查：无 sync_fifo 类 bug（组合输出无寄存 valid 滞后），现成 N2W/W2N/变异证据全绿，维持原结构与 E2
