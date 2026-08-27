@@ -1,78 +1,73 @@
-# AixSilicon CBB Platform
+# AixSilicon CBB Repository
 
-**PPA-aware CBB Platform**：经过功能验证、实现验证和多维 PPA 表征，可按设计约束自动检索、比较、选型和集成的芯片公共基础构件平台。
+**CBB（公共基础构件）交付发布仓**：存放经过验证的 CBB 交付件，管理版本，并作为 **FuseSoC Library** 提供消费入口。
 
-本仓库是一个 **FuseSoC Library**（布局遵循 iprepo-management-suite 统一仓规范）。
-完整规划见 [`docs/architecture/README.md`](docs/architecture/README.md:1)（V1.0）。
-
-## 体系框架
-
-四类资产 × 四个支撑平面：
-
-| 资产 | 说明 |
-| --- | --- |
-| 构件资产 | A0 技术适配 / A1 原子机制 / A2 通用复合 / A3 协议构件 / A4 子系统模板 |
-| 实现变体 | 同一功能契约下的多个微架构（承载面积/频率/功耗/延迟 trade-off） |
-| 参考架构与优化配方 | 多构件组合方法与选型规则（Recipe） |
-| PPA 数据与证据 | 综合、时序、功耗、验证、适用范围与回归结果 |
-
-支撑平面：质量验证、PPA 表征与模型、生成集成与发布、检索推荐与智能选型。
-
-抽象分层（纵向）与技术域（横向标签）见 [`docs/architecture/README.md`](docs/architecture/README.md:1)。
+CBB 的需求/规格/RTL 实现/验证/PPA 表征的开发方法与工具链在 **cbb-development-suite**（Skill）中定义与执行；本仓库只接收其**交付件**。
 
 ## 目录结构
 
 ```text
 .
-├── components/          # A1~A3 构件（按 cbb_repo_list.md 功能类别，17 类；发布时填充）
-├── adapters/            # A0 技术适配构件（发布时填充）
-├── templates/           # A4 子系统模板（发布时填充）
-├── recipes/             # 参考架构与优化配方
-├── schemas/             # cbb.yaml 与结果 Schema
-├── tools/               # 工具链（10 个）
-├── docs/                # 架构、PPA 体系、CBB 规范、入门
-├── scripts/             # 通用脚本（目录初始化 + CBB 生成器）
-├── tests/               # 顶层测试
-├── examples/            # 使用示例
-├── cbb_repo_list.md     # CBB 构件完整清单（SSOT 候选全集）
-├── cbb_repo_plan.md     # 整体规划（V1.0）
+├── adapters/            # A0 技术适配交付件（22 条候选；实现后落位）
+├── components/          # A1~A4 已交付 CBB 工程包（每构件含 cbb.yaml + rtl + verification + evidence + fusesoc/core）
 ├── fusesoc.conf         # FuseSoC 库注册
-├── registry.yaml        # 内嵌索引（410 个 CBB 元数据）
-└── .github/workflows/   # CI：扫描 *.core 做 FuseSoC lint
+├── registry.yaml        # 交付件索引（唯一 SSOT：id/name/family/group/abstraction/priority/implementation/description/status/version/path）
+├── reports/quality/     # 交付证据（run_log.md 等）
+├── CHANGELOG.md         # 平台版本
+└── LICENSE              # Apache-2.0
 ```
 
 ## FuseSoC 使用
 
 ```bash
+# 将本仓库注册为 FuseSoC 库
 fusesoc library add aixsilicon-cbb /path/to/aixsilicon_cbb_repo
+
+# 列出 / 运行交付构件
 fusesoc core list
-fusesoc run --target sim aixsilicon:cbb:<cbb_name>:0.1.0
+fusesoc core show aixsilicon:cbb:<cbb_name>:<version>
+fusesoc run --target sim aixsilicon:cbb:<cbb_name>:<version>
 ```
 
-VLNV 命名：`aixsilicon:cbb:<cbb_name>:<version>`。详见 [`docs/getting_started/README.md`](docs/getting_started/README.md:1)。
+VLNV 命名：`aixsilicon:cbb:<cbb_name>:<version>`。
 
-## 每个 CBB 的当前形态
+## registry.yaml
 
-当前每个 CBB 为**空工程包 + README 需求说明占位**（目录以功能名命名，如 `components/fifo_queue_buffer/sync_fifo`，清单 ID 保留在元数据中），
-开发时按 [`docs/cbb_spec/README.md`](docs/cbb_spec/README.md:1) 的 9.3 节标准工程包展开
-（`rtl/interface`、`rtl/impl`、`verification`、`characterization`、`fusesoc/*.core` 等）。
+`registry.yaml` 是 CBB 交付件的机器可读索引（唯一 SSOT），每条含：
 
-## 首期建设范围（P0）
+| 字段 | 说明 |
+| --- | --- |
+| `id` | 构件 ID（如 `QUE-012`） |
+| `name` | 英文功能名（VLNV name，如 `width_conversion_fifo`） |
+| `family` | 中文名（构件族） |
+| `group` | 类别路径（如 `components/fifo_queue_buffer`） |
+| `abstraction` | 抽象粒度 A0~A4 |
+| `priority` | P0~P3 |
+| `implementation` | 主要实现变体 |
+| `description` | PPA/工程关注点 |
+| `status` | `planned`（未实现）或 `implemented`（目录存在且通过验证） |
+| `version` | 版本（SemVer） |
+| `path` | 交付件相对路径 |
 
-推荐先形成约 **40 个可发布构件族**（见 [`cbb_repo_list.md`](cbb_repo_list.md:1) 第 22 节）：
-SRAM/ICG/Clock Mux Wrapper、Mux/Encoder/Decoder/LZC/Popcount、Adder/Accumulator/Compare/Resize、
-Parity/SECDED/Gray、Address Decoder/Register Array/SRAM 拼宽拼深/RAW Bypass、
-Sync/Async/Fall-through FIFO、Elastic/Skid Buffer、Forward/Backward/Full Slice、
-Fixed Priority/RR Arbiter/Credit Manager、单比特/Pulse/Handshake/Gray CDC、Reset 同步/拉伸、
-Counter/Timer/Timeout/Event Collector、中断 Conditioner/Aggregator、Generic CSR/APB Adapter/Decoder/Timeout、
-AXI/AXI-Lite/AXI-Stream Register Slice/AXI Decoder/Default Slave。
+`status=implemented` 的条目在 `components/` 下存在完整工程包；`planned` 条目仅为规划候选，无物理目录。
 
-## 快速开始
+类别说明：`group=adapters`（A0 技术适配，22 条候选）、`group=components/*`（A1~A3 构件）、`group=templates`（A4 子系统模板，24 条候选）。A4 模板为候选索引，实现后以交付件形式进入对应类别。
 
-```bash
-# 初始化/补齐目录骨架（幂等，可重复执行；含按 cbb_repo_list.md 生成 CBB 目录与 registry.yaml）
-bash scripts/init_structure.sh
+## 当前已交付构件
 
-# 仅重新生成 CBB 目录与 registry.yaml
-python3 scripts/build_cbb_structure.py
-```
+- `components/fifo_queue_buffer/sync_fifo`（QUE-001，A2，P0）
+- `components/fifo_queue_buffer/width_conversion_fifo`（QUE-012，A2/A3，P1）
+
+更多条目见 [`registry.yaml`](registry.yaml:1)（410 条候选，其中 2 条已实现）。
+
+## 贡献交付件
+
+新 CBB 交付流程（需求→契约→RTL→验证→PPA→发布）由 cbb-development-suite 定义；本仓库在交付件就绪后：
+
+1. 在 `components/` 对应类别下放置完整工程包（含 `fusesoc/aixsilicon_cbb_<name>.core`）；
+2. 在 [`registry.yaml`](registry.yaml:1) 中登记/更新条目（`status=implemented`）；
+3. 更新 `CHANGELOG.md` 与版本。
+
+## 许可
+
+Apache-2.0（见 [`LICENSE`](LICENSE:1)）。

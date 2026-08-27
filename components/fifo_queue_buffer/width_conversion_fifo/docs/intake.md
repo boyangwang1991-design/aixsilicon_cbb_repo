@@ -1,7 +1,7 @@
 # Intake 结论（G0）— width_conversion_fifo
 
 > CBB 生命周期 G0 Intake 记录。任务 ID：AIX-CBB-0101
-> 参考：`cbb_repo_list.md` §7 QUE-012、`registry.yaml`、domain-rules §1。
+> 参考：`registry.yaml`（QUE-012）、domain-rules §1。
 
 ## 1. CBB / IP 边界判定（domain-rules §1）
 

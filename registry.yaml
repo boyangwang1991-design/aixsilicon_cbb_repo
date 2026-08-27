@@ -1,3328 +1,4520 @@
 schema_version: "2.0"
-updated: "2026-08-12T04:18:25Z"
-# ADR-0003：统一 VLNV vendor 为 `aixsilicon`（本仓即 aixsilicon:cbb）
+updated: "2026-08-27T06:56:01Z"
+# 本文件是 CBB 目录唯一 SSOT（由 scripts/build_cbb_structure.py 治理/校验）。
+# 字段: id/name/family/group/abstraction/priority/implementation/description/status/version/path
+# status=implemented 表示物理目录存在且通过验证；未实现条目无物理目录。
 vendor: aixsilicon
 library: cbb
-unified_repo: ""
+# 未实现构件无物理目录；status=implemented 表示目录存在于本仓且通过验证
 
 cbbs:
   - id: TEC-001
     name: generic_comb_wrapper
+    family: 通用组合标准单元 Wrapper
     group: adapters
     abstraction: A0
     priority: P2
+    implementation: AND/OR/XOR/MUX/AOI/OAI 映射
+    description: 保持可移植 RTL 与定向映射双路径
     status: planned
     version: "0.1.0"
     path: adapters/generic_comb_wrapper
   - id: TEC-002
     name: dff_wrapper
+    family: DFF Wrapper
     group: adapters
     abstraction: A0
     priority: P1
+    implementation: 普通、Enable、Set/Reset、Scan
+    description: 面积、时钟功耗、DFT约束
     status: planned
     version: "0.1.0"
     path: adapters/dff_wrapper
   - id: TEC-003
     name: mbff_wrapper
+    family: Multi-bit FF Wrapper
     group: adapters
     abstraction: A0
     priority: P2
+    implementation: 2/4/8-bit MBFF
+    description: 时钟功耗与布局可实现性
     status: planned
     version: "0.1.0"
     path: adapters/mbff_wrapper
   - id: TEC-004
     name: latch_wrapper
+    family: Latch Wrapper
     group: adapters
     abstraction: A0
     priority: P3
+    implementation: 普通、门控、Scan
+    description: 时序借用与验证边界
     status: planned
     version: "0.1.0"
     path: adapters/latch_wrapper
   - id: TEC-005
     name: icg_wrapper
+    family: ICG Wrapper
     group: adapters
     abstraction: A0
     priority: P0
+    implementation: 不同使能/测试使能接口
+    description: 时钟功耗、门控检查、DFT
     status: planned
     version: "0.1.0"
     path: adapters/icg_wrapper
   - id: TEC-006
     name: glitch_free_clock_mux
+    family: Glitch-free Clock Mux Wrapper
     group: adapters
     abstraction: A0
     priority: P0
+    implementation: 2/4 路时钟选择
+    description: 无毛刺、切换延迟、CTS
     status: planned
     version: "0.1.0"
     path: adapters/glitch_free_clock_mux
   - id: TEC-007
     name: clock_divider_cell_wrapper
+    family: Clock Divider Cell Wrapper
     group: adapters
     abstraction: A0
     priority: P1
+    implementation: 2/N 分频、旁路
+    description: 占空比、generated clock
     status: planned
     version: "0.1.0"
     path: adapters/clock_divider_cell_wrapper
   - id: TEC-008
     name: clock_buffer_wrapper
+    family: Clock Buffer/Delay Wrapper
     group: adapters
     abstraction: A0
     priority: P3
+    implementation: Buffer tree、delay cell
+    description: 仅供受控物理实现使用
     status: planned
     version: "0.1.0"
     path: adapters/clock_buffer_wrapper
   - id: TEC-009
     name: level_shifter_wrapper
+    family: Level Shifter Wrapper
     group: adapters
     abstraction: A0
     priority: P1
+    implementation: Up/Down、Enable LS
+    description: 电压域、方向、隔离组合
     status: planned
     version: "0.1.0"
     path: adapters/level_shifter_wrapper
   - id: TEC-010
     name: isolation_cell_wrapper
+    family: Isolation Cell Wrapper
     group: adapters
     abstraction: A0
     priority: P1
+    implementation: Clamp-0/1、Latch isolation
+    description: 控制极性、位置、UPF一致性
     status: planned
     version: "0.1.0"
     path: adapters/isolation_cell_wrapper
   - id: TEC-011
     name: retention_ff_wrapper
+    family: Retention FF/Bank Wrapper
     group: adapters
     abstraction: A0
     priority: P2
+    implementation: Save/restore、always-on
+    description: 状态范围、唤醒延迟、面积
     status: planned
     version: "0.1.0"
     path: adapters/retention_ff_wrapper
   - id: TEC-012
     name: power_switch_ctrl_wrapper
+    family: Power Switch Control Wrapper
     group: adapters
     abstraction: A0
     priority: P3
+    implementation: Header/footer 控制接口
+    description: 物理专用，不承载电源网实现
     status: planned
     version: "0.1.0"
     path: adapters/power_switch_ctrl_wrapper
   - id: TEC-013
     name: tie_cell_wrapper
+    family: Tie/Constant Cell Wrapper
     group: adapters
     abstraction: A0
     priority: P2
+    implementation: Tie-high/low
+    description: 避免逻辑常量不规范直连
     status: planned
     version: "0.1.0"
     path: adapters/tie_cell_wrapper
   - id: TEC-014
     name: scan_lockup_wrapper
+    family: Scan/Lockup Wrapper
     group: adapters
     abstraction: A0
     priority: P3
+    implementation: Lockup latch、scan bypass
+    description: DFT链与跨时钟域
     status: planned
     version: "0.1.0"
     path: adapters/scan_lockup_wrapper
   - id: TEC-015
     name: sram_macro_wrapper
+    family: SRAM Macro Wrapper
     group: adapters
     abstraction: A0
     priority: P0
+    implementation: 1P、SP、1R1W、TDP
+    description: 统一读延迟、mask、sleep、BIST
     status: planned
     version: "0.1.0"
     path: adapters/sram_macro_wrapper
   - id: TEC-016
     name: register_file_macro_wrapper
+    family: Register File Macro Wrapper
     group: adapters
     abstraction: A0
     priority: P1
+    implementation: 多读写端口、同步/异步读
+    description: 端口语义与 bypass
     status: planned
     version: "0.1.0"
     path: adapters/register_file_macro_wrapper
   - id: TEC-017
     name: rom_macro_wrapper
+    family: ROM Macro Wrapper
     group: adapters
     abstraction: A0
     priority: P2
+    implementation: Mask ROM、compiler ROM
+    description: 初始化、时序和测试接口
     status: planned
     version: "0.1.0"
     path: adapters/rom_macro_wrapper
   - id: TEC-018
     name: cam_macro_wrapper
+    family: CAM/TCAM Macro Wrapper
     group: adapters
     abstraction: A0
     priority: P3
+    implementation: Binary/ternary、分段
+    description: 高功耗宏，严格适用范围
     status: planned
     version: "0.1.0"
     path: adapters/cam_macro_wrapper
   - id: TEC-019
     name: efuse_otp_wrapper
+    family: eFuse/OTP Macro Wrapper
     group: adapters
     abstraction: A0
     priority: P3
+    implementation: Read/program/test 抽象接口
+    description: 安全、一次性编程、厂商差异
     status: planned
     version: "0.1.0"
     path: adapters/efuse_otp_wrapper
   - id: TEC-020
     name: pll_dll_osc_wrapper
+    family: PLL/DLL/OSC Digital Wrapper
     group: adapters
     abstraction: A0
     priority: P3
+    implementation: 配置、锁定、旁路、状态同步
+    description: 仅数字接口适配，不替代模拟IP
     status: planned
     version: "0.1.0"
     path: adapters/pll_dll_osc_wrapper
   - id: TEC-021
     name: fpga_memory_wrapper
+    family: FPGA Memory Wrapper
     group: adapters
     abstraction: A0
     priority: P1
+    implementation: BRAM/URAM/LUTRAM
+    description: ASIC/FPGA双实现映射
     status: planned
     version: "0.1.0"
     path: adapters/fpga_memory_wrapper
   - id: TEC-022
     name: fpga_dsp_wrapper
+    family: FPGA DSP Wrapper
     group: adapters
     abstraction: A0
     priority: P2
+    implementation: DSP slice、MAC、pre-adder
+    description: 推断稳定性与流水位置
     status: planned
     version: "0.1.0"
     path: adapters/fpga_dsp_wrapper
   - id: SEL-001
     name: binary_mux
+    family: 2:1/N:1 Binary Mux
     group: components/selection_decode
     abstraction: A1
     priority: P0
+    implementation: Linear、balanced tree、pipelined
+    description: 扇入、逻辑深度、毛刺
     status: planned
     version: "0.1.0"
     path: components/selection_decode/binary_mux
   - id: SEL-002
     name: onehot_mux
+    family: One-hot Mux
     group: components/selection_decode
     abstraction: A1
     priority: P0
+    implementation: OR-tree、AND-OR、segmented
+    description: One-hot假设、扇出、X处理
     status: planned
     version: "0.1.0"
     path: components/selection_decode/onehot_mux
   - id: SEL-003
     name: priority_mux
+    family: Priority Mux
     group: components/selection_decode
     abstraction: A1
     priority: P1
+    implementation: Linear、tree、grouped
+    description: 优先级链与规模扩展
     status: planned
     version: "0.1.0"
     path: components/selection_decode/priority_mux
   - id: SEL-004
     name: sparse_masked_mux
+    family: Sparse/Masked Mux
     group: components/selection_decode
     abstraction: A1
     priority: P2
+    implementation: sparse map、mask select
+    description: 无效输入消除、综合稳定性
     status: planned
     version: "0.1.0"
     path: components/selection_decode/sparse_masked_mux
   - id: SEL-005
     name: cross_point_switch
+    family: Cross-point Switch
     group: components/selection_decode
     abstraction: A2
     priority: P2
+    implementation: full、sparse、staged
+    description: 交叉规模、布线与流水
     status: planned
     version: "0.1.0"
     path: components/selection_decode/cross_point_switch
   - id: SEL-006
     name: binary_encoder
+    family: Binary Encoder
     group: components/selection_decode
     abstraction: A1
     priority: P0
+    implementation: combinational、tree
+    description: 位宽与深度
     status: planned
     version: "0.1.0"
     path: components/selection_decode/binary_encoder
   - id: SEL-007
     name: onehot_encoder
+    family: One-hot Encoder
     group: components/selection_decode
     abstraction: A1
     priority: P0
+    implementation: strict、first-hot、last-hot
+    description: 非法输入语义
     status: planned
     version: "0.1.0"
     path: components/selection_decode/onehot_encoder
   - id: SEL-008
     name: decoder
+    family: Decoder
     group: components/selection_decode
     abstraction: A1
     priority: P0
+    implementation: binary-to-onehot、segmented
+    description: 高扇出、本地译码
     status: planned
     version: "0.1.0"
     path: components/selection_decode/decoder
   - id: SEL-009
     name: priority_encoder
+    family: Priority Encoder
     group: components/selection_decode
     abstraction: A1
     priority: P0
+    implementation: leading/trailing、tree
+    description: 深优先级链
     status: planned
     version: "0.1.0"
     path: components/selection_decode/priority_encoder
   - id: SEL-010
     name: thermometer_codec
+    family: Thermometer Encoder/Decoder
     group: components/selection_decode
     abstraction: A1
     priority: P3
+    implementation: binary/thermometer conversion
+    description: 编码密度与毛刺
     status: planned
     version: "0.1.0"
     path: components/selection_decode/thermometer_codec
   - id: SEL-011
     name: lzc_lzd
+    family: Leading Zero/One Count
     group: components/selection_decode
     abstraction: A1
     priority: P1
+    implementation: tree、segmented、pipelined
+    description: 关键路径、前缀结构
     status: planned
     version: "0.1.0"
     path: components/selection_decode/lzc_lzd
   - id: SEL-012
     name: tzc_lzd
+    family: Trailing Zero/One Count
     group: components/selection_decode
     abstraction: A1
     priority: P2
+    implementation: reverse、tree
+    description: 共享反转逻辑
     status: planned
     version: "0.1.0"
     path: components/selection_decode/tzc_lzd
   - id: SEL-013
     name: bit_scan_first_set
+    family: Bit Scan/First-set
     group: components/selection_decode
     abstraction: A1
     priority: P1
+    implementation: LSB/MSB、priority tree
+    description: 大位宽时序
     status: planned
     version: "0.1.0"
     path: components/selection_decode/bit_scan_first_set
   - id: SEL-014
     name: popcount
+    family: Population Count
     group: components/selection_decode
     abstraction: A1
     priority: P1
+    implementation: adder tree、compressor、lookup
+    description: 面积/时序Pareto
     status: planned
     version: "0.1.0"
     path: components/selection_decode/popcount
   - id: SEL-015
     name: onehot_checker
+    family: One-hot Checker
     group: components/selection_decode
     abstraction: A1
     priority: P0
+    implementation: zero/one/multi-hot detect
+    description: 安全检查复用
     status: planned
     version: "0.1.0"
     path: components/selection_decode/onehot_checker
   - id: SEL-016
     name: range_comparator
+    family: Range Comparator
     group: components/selection_decode
     abstraction: A1
     priority: P1
+    implementation: single/multi-range、tree
+    description: 共享比较与译码
     status: planned
     version: "0.1.0"
     path: components/selection_decode/range_comparator
   - id: SEL-017
     name: address_decoder
+    family: Address Decoder
     group: components/selection_decode
     abstraction: A2
     priority: P0
+    implementation: range、mask、base+size
+    description: 比较器共享、扇出
     status: planned
     version: "0.1.0"
     path: components/selection_decode/address_decoder
   - id: SEL-018
     name: hierarchical_address_decoder
+    family: Hierarchical Address Decoder
     group: components/selection_decode
     abstraction: A2
     priority: P1
+    implementation: cluster/local decode
+    description: 大规模地址空间时序
     status: planned
     version: "0.1.0"
     path: components/selection_decode/hierarchical_address_decoder
   - id: SEL-019
     name: configurable_truth_table
+    family: Configurable Truth Table
     group: components/selection_decode
     abstraction: A1
     priority: P3
+    implementation: LUT/case/ROM mapped
+    description: 面积与综合推断
     status: planned
     version: "0.1.0"
     path: components/selection_decode/configurable_truth_table
   - id: SEL-020
     name: bit_permutation_network
+    family: Bit Permutation Network
     group: components/selection_decode
     abstraction: A2
     priority: P3
+    implementation: fixed、programmable、Benes
+    description: 布线主导、配置代价
     status: planned
     version: "0.1.0"
     path: components/selection_decode/bit_permutation_network
   - id: ARI-001
     name: incrementer_decrementer
+    family: Incrementer/Decrementer
     group: components/arithmetic_datapath
     abstraction: A1
     priority: P0
+    implementation: ripple、segmented
+    description: Counter专用优化
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/incrementer_decrementer
   - id: ARI-002
     name: adder_subtractor
+    family: Adder/Subtractor
     group: components/arithmetic_datapath
     abstraction: A1
     priority: P0
+    implementation: ripple、CLA、prefix、segmented
+    description: 位宽、进位结构、流水
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/adder_subtractor
   - id: ARI-003
     name: carry_save_adder
+    family: Carry-save Adder
     group: components/arithmetic_datapath
     abstraction: A1
     priority: P1
+    implementation: 3:2、4:2 compressor
+    description: 多操作数压缩
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/carry_save_adder
   - id: ARI-004
     name: multi_operand_adder
+    family: Multi-operand Adder
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P1
+    implementation: linear、balanced、CSA tree
+    description: 操作数数量与树平衡
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/multi_operand_adder
   - id: ARI-005
     name: adder_tree
+    family: Adder Tree
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P1
+    implementation: balanced、registered、saturating
+    description: 流水级与吞吐
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/adder_tree
   - id: ARI-006
     name: accumulator
+    family: Accumulator
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P0
+    implementation: wrap、saturate、clear/load
+    description: 反馈路径与门控
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/accumulator
   - id: ARI-007
     name: absolute_value_negate
+    family: Absolute Value/Negate
     group: components/arithmetic_datapath
     abstraction: A1
     priority: P1
+    implementation: signed、saturating
+    description: 最小负数语义
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/absolute_value_negate
   - id: ARI-008
     name: comparator
+    family: Comparator
     group: components/arithmetic_datapath
     abstraction: A1
     priority: P0
+    implementation: signed/unsigned、segmented
+    description: Early-out与关键路径
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/comparator
   - id: ARI-009
     name: multiway_min_max
+    family: Multi-way Min/Max
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P1
+    implementation: linear、balanced、pipelined
+    description: 路数、索引回传
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/multiway_min_max
   - id: ARI-010
     name: clamp_clip
+    family: Clamp/Clip
     group: components/arithmetic_datapath
     abstraction: A1
     priority: P1
+    implementation: symmetric/asymmetric limits
+    description: 比较共享与常量特化
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/clamp_clip
   - id: ARI-011
     name: saturating_add_sub
+    family: Saturating Add/Sub
     group: components/arithmetic_datapath
     abstraction: A1
     priority: P1
+    implementation: signed/unsigned
+    description: 溢出判定与延迟
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/saturating_add_sub
   - id: ARI-012
     name: fixed_point_round
+    family: Fixed-point Round
     group: components/arithmetic_datapath
     abstraction: A1
     priority: P1
+    implementation: truncate、RNE、RNA、stochastic
+    description: 精度、偏差、随机源
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/fixed_point_round
   - id: ARI-013
     name: fixed_point_resize
+    family: Fixed-point Resize
     group: components/arithmetic_datapath
     abstraction: A1
     priority: P0
+    implementation: extend、round、saturate
+    description: 位宽最小化
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/fixed_point_resize
   - id: ARI-014
     name: scale_shift
+    family: Scale/Shift
     group: components/arithmetic_datapath
     abstraction: A1
     priority: P1
+    implementation: power-of-two、programmable
+    description: 常量传播与复用
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/scale_shift
   - id: ARI-015
     name: logical_arith_shifter
+    family: Logical/Arithmetic Shifter
     group: components/arithmetic_datapath
     abstraction: A1/A2
     priority: P1
+    implementation: staged、barrel、iterative
+    description: 面积、周期数、路由
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/logical_arith_shifter
   - id: ARI-016
     name: rotator_funnel_shifter
+    family: Rotator/Funnel Shifter
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P2
+    implementation: barrel、staged
+    description: 双输入拼接与布线
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/rotator_funnel_shifter
   - id: ARI-017
     name: integer_multiplier
+    family: Integer Multiplier
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P1
+    implementation: array、Booth、Wallace/Dadda
+    description: 位宽、符号、流水
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/integer_multiplier
   - id: ARI-018
     name: constant_multiplier
+    family: Constant Multiplier
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P1
+    implementation: shift-add、CSD、MCM
+    description: 常量特化与共享
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/constant_multiplier
   - id: ARI-019
     name: mac
+    family: Multiply-Accumulate
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P1
+    implementation: fused、separate、pipelined
+    description: 融合、截断、吞吐
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/mac
   - id: ARI-020
     name: dot_product_engine
+    family: Dot-product Engine
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P2
+    implementation: parallel、time-mux、tree
+    description: 并行度、累加宽度
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/dot_product_engine
   - id: ARI-021
     name: integer_divider
+    family: Integer Divider
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P2
+    implementation: restoring、non-restoring、SRT
+    description: 面积/延迟/吞吐
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/integer_divider
   - id: ARI-022
     name: constant_divider
+    family: Constant Divider
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P2
+    implementation: reciprocal multiply、shift-add
+    description: 误差与常量特化
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/constant_divider
   - id: ARI-023
     name: modulo_reducer
+    family: Modulo/Reducer
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P3
+    implementation: arbitrary、power-of-two、Barrett
+    description: 除法消除与延迟
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/modulo_reducer
   - id: ARI-024
     name: square_sum_squares
+    family: Square/Sum-of-squares
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P3
+    implementation: dedicated、shared multiplier
+    description: DSP场景资源共享
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/square_sum_squares
   - id: ARI-025
     name: average_weighted_sum
+    family: Average/Weighted Sum
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P2
+    implementation: shift、reciprocal、MAC
+    description: 系数与位宽增长
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/average_weighted_sum
   - id: ARI-026
     name: reciprocal_rsqrt_approx
+    family: Reciprocal/RSqrt Approximation
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P3
+    implementation: LUT+iteration、piecewise
+    description: 精度/延迟/面积
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/reciprocal_rsqrt_approx
   - id: ARI-027
     name: cordic
+    family: CORDIC
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P3
+    implementation: iterative、unrolled、pipelined
+    description: 迭代次数、精度
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/cordic
   - id: ARI-028
     name: polynomial_evaluator
+    family: Polynomial Evaluator
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P3
+    implementation: Horner、parallel tree
+    description: 系数常量化与MAC复用
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/polynomial_evaluator
   - id: ARI-029
     name: bcd_binary_converter
+    family: BCD/Binary Converter
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P3
+    implementation: iterative、double-dabble
+    description: 周期与面积
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/bcd_binary_converter
   - id: ARI-030
     name: decimal_bcd_arith
+    family: Decimal/BCD Arithmetic
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P3
+    implementation: add/adjust/compare
+    description: 专用业务驱动
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/decimal_bcd_arith
   - id: ARI-031
     name: fp_classify_compare
+    family: FP Classify/Compare
     group: components/arithmetic_datapath
     abstraction: A1/A2
     priority: P3
+    implementation: IEEE754 subsets
+    description: NaN/Inf/zero语义
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/fp_classify_compare
   - id: ARI-032
     name: fp_math_shell
+    family: FP Add/Multiply/FMA Shell
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P3
+    implementation: vendor/core wrapper、config
+    description: 不重复造完整FPU，重在适配
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/fp_math_shell
   - id: ARI-033
     name: block_fp_scale
+    family: Block Floating-point Scale
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P3
+    implementation: shared exponent、normalize
+    description: 精度与存储带宽
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/block_fp_scale
   - id: ARI-034
     name: quantize_dequantize
+    family: Quantize/Dequantize
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P2
+    implementation: affine、symmetric、per-channel
+    description: AI数据通路位宽与功耗
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/quantize_dequantize
   - id: ARI-035
     name: packed_simd_lane_op
+    family: Packed SIMD Lane Operator
     group: components/arithmetic_datapath
     abstraction: A2
     priority: P3
+    implementation: add/mul/min/max、lane mask
+    description: Lane复用与门控
     status: planned
     version: "0.1.0"
     path: components/arithmetic_datapath/packed_simd_lane_op
   - id: COD-001
     name: parity_gen_check
+    family: Parity Generator/Checker
     group: components/coding_integrity
     abstraction: A1
     priority: P0
+    implementation: even/odd、tree、pipelined
+    description: XOR树平衡
     status: planned
     version: "0.1.0"
     path: components/coding_integrity/parity_gen_check
   - id: COD-002
     name: crc_gen_check
+    family: CRC Generator/Checker
     group: components/coding_integrity
     abstraction: A2
     priority: P1
+    implementation: serial、parallel、sliced
+    description: 多项式、数据宽度、吞吐
     status: planned
     version: "0.1.0"
     path: components/coding_integrity/crc_gen_check
   - id: COD-003
     name: secded_ecc
+    family: SECDED ECC
     group: components/coding_integrity
     abstraction: A2
     priority: P0
+    implementation: encode/decode/correct、pipelined
+    description: 校验位、纠错延迟
     status: planned
     version: "0.1.0"
     path: components/coding_integrity/secded_ecc
   - id: COD-004
     name: hamming_ecc
+    family: Configurable Hamming ECC
     group: components/coding_integrity
     abstraction: A2
     priority: P1
+    implementation: shortened、extended
+    description: 参数合法域
     status: planned
     version: "0.1.0"
     path: components/coding_integrity/hamming_ecc
   - id: COD-005
     name: bch_rs_codec_wrapper
+    family: BCH/RS Codec Wrapper
     group: components/coding_integrity
     abstraction: A2
     priority: P3
+    implementation: iterative/vendor-wrapper
+    description: 算法复杂度与授权边界
     status: planned
     version: "0.1.0"
     path: components/coding_integrity/bch_rs_codec_wrapper
   - id: COD-006
     name: gray_binary_converter
+    family: Gray/Binary Converter
     group: components/coding_integrity
     abstraction: A1
     priority: P0
+    implementation: combinational、pipelined
+    description: CDC计数器复用
     status: planned
     version: "0.1.0"
     path: components/coding_integrity/gray_binary_converter
   - id: COD-007
     name: scrambler_descrambler
+    family: Scrambler/Descrambler
     group: components/coding_integrity
     abstraction: A2
     priority: P2
+    implementation: self-synchronous、LFSR
+    description: 并行展开与吞吐
     status: planned
     version: "0.1.0"
     path: components/coding_integrity/scrambler_descrambler
   - id: COD-008
     name: lfsr_prbs
+    family: LFSR/PRBS
     group: components/coding_integrity
     abstraction: A1/A2
     priority: P1
+    implementation: Fibonacci、Galois、parallel
+    description: 多项式与切换功耗
     status: planned
     version: "0.1.0"
     path: components/coding_integrity/lfsr_prbs
   - id: COD-009
     name: run_length_codec
+    family: Run-length Encoder/Decoder
     group: components/coding_integrity
     abstraction: A2
     priority: P3
+    implementation: streaming、bounded run
+    description: 数据相关吞吐
     status: planned
     version: "0.1.0"
     path: components/coding_integrity/run_length_codec
   - id: COD-010
     name: zero_suppress_bitmap_codec
+    family: Zero Suppression/Bitmap Codec
     group: components/coding_integrity
     abstraction: A2
     priority: P3
+    implementation: sparse、block mask
+    description: 元数据开销与活动率
     status: planned
     version: "0.1.0"
     path: components/coding_integrity/zero_suppress_bitmap_codec
   - id: COD-011
     name: byte_bit_order_converter
+    family: Byte/Bit Order Converter
     group: components/coding_integrity
     abstraction: A1
     priority: P0
+    implementation: endian swap、bit reverse
+    description: 固定连线优先
     status: planned
     version: "0.1.0"
     path: components/coding_integrity/byte_bit_order_converter
   - id: COD-012
     name: data_packer_unpacker
+    family: Data Packer/Unpacker
     group: components/coding_integrity
     abstraction: A2
     priority: P1
+    implementation: field map、aligned/unaligned
+    description: Mux规模与时序
     status: planned
     version: "0.1.0"
     path: components/coding_integrity/data_packer_unpacker
   - id: MEM-001
     name: parameter_register
+    family: Parameter Register
     group: components/register_memory
     abstraction: A1
     priority: P0
+    implementation: plain、enable、masked write
+    description: Enable推断与时钟功耗
     status: planned
     version: "0.1.0"
     path: components/register_memory/parameter_register
   - id: MEM-002
     name: shadowed_register
+    family: Shadowed Register
     group: components/register_memory
     abstraction: A2
     priority: P1
+    implementation: dual-copy、commit
+    description: 安全一致性与面积
     status: planned
     version: "0.1.0"
     path: components/register_memory/shadowed_register
   - id: MEM-003
     name: sticky_status_register
+    family: Sticky/W1C/W1S Register
     group: components/register_memory
     abstraction: A1/A2
     priority: P0
+    implementation: status semantics variants
+    description: 软件语义与门数
     status: planned
     version: "0.1.0"
     path: components/register_memory/sticky_status_register
   - id: MEM-004
     name: register_array
+    family: Register Array
     group: components/register_memory
     abstraction: A2
     priority: P0
+    implementation: async/sync read、byte mask
+    description: 推断RAM或FF阵列
     status: planned
     version: "0.1.0"
     path: components/register_memory/register_array
   - id: MEM-005
     name: rf_1r1w
+    family: 1R1W Register File
     group: components/register_memory
     abstraction: A2
     priority: P1
+    implementation: flop、macro、replicated
+    description: 读延迟、RAW bypass
     status: planned
     version: "0.1.0"
     path: components/register_memory/rf_1r1w
   - id: MEM-006
     name: rf_multi_read
+    family: Multi-read Register File
     group: components/register_memory
     abstraction: A2
     priority: P1
+    implementation: replicated、banked、muxed
+    description: 面积与端口冲突
     status: planned
     version: "0.1.0"
     path: components/register_memory/rf_multi_read
   - id: MEM-007
     name: rf_multi_write
+    family: Multi-write Register File
     group: components/register_memory
     abstraction: A2
     priority: P2
+    implementation: arbitration、banked
+    description: 写冲突与旁路
     status: planned
     version: "0.1.0"
     path: components/register_memory/rf_multi_write
   - id: MEM-008
     name: sram_width_composer
+    family: SRAM Width Composer
     group: components/register_memory
     abstraction: A2
     priority: P0
+    implementation: concat、byte-lane banking
+    description: Macro利用率与mask
     status: planned
     version: "0.1.0"
     path: components/register_memory/sram_width_composer
   - id: MEM-009
     name: sram_depth_composer
+    family: SRAM Depth Composer
     group: components/register_memory
     abstraction: A2
     priority: P0
+    implementation: cascaded decode、bank select
+    description: 译码/输出Mux关键路径
     status: planned
     version: "0.1.0"
     path: components/register_memory/sram_depth_composer
   - id: MEM-010
     name: sram_bank_mapper
+    family: SRAM Bank Mapper
     group: components/register_memory
     abstraction: A2
     priority: P1
+    implementation: interleave、hash、range
+    description: 冲突率、地址逻辑
     status: planned
     version: "0.1.0"
     path: components/register_memory/sram_bank_mapper
   - id: MEM-011
     name: sram_port_adapter
+    family: SRAM Port Adapter
     group: components/register_memory
     abstraction: A2
     priority: P1
+    implementation: 1R1W↔SP/TDP语义适配
+    description: 冲突语义与吞吐
     status: planned
     version: "0.1.0"
     path: components/register_memory/sram_port_adapter
   - id: MEM-012
     name: memory_raw_bypass
+    family: Memory RAW Bypass
     group: components/register_memory
     abstraction: A2
     priority: P0
+    implementation: write-first/read-first/no-change
+    description: 数据一致性与Mux延迟
     status: planned
     version: "0.1.0"
     path: components/register_memory/memory_raw_bypass
   - id: MEM-013
     name: memory_byte_write_adapter
+    family: Memory Byte-write Adapter
     group: components/register_memory
     abstraction: A2
     priority: P1
+    implementation: RMW、native mask
+    description: RMW周期与功耗
     status: planned
     version: "0.1.0"
     path: components/register_memory/memory_byte_write_adapter
   - id: MEM-014
     name: memory_init_load_adapter
+    family: Memory Init/Load Adapter
     group: components/register_memory
     abstraction: A2
     priority: P2
+    implementation: ROM/file/bus initialization
+    description: 仿真与综合一致性
     status: planned
     version: "0.1.0"
     path: components/register_memory/memory_init_load_adapter
   - id: MEM-015
     name: memory_sleep_ctrl
+    family: Memory Sleep/Retention Controller
     group: components/register_memory
     abstraction: A2
     priority: P2
+    implementation: idle-based、software-driven
+    description: break-even时间、唤醒
     status: planned
     version: "0.1.0"
     path: components/register_memory/memory_sleep_ctrl
   - id: MEM-016
     name: memory_ecc_shell
+    family: Memory ECC Shell
     group: components/register_memory
     abstraction: A2
     priority: P1
+    implementation: sidecar/in-line、scrub
+    description: 延迟、容量、可靠性
     status: planned
     version: "0.1.0"
     path: components/register_memory/memory_ecc_shell
   - id: MEM-017
     name: memory_scrubber
+    family: Memory Scrubber
     group: components/register_memory
     abstraction: A2
     priority: P2
+    implementation: periodic、on-demand、priority
+    description: 带宽占用、功耗
     status: planned
     version: "0.1.0"
     path: components/register_memory/memory_scrubber
   - id: MEM-018
     name: memory_bist_if_adapter
+    family: Memory BIST Interface Adapter
     group: components/register_memory
     abstraction: A2
     priority: P2
+    implementation: march controller interface
+    description: DFT接口与功能隔离
     status: planned
     version: "0.1.0"
     path: components/register_memory/memory_bist_if_adapter
   - id: MEM-019
     name: multi_bank_access_scheduler
+    family: Multi-bank Access Scheduler
     group: components/register_memory
     abstraction: A2
     priority: P2
+    implementation: fixed/RR/conflict-aware
+    description: Bank冲突与吞吐
     status: planned
     version: "0.1.0"
     path: components/register_memory/multi_bank_access_scheduler
   - id: MEM-020
     name: ping_pong_buffer
+    family: Ping-pong Buffer
     group: components/register_memory
     abstraction: A2
     priority: P1
+    implementation: dual-bank、N-bank rotation
+    description: 读写重叠与容量
     status: planned
     version: "0.1.0"
     path: components/register_memory/ping_pong_buffer
   - id: MEM-021
     name: line_buffer
+    family: Line Buffer
     group: components/register_memory
     abstraction: A2
     priority: P2
+    implementation: shift/SRAM/circular
+    description: 图像/卷积带宽
     status: planned
     version: "0.1.0"
     path: components/register_memory/line_buffer
   - id: MEM-022
     name: circular_buffer
+    family: Circular Buffer
     group: components/register_memory
     abstraction: A2
     priority: P1
+    implementation: pointer/wrap、power-of-two
+    description: 地址简化与满空判定
     status: planned
     version: "0.1.0"
     path: components/register_memory/circular_buffer
   - id: MEM-023
     name: lookup_table_rom
+    family: Lookup Table/ROM
     group: components/register_memory
     abstraction: A1/A2
     priority: P1
+    implementation: case、distributed、macro
+    description: 深宽映射与推断
     status: planned
     version: "0.1.0"
     path: components/register_memory/lookup_table_rom
   - id: MEM-024
     name: cam
+    family: CAM
     group: components/register_memory
     abstraction: A2
     priority: P3
+    implementation: register-based、banked
+    description: 并行比较功耗
     status: planned
     version: "0.1.0"
     path: components/register_memory/cam
   - id: MEM-025
     name: content_tag_array
+    family: Content Tag Array
     group: components/register_memory
     abstraction: A2
     priority: P3
+    implementation: tag+valid+compare
+    description: Cache/TLB公共结构
     status: planned
     version: "0.1.0"
     path: components/register_memory/content_tag_array
   - id: QUE-001
     name: sync_fifo
+    family: Synchronous FIFO
     group: components/fifo_queue_buffer
     abstraction: A2
     priority: P0
-    status: planned
+    implementation: register、shift、SRAM
+    description: 深宽自动映射
+    status: implemented
     version: "0.1.0"
     path: components/fifo_queue_buffer/sync_fifo
   - id: QUE-002
     name: async_fifo
+    family: Asynchronous FIFO
     group: components/fifo_queue_buffer
     abstraction: A2
     priority: P0
+    implementation: Gray pointer、bundled reset
+    description: CDC正确性、深度限制
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/async_fifo
   - id: QUE-003
     name: fall_through_fifo
+    family: Fall-through FIFO
     group: components/fifo_queue_buffer
     abstraction: A2
     priority: P0
+    implementation: combinational head、registered
+    description: 首拍延迟与Ready路径
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/fall_through_fifo
   - id: QUE-004
     name: shift_reg_fifo
+    family: Shift-register FIFO
     group: components/fifo_queue_buffer
     abstraction: A2
     priority: P1
+    implementation: shift-all、tap pointer
+    description: 小深度面积与翻转
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/shift_reg_fifo
   - id: QUE-005
     name: sram_fifo
+    family: SRAM FIFO
     group: components/fifo_queue_buffer
     abstraction: A2
     priority: P1
+    implementation: single/dual-port、prefetch
+    description: 读延迟隐藏
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/sram_fifo
   - id: QUE-006
     name: elastic_buffer
+    family: Elastic Buffer
     group: components/fifo_queue_buffer
     abstraction: A2
     priority: P0
+    implementation: 1/2-entry、bubble-free
+    description: 满吞吐与反压
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/elastic_buffer
   - id: QUE-007
     name: skid_buffer
+    family: Skid Buffer
     group: components/fifo_queue_buffer
     abstraction: A3
     priority: P0
+    implementation: output/input registered
+    description: 切断Ready组合链
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/skid_buffer
   - id: QUE-008
     name: pipeline_fifo
+    family: Pipeline FIFO
     group: components/fifo_queue_buffer
     abstraction: A2/A3
     priority: P1
+    implementation: distributed entries
+    description: 物理距离与吞吐
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/pipeline_fifo
   - id: QUE-009
     name: packet_fifo
+    family: Packet FIFO
     group: components/fifo_queue_buffer
     abstraction: A2
     priority: P2
+    implementation: packet commit/drop
+    description: 包边界和回滚
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/packet_fifo
   - id: QUE-010
     name: frame_buffer_queue
+    family: Frame Buffer Queue
     group: components/fifo_queue_buffer
     abstraction: A2
     priority: P3
+    implementation: descriptor+payload
+    description: 容量与元数据
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/frame_buffer_queue
   - id: QUE-011
     name: credit_fifo
+    family: Credit FIFO
     group: components/fifo_queue_buffer
     abstraction: A2/A3
     priority: P1
+    implementation: credit-aware enqueue/dequeue
+    description: Credit一致性
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/credit_fifo
   - id: QUE-012
     name: width_conversion_fifo
+    family: Width-conversion FIFO
     group: components/fifo_queue_buffer
     abstraction: A2/A3
     priority: P1
-    status: planned
+    implementation: narrow↔wide、gearbox
+    description: 存储利用率与Mux
+    status: implemented
     version: "0.1.0"
     path: components/fifo_queue_buffer/width_conversion_fifo
   - id: QUE-013
     name: multi_channel_fifo
+    family: Multi-channel FIFO
     group: components/fifo_queue_buffer
     abstraction: A2
     priority: P2
+    implementation: shared RAM、per-channel pointers
+    description: RAM共享与仲裁
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/multi_channel_fifo
   - id: QUE-014
     name: multi_enqueue_fifo
+    family: Multi-enqueue FIFO
     group: components/fifo_queue_buffer
     abstraction: A2
     priority: P2
+    implementation: 2/N push、compaction
+    description: 写合并与指针更新
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/multi_enqueue_fifo
   - id: QUE-015
     name: multi_dequeue_fifo
+    family: Multi-dequeue FIFO
     group: components/fifo_queue_buffer
     abstraction: A2
     priority: P2
+    implementation: 2/N pop、lookahead
+    description: 读端口与输出Mux
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/multi_dequeue_fifo
   - id: QUE-016
     name: reorder_queue
+    family: Reorder Queue
     group: components/fifo_queue_buffer
     abstraction: A2
     priority: P3
+    implementation: tag/index、CAM/window
+    description: 存储与比较功耗
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/reorder_queue
   - id: QUE-017
     name: priority_queue
+    family: Priority Queue
     group: components/fifo_queue_buffer
     abstraction: A2
     priority: P3
+    implementation: heap、bucket、sorted array
+    description: 延迟与容量
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/priority_queue
   - id: QUE-018
     name: descriptor_queue
+    family: Descriptor Queue
     group: components/fifo_queue_buffer
     abstraction: A2
     priority: P2
+    implementation: linked/ring/indexed
+    description: 控制开销与访存
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/descriptor_queue
   - id: QUE-019
     name: replay_retry_buffer
+    family: Replay/Retry Buffer
     group: components/fifo_queue_buffer
     abstraction: A2
     priority: P3
+    implementation: checkpoint、selective replay
+    description: 状态容量和恢复延迟
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/replay_retry_buffer
   - id: QUE-020
     name: broadcast_replication_buffer
+    family: Broadcast/Replication Buffer
     group: components/fifo_queue_buffer
     abstraction: A2/A3
     priority: P2
+    implementation: reference count、copy
+    description: 数据复制与背压
     status: planned
     version: "0.1.0"
     path: components/fifo_queue_buffer/broadcast_replication_buffer
   - id: STR-001
     name: fixed_delay_line
+    family: Fixed Delay Line
     group: components/streaming_pipeline
     abstraction: A1/A2
     priority: P0
+    implementation: FF、SRL、RAM-based
+    description: 延迟、面积、初始化
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/fixed_delay_line
   - id: STR-002
     name: enable_delay_line
+    family: Enable Delay Line
     group: components/streaming_pipeline
     abstraction: A1/A2
     priority: P1
+    implementation: clock-enable/data-gated
+    description: 空闲功耗
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/enable_delay_line
   - id: STR-003
     name: data_control_aligner
+    family: Data/Control Aligner
     group: components/streaming_pipeline
     abstraction: A2
     priority: P0
+    implementation: fixed/programmable latency
+    description: 控制数据一致性
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/data_control_aligner
   - id: STR-004
     name: forward_register_slice
+    family: Forward Register Slice
     group: components/streaming_pipeline
     abstraction: A3
     priority: P0
+    implementation: payload registered
+    description: 数据关键路径
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/forward_register_slice
   - id: STR-005
     name: backward_register_slice
+    family: Backward Register Slice
     group: components/streaming_pipeline
     abstraction: A3
     priority: P0
+    implementation: ready registered
+    description: 反压关键路径
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/backward_register_slice
   - id: STR-006
     name: full_register_slice
+    family: Full Register Slice
     group: components/streaming_pipeline
     abstraction: A3
     priority: P0
+    implementation: skid/full throughput
+    description: 双向切时序
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/full_register_slice
   - id: STR-007
     name: bypassable_register_slice
+    family: Bypassable Register Slice
     group: components/streaming_pipeline
     abstraction: A3
     priority: P1
+    implementation: static/dynamic bypass
+    description: 模式Mux与验证
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/bypassable_register_slice
   - id: STR-008
     name: stream_mux
+    family: Stream Mux
     group: components/streaming_pipeline
     abstraction: A3
     priority: P0
+    implementation: binary/one-hot/arbitrated
+    description: 选择与反压
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_mux
   - id: STR-009
     name: stream_demux
+    family: Stream Demux
     group: components/streaming_pipeline
     abstraction: A3
     priority: P0
+    implementation: decoded/multicast
+    description: 输出Ready聚合
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_demux
   - id: STR-010
     name: stream_fork
+    family: Stream Fork
     group: components/streaming_pipeline
     abstraction: A3
     priority: P1
+    implementation: all-ready、independent buffer
+    description: 复制和阻塞语义
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_fork
   - id: STR-011
     name: stream_join
+    family: Stream Join
     group: components/streaming_pipeline
     abstraction: A3
     priority: P1
+    implementation: lockstep、tagged join
+    description: 同步等待与Buffer
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_join
   - id: STR-012
     name: stream_merge
+    family: Stream Merge
     group: components/streaming_pipeline
     abstraction: A3
     priority: P1
+    implementation: priority/RR/interleaved
+    description: 仲裁与包锁定
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_merge
   - id: STR-013
     name: stream_split
+    family: Stream Split
     group: components/streaming_pipeline
     abstraction: A3
     priority: P2
+    implementation: field/length/packet based
+    description: 状态与边界
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_split
   - id: STR-014
     name: stream_width_converter
+    family: Stream Width Converter
     group: components/streaming_pipeline
     abstraction: A3
     priority: P1
+    implementation: integer/non-integer ratio
+    description: Gearbox与跨拍状态
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_width_converter
   - id: STR-015
     name: stream_gearbox
+    family: Stream Gearbox
     group: components/streaming_pipeline
     abstraction: A3
     priority: P2
+    implementation: bit/byte lane gearbox
+    description: 相位、吞吐、布线
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_gearbox
   - id: STR-016
     name: stream_rate_matcher
+    family: Stream Rate Matcher
     group: components/streaming_pipeline
     abstraction: A3
     priority: P2
+    implementation: throttle/replicate/drop
+    description: 速率与Buffer深度
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_rate_matcher
   - id: STR-017
     name: stream_packetizer
+    family: Stream Packetizer
     group: components/streaming_pipeline
     abstraction: A3
     priority: P2
+    implementation: header/trailer insert
+    description: 包头Mux与CRC衔接
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_packetizer
   - id: STR-018
     name: stream_depacketizer
+    family: Stream Depacketizer
     group: components/streaming_pipeline
     abstraction: A3
     priority: P2
+    implementation: parse/strip/metadata extract
+    description: 解析关键路径
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_depacketizer
   - id: STR-019
     name: stream_arbiter
+    family: Stream Arbiter
     group: components/streaming_pipeline
     abstraction: A3
     priority: P1
+    implementation: transfer/packet locked
+    description: 公平性和切换气泡
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_arbiter
   - id: STR-020
     name: stream_multicast
+    family: Stream Multicast
     group: components/streaming_pipeline
     abstraction: A3
     priority: P2
+    implementation: all/subset destinations
+    description: Ready汇聚与复制
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_multicast
   - id: STR-021
     name: stream_broadcaster
+    family: Stream Broadcaster
     group: components/streaming_pipeline
     abstraction: A3
     priority: P1
+    implementation: registered/distributed
+    description: 高扇出与物理距离
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_broadcaster
   - id: STR-022
     name: stream_throttler
+    family: Stream Throttler
     group: components/streaming_pipeline
     abstraction: A3
     priority: P2
+    implementation: fixed/token-bucket
+    description: 控制翻转和精度
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_throttler
   - id: STR-023
     name: stream_traffic_shaper
+    family: Stream Traffic Shaper
     group: components/streaming_pipeline
     abstraction: A3
     priority: P3
+    implementation: token/leaky bucket
+    description: 速率状态和突发
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_traffic_shaper
   - id: STR-024
     name: stream_monitor_tap
+    family: Stream Monitor Tap
     group: components/streaming_pipeline
     abstraction: A3
     priority: P2
+    implementation: passive/filtered/sampled
+    description: 零干扰与观测开销
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/stream_monitor_tap
   - id: STR-025
     name: bubble_inserter_remover
+    family: Bubble Inserter/Remover
     group: components/streaming_pipeline
     abstraction: A3
     priority: P3
+    implementation: scheduled/elastic
+    description: 时序整形
     status: planned
     version: "0.1.0"
     path: components/streaming_pipeline/bubble_inserter_remover
   - id: ARB-001
     name: fixed_priority_arbiter
+    family: Fixed-priority Arbiter
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P0
+    implementation: linear、tree、grouped
+    description: 优先级链
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/fixed_priority_arbiter
   - id: ARB-002
     name: round_robin_arbiter
+    family: Round-robin Arbiter
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P0
+    implementation: mask、rotate+priority、pointer
+    description: 规模扩展、翻转
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/round_robin_arbiter
   - id: ARB-003
     name: weighted_rr_arbiter
+    family: Weighted RR Arbiter
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P2
+    implementation: quota、smooth WRR
+    description: 权重状态与公平性
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/weighted_rr_arbiter
   - id: ARB-004
     name: deficit_rr_arbiter
+    family: Deficit RR Arbiter
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P3
+    implementation: byte/packet quantum
+    description: 加法状态与包长
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/deficit_rr_arbiter
   - id: ARB-005
     name: age_based_arbiter
+    family: Age-based Arbiter
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P3
+    implementation: timestamp/counter
+    description: 比较网络面积
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/age_based_arbiter
   - id: ARB-006
     name: lottery_arbiter
+    family: Lottery/Random Arbiter
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P3
+    implementation: LFSR-weighted
+    description: 随机质量与验证
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/lottery_arbiter
   - id: ARB-007
     name: multi_grant_arbiter
+    family: Multi-grant Arbiter
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P2
+    implementation: top-K、prefix、bank-aware
+    description: 多授权组合复杂度
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/multi_grant_arbiter
   - id: ARB-008
     name: hierarchical_arbiter
+    family: Hierarchical Arbiter
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P1
+    implementation: local+global、cluster
+    description: 大规模请求时序
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/hierarchical_arbiter
   - id: ARB-009
     name: pipelined_arbiter
+    family: Pipelined Arbiter
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P1
+    implementation: registered grant、lookahead
+    description: 延迟与满吞吐
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/pipelined_arbiter
   - id: ARB-010
     name: packet_locking_arbiter
+    family: Packet-locking Arbiter
     group: components/arbitration_scheduling
     abstraction: A2/A3
     priority: P1
+    implementation: lock until EOP/length
+    description: 锁定状态与公平性
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/packet_locking_arbiter
   - id: ARB-011
     name: credit_manager
+    family: Credit Manager
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P0
+    implementation: per-VC/shared pool
+    description: 计数一致性和位宽
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/credit_manager
   - id: ARB-012
     name: token_allocator
+    family: Token Allocator
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P1
+    implementation: bitmap/free-list/tree
+    description: 分配/回收时序
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/token_allocator
   - id: ARB-013
     name: resource_pool_manager
+    family: Resource Pool Manager
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P2
+    implementation: free list、stack、bitmap
+    description: 容量、并行分配
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/resource_pool_manager
   - id: ARB-014
     name: request_coalescer
+    family: Request Coalescer
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P2
+    implementation: same target/address merge
+    description: 比较网络和Buffer
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/request_coalescer
   - id: ARB-015
     name: request_distributor
+    family: Request Distributor
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P2
+    implementation: RR/hash/load-aware
+    description: 均衡度与路由逻辑
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/request_distributor
   - id: ARB-016
     name: shared_operator_scheduler
+    family: Shared Operator Scheduler
     group: components/arbitration_scheduling
     abstraction: A2/A4
     priority: P1
+    implementation: static/dynamic/time-mux
+    description: 资源面积与排队延迟
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/shared_operator_scheduler
   - id: ARB-017
     name: bank_conflict_resolver
+    family: Bank Conflict Resolver
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P1
+    implementation: replay/stall/remap
+    description: 冲突率和吞吐
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/bank_conflict_resolver
   - id: ARB-018
     name: outstanding_tracker
+    family: Outstanding Tracker
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P1
+    implementation: counter/tag table/bitmap
+    description: 容量与匹配逻辑
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/outstanding_tracker
   - id: ARB-019
     name: reservation_lock_manager
+    family: Reservation/Lock Manager
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P3
+    implementation: owner/timeout/priority
+    description: 死锁与状态开销
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/reservation_lock_manager
   - id: ARB-020
     name: barrier_join_controller
+    family: Barrier/Join Controller
     group: components/arbitration_scheduling
     abstraction: A2
     priority: P2
+    implementation: count/bitmap/generation
+    description: 参与者数量与扇入
     status: planned
     version: "0.1.0"
     path: components/arbitration_scheduling/barrier_join_controller
   - id: CDC-001
     name: single_bit_synchronizer
+    family: Single-bit Synchronizer
     group: components/cdc_rdc
     abstraction: A1
     priority: P0
+    implementation: 2/3-stage、hardened cell
+    description: MTBF、属性、布局
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/single_bit_synchronizer
   - id: CDC-002
     name: multibit_static_synchronizer
+    family: Multi-bit Static Synchronizer
     group: components/cdc_rdc
     abstraction: A1/A2
     priority: P0
+    implementation: per-bit + stability contract
+    description: 仅适用于静态配置总线
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/multibit_static_synchronizer
   - id: CDC-003
     name: pulse_synchronizer
+    family: Pulse Synchronizer
     group: components/cdc_rdc
     abstraction: A2
     priority: P0
+    implementation: toggle、stretch、acknowledged
+    description: 脉宽与连续脉冲间隔
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/pulse_synchronizer
   - id: CDC-004
     name: toggle_synchronizer
+    family: Toggle Synchronizer
     group: components/cdc_rdc
     abstraction: A2
     priority: P0
+    implementation: event toggle、counter extension
+    description: 事件丢失边界
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/toggle_synchronizer
   - id: CDC-005
     name: handshake_synchronizer
+    family: Handshake Synchronizer
     group: components/cdc_rdc
     abstraction: A2
     priority: P0
+    implementation: 2-phase、4-phase
+    description: 延迟、吞吐、复位
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/handshake_synchronizer
   - id: CDC-006
     name: bundled_data_cdc
+    family: Bundled-data CDC
     group: components/cdc_rdc
     abstraction: A2
     priority: P1
+    implementation: req/ack + stable data
+    description: 数据稳定窗口和约束
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/bundled_data_cdc
   - id: CDC-007
     name: bus_snapshot_cdc
+    family: Bus Snapshot CDC
     group: components/cdc_rdc
     abstraction: A2
     priority: P1
+    implementation: shadow/latch/snapshot
+    description: 原子采样
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/bus_snapshot_cdc
   - id: CDC-008
     name: gray_counter_cdc
+    family: Gray Counter CDC
     group: components/cdc_rdc
     abstraction: A2
     priority: P0
+    implementation: binary-gray-sync-decode
+    description: 最大跳变与约束
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/gray_counter_cdc
   - id: CDC-009
     name: async_fifo_cdc
+    family: Async FIFO
     group: components/cdc_rdc
     abstraction: A2
     priority: P0
+    implementation: small register/large SRAM
+    description: 指针、满空、复位
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/async_fifo_cdc
   - id: CDC-010
     name: mesochronous_elastic_buffer
+    family: Mesochronous Elastic Buffer
     group: components/cdc_rdc
     abstraction: A2
     priority: P3
+    implementation: phase-slip/elastic
+    description: 同频异相场景
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/mesochronous_elastic_buffer
   - id: CDC-011
     name: plesiochronous_rate_matcher
+    family: Plesiochronous Rate Matcher
     group: components/cdc_rdc
     abstraction: A2
     priority: P3
+    implementation: skip/repeat/elastic
+    description: 频偏吸收
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/plesiochronous_rate_matcher
   - id: CDC-012
     name: cdc_event_aggregator
+    family: Clock-domain Event Aggregator
     group: components/cdc_rdc
     abstraction: A2
     priority: P1
+    implementation: per-source sync + collect
+    description: 同时事件和扇入
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/cdc_event_aggregator
   - id: CDC-013
     name: cdc_config_bridge
+    family: Clock-domain Config Bridge
     group: components/cdc_rdc
     abstraction: A2/A3
     priority: P1
+    implementation: shadow+update handshake
+    description: 一致性与低频配置
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/cdc_config_bridge
   - id: RDC-001
     name: async_assert_sync_release_reset
+    family: Async Assert/Sync Release Reset
     group: components/cdc_rdc
     abstraction: A1
     priority: P0
+    implementation: 2/3-stage
+    description: 复位恢复/移除时间
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/async_assert_sync_release_reset
   - id: RDC-002
     name: sync_reset_bridge
+    family: Fully Synchronous Reset Bridge
     group: components/cdc_rdc
     abstraction: A2
     priority: P1
+    implementation: request/ack sequence
+    description: 域间顺序
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/sync_reset_bridge
   - id: RDC-003
     name: reset_pulse_stretcher
+    family: Reset Pulse Stretcher
     group: components/cdc_rdc
     abstraction: A1/A2
     priority: P0
+    implementation: min-cycle programmable
+    description: 最短复位周期
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/reset_pulse_stretcher
   - id: RDC-004
     name: reset_domain_isolation
+    family: Reset Domain Isolation
     group: components/cdc_rdc
     abstraction: A2
     priority: P1
+    implementation: clamp/handshake
+    description: 失复位域影响隔离
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/reset_domain_isolation
   - id: RDC-005
     name: reset_sequencer
+    family: Reset Sequencer
     group: components/cdc_rdc
     abstraction: A2/A4
     priority: P1
+    implementation: dependency DAG、timeout
+    description: 扇出、启动延迟
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/reset_sequencer
   - id: RDC-006
     name: warm_cold_reset_ctrl
+    family: Warm/Cold Reset Controller
     group: components/cdc_rdc
     abstraction: A2/A4
     priority: P2
+    implementation: cause/filter/distribution
+    description: 状态保留边界
     status: planned
     version: "0.1.0"
     path: components/cdc_rdc/warm_cold_reset_ctrl
   - id: CRP-001
     name: local_clock_enable
+    family: Local Clock Enable
     group: components/clock_reset_power
     abstraction: A1/A0
     priority: P0
+    implementation: CE inference、ICG wrapper
+    description: 门控粒度与工具识别
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/local_clock_enable
   - id: CRP-002
     name: hierarchical_clock_gating
+    family: Hierarchical Clock Gating Controller
     group: components/clock_reset_power
     abstraction: A2
     priority: P1
+    implementation: local/global enables
+    description: ICG共享与扇出
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/hierarchical_clock_gating
   - id: CRP-003
     name: auto_clock_gating_detector
+    family: Auto Clock Gating Detector
     group: components/clock_reset_power
     abstraction: A2
     priority: P2
+    implementation: idle/activity based
+    description: 收益阈值与唤醒
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/auto_clock_gating_detector
   - id: CRP-004
     name: clock_divider
+    family: Clock Divider
     group: components/clock_reset_power
     abstraction: A2
     priority: P1
+    implementation: integer/even/odd/fraction shell
+    description: 占空比与毛刺
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/clock_divider
   - id: CRP-005
     name: clock_switch_ctrl
+    family: Clock Switch Controller
     group: components/clock_reset_power
     abstraction: A2
     priority: P1
+    implementation: glitch-free mux protocol
+    description: 切换握手和无时钟场景
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/clock_switch_ctrl
   - id: CRP-006
     name: clock_request_ack
+    family: Clock Request/Acknowledge
     group: components/clock_reset_power
     abstraction: A2
     priority: P1
+    implementation: gated source handshake
+    description: 启停延迟
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/clock_request_ack
   - id: CRP-007
     name: reset_synchronizer
+    family: Reset Synchronizer
     group: components/clock_reset_power
     abstraction: A1
     priority: P0
+    implementation: parameterized stages
+    description: RDC签核属性
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/reset_synchronizer
   - id: CRP-008
     name: reset_filter_deglitch
+    family: Reset Filter/Deglitch
     group: components/clock_reset_power
     abstraction: A2
     priority: P2
+    implementation: sampled/qualified
+    description: 外部复位噪声
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/reset_filter_deglitch
   - id: CRP-009
     name: reset_cause_collector
+    family: Reset Cause Collector
     group: components/clock_reset_power
     abstraction: A2
     priority: P1
+    implementation: sticky/priority encode
+    description: 软件可观测性
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/reset_cause_collector
   - id: CRP-010
     name: reset_distribution_helper
+    family: Reset Distribution Helper
     group: components/clock_reset_power
     abstraction: A2
     priority: P1
+    implementation: partition/local replication
+    description: 高扇出和局部化
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/reset_distribution_helper
   - id: CRP-011
     name: operand_isolation
+    family: Operand Isolation
     group: components/clock_reset_power
     abstraction: A1/A2
     priority: P1
+    implementation: input hold/zero/mux isolation
+    description: 动态功耗与时序代价
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/operand_isolation
   - id: CRP-012
     name: data_gating
+    family: Data Gating
     group: components/clock_reset_power
     abstraction: A1/A2
     priority: P1
+    implementation: valid-based/change-based
+    description: 毛刺和翻转抑制
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/data_gating
   - id: CRP-013
     name: pipeline_freeze_ctrl
+    family: Pipeline Freeze Controller
     group: components/clock_reset_power
     abstraction: A2
     priority: P1
+    implementation: clock/data enable
+    description: 状态一致性与唤醒
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/pipeline_freeze_ctrl
   - id: CRP-014
     name: idle_detector
+    family: Idle Detector
     group: components/clock_reset_power
     abstraction: A2
     priority: P1
+    implementation: counter/window/protocol-aware
+    description: 检测功耗和误判
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/idle_detector
   - id: CRP-015
     name: activity_detector
+    family: Activity Detector
     group: components/clock_reset_power
     abstraction: A2
     priority: P1
+    implementation: toggle/event/window
+    description: 监控开销
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/activity_detector
   - id: CRP-016
     name: power_domain_handshake
+    family: Power-domain Handshake
     group: components/clock_reset_power
     abstraction: A2
     priority: P2
+    implementation: request/ack/isolate/save
+    description: UPF状态序列
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/power_domain_handshake
   - id: CRP-017
     name: isolation_ctrl_sequencer
+    family: Isolation Control Sequencer
     group: components/clock_reset_power
     abstraction: A2
     priority: P2
+    implementation: clamp/unclamp ordering
+    description: 安全时序
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/isolation_ctrl_sequencer
   - id: CRP-018
     name: retention_ctrl_sequencer
+    family: Retention Control Sequencer
     group: components/clock_reset_power
     abstraction: A2
     priority: P2
+    implementation: save/restore/check
+    description: 数据完整性
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/retention_ctrl_sequencer
   - id: CRP-019
     name: mem_sleep_controller
+    family: Memory Sleep Controller
     group: components/clock_reset_power
     abstraction: A2
     priority: P2
+    implementation: bank/global idle policy
+    description: break-even与唤醒
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/mem_sleep_controller
   - id: CRP-020
     name: high_fanout_replicator
+    family: High-fanout Replicator
     group: components/clock_reset_power
     abstraction: A2
     priority: P1
+    implementation: register/mux/decode replication
+    description: 功能等价与物理收益
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/high_fanout_replicator
   - id: CRP-021
     name: config_mirror_local_decode
+    family: Config Mirror/Local Decode
     group: components/clock_reset_power
     abstraction: A2
     priority: P1
+    implementation: centralized/distributed
+    description: 布线与寄存器面积
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/config_mirror_local_decode
   - id: CRP-022
     name: enable_tree_helper
+    family: Enable Tree Helper
     group: components/clock_reset_power
     abstraction: A2
     priority: P1
+    implementation: hierarchical enable pipeline
+    description: 时钟周期与控制对齐
     status: planned
     version: "0.1.0"
     path: components/clock_reset_power/enable_tree_helper
   - id: CTL-001
     name: up_down_counter
+    family: Up/Down Counter
     group: components/control_event_status
     abstraction: A1
     priority: P0
+    implementation: binary/Gray/saturating
+    description: 最小位宽、切换功耗
     status: planned
     version: "0.1.0"
     path: components/control_event_status/up_down_counter
   - id: CTL-002
     name: modulo_counter
+    family: Modulo Counter
     group: components/control_event_status
     abstraction: A1
     priority: P0
+    implementation: arbitrary/power-of-two
+    description: 比较与回绕
     status: planned
     version: "0.1.0"
     path: components/control_event_status/modulo_counter
   - id: CTL-003
     name: timestamp_counter
+    family: Timestamp Counter
     group: components/control_event_status
     abstraction: A1/A2
     priority: P1
+    implementation: free-running/prescaled
+    description: 位宽、跨域采样
     status: planned
     version: "0.1.0"
     path: components/control_event_status/timestamp_counter
   - id: CTL-004
     name: timer
+    family: Timer
     group: components/control_event_status
     abstraction: A2
     priority: P0
+    implementation: one-shot/periodic/cascade
+    description: Prescaler共享
     status: planned
     version: "0.1.0"
     path: components/control_event_status/timer
   - id: CTL-005
     name: timeout_monitor
+    family: Timeout Monitor
     group: components/control_event_status
     abstraction: A2
     priority: P0
+    implementation: cycle/event/progress based
+    description: 监控开销与恢复
     status: planned
     version: "0.1.0"
     path: components/control_event_status/timeout_monitor
   - id: CTL-006
     name: watchdog
+    family: Watchdog
     group: components/control_event_status
     abstraction: A2
     priority: P1
+    implementation: windowed/non-windowed
+    description: 安全诊断覆盖
     status: planned
     version: "0.1.0"
     path: components/control_event_status/watchdog
   - id: CTL-007
     name: prescaler_rate_divider
+    family: Prescaler/Rate Divider
     group: components/control_event_status
     abstraction: A1/A2
     priority: P1
+    implementation: integer/fraction accumulator
+    description: 精度和切换
     status: planned
     version: "0.1.0"
     path: components/control_event_status/prescaler_rate_divider
   - id: CTL-008
     name: fsm_shell
+    family: FSM Shell
     group: components/control_event_status
     abstraction: A1/A2
     priority: P0
+    implementation: binary/one-hot/Gray encoding
+    description: 编码按表征选型
     status: planned
     version: "0.1.0"
     path: components/control_event_status/fsm_shell
   - id: CTL-009
     name: hierarchical_fsm
+    family: Hierarchical FSM
     group: components/control_event_status
     abstraction: A2
     priority: P2
+    implementation: parent/child decomposition
+    description: 状态爆炸控制
     status: planned
     version: "0.1.0"
     path: components/control_event_status/hierarchical_fsm
   - id: CTL-010
     name: micro_sequencer
+    family: Micro-sequencer
     group: components/control_event_status
     abstraction: A2
     priority: P2
+    implementation: ROM/table-driven
+    description: 控制ROM与可配置性
     status: planned
     version: "0.1.0"
     path: components/control_event_status/micro_sequencer
   - id: CTL-011
     name: command_sequencer
+    family: Command Sequencer
     group: components/control_event_status
     abstraction: A2
     priority: P2
+    implementation: queue/FSM/table
+    description: 状态与Buffer
     status: planned
     version: "0.1.0"
     path: components/control_event_status/command_sequencer
   - id: CTL-012
     name: retry_controller
+    family: Retry Controller
     group: components/control_event_status
     abstraction: A2
     priority: P2
+    implementation: bounded/backoff/selective
+    description: 活锁与计数器
     status: planned
     version: "0.1.0"
     path: components/control_event_status/retry_controller
   - id: CTL-013
     name: event_edge_detector
+    family: Event Edge Detector
     group: components/control_event_status
     abstraction: A1
     priority: P0
+    implementation: rise/fall/both
+    description: CDC前后使用约束
     status: planned
     version: "0.1.0"
     path: components/control_event_status/event_edge_detector
   - id: CTL-014
     name: pulse_stretcher_compressor
+    family: Pulse Stretcher/Compressor
     group: components/control_event_status
     abstraction: A1
     priority: P0
+    implementation: fixed/programmable
+    description: 最小脉宽
     status: planned
     version: "0.1.0"
     path: components/control_event_status/pulse_stretcher_compressor
   - id: CTL-015
     name: event_collector
+    family: Event Collector
     group: components/control_event_status
     abstraction: A2
     priority: P0
+    implementation: OR/tree/bitmap/count
+    description: 事件丢失语义
     status: planned
     version: "0.1.0"
     path: components/control_event_status/event_collector
   - id: CTL-016
     name: event_router
+    family: Event Router
     group: components/control_event_status
     abstraction: A2
     priority: P1
+    implementation: programmable/static map
+    description: Mux、扇出和配置
     status: planned
     version: "0.1.0"
     path: components/control_event_status/event_router
   - id: CTL-017
     name: event_debouncer_filter
+    family: Event Debouncer/Filter
     group: components/control_event_status
     abstraction: A2
     priority: P2
+    implementation: count/window/majority
+    description: 延迟和外部输入
     status: planned
     version: "0.1.0"
     path: components/control_event_status/event_debouncer_filter
   - id: CTL-018
     name: token_credit_counter
+    family: Token/Credit Counter
     group: components/control_event_status
     abstraction: A2
     priority: P0
+    implementation: saturating/checked
+    description: 上下溢保护
     status: planned
     version: "0.1.0"
     path: components/control_event_status/token_credit_counter
   - id: CTL-019
     name: sequence_number_manager
+    family: Sequence Number Manager
     group: components/control_event_status
     abstraction: A2
     priority: P2
+    implementation: wrap/window/compare
+    description: 回绕比较
     status: planned
     version: "0.1.0"
     path: components/control_event_status/sequence_number_manager
   - id: CTL-020
     name: bitmap_allocator
+    family: Bitmap Allocator
     group: components/control_event_status
     abstraction: A2
     priority: P1
+    implementation: linear/tree/hierarchical
+    description: 查找与更新关键路径
     status: planned
     version: "0.1.0"
     path: components/control_event_status/bitmap_allocator
   - id: CTL-021
     name: free_list_manager
+    family: Free-list Manager
     group: components/control_event_status
     abstraction: A2
     priority: P2
+    implementation: FIFO/stack/bitmap
+    description: 多分配/回收
     status: planned
     version: "0.1.0"
     path: components/control_event_status/free_list_manager
   - id: CTL-022
     name: scoreboard
+    family: Scoreboard
     group: components/control_event_status
     abstraction: A2
     priority: P2
+    implementation: bit/vector/tagged
+    description: CAM/bitmap权衡
     status: planned
     version: "0.1.0"
     path: components/control_event_status/scoreboard
   - id: CTL-023
     name: dependency_tracker
+    family: Dependency Tracker
     group: components/control_event_status
     abstraction: A2
     priority: P3
+    implementation: counter/bitmap/DAG subset
+    description: 状态规模
     status: planned
     version: "0.1.0"
     path: components/control_event_status/dependency_tracker
   - id: CTL-024
     name: quiesce_drain_ctrl
+    family: Quiesce/Drain Controller
     group: components/control_event_status
     abstraction: A2
     priority: P1
+    implementation: stop-accept/drain/ack
+    description: 低功耗与复位切换
     status: planned
     version: "0.1.0"
     path: components/control_event_status/quiesce_drain_ctrl
   - id: SAF-001
     name: parity_protected_register
+    family: Parity-protected Register
     group: components/interrupt_safety
     abstraction: A2
     priority: P1
+    implementation: data+parity、auto-check
+    description: 面积与读写延迟
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/parity_protected_register
   - id: SAF-002
     name: ecc_protected_memory_shell
+    family: ECC-protected Memory Shell
     group: components/interrupt_safety
     abstraction: A2
     priority: P1
+    implementation: SECDED、scrub、bypass
+    description: 纠错路径和带宽
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/ecc_protected_memory_shell
   - id: SAF-003
     name: dual_modular_comparator
+    family: Dual Modular Comparator
     group: components/interrupt_safety
     abstraction: A2
     priority: P2
+    implementation: cycle/transaction compare
+    description: 比较覆盖与延迟
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/dual_modular_comparator
   - id: SAF-004
     name: lockstep_alignment_buffer
+    family: Lockstep Alignment Buffer
     group: components/interrupt_safety
     abstraction: A2
     priority: P2
+    implementation: fixed/elastic delay
+    description: 双核对齐与状态
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/lockstep_alignment_buffer
   - id: SAF-005
     name: lockstep_comparator
+    family: Lockstep Comparator
     group: components/interrupt_safety
     abstraction: A2
     priority: P2
+    implementation: configurable compare masks
+    description: 比较宽度与错误延迟
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/lockstep_comparator
   - id: SAF-006
     name: temporal_redundancy_ctrl
+    family: Temporal Redundancy Controller
     group: components/interrupt_safety
     abstraction: A2
     priority: P3
+    implementation: replay/double-execute
+    description: 性能开销
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/temporal_redundancy_ctrl
   - id: SAF-007
     name: tmr_voter
+    family: TMR Voter
     group: components/interrupt_safety
     abstraction: A1/A2
     priority: P3
+    implementation: bit/word/state voter
+    description: 面积、共因失效边界
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/tmr_voter
   - id: SAF-008
     name: safety_bypass_mode
+    family: Safety Mechanism Bypass/Mode
     group: components/interrupt_safety
     abstraction: A2
     priority: P2
+    implementation: controlled mux + status
+    description: 安全状态与测试
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/safety_bypass_mode
   - id: SAF-009
     name: fault_injection_point
+    family: Fault Injection Point
     group: components/interrupt_safety
     abstraction: A1/A2
     priority: P1
+    implementation: force/flip/stuck-at/pulse
+    description: 综合隔离和验证
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/fault_injection_point
   - id: SAF-010
     name: error_status_latch
+    family: Error Status Latch
     group: components/interrupt_safety
     abstraction: A2
     priority: P0
+    implementation: sticky/first-error/count
+    description: 信息保留与面积
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/error_status_latch
   - id: SAF-011
     name: error_aggregator
+    family: Error Aggregator
     group: components/interrupt_safety
     abstraction: A2
     priority: P0
+    implementation: OR/tree/vector/priority
+    description: 扇入、延迟、去重
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/error_aggregator
   - id: SAF-012
     name: error_router
+    family: Error Router
     group: components/interrupt_safety
     abstraction: A2
     priority: P1
+    implementation: destination mask/multicast
+    description: 高扇出和配置
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/error_router
   - id: SAF-013
     name: error_escalation_ctrl
+    family: Error Escalation Controller
     group: components/interrupt_safety
     abstraction: A2
     priority: P2
+    implementation: threshold/window/stage
+    description: 状态和响应延迟
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/error_escalation_ctrl
   - id: SAF-014
     name: alarm_handler_core
+    family: Alarm Handler Core
     group: components/interrupt_safety
     abstraction: A4
     priority: P2
+    implementation: class/severity/timeout subset
+    description: 接近IP，需边界治理
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/alarm_handler_core
   - id: SAF-015
     name: bus_transaction_monitor
+    family: Bus Transaction Monitor
     group: components/interrupt_safety
     abstraction: A3
     priority: P1
+    implementation: timeout/protocol/address
+    description: 插入延迟与观测覆盖
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/bus_transaction_monitor
   - id: SAF-016
     name: e2e_protection_codec
+    family: End-to-end Protection Codec
     group: components/interrupt_safety
     abstraction: A3
     priority: P2
+    implementation: data+sequence+CRC
+    description: 带宽、延迟、标准配置
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/e2e_protection_codec
   - id: SAF-017
     name: duplicate_sequence_checker
+    family: Duplicate/Sequence Checker
     group: components/interrupt_safety
     abstraction: A2/A3
     priority: P2
+    implementation: rolling window/bitmap
+    description: 窗口容量
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/duplicate_sequence_checker
   - id: SAF-018
     name: heartbeat_monitor
+    family: Alive/Heartbeat Monitor
     group: components/interrupt_safety
     abstraction: A2
     priority: P1
+    implementation: periodic/windowed
+    description: 误报和监控时钟
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/heartbeat_monitor
   - id: SAF-019
     name: clock_monitor_shell
+    family: Clock Monitor Digital Shell
     group: components/interrupt_safety
     abstraction: A2
     priority: P2
+    implementation: missing/too-fast/too-slow
+    description: 参考时钟与计数误差
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/clock_monitor_shell
   - id: SAF-020
     name: reset_monitor
+    family: Reset Monitor
     group: components/interrupt_safety
     abstraction: A2
     priority: P2
+    implementation: cause/order/duration check
+    description: RDC与安全状态
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/reset_monitor
   - id: SAF-021
     name: vt_monitor_wrapper
+    family: Voltage/Temperature Monitor Wrapper
     group: components/interrupt_safety
     abstraction: A0/A2
     priority: P3
+    implementation: alarm/status synchronizer
+    description: 模拟监控器接口
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/vt_monitor_wrapper
   - id: SAF-022
     name: safe_state_ctrl
+    family: Safe-state Controller
     group: components/interrupt_safety
     abstraction: A2/A4
     priority: P2
+    implementation: local/global request/ack
+    description: 失效响应时间
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/safe_state_ctrl
   - id: SAF-023
     name: mem_addr_data_protection
+    family: Memory Address/Data Protection
     group: components/interrupt_safety
     abstraction: A2
     priority: P2
+    implementation: parity/tag/ECC sideband
+    description: 存储与延迟开销
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/mem_addr_data_protection
   - id: SAF-024
     name: latent_fault_test_ctrl
+    family: Latent Fault Test Controller
     group: components/interrupt_safety
     abstraction: A2
     priority: P3
+    implementation: periodic test handshake
+    description: 业务中断与覆盖
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/latent_fault_test_ctrl
   - id: SAF-025
     name: safety_counter_checker
+    family: Safety Counter Checker
     group: components/interrupt_safety
     abstraction: A1/A2
     priority: P2
+    implementation: dual counter/encoded counter
+    description: 诊断覆盖与面积
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/safety_counter_checker
   - id: SAF-026
     name: safety_fsm_checker
+    family: Safety FSM Checker
     group: components/interrupt_safety
     abstraction: A1/A2
     priority: P1
+    implementation: illegal state/transition monitor
+    description: 编码与综合保持
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/safety_fsm_checker
   - id: SAF-027
     name: interrupt_source_conditioner
+    family: Interrupt Source Conditioner
     group: components/interrupt_safety
     abstraction: A2
     priority: P0
+    implementation: sync/pulse2level/sticky/mask
+    description: PIC前端复用重点
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/interrupt_source_conditioner
   - id: SAF-028
     name: interrupt_aggregator
+    family: Interrupt Aggregator
     group: components/interrupt_safety
     abstraction: A2
     priority: P0
+    implementation: vector/tree/hierarchical
+    description: 大位宽扇入
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/interrupt_aggregator
   - id: SAF-029
     name: interrupt_router
+    family: Interrupt Router
     group: components/interrupt_safety
     abstraction: A2/A3
     priority: P1
+    implementation: static/configurable/multicast
+    description: 到CLIC/安全岛双送
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/interrupt_router
   - id: SAF-030
     name: interrupt_rate_limiter
+    family: Interrupt Rate Limiter
     group: components/interrupt_safety
     abstraction: A2
     priority: P2
+    implementation: debounce/count/window
+    description: 中断风暴控制
     status: planned
     version: "0.1.0"
     path: components/interrupt_safety/interrupt_rate_limiter
   - id: BUS-001
     name: generic_csr_adapter
+    family: Generic CSR Bus Adapter
     group: components/apb_ahb_register
     abstraction: A3
     priority: P0
+    implementation: req/rsp、single outstanding
+    description: 内部统一接口
     status: planned
     version: "0.1.0"
     path: components/apb_ahb_register/generic_csr_adapter
   - id: BUS-002
     name: apb_slave_adapter
+    family: APB Slave Adapter
     group: components/apb_ahb_register
     abstraction: A3
     priority: P0
+    implementation: APB3/APB4、wait/error
+    description: 低面积与时序
     status: planned
     version: "0.1.0"
     path: components/apb_ahb_register/apb_slave_adapter
   - id: BUS-003
     name: apb_register_slice
+    family: APB Register Slice
     group: components/apb_ahb_register
     abstraction: A3
     priority: P1
+    implementation: request/response/full
+    description: PREADY返回路径
     status: planned
     version: "0.1.0"
     path: components/apb_ahb_register/apb_register_slice
   - id: BUS-004
     name: apb_decoder
+    family: APB Decoder
     group: components/apb_ahb_register
     abstraction: A3
     priority: P0
+    implementation: one-to-N、hierarchical
+    description: 地址译码与PREADY Mux
     status: planned
     version: "0.1.0"
     path: components/apb_ahb_register/apb_decoder
   - id: BUS-005
     name: apb_mux_interconnect
+    family: APB Mux/Interconnect
     group: components/apb_ahb_register
     abstraction: A3/A4
     priority: P1
+    implementation: N-to-M、fixed arbitration
+    description: 规模与共享路径
     status: planned
     version: "0.1.0"
     path: components/apb_ahb_register/apb_mux_interconnect
   - id: BUS-006
     name: apb_cdc_bridge
+    family: APB CDC Bridge
     group: components/apb_ahb_register
     abstraction: A3
     priority: P1
+    implementation: handshake/async queue
+    description: 低吞吐CDC优化
     status: planned
     version: "0.1.0"
     path: components/apb_ahb_register/apb_cdc_bridge
   - id: BUS-007
     name: apb_width_adapter
+    family: APB Width Adapter
     group: components/apb_ahb_register
     abstraction: A3
     priority: P2
+    implementation: 32/64/custom
+    description: Byte strobe与跨拍
     status: planned
     version: "0.1.0"
     path: components/apb_ahb_register/apb_width_adapter
   - id: BUS-008
     name: apb_timeout_default_slave
+    family: APB Timeout/Default Slave
     group: components/apb_ahb_register
     abstraction: A3
     priority: P0
+    implementation: programmable/fixed
+    description: 防挂死与低开销
     status: planned
     version: "0.1.0"
     path: components/apb_ahb_register/apb_timeout_default_slave
   - id: BUS-009
     name: ahb_lite_slave_adapter
+    family: AHB-Lite Slave Adapter
     group: components/apb_ahb_register
     abstraction: A3
     priority: P1
+    implementation: pipelined address/data
+    description: 地址/数据相位
     status: planned
     version: "0.1.0"
     path: components/apb_ahb_register/ahb_lite_slave_adapter
   - id: BUS-010
     name: ahb_lite_register_slice
+    family: AHB-Lite Register Slice
     group: components/apb_ahb_register
     abstraction: A3
     priority: P1
+    implementation: forward/full
+    description: HREADY路径
     status: planned
     version: "0.1.0"
     path: components/apb_ahb_register/ahb_lite_register_slice
   - id: BUS-011
     name: ahb_lite_decoder_mux
+    family: AHB-Lite Decoder/Mux
     group: components/apb_ahb_register
     abstraction: A3
     priority: P2
+    implementation: one-to-N/N-to-one
+    description: 响应Mux时序
     status: planned
     version: "0.1.0"
     path: components/apb_ahb_register/ahb_lite_decoder_mux
   - id: BUS-012
     name: ahb_lite_cdc_bridge
+    family: AHB-Lite CDC Bridge
     group: components/apb_ahb_register
     abstraction: A3
     priority: P2
+    implementation: handshake/async FIFO
+    description: 相位与响应
     status: planned
     version: "0.1.0"
     path: components/apb_ahb_register/ahb_lite_cdc_bridge
   - id: BUS-013
     name: ahb_apb_bridge
+    family: AHB↔APB Bridge
     group: components/apb_ahb_register
     abstraction: A3/A4
     priority: P1
+    implementation: single/multi APB port
+    description: Buffer与时钟比
     status: planned
     version: "0.1.0"
     path: components/apb_ahb_register/ahb_apb_bridge
   - id: BUS-014
     name: csr_shadow_commit_adapter
+    family: CSR Shadow/Commit Adapter
     group: components/apb_ahb_register
     abstraction: A3
     priority: P1
+    implementation: atomic update/snapshot
+    description: 配置一致性
     status: planned
     version: "0.1.0"
     path: components/apb_ahb_register/csr_shadow_commit_adapter
   - id: BUS-015
     name: csr_access_policy_filter
+    family: CSR Access Policy Filter
     group: components/apb_ahb_register
     abstraction: A3
     priority: P1
+    implementation: RO/RW/W1C/privilege
+    description: 译码与安全策略
     status: planned
     version: "0.1.0"
     path: components/apb_ahb_register/csr_access_policy_filter
   - id: BUS-016
     name: register_broadcast_adapter
+    family: Register Broadcast Adapter
     group: components/apb_ahb_register
     abstraction: A3
     priority: P2
+    implementation: one-to-N/local mirrors
+    description: 高扇出优化
     status: planned
     version: "0.1.0"
     path: components/apb_ahb_register/register_broadcast_adapter
   - id: AXI-001
     name: axi_channel_register_slice
+    family: AXI Channel Register Slice
     group: components/axi_axi_stream
     abstraction: A3
     priority: P0
+    implementation: per-channel F/B/full/skid
+    description: 五通道独立切时序
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_channel_register_slice
   - id: AXI-002
     name: axi_lite_register_slice
+    family: AXI-Lite Register Slice
     group: components/axi_axi_stream
     abstraction: A3
     priority: P0
+    implementation: combined/per-channel
+    description: 小面积低延迟
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_lite_register_slice
   - id: AXI-003
     name: axi_buffer
+    family: AXI Buffer
     group: components/axi_axi_stream
     abstraction: A3
     priority: P1
+    implementation: channel depth/transaction buffer
+    description: Outstanding与背压
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_buffer
   - id: AXI-004
     name: axi_width_converter
+    family: AXI Data Width Converter
     group: components/axi_axi_stream
     abstraction: A3
     priority: P1
+    implementation: upsize/downsize
+    description: Burst、strobe、unaligned
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_width_converter
   - id: AXI-005
     name: axi_addr_width_adapter
+    family: AXI Address Width Adapter
     group: components/axi_axi_stream
     abstraction: A3
     priority: P1
+    implementation: extend/truncate/window
+    description: 地址合法性
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_addr_width_adapter
   - id: AXI-006
     name: axi_id_converter
+    family: AXI ID Width Converter
     group: components/axi_axi_stream
     abstraction: A3
     priority: P1
+    implementation: remap/compress/expand
+    description: ID表面积和并发
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_id_converter
   - id: AXI-007
     name: axi_user_signal_adapter
+    family: AXI User Signal Adapter
     group: components/axi_axi_stream
     abstraction: A3
     priority: P2
+    implementation: map/tie/filter
+    description: 固定字段裁剪
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_user_signal_adapter
   - id: AXI-008
     name: axi_burst_splitter
+    family: AXI Burst Splitter
     group: components/axi_axi_stream
     abstraction: A3
     priority: P1
+    implementation: boundary/max-length/4KB
+    description: 状态与吞吐
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_burst_splitter
   - id: AXI-009
     name: axi_burst_merger
+    family: AXI Burst Merger/Coalescer
     group: components/axi_axi_stream
     abstraction: A3
     priority: P2
+    implementation: adjacent/same attribute
+    description: 比较、Buffer、顺序
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_burst_merger
   - id: AXI-010
     name: axi_burst_length_adapter
+    family: AXI Burst Length Adapter
     group: components/axi_axi_stream
     abstraction: A3
     priority: P2
+    implementation: fixed/max programmable
+    description: 地址推进
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_burst_length_adapter
   - id: AXI-011
     name: axi_outstanding_limiter
+    family: AXI Outstanding Limiter
     group: components/axi_axi_stream
     abstraction: A3
     priority: P1
+    implementation: global/per-ID/per-channel
+    description: 计数器和阻塞
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_outstanding_limiter
   - id: AXI-012
     name: axi_id_remapper
+    family: AXI ID Remapper
     group: components/axi_axi_stream
     abstraction: A3
     priority: P2
+    implementation: static/table/free-list
+    description: 表容量与匹配
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_id_remapper
   - id: AXI-013
     name: axi_transaction_serializer
+    family: AXI Transaction Serializer
     group: components/axi_axi_stream
     abstraction: A3
     priority: P1
+    implementation: full/per-ID
+    description: 面积换并发
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_transaction_serializer
   - id: AXI-014
     name: axi_rw_interleaver
+    family: AXI Read/Write Interleaver
     group: components/axi_axi_stream
     abstraction: A3
     priority: P3
+    implementation: ordered/tagged
+    description: 顺序规则复杂度
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_rw_interleaver
   - id: AXI-015
     name: axi_clock_converter
+    family: AXI Clock Converter
     group: components/axi_axi_stream
     abstraction: A3
     priority: P0
+    implementation: async FIFO/handshake hybrid
+    description: 全通道CDC正确性
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_clock_converter
   - id: AXI-016
     name: axi_protocol_converter
+    family: AXI Protocol Converter
     group: components/axi_axi_stream
     abstraction: A3
     priority: P1
+    implementation: AXI4↔AXI4-Lite subset
+    description: Burst拆分与错误
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_protocol_converter
   - id: AXI-017
     name: axi_apb_bridge
+    family: AXI-to-APB Bridge
     group: components/axi_axi_stream
     abstraction: A3/A4
     priority: P1
+    implementation: single/multi port
+    description: 队列、译码、时钟
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_apb_bridge
   - id: AXI-018
     name: axi_ahb_bridge
+    family: AXI-to-AHB Bridge
     group: components/axi_axi_stream
     abstraction: A3/A4
     priority: P2
+    implementation: buffered/pipelined
+    description: 顺序和响应映射
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_ahb_bridge
   - id: AXI-019
     name: axi_address_decoder
+    family: AXI Address Decoder
     group: components/axi_axi_stream
     abstraction: A3
     priority: P0
+    implementation: region/mask/hierarchical
+    description: 比较和路由关键路径
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_address_decoder
   - id: AXI-020
     name: axi_demux
+    family: AXI Demux
     group: components/axi_axi_stream
     abstraction: A3
     priority: P1
+    implementation: static/dynamic target
+    description: 响应路由状态
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_demux
   - id: AXI-021
     name: axi_mux
+    family: AXI Mux
     group: components/axi_axi_stream
     abstraction: A3
     priority: P1
+    implementation: fixed/RR/QoS arbitration
+    description: 五通道仲裁与锁定
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_mux
   - id: AXI-022
     name: axi_crossbar
+    family: AXI Crossbar
     group: components/axi_axi_stream
     abstraction: A4
     priority: P2
+    implementation: shared/full/sparse
+    description: 面积、布线、并发
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_crossbar
   - id: AXI-023
     name: axi_default_slave
+    family: AXI Default Slave
     group: components/axi_axi_stream
     abstraction: A3
     priority: P0
+    implementation: DECERR/SLVERR programmable
+    description: 无目标响应
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_default_slave
   - id: AXI-024
     name: axi_timeout_monitor
+    family: AXI Timeout Monitor
     group: components/axi_axi_stream
     abstraction: A3
     priority: P1
+    implementation: per-channel/transaction
+    description: 表项和恢复策略
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_timeout_monitor
   - id: AXI-025
     name: axi_firewall_region_filter
+    family: AXI Firewall/Region Filter
     group: components/axi_axi_stream
     abstraction: A3
     priority: P2
+    implementation: address/ID/privilege
+    description: 安全策略与关键路径
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_firewall_region_filter
   - id: AXI-026
     name: axi_exclusive_access_monitor
+    family: AXI Exclusive Access Monitor
     group: components/axi_axi_stream
     abstraction: A3
     priority: P3
+    implementation: local/global table
+    description: 表项与一致性范围
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_exclusive_access_monitor
   - id: AXI-027
     name: axi_atomic_adapter
+    family: AXI Atomic Adapter
     group: components/axi_axi_stream
     abstraction: A3
     priority: P3
+    implementation: subset/emulation
+    description: 原子性和锁定
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_atomic_adapter
   - id: AXI-028
     name: axi_qos_mapper
+    family: AXI QoS Mapper
     group: components/axi_axi_stream
     abstraction: A3
     priority: P2
+    implementation: static/table/traffic class
+    description: 配置和仲裁衔接
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_qos_mapper
   - id: AXI-029
     name: axi_perf_monitor
+    family: AXI Performance Monitor
     group: components/axi_axi_stream
     abstraction: A3
     priority: P1
+    implementation: latency/bandwidth/outstanding
+    description: 被动观测开销
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_perf_monitor
   - id: AXI-030
     name: axi_error_injector
+    family: AXI Error Injector
     group: components/axi_axi_stream
     abstraction: A3
     priority: P2
+    implementation: channel/response/data
+    description: 验证模式隔离
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axi_error_injector
   - id: AXIS-001
     name: axis_register_slice
+    family: AXI-Stream Register Slice
     group: components/axi_axi_stream
     abstraction: A3
     priority: P0
+    implementation: F/B/full/skid
+    description: Ready路径
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axis_register_slice
   - id: AXIS-002
     name: axis_width_converter
+    family: AXI-Stream Width Converter
     group: components/axi_axi_stream
     abstraction: A3
     priority: P1
+    implementation: byte-aligned/general ratio
+    description: TKEEP/TLAST对齐
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axis_width_converter
   - id: AXIS-003
     name: axis_switch
+    family: AXI-Stream Switch
     group: components/axi_axi_stream
     abstraction: A3/A4
     priority: P2
+    implementation: mux/demux/crossbar
+    description: 包锁定与路由
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axis_switch
   - id: AXIS-004
     name: axis_packet_fifo
+    family: AXI-Stream Packet FIFO
     group: components/axi_axi_stream
     abstraction: A3
     priority: P1
+    implementation: store-forward/cut-through
+    description: 包边界与容量
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axis_packet_fifo
   - id: AXIS-005
     name: axis_broadcaster
+    family: AXI-Stream Broadcaster
     group: components/axi_axi_stream
     abstraction: A3
     priority: P2
+    implementation: all/subset outputs
+    description: Ready汇聚
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axis_broadcaster
   - id: AXIS-006
     name: axis_combiner_subset
+    family: AXI-Stream Combiner/Subset
     group: components/axi_axi_stream
     abstraction: A3
     priority: P2
+    implementation: TDATA/TUSER composition
+    description: Lane映射
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axis_combiner_subset
   - id: AXIS-007
     name: axis_frame_length_monitor
+    family: AXI-Stream Frame Length Monitor
     group: components/axi_axi_stream
     abstraction: A3
     priority: P2
+    implementation: min/max/count
+    description: 低开销检查
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axis_frame_length_monitor
   - id: AXIS-008
     name: axis_rate_limiter
+    family: AXI-Stream Rate Limiter
     group: components/axi_axi_stream
     abstraction: A3
     priority: P2
+    implementation: token bucket/gap insert
+    description: 吞吐整形
     status: planned
     version: "0.1.0"
     path: components/axi_axi_stream/axis_rate_limiter
   - id: NOC-001
     name: flit_packer_unpacker
+    family: Flit Packer/Unpacker
     group: components/noc_interconnect
     abstraction: A3
     priority: P2
+    implementation: fixed/variable header
+    description: Mux、字段映射
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/flit_packer_unpacker
   - id: NOC-002
     name: vc_fifo
+    family: Virtual-channel FIFO
     group: components/noc_interconnect
     abstraction: A3
     priority: P2
+    implementation: shared/dedicated storage
+    description: RAM利用率与头阻塞
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/vc_fifo
   - id: NOC-003
     name: vc_allocator
+    family: VC Allocator
     group: components/noc_interconnect
     abstraction: A3
     priority: P3
+    implementation: separable/input-first/output-first
+    description: 仲裁规模
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/vc_allocator
   - id: NOC-004
     name: switch_allocator
+    family: Switch Allocator
     group: components/noc_interconnect
     abstraction: A3
     priority: P3
+    implementation: speculative/non-speculative
+    description: 关键路径核心
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/switch_allocator
   - id: NOC-005
     name: noc_input_port
+    family: NoC Input Port
     group: components/noc_interconnect
     abstraction: A3/A4
     priority: P3
+    implementation: buffer+route+VC state
+    description: 面积和流控
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/noc_input_port
   - id: NOC-006
     name: noc_output_port
+    family: NoC Output Port
     group: components/noc_interconnect
     abstraction: A3/A4
     priority: P3
+    implementation: arbitration+credit
+    description: 扇入与信用返回
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/noc_output_port
   - id: NOC-007
     name: crossbar_fabric
+    family: Crossbar Fabric
     group: components/noc_interconnect
     abstraction: A2/A3
     priority: P2
+    implementation: full/sparse/multistage
+    description: 布线、Mux、流水
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/crossbar_fabric
   - id: NOC-008
     name: route_compute
+    family: Route Compute
     group: components/noc_interconnect
     abstraction: A2/A3
     priority: P3
+    implementation: table/XY/source route
+    description: 组合延迟
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/route_compute
   - id: NOC-009
     name: credit_return_channel
+    family: Credit Return Channel
     group: components/noc_interconnect
     abstraction: A3
     priority: P2
+    implementation: aggregated/per-VC
+    description: 反馈延迟与位宽
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/credit_return_channel
   - id: NOC-010
     name: link_register_slice
+    family: Link Register Slice
     group: components/noc_interconnect
     abstraction: A3
     priority: P1
+    implementation: forward/reverse/full
+    description: 长距离切时序
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/link_register_slice
   - id: NOC-011
     name: link_cdc_adapter
+    family: Link CDC Adapter
     group: components/noc_interconnect
     abstraction: A3
     priority: P2
+    implementation: async FIFO/mesochronous
+    description: 时钟关系
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/link_cdc_adapter
   - id: NOC-012
     name: link_width_converter
+    family: Link Width Converter
     group: components/noc_interconnect
     abstraction: A3
     priority: P2
+    implementation: flit segmentation/assembly
+    description: Buffer与延迟
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/link_width_converter
   - id: NOC-013
     name: link_crc_replay_shell
+    family: Link CRC/Replay Shell
     group: components/noc_interconnect
     abstraction: A3
     priority: P3
+    implementation: detect/retry/sequence
+    description: 可靠性和Buffer
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/link_crc_replay_shell
   - id: NOC-014
     name: link_power_state_handshake
+    family: Link Power-state Handshake
     group: components/noc_interconnect
     abstraction: A3
     priority: P2
+    implementation: quiesce/isolate/wakeup
+    description: 低功耗序列
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/link_power_state_handshake
   - id: NOC-015
     name: deadlock_progress_monitor
+    family: Deadlock/Progress Monitor
     group: components/noc_interconnect
     abstraction: A3
     priority: P3
+    implementation: timeout/dependency summary
+    description: 观测开销
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/deadlock_progress_monitor
   - id: NOC-016
     name: chi_ace_channel_slice
+    family: CHI/ACE Channel Slice
     group: components/noc_interconnect
     abstraction: A3
     priority: P3
+    implementation: protocol-channel pipeline
+    description: 一致性协议专项验证
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/chi_ace_channel_slice
   - id: NOC-017
     name: chiplet_streaming_adapter
+    family: Chiplet Streaming Adapter
     group: components/noc_interconnect
     abstraction: A3
     priority: P3
+    implementation: die-to-die logical stream
+    description: 不替代PHY/标准协议IP
     status: planned
     version: "0.1.0"
     path: components/noc_interconnect/chiplet_streaming_adapter
   - id: MON-001
     name: event_counter
+    family: Event Counter
     group: components/monitor_debug
     abstraction: A1/A2
     priority: P0
+    implementation: saturating/wrapping/clear-on-read
+    description: 位宽和门控
     status: planned
     version: "0.1.0"
     path: components/monitor_debug/event_counter
   - id: MON-002
     name: multi_event_counter_bank
+    family: Multi-event Counter Bank
     group: components/monitor_debug
     abstraction: A2
     priority: P1
+    implementation: shared prescaler/muxed update
+    description: 多事件更新与面积
     status: planned
     version: "0.1.0"
     path: components/monitor_debug/multi_event_counter_bank
   - id: MON-003
     name: cycle_busy_idle_counter
+    family: Cycle/Busy/Idle Counter
     group: components/monitor_debug
     abstraction: A2
     priority: P0
+    implementation: gated/free-running
+    description: 时钟功耗
     status: planned
     version: "0.1.0"
     path: components/monitor_debug/cycle_busy_idle_counter
   - id: MON-004
     name: latency_monitor
+    family: Latency Monitor
     group: components/monitor_debug
     abstraction: A2/A3
     priority: P1
+    implementation: timestamp/FIFO/histogram
+    description: 表项和量化
     status: planned
     version: "0.1.0"
     path: components/monitor_debug/latency_monitor
   - id: MON-005
     name: bandwidth_monitor
+    family: Bandwidth Monitor
     group: components/monitor_debug
     abstraction: A2/A3
     priority: P1
+    implementation: bytes/beats/window
+    description: 计数位宽
     status: planned
     version: "0.1.0"
     path: components/monitor_debug/bandwidth_monitor
   - id: MON-006
     name: occupancy_monitor
+    family: Occupancy Monitor
     group: components/monitor_debug
     abstraction: A2
     priority: P1
+    implementation: current/max/average/histogram
+    description: 除法与采样近似
     status: planned
     version: "0.1.0"
     path: components/monitor_debug/occupancy_monitor
   - id: MON-007
     name: stall_backpressure_monitor
+    family: Stall/Backpressure Monitor
     group: components/monitor_debug
     abstraction: A3
     priority: P1
+    implementation: reason bitmap/counter
+    description: 信号扇入
     status: planned
     version: "0.1.0"
     path: components/monitor_debug/stall_backpressure_monitor
   - id: MON-008
     name: activity_toggle_sampler
+    family: Activity/Toggle Sampler
     group: components/monitor_debug
     abstraction: A2
     priority: P2
+    implementation: sampled/windowed
+    description: PPA数据采集开销
     status: planned
     version: "0.1.0"
     path: components/monitor_debug/activity_toggle_sampler
   - id: MON-009
     name: trace_event_encoder
+    family: Trace Event Encoder
     group: components/monitor_debug
     abstraction: A2
     priority: P2
+    implementation: fixed/variable format
+    description: 编码与带宽
     status: planned
     version: "0.1.0"
     path: components/monitor_debug/trace_event_encoder
   - id: MON-010
     name: trace_fifo
+    family: Trace FIFO
     group: components/monitor_debug
     abstraction: A2
     priority: P2
+    implementation: lossless/drop/overwrite
+    description: 容量和观测影响
     status: planned
     version: "0.1.0"
     path: components/monitor_debug/trace_fifo
   - id: MON-011
     name: trace_funnel
+    family: Trace Funnel
     group: components/monitor_debug
     abstraction: A3
     priority: P2
+    implementation: priority/RR/timestamp merge
+    description: 仲裁与排序
     status: planned
     version: "0.1.0"
     path: components/monitor_debug/trace_funnel
   - id: MON-012
     name: trigger_qualifier
+    family: Trigger/Qualifier
     group: components/monitor_debug
     abstraction: A2
     priority: P2
+    implementation: match/mask/sequence
+    description: 比较网络
     status: planned
     version: "0.1.0"
     path: components/monitor_debug/trigger_qualifier
   - id: MON-013
     name: snapshot_register_bank
+    family: Snapshot Register Bank
     group: components/monitor_debug
     abstraction: A2
     priority: P1
+    implementation: atomic capture/readout
+    description: 面积和采样一致性
     status: planned
     version: "0.1.0"
     path: components/monitor_debug/snapshot_register_bank
   - id: MON-014
     name: protocol_progress_monitor
+    family: Protocol Progress Monitor
     group: components/monitor_debug
     abstraction: A3
     priority: P2
+    implementation: state/timeout/event
+    description: 误报和状态开销
     status: planned
     version: "0.1.0"
     path: components/monitor_debug/protocol_progress_monitor
   - id: MON-015
     name: perf_counter_csr_adapter
+    family: Performance Counter CSR Adapter
     group: components/monitor_debug
     abstraction: A3
     priority: P1
+    implementation: APB/AXI-Lite/generic CSR
+    description: 统一软件接口
     status: planned
     version: "0.1.0"
     path: components/monitor_debug/perf_counter_csr_adapter
   - id: MON-016
     name: lightweight_logic_analyzer
+    family: Lightweight Logic Analyzer Shell
     group: components/monitor_debug
     abstraction: A4
     priority: P3
+    implementation: trigger+buffer+readout
+    description: 调试配置按需裁剪
     status: planned
     version: "0.1.0"
     path: components/monitor_debug/lightweight_logic_analyzer
   - id: DFT-001
     name: test_mode_synchronizer
+    family: Test-mode Synchronizer
     group: components/dft_test
     abstraction: A1
     priority: P1
+    implementation: static test control sync
+    description: 功能/测试模式隔离
     status: planned
     version: "0.1.0"
     path: components/dft_test/test_mode_synchronizer
   - id: DFT-002
     name: scan_enable_distribution
+    family: Scan-enable Distribution Helper
     group: components/dft_test
     abstraction: A2
     priority: P2
+    implementation: local latch/replication
+    description: 高扇出与CTS
     status: planned
     version: "0.1.0"
     path: components/dft_test/scan_enable_distribution
   - id: DFT-003
     name: clock_ctrl_test_override
+    family: Clock-control Test Override
     group: components/dft_test
     abstraction: A0/A2
     priority: P1
+    implementation: ICG/mux bypass
+    description: DFT与无毛刺
     status: planned
     version: "0.1.0"
     path: components/dft_test/clock_ctrl_test_override
   - id: DFT-004
     name: reset_ctrl_test_override
+    family: Reset-control Test Override
     group: components/dft_test
     abstraction: A2
     priority: P1
+    implementation: controlled bypass/force
+    description: RDC与测试顺序
     status: planned
     version: "0.1.0"
     path: components/dft_test/reset_ctrl_test_override
   - id: DFT-005
     name: mbist_port_arbiter
+    family: MBIST Port Arbiter
     group: components/dft_test
     abstraction: A2
     priority: P2
+    implementation: functional/test ownership
+    description: Mux延迟和隔离
     status: planned
     version: "0.1.0"
     path: components/dft_test/mbist_port_arbiter
   - id: DFT-006
     name: lbist_misr
+    family: LBIST/MISR
     group: components/dft_test
     abstraction: A2
     priority: P3
+    implementation: configurable polynomial/width
+    description: 面积和切换峰值
     status: planned
     version: "0.1.0"
     path: components/dft_test/lbist_misr
   - id: DFT-007
     name: prpg
+    family: PRPG
     group: components/dft_test
     abstraction: A2
     priority: P3
+    implementation: LFSR/phase shifter
+    description: 随机模式与功耗
     status: planned
     version: "0.1.0"
     path: components/dft_test/prpg
   - id: DFT-008
     name: signature_comparator
+    family: Signature Comparator
     group: components/dft_test
     abstraction: A1/A2
     priority: P3
+    implementation: expected/masked compare
+    description: 测试数据路径
     status: planned
     version: "0.1.0"
     path: components/dft_test/signature_comparator
   - id: DFT-009
     name: test_access_mux
+    family: Test Access Mux
     group: components/dft_test
     abstraction: A3
     priority: P2
+    implementation: scan/JTAG/internal bus
+    description: 功能路径零影响目标
     status: planned
     version: "0.1.0"
     path: components/dft_test/test_access_mux
   - id: DFT-010
     name: memory_repair_data_adapter
+    family: Memory Repair Data Adapter
     group: components/dft_test
     abstraction: A2
     priority: P3
+    implementation: fuse/OTP/BISR mapping
+    description: 工艺相关元数据
     status: planned
     version: "0.1.0"
     path: components/dft_test/memory_repair_data_adapter
   - id: DSP-001
     name: lane_packer_unpacker
+    family: Lane Packer/Unpacker
     group: components/dsp_ai_datapath
     abstraction: A2/A3
     priority: P2
+    implementation: fixed/masked lanes
+    description: 布线和有效位
     status: planned
     version: "0.1.0"
     path: components/dsp_ai_datapath/lane_packer_unpacker
   - id: DSP-002
     name: vector_reduction
+    family: Vector Reduction
     group: components/dsp_ai_datapath
     abstraction: A2
     priority: P2
+    implementation: sum/min/max/and/or
+    description: 树形、流水、精度
     status: planned
     version: "0.1.0"
     path: components/dsp_ai_datapath/vector_reduction
   - id: DSP-003
     name: dot_product_tree
+    family: Dot-product Tree
     group: components/dsp_ai_datapath
     abstraction: A2
     priority: P2
+    implementation: full parallel/folded
+    description: MAC数量与吞吐
     status: planned
     version: "0.1.0"
     path: components/dsp_ai_datapath/dot_product_tree
   - id: DSP-004
     name: sliding_window_generator
+    family: Sliding Window Generator
     group: components/dsp_ai_datapath
     abstraction: A2/A3
     priority: P2
+    implementation: register/SRAM line buffer
+    description: 存储带宽和边界
     status: planned
     version: "0.1.0"
     path: components/dsp_ai_datapath/sliding_window_generator
   - id: DSP-005
     name: tensor_layout_converter
+    family: Tensor Layout Converter
     group: components/dsp_ai_datapath
     abstraction: A3
     priority: P3
+    implementation: NHWC/NCHW/block/tile
+    description: Buffer和地址生成
     status: planned
     version: "0.1.0"
     path: components/dsp_ai_datapath/tensor_layout_converter
   - id: DSP-006
     name: tile_address_generator
+    family: Tile Address Generator
     group: components/dsp_ai_datapath
     abstraction: A2
     priority: P2
+    implementation: nested counter/affine
+    description: 乘法消除、增量地址
     status: planned
     version: "0.1.0"
     path: components/dsp_ai_datapath/tile_address_generator
   - id: DSP-007
     name: stride_dilation_addr_gen
+    family: Stride/Dilation Address Generator
     group: components/dsp_ai_datapath
     abstraction: A2
     priority: P2
+    implementation: nested/parameterized
+    description: 控制面积和吞吐
     status: planned
     version: "0.1.0"
     path: components/dsp_ai_datapath/stride_dilation_addr_gen
   - id: DSP-008
     name: scatter_gather_index_gen
+    family: Scatter/Gather Index Generator
     group: components/dsp_ai_datapath
     abstraction: A2
     priority: P3
+    implementation: list/affine/masked
+    description: 随机访存和队列
     status: planned
     version: "0.1.0"
     path: components/dsp_ai_datapath/scatter_gather_index_gen
   - id: DSP-009
     name: dma_descriptor_walker
+    family: DMA Descriptor Walker Core
     group: components/dsp_ai_datapath
     abstraction: A4
     priority: P3
+    implementation: ring/linked list subset
+    description: 若含完整DMA则升级为IP
     status: planned
     version: "0.1.0"
     path: components/dsp_ai_datapath/dma_descriptor_walker
   - id: DSP-010
     name: quantization_pipeline
+    family: Quantization Pipeline
     group: components/dsp_ai_datapath
     abstraction: A2/A3
     priority: P2
+    implementation: scale/zero-point/clamp
+    description: 位宽、乘法与流水
     status: planned
     version: "0.1.0"
     path: components/dsp_ai_datapath/quantization_pipeline
   - id: DSP-011
     name: activation_approx
+    family: Activation Approximation
     group: components/dsp_ai_datapath
     abstraction: A2
     priority: P3
+    implementation: ReLU/PReLU/LUT-piecewise
+    description: 精度/面积
     status: planned
     version: "0.1.0"
     path: components/dsp_ai_datapath/activation_approx
   - id: DSP-012
     name: sparse_bitmap_index_decoder
+    family: Sparse Bitmap/Index Decoder
     group: components/dsp_ai_datapath
     abstraction: A2/A3
     priority: P3
+    implementation: bitmap/RLE/block sparse
+    description: 控制分支与吞吐
     status: planned
     version: "0.1.0"
     path: components/dsp_ai_datapath/sparse_bitmap_index_decoder
   - id: DSP-013
     name: accumulator_bank
+    family: Accumulator Bank
     group: components/dsp_ai_datapath
     abstraction: A2
     priority: P2
+    implementation: banked/multi-lane/reduction
+    description: 写冲突和位宽
     status: planned
     version: "0.1.0"
     path: components/dsp_ai_datapath/accumulator_bank
   - id: DSP-014
     name: double_buffer_ctrl
+    family: Double-buffer Controller
     group: components/dsp_ai_datapath
     abstraction: A2
     priority: P2
+    implementation: ping-pong/N-buffer
+    description: 计算搬运重叠
     status: planned
     version: "0.1.0"
     path: components/dsp_ai_datapath/double_buffer_ctrl
   - id: DSP-015
     name: loop_nested_counter_gen
+    family: Loop/Nested-counter Generator
     group: components/dsp_ai_datapath
     abstraction: A2
     priority: P2
+    implementation: programmable/static
+    description: 控制复用
     status: planned
     version: "0.1.0"
     path: components/dsp_ai_datapath/loop_nested_counter_gen
   - id: TMP-001
     name: multi_bank_sram_subsystem
+    family: 多Bank SRAM子系统
     group: templates
     abstraction: A4
     priority: P1
+    implementation: bank mapper + scheduler + ECC + sleep
+    description: 容量、吞吐、功耗Pareto
     status: planned
     version: "0.1.0"
     path: templates/multi_bank_sram_subsystem
   - id: TMP-002
     name: low_latency_rf_subsystem
+    family: 低延迟寄存器文件子系统
     group: templates
     abstraction: A4
     priority: P2
+    implementation: RF + bypass + replication
+    description: 多读端口优化
     status: planned
     version: "0.1.0"
     path: templates/low_latency_rf_subsystem
   - id: TMP-003
     name: shared_operator_template
+    family: 共享运算单元模板
     group: templates
     abstraction: A4
     priority: P1
+    implementation: arbiter + operand queue + result route
+    description: 面积换延迟
     status: planned
     version: "0.1.0"
     path: templates/shared_operator_template
   - id: TMP-004
     name: high_throughput_add_mac_tree
+    family: 高吞吐加法/MAC树
     group: templates
     abstraction: A4
     priority: P1
+    implementation: compressor + pipeline + isolation
+    description: 数据通路示范闭环
     status: planned
     version: "0.1.0"
     path: templates/high_throughput_add_mac_tree
   - id: TMP-005
     name: high_freq_ready_valid_channel
+    family: 高频 Ready/Valid 通道
     group: templates
     abstraction: A4
     priority: P0
+    implementation: F/B/full slice组合
+    description: 自动切分反压路径
     status: planned
     version: "0.1.0"
     path: templates/high_freq_ready_valid_channel
   - id: TMP-006
     name: long_distance_physical_link
+    family: 长距离物理链路
     group: templates
     abstraction: A4
     priority: P1
+    implementation: slice + replication + CDC可选
+    description: 跨分区时序收敛
     status: planned
     version: "0.1.0"
     path: templates/long_distance_physical_link
   - id: TMP-007
     name: hierarchical_arbitration_network
+    family: 分层仲裁网络
     group: templates
     abstraction: A4
     priority: P1
+    implementation: local/global arbiter + buffers
+    description: 32/64/128路扩展
     status: planned
     version: "0.1.0"
     path: templates/hierarchical_arbitration_network
   - id: TMP-008
     name: hierarchical_decode_network
+    family: 分层地址译码网络
     group: templates
     abstraction: A4
     priority: P1
+    implementation: global region + local decode
+    description: 高扇出和响应Mux
     status: planned
     version: "0.1.0"
     path: templates/hierarchical_decode_network
   - id: TMP-009
     name: axi_shared_interconnect_template
+    family: AXI共享互联模板
     group: templates
     abstraction: A4
     priority: P2
+    implementation: decode + arbitrate + buffer + monitor
+    description: 可裁剪互联
     status: planned
     version: "0.1.0"
     path: templates/axi_shared_interconnect_template
   - id: TMP-010
     name: axi_async_bridge_template
+    family: AXI异步桥模板
     group: templates
     abstraction: A4
     priority: P1
+    implementation: channel CDC + depth selection
+    description: 宽总线跨域PPA
     status: planned
     version: "0.1.0"
     path: templates/axi_async_bridge_template
   - id: TMP-011
     name: axi_width_bridge_template
+    family: AXI宽度转换桥模板
     group: templates
     abstraction: A4
     priority: P2
+    implementation: splitter/packer/ID tracking
+    description: 32～1024bit适配
     status: planned
     version: "0.1.0"
     path: templates/axi_width_bridge_template
   - id: TMP-012
     name: apb_peripheral_cluster_template
+    family: APB外设簇模板
     group: templates
     abstraction: A4
     priority: P1
+    implementation: bridge + decoder + timeout + CSR
+    description: 低面积控制面
     status: planned
     version: "0.1.0"
     path: templates/apb_peripheral_cluster_template
   - id: TMP-013
     name: noc_router_template
+    family: NoC Router模板
     group: templates
     abstraction: A4
     priority: P3
+    implementation: VC + allocators + crossbar + credit
+    description: 先进互联研究
     status: planned
     version: "0.1.0"
     path: templates/noc_router_template
   - id: TMP-014
     name: safe_interrupt_frontend_template
+    family: 安全中断前端模板
     group: templates
     abstraction: A4
     priority: P1
+    implementation: condition + sticky + route + monitor
+    description: PIC/CLIC/安全岛复用
     status: planned
     version: "0.1.0"
     path: templates/safe_interrupt_frontend_template
   - id: TMP-015
     name: error_management_tree_template
+    family: 错误管理树模板
     group: templates
     abstraction: A4
     priority: P1
+    implementation: local aggregate + route + escalation
+    description: 功能安全公共架构
     status: planned
     version: "0.1.0"
     path: templates/error_management_tree_template
   - id: TMP-016
     name: power_domain_ctrl_template
+    family: 电源域控制模板
     group: templates
     abstraction: A4
     priority: P2
+    implementation: quiesce + isolate + save + switch + restore
+    description: UPF控制闭环
     status: planned
     version: "0.1.0"
     path: templates/power_domain_ctrl_template
   - id: TMP-017
     name: clock_reset_manager_template
+    family: Clock/Reset Manager模板
     group: templates
     abstraction: A4
     priority: P2
+    implementation: source switch + divide + gate + reset seq
+    description: 时钟复位公共方案
     status: planned
     version: "0.1.0"
     path: templates/clock_reset_manager_template
   - id: TMP-018
     name: low_power_pipeline_template
+    family: 低功耗流水线模板
     group: templates
     abstraction: A4
     priority: P1
+    implementation: valid gating + freeze + operand isolate
+    description: 活动相关功耗优化
     status: planned
     version: "0.1.0"
     path: templates/low_power_pipeline_template
   - id: TMP-019
     name: high_fanout_ctrl_recipe
+    family: 高扇出控制优化配方
     group: templates
     abstraction: A4
     priority: P1
+    implementation: mirror + local decode + enable tree
+    description: 布线和时序
     status: planned
     version: "0.1.0"
     path: templates/high_fanout_ctrl_recipe
   - id: TMP-020
     name: streaming_data_shaping_template
+    family: 流式数据整形模板
     group: templates
     abstraction: A4
     priority: P2
+    implementation: width/rate/packet/buffer pipeline
+    description: 复合协议适配
     status: planned
     version: "0.1.0"
     path: templates/streaming_data_shaping_template
   - id: TMP-021
     name: e2e_data_protection_channel
+    family: 端到端数据保护通道
     group: templates
     abstraction: A4
     priority: P2
+    implementation: sequence + CRC + timeout + retry
+    description: 安全通信链
     status: planned
     version: "0.1.0"
     path: templates/e2e_data_protection_channel
   - id: TMP-022
     name: perf_observation_subsystem
+    family: 性能观测子系统
     group: templates
     abstraction: A4
     priority: P2
+    implementation: event mux + counters + trace + CSR
+    description: 可观测性按需裁剪
     status: planned
     version: "0.1.0"
     path: templates/perf_observation_subsystem
   - id: TMP-023
     name: memory_bist_access_template
+    family: Memory BIST接入模板
     group: templates
     abstraction: A4
     priority: P3
+    implementation: mux + isolate + controller adapter
+    description: DFT一致接入
     status: planned
     version: "0.1.0"
     path: templates/memory_bist_access_template
   - id: TMP-024
     name: dsp_double_buffer_datapath
+    family: DSP双缓冲数据通路
     group: templates
     abstraction: A4
     priority: P3
+    implementation: DMA-side stream + ping-pong + compute feed
+    description: 搬运计算重叠
     status: planned
     version: "0.1.0"
     path: templates/dsp_double_buffer_datapath
-  - id: HAC-001
-    name: hac_ap_ctrl_adapter
-    group: components/hac_if
-    abstraction: A3
-    priority: P0
-    status: planned
-    version: "0.1.0"
-    path: components/hac_if/hac_ap_ctrl_adapter
-  - id: HAC-002
-    name: hac_axi_adapter
-    group: components/hac_if
-    abstraction: A3
-    priority: P1
-    status: planned
-    version: "0.1.0"
-    path: components/hac_if/hac_axi_adapter
-  - id: HAC-003
-    name: hac_stream_adapter
-    group: components/hac_if
-    abstraction: A3
-    priority: P1
-    status: planned
-    version: "0.1.0"
-    path: components/hac_if/hac_stream_adapter
-  - id: HAC-004
-    name: hac_lmem_adapter
-    group: components/hac_if
-    abstraction: A3
-    priority: P1
-    status: planned
-    version: "0.1.0"
-    path: components/hac_if/hac_lmem_adapter
-  - id: HAC-SHELL-001
-    name: hac_shell_template
-    group: templates
-    abstraction: A4
-    priority: P1
-    status: planned
-    version: "0.1.0"
-    path: templates/hac_shell_template

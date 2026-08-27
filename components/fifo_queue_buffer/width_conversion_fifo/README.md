@@ -30,7 +30,7 @@
 ## 使用
 
 - VLNV：`aixsilicon:cbb:width_conversion_fifo:0.1.0`
-- 工程包结构见 [`docs/cbb_spec`](../../../docs/cbb_spec/)；规格契约见 `cbb.yaml` / `behavior.yaml`。
+- 工程包规范见 cbb-development-suite；规格契约见 `cbb.yaml` / `behavior.yaml` / `docs/cbb_spec.md`。
 
 ## 文档索引
 
