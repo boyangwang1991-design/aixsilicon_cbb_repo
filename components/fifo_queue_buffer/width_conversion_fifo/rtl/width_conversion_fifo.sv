@@ -1,7 +1,10 @@
 // ============================================================
 // width_conversion_fifo —— 单时钟同步 FIFO + 整数比宽度转换
 // QUE-012，A2/A3，P1
-// 实现：impl_pointer_count（窄字为基本存储单元，指针+计数）
+//
+// 极简单文件布局（CBB 默认规范，见 cbb-development-suite artifact-contract §2）：
+//   参数上限/localparam/参数检查（generate $error）与微架构同文件，不拆 package；
+//   不引入 pkg/interface 层级，除非构件需使用 HWIF 标准接口文件（AXI 等）。
 //
 // 端口语义（标准 ready/valid）：
 //   NARROW_TO_WIDE: narrow_in 每拍写 1 窄字；凑满 RATIO 个后在 wide_out 输出宽字
@@ -9,12 +12,12 @@
 //   RAM 深度 DEPTH 以窄字为单位；满/空以窄字槽计数判定
 //   契约约束：DEPTH >= RATIO（PC-005，防死锁）；宽侧位宽 NARROW_WIDTH*RATIO<=4096（PC-004）
 //
-// 关键 SVA（就近放置，PROP-WC-*）见文件尾部
+// 方向参数：DIRECTION=0 → NARROW_TO_WIDE；DIRECTION=1 → WIDE_TO_NARROW
+//
+// 关键 SVA（就近放置，PROP-WC-*）见文件尾部。
 // ============================================================
-// 注：width_conversion_fifo_pkg 由调用方（.core / 编译脚本）以文件方式提供，
-//     模块内不重复 `include，避免 package 重复声明（VCS OPD 警告）。
 module width_conversion_fifo #(
-    parameter bit DIRECTION      = width_conversion_fifo_pkg::NARROW_TO_WIDE,
+    parameter bit DIRECTION      = 1'b0,   // 0=NARROW_TO_WIDE；1=WIDE_TO_NARROW
     parameter int  NARROW_WIDTH  = 8,
     parameter int  RATIO         = 4,
     parameter int  DEPTH         = 8
@@ -39,20 +42,25 @@ module width_conversion_fifo #(
     input  logic                    wide_out_ready
 );
 
-  import width_conversion_fifo_pkg::*;
+  // ---------- 参数上限（对应 cbb.yaml constraints PC-001..PC-005） ----------
+  localparam int WIDE_WIDTH_MAX = 4096;   // PC-004：宽侧位宽上限（bit）
 
-  // ---------- 参数检查（elaboration 强制拦截，对应 PC-001..005） ----------
-  // 用 generate 块内的 $error：generate 在 elaboration 期求值，非法参数在此即报错
+  // ---------- 参数检查（generate 块内 $error，elaboration 期强制拦截） ----------
   generate
+    // PC-001
     if (NARROW_WIDTH < 1)
       $error("width_conversion_fifo: NARROW_WIDTH=%0d < 1 非法（PC-001）", NARROW_WIDTH);
+    // PC-002
     if (RATIO < 2)
       $error("width_conversion_fifo: RATIO=%0d < 2 非法（PC-002）", RATIO);
+    // PC-003
     if (DEPTH < 2)
       $error("width_conversion_fifo: DEPTH=%0d < 2 非法（PC-003）", DEPTH);
-    if (NARROW_WIDTH * RATIO > width_conversion_fifo_pkg::WIDE_WIDTH_MAX)
+    // PC-004
+    if (NARROW_WIDTH * RATIO > WIDE_WIDTH_MAX)
       $error("width_conversion_fifo: NARROW_WIDTH*RATIO=%0d > %0d 宽侧位宽超限（PC-004）",
-             NARROW_WIDTH * RATIO, width_conversion_fifo_pkg::WIDE_WIDTH_MAX);
+             NARROW_WIDTH * RATIO, WIDE_WIDTH_MAX);
+    // PC-005
     if (DEPTH < RATIO)
       $error("width_conversion_fifo: DEPTH=%0d < RATIO=%0d 死锁风险（PC-005，需 DEPTH>=RATIO）",
              DEPTH, RATIO);
@@ -77,7 +85,7 @@ module width_conversion_fifo #(
   logic full, empty;
 
   generate
-    if (DIRECTION == NARROW_TO_WIDE) begin : g_n2w
+    if (DIRECTION == 1'b0) begin : g_n2w
       // 满：count 已满（==DEPTH）。写入需 1 槽，但读侧同拍可释放（见状态机）。
       // 保守判定：count >= DEPTH 时满（不接收），避免组合路径过长且保证不溢出。
       assign full = (count >= DEPTH[CNT_W-1:0]);
@@ -127,7 +135,7 @@ module width_conversion_fifo #(
       count    <= '0;
       beat_idx <= '0;
     end else begin
-      if (DIRECTION == NARROW_TO_WIDE) begin : n2w_state
+      if (DIRECTION == 1'b0) begin : n2w_state
         logic push;
         logic pop;
         logic [CNT_W-1:0] pop_slots;
@@ -176,7 +184,7 @@ module width_conversion_fifo #(
   // ============================================================
   `ifndef SYNTHESIS
   // PROP-WC_FULLEMPTY-001: 满时不接受新写（输入 ready 与 full 互斥）
-  if (DIRECTION == NARROW_TO_WIDE) begin : g_ap_full_n2w
+  if (DIRECTION == 1'b0) begin : g_ap_full_n2w
     assert property (@(posedge clk) disable iff (!rst_n)
       (full |-> ~narrow_in_ready));
   end else begin : g_ap_full_w2n
@@ -185,13 +193,13 @@ module width_conversion_fifo #(
   end
 
   // PROP-WC_FULLEMPTY-002: 空时输出侧 valid 拉低（W2N 输出窄字）
-  if (DIRECTION == WIDE_TO_NARROW) begin : g_ap_empty_w2n
+  if (DIRECTION == 1'b1) begin : g_ap_empty_w2n
     assert property (@(posedge clk) disable iff (!rst_n)
       (empty |-> ~narrow_out_valid));
   end
 
   // PROP-WC_ORD-001: N2W 组装期间 beat_idx 不超过 RATIO
-  if (DIRECTION == NARROW_TO_WIDE) begin : g_ap_ord_n2w
+  if (DIRECTION == 1'b0) begin : g_ap_ord_n2w
     assert property (@(posedge clk) disable iff (!rst_n)
       (beat_idx <= RATIO[RATIO_W-1:0]));
   end

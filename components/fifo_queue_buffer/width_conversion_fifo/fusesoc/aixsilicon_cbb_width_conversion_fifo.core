@@ -10,18 +10,14 @@ description: |
   DIRECTION 参数切换 窄->宽 / 宽->窄；共享契约见 cbb.yaml / behavior.yaml。
 
 filesets:
-  rtl_interface:
+  # 轻量合并布局：pkg + module 同居 rtl/width_conversion_fifo.sv（artifact-contract §2）
+  rtl_src:
     files:
-      - ../rtl/interface/width_conversion_fifo_pkg.svh
-    file_type: systemVerilogSource
-
-  rtl_impl:
-    files:
-      - ../rtl/impl/impl_pointer_count/width_conversion_fifo.sv
+      - ../rtl/width_conversion_fifo.sv
     file_type: systemVerilogSource
 
   # 注：verif_common/assertions/formal 文件集仅在对应目录存在独立文件时由 target 引用；
-  #     本构件 SVA 内嵌于 RTL（rtl/impl/.../width_conversion_fifo.sv），故 target 不引用它们。
+  #     本构件 SVA 内嵌于 RTL（rtl/width_conversion_fifo.sv），故 target 不引用它们。
   verif_common:
     files:
       - ../verification/common/*.sv
@@ -46,13 +42,11 @@ filesets:
 targets:
   rtl:
     filesets:
-      - rtl_interface
-      - rtl_impl
+      - rtl_src
 
   synth:
     filesets:
-      - rtl_interface
-      - rtl_impl
+      - rtl_src
     tools:
       dc:
         synth_file: ../constraints/width_conversion_fifo.sdc
@@ -60,17 +54,14 @@ targets:
 
   sim:
     filesets:
-      - rtl_interface
-      - rtl_impl
+      - rtl_src
       - sim_tb
     toplevel: width_conversion_fifo_tb
 
   formal:
     filesets:
-      - rtl_interface
-      - rtl_impl
+      - rtl_src
 
   default:
     filesets:
-      - rtl_interface
-      - rtl_impl
+      - rtl_src

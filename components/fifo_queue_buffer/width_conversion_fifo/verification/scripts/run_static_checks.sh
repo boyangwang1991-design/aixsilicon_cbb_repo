@@ -14,9 +14,8 @@ mkdir -p "$OUT"
 echo "=== [G3-1] VCS compile/elab (默认 N2W) ==="
 rm -rf /tmp/wcf_g3_n2w && mkdir -p /tmp/wcf_g3_n2w
 ( cd /tmp/wcf_g3_n2w \
-  && vcs -full64 -sverilog -timescale=1ns/1ps +incdir+$CBB/rtl/interface \
-       $CBB/rtl/interface/width_conversion_fifo_pkg.svh \
-       $CBB/rtl/impl/impl_pointer_count/width_conversion_fifo.sv \
+  && vcs -full64 -sverilog -timescale=1ns/1ps +incdir+$CBB/rtl \
+       $CBB/rtl/width_conversion_fifo.sv \
        -top width_conversion_fifo -l compile_n2w.log \
   && cp compile_n2w.log "$OUT/" )
 
@@ -33,9 +32,8 @@ module w2n_top;
 endmodule
 SV
 ( cd /tmp/wcf_g3_w2n \
-  && vcs -full64 -sverilog -timescale=1ns/1ps +incdir+$CBB/rtl/interface \
-       $CBB/rtl/interface/width_conversion_fifo_pkg.svh \
-       $CBB/rtl/impl/impl_pointer_count/width_conversion_fifo.sv w2n_top.sv \
+  && vcs -full64 -sverilog -timescale=1ns/1ps +incdir+$CBB/rtl \
+       $CBB/rtl/width_conversion_fifo.sv w2n_top.sv \
        -top w2n_top -l compile_w2n.log \
   && cp compile_w2n.log "$OUT/" )
 
@@ -53,9 +51,8 @@ endmodule
 SV
 set +e
 ( cd /tmp/wcf_g3_neg \
-  && vcs -full64 -sverilog -timescale=1ns/1ps +incdir+$CBB/rtl/interface \
-       $CBB/rtl/interface/width_conversion_fifo_pkg.svh \
-       $CBB/rtl/impl/impl_pointer_count/width_conversion_fifo.sv neg_top.sv \
+  && vcs -full64 -sverilog -timescale=1ns/1ps +incdir+$CBB/rtl \
+       $CBB/rtl/width_conversion_fifo.sv neg_top.sv \
        -top neg_top -l compile_neg.log >/dev/null 2>&1 )
 NEG_RC=$?
 set -e
@@ -73,8 +70,7 @@ rm -rf /tmp/wcf_g3_lint && mkdir -p /tmp/wcf_g3_lint
 cat > /tmp/wcf_g3_lint/wcf.prj <<PRJ
 set_option enableSV09 yes
 set_option top width_conversion_fifo
-read_file -type verilog $CBB/rtl/interface/width_conversion_fifo_pkg.svh
-read_file -type verilog $CBB/rtl/impl/impl_pointer_count/width_conversion_fifo.sv
+read_file -type verilog $CBB/rtl/width_conversion_fifo.sv
 PRJ
 ( cd /tmp/wcf_g3_lint && timeout 300 spyglass -project wcf.prj -goal lint/lint_rtl -batch > lint_run.log 2>&1 \
   && echo "SPYGLASS-LINT-PASS" || echo "SPYGLASS-LINT-NONZERO" ) | tee "$OUT/spyglass_lint.txt"

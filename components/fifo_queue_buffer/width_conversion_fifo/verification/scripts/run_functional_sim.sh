@@ -11,9 +11,9 @@ CBB="$CBB_ROOT/components/fifo_queue_buffer/width_conversion_fifo"
 OUT="$CBB/evidence/g4_functional"
 mkdir -p "$OUT"
 
-RTL="$CBB/rtl/interface/width_conversion_fifo_pkg.svh $CBB/rtl/impl/impl_pointer_count/width_conversion_fifo.sv"
+RTL="$CBB/rtl/width_conversion_fifo.sv"
 TB="$CBB/verification/simulation/width_conversion_fifo_tb.sv"
-COMMON="-full64 -sverilog -timescale=1ns/1ps +incdir+$CBB/rtl/interface"
+COMMON="-full64 -sverilog -timescale=1ns/1ps +incdir+$CBB/rtl"
 
 echo "=== [G4-1] N2W 仿真 ==="
 rm -rf /tmp/wcf_g4_n2w && mkdir -p /tmp/wcf_g4_n2w
@@ -29,10 +29,11 @@ rm -rf /tmp/wcf_g4_w2n && mkdir -p /tmp/wcf_g4_w2n
 
 echo "=== [G4-3] 断言变异: count<=DEPTH -> count>DEPTH 应触发断言失败 ==="
 rm -rf /tmp/wcf_g4_mut && mkdir -p /tmp/wcf_g4_mut
-cp $CBB/rtl/impl/impl_pointer_count/width_conversion_fifo.sv /tmp/wcf_g4_mut/dut_mut.sv
+# 轻量单文件：pkg 与 module 同居，变异直接拷贝单文件并改写断言（import 方案）。
+cp $CBB/rtl/width_conversion_fifo.sv /tmp/wcf_g4_mut/dut_mut.sv
 sed -i 's/(count <= DEPTH\[CNT_W-1:0\])/(count > DEPTH[CNT_W-1:0])/' /tmp/wcf_g4_mut/dut_mut.sv
 ( cd /tmp/wcf_g4_mut \
-  && vcs $COMMON $CBB/rtl/interface/width_conversion_fifo_pkg.svh dut_mut.sv $TB -top width_conversion_fifo_tb -l c.log >/dev/null 2>&1 \
+  && vcs $COMMON dut_mut.sv $TB -top width_conversion_fifo_tb -l c.log >/dev/null 2>&1 \
   && ./simv +ntb_random_seed=1 -l run.log 2>&1 | grep -icE "failed at" > "$OUT/mutation_failures.txt" )
 
 echo "=== 证据目录 ==="

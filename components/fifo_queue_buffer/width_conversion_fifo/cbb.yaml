@@ -104,14 +104,16 @@ constraints:
     severity: error
 
 # ---------------- 实现变体（多实现，微架构放 profiles.yaml） ----------------
+# 注：极简单文件布局（artifact-contract §2 默认规范）：不引入 package/interface，
+#     localparam+generate$error 与微架构同居 rtl/width_conversion_fifo.sv（除非使用
+#     HWIF 标准接口文件如 AXI 等）；不拆分 rtl/interface 与 rtl/impl/<impl>/。
 implementations:
   - id: impl_pointer_count
-    source: rtl/impl/impl_pointer_count/
-    constraints: constraints/impl_pointer_count/
+    source: rtl/
+    constraints: constraints/
     dependencies: []
     files:
-      - rtl/interface/width_conversion_fifo_pkg.svh
-      - rtl/impl/impl_pointer_count/width_conversion_fifo.sv
+      - rtl/width_conversion_fifo.sv
 
 # ---------------- 质量门禁 ----------------
 quality:

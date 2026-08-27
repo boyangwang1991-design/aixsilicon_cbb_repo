@@ -20,12 +20,11 @@ set TARGET_LIB "/home/eda/app/synopsys/syn/V-2023.12-SP3/libraries/syn/lsi_10k.d
 # ---- 库设置 ----
 set_app_var target_library $TARGET_LIB
 set_app_var link_library "* $TARGET_LIB"
-set_app_var search_path [list $rtl_dir/interface $rtl_dir/impl/impl_pointer_count]
+set_app_var search_path [list $rtl_dir]
 
-# ---- 读 RTL ----
+# ---- 读 RTL（轻量单文件：pkg+module 同居）----
 read_file -format sverilog [list \
-  $rtl_dir/interface/width_conversion_fifo_pkg.svh \
-  $rtl_dir/impl/impl_pointer_count/width_conversion_fifo.sv ]
+  $rtl_dir/width_conversion_fifo.sv ]
 current_design width_conversion_fifo
 
 # ---- 参数化实例 ----

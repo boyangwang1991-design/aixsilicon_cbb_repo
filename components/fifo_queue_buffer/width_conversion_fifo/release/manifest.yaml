@@ -13,9 +13,7 @@ release:
   maturity: E2              # Implemented + Verified（E3 需 PPA/消费者证据）
 
 artifacts:
-  - path: rtl/interface/width_conversion_fifo_pkg.svh
-    hash: sha256:待发布时固化
-  - path: rtl/impl/impl_pointer_count/width_conversion_fifo.sv
+  - path: rtl/width_conversion_fifo.sv
     hash: sha256:待发布时固化
   - path: fusesoc/aixsilicon_cbb_width_conversion_fifo.core
     hash: sha256:待发布时固化

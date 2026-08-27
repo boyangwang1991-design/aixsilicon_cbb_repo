@@ -15,8 +15,10 @@ width_conversion_fifo
 └── 指针/计数：读写指针 + 计数（满/空判定）
 ```
 
-- `rtl/interface/`：共享契约（参数检查 `$error`、接口、SVA 属性、公共 package）。
-- `rtl/impl/impl_pointer_count/`：唯一微架构实现（指针+计数+方向生成逻辑）。
+- `rtl/width_conversion_fifo.sv`：极简单文件（artifact-contract §2 默认规范）——不引入
+  package/interface；参数上限 `localparam` + 参数检查 `generate $error` 与唯一微架构
+  impl_pointer_count（指针+计数+方向生成逻辑）同居单文件。方向参数为字面 0/1
+  （0=NARROW_TO_WIDE，1=WIDE_TO_NARROW）；若需 HWIF 标准接口文件（AXI 等）才引用之。
 
 ## 2. 多实现与 Profile
 

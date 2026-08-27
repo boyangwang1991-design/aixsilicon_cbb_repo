@@ -4,7 +4,7 @@
 
 ### Added
 - 单时钟同步 FIFO + 整数比宽度转换（A2/A3，QUE-012）
-- 参数化 RTL（`DIRECTION`/`NARROW_WIDTH`/`RATIO`/`DEPTH`）+ 共享契约 package
+- 参数化 RTL（`DIRECTION`/`NARROW_WIDTH`/`RATIO`/`DEPTH`）+ 极简单文件（localparam+`$error` 内联，不拆分 package）
 - SVA 断言：无丢失/无重复/保序/N2W 拼接/W2N 拆分/满空安全/计数不越界
 - 非法参数 elaboration `$error` 拦截（PC-001..005）
 - FuseSoC Core `aixsilicon:cbb:width_conversion_fifo:0.1.0`

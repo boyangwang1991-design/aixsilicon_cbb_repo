@@ -13,7 +13,9 @@
 //   tc_backpressure: 背压下握手 accepted==实际输出（$sampled 同沿判定）
 // ============================================================
 module width_conversion_fifo_tb;
-  import width_conversion_fifo_pkg::*;
+  // 极简单文件：RTL 无 package，方向参数为字面 0/1（对齐 width_conversion_fifo.sv）
+  localparam bit NARROW_TO_WIDE = 1'b0;
+  localparam bit WIDE_TO_NARROW = 1'b1;
 
   parameter bit DIRECTION     = NARROW_TO_WIDE;
   parameter int  NARROW_WIDTH = 8;
