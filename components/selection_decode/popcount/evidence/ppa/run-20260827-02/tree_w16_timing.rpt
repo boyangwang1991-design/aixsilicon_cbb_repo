@@ -1,0 +1,54 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : popcount_impl_tree_INPUT_WIDTH16
+Version: V-2023.12-SP3
+Date   : Thu Aug 27 06:18:54 2026
+****************************************
+
+Operating Conditions: tt_nominal_max_1p00v_25c   Library: sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c
+Wire Load Model Mode: top
+
+  Startpoint: data_i[3] (input port clocked by vclk)
+  Endpoint: cnt_o[3] (output port clocked by vclk)
+  Path Group: vclk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  popcount_impl_tree_INPUT_WIDTH16
+                     Small                 sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock vclk (rise edge)                   0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  input external delay                     0.50       0.50 r
+  data_i[3] (in)                           0.01       0.51 r
+  U2/Y (AND2_X0P7M_A9TH)                   0.07       0.58 r
+  U1/Y (OA21B_X0P7M_A9TH)                  0.07       0.65 f
+  U16/CO (ADDF_X1M_A9TH)                   0.12       0.77 f
+  U13/S (ADDF_X1M_A9TH)                    0.15       0.92 r
+  intadd_0/U3/CO (ADDF_X1M_A9TH)           0.09       1.01 r
+  intadd_0/U2/CO (ADDF_X1M_A9TH)           0.08       1.09 r
+  U3/Y (INV_X1M_A9TH)                      0.03       1.12 f
+  U6/Y (NOR2_X1A_A9TH)                     0.20       1.32 r
+  U8/Y (AOI21_X1M_A9TH)                    0.25       1.57 f
+  cnt_o[3] (out)                           0.00       1.57 f
+  data arrival time                                   1.57
+
+  clock vclk (rise edge)                   2.50       2.50
+  clock network delay (ideal)              0.00       2.50
+  output external delay                   -0.50       2.00
+  data required time                                  2.00
+  -----------------------------------------------------------
+  data required time                                  2.00
+  data arrival time                                  -1.57
+  -----------------------------------------------------------
+  slack (MET)                                         0.43
+
+
+1

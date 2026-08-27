@@ -1,0 +1,10 @@
+# SpyGlass project: popcount lint_rtl
+set_option top popcount
+set_option language_mode verilog
+set_option enableSV09 yes
+set_option mthresh 10000
+read_file -type verilog rtl/popcount.sv
+read_file -type verilog rtl/impl/impl_tree/popcount.sv
+read_file -type verilog rtl/impl/impl_column_compress/popcount.sv
+read_file -type verilog rtl/impl/impl_lookup/popcount.sv
+current_methodology $SPYGLASS_HOME/GuideWare/latest/block/rtl_handoff

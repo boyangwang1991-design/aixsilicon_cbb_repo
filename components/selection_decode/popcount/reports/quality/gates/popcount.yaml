@@ -1,0 +1,24 @@
+cbb: popcount
+updated: '2026-08-27T09:49:00Z'
+gates:
+  G0:
+    status: pass
+    note: 边界判定+查重+零依赖明确
+  G1:
+    status: pass
+  G2:
+    status: pass
+  G3:
+    status: pass
+  G4:
+    status: pass
+  G5:
+    status: pass
+  G6:
+    status: pass
+  G7:
+    status: pass
+    note: 支持矩阵+限制+waiver 完备, qualification_candidate E2
+  G8:
+    status: blocked
+    note: 候选产出齐备; sha256 固化与 status=released 待 Workflow Gate

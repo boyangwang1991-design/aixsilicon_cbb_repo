@@ -32,3 +32,27 @@
     config-gen 确定性生成 mandatory(1)/boundary(18)/pairwise(3)/negative(4)；边界含 min/max/临界/非2幂(DATA_WIDTH×DEPTH×OUTPUT_REG)；negative 非法值由 elaboration $error 拦截（G3 已证）；验证计划 verification/plan.yaml 声明配置矩阵与用例映射
 - `2026-08-26 10:51:34` | **implement** | G3 | sync_fifo 轻量布局扁平化：rtl/interface+impl → 单一 rtl/sync_fifo.sv，全量回归 PASS | 结果(PASS)
     按 artifact-contract §2 轻量选项：pkg 与 impl 合并为单文件（参数检查用 generate $error）；cbb.yaml/.core 同步更新；9 点参数矩阵 compile PASS + 负向 DEPTH=1 拦截 + G4 三场景仿真全 PASS；width_conversion_fifo 核查：无 sync_fifo 类 bug（组合输出无寄存 valid 滞后），现成 N2W/W2N/变异证据全绿，维持原结构与 E2
+- `2026-08-27 03:53:32` | **observe** | reset | 仓库重置：删除 QUE-001 sync_fifo 与 QUE-012 width_conversion_fifo 物理工程包，registry 条目回退 planned（等待重新开发） | 结果(PASS)
+    移除 components/fifo_queue_buffer/{sync_fifo,width_conversion_fifo}；registry.yaml status=implemented -> planned ×2 并更新 updated 时间戳；README 已交付清单同步为暂无；历史经验已沉淀于 skill 仓复盘文档，不受本次删除影响
+- `2026-08-27 07:57:30` | **intake** | G0 | G0 Intake: SEL-014 popcount 判定为 CBB(A1/P1) 查重无重复 无嵌套子依赖 | 结果(PASS)
+    边界判定: 纯组合Hamming计数原子构件, 无CSR/软件契约, 参数化+端口定制, ECC/性能计数/调度权重/DSP稀疏度等多消费者复用; 查重: registry SEL-014 planned 无物理目录, 同组及全库无同名/同义已实现构件, ARI-003/004 planned 且本构件不需嵌套调用; 依赖解析: dependencies=[] 验证依赖=[], 无需子Agent委派; 风险 P1; 执行深度 Standard Loop
+- `2026-08-27 08:18:00` | **specify** | G1 | 方案冻结为文档（用户决策 D）：docs/{design,intake,cbb_spec}.md 完成，RTL 实施待线下评审 | 结果(PASS)
+    用户明确选择"先冻结为文档、线下评审后再动 RTL"; design.md 固化三实现方案 impl_tree(默认)/impl_column_compress(fmax候选)/impl_lookup(Pareto左端点)+纯组合无时钟接口+全精度输出 $clog2(W+1); cbb_spec.md 候选契约 INPUT_WIDTH 4~256 默认64 / CHUNK_W 4~8 仅lookup / PC-001~002 / REQ-001~004 / PROP-PC_FUNC-001·PROP-PC_BOUND-002·PROP-PC_EQV-003 / tc_exhaust_w8·tc_edge·tc_random·tc_equiv_lec; 验证策略 fm_shell LEC 两两等价(W∈{8,33,64,127})+W8全空间穷举+变异测试; G6 计划 GF CMOS28LP+ARM SC9 400MHz 起步 {impl}×{8,16,32,64,128} Pareto; 待裁决关注点: ①三实现是否裁剪 ②CHUNK_W 参数去留 ③Pareto 消费优先级; G1 YAML 契约与 G2 profiles.yaml 待评审通过后写入并 check
+- `2026-08-27 08:06:11` | **intake** | G0 | SEL-014 popcount G0 Intake: 判定为 CBB(A1/P1) 查重无重复 无嵌套子依赖 | 结果(PASS)
+    边界判定: 纯组合Hamming计数原子构件, 无CSR/软件契约, 参数化+端口定制, ECC/性能计数/调度权重等多消费者复用; 查重: registry SEL-014 planned 无物理目录, 同组(sel_decode)及全库无同名/同义已实现构件, ARI-003 carry_save_adder/ARI-004 multi_operand_adder 均 planned 且本构件不需嵌套调用; 依赖解析: 运行时 dependencies=[] 验证依赖=[], 无需子Agent委派; 消费者: ECC编码器/带宽仲裁/事件统计/DSP峰值检测; 风险 P1; 执行深度: Standard Loop(新增CBB)
+- `2026-08-27 08:56:54` | **implement** | G3 | SEL-014 popcount G3 静态基线 PASS: VCS 编译矩阵18/18 + 负向拦截×2 + SpyGlass lint 0E/0W | 结果(PASS)
+    VCS -full64 compile/elab: {tree,colcmp,lookup}×W∈{4,8,33,64,127,256} 含非2幂全PASS; 负向 INPUT_WIDTH=3/CHUNK_W=9 elaboration $error 拦截 RC=255 且报错ID命中PC-001/002; SpyGlass lint_rtl(GuideWare rtl_handoff): 0 Fatal/0 Error/0 Warning/2 Info(需 enableSV09); 证据 evidence/g3_static/{param_matrix,negative_w3,negative_cw9,spyglass_lint}.txt
+- `2026-08-27 08:58:38` | **implement** | SKILL 优化: popcount 运行经验沉淀至 domain-rules §3.1.1/§3.1.3/§3.2 (5 条新坑) validate_suite PASS | 结果(PASS)
+    新增: wrapper派生端口宽度localparam→parameter化 / 列压缩逐列always_comb多驱动ICPD→单进程原子快照+列计数不变式递推 / 守恒递推漏SUM项黄金模型检出 / tee+grep -q SIGPIPE误判→先落盘再grep / SpyGlass read_file type=verilog+enableSV09 / fm_shell V-2023.12 set_top形态; 新增§3.2 Popcount/压缩树结构专项行
+- `2026-08-27 09:47:10` | **characterize** | G6 | G6 PPA: PDK_READY 真实综合 15点×SC9/HVT/tt 完成 area+slack 全落盘 run-20260827-01 | 结果(PASS)
+    GF CMOS28LP sc9_base_hvt tt_1p00v_25c 虚拟时钟2.5ns; 结果: W≤32 三impl≤65μm²全MET; W=64 tree 124μm²(+0.09) vs colcmp 1258μm²(−1.11违例); W=128 249 vs 2551(−2.20); lookup与tree趋同=DC case表折叠为同构树(预期); Pareto结论: tree_default 为推荐Profile, fmax_opt 降级experimental, 显式FA网表登记为后续Change Plan; 教训沉淀: dc_shell generate-case参数覆盖不生效→子模块直证; 证据 evidence/ppa/run-20260827-01/(60文件)+characterization/plan.yaml
+- `2026-08-27 09:49:45` | **qualify** | G7 | G7 Qualification candidate(E2): 支持矩阵+5限制+waiver 齐备; registry SEL-014 物化 implemented; G8 候选待 Workflow Gate 固化 sha256 | 结果(PASS)
+    docs/qualification-report.md §1-§5; release/manifest.yaml(status=candidate, SBOM runtime=[] verification=[], license Apache-2.0); gate 8pass+G8blocked; 消费者 smoke 待首个消费者 IP 接入(不阻塞候选)
+- `2026-08-27 09:50:00` | **release** | G8 | G8 Release 候选齐备: manifest(status=candidate)+CHANGELOG+core+SBOM零依赖; sha256 固化与 status=released 仅待 Workflow Gate 确认 | 结果(BLOCKED)
+    最终复核: rtm --check-only PASS / check --strict PASS / gate 8pass+1blocked; 全链证据 evidence/{g3_static,g4_functional,ppa/run-20260827-01}; SKILL 经验沉淀 domain-rules(validate_suite PASS)
+- `2026-08-27 09:53:11` | **characterize** | PPA 分析报告成形: characterization/ppa-report.md (矩阵+Pareto图+profile推荐+可复现说明) | 结果(PASS)
+    补齐功耗维度: colcmp W64 691μW vs tree 72μW (~10×), W128 1392μW vs 155μW; Pareto前沿由tree完全主导; fmax_opt experimental 结论经报告固化
+- `2026-08-27 12:12:06` | **characterize** | Change C1: impl_lookup→impl_dadda 完成(全回归PASS); G6 run-20260827-02 补充表征 dadda_w8=27.7μm²(+130% vs tree); 大宽度点 DC 超时登记待补; PNG Pareto 图经 Python 生成 | 结果(PASS)
+    RTL: rtl/impl/impl_dadda/popcount.sv (权值守恒律Σm[c]·2^c, FA=-2本列+1carry, Dadda目标序列 DTBL[14], 魔数floor(eff/3)=(eff*17hAAAB)>>17 无除法网络); 验证: 编译矩阵18/18+exhaust_w8+edge+random3000+变异全PASS; 结论: tree_default 推荐地位不变, dadda_sched/colcmp 均 experimental; ppa-report.md §0/§2' 增补; plot_pareto.py 固化绘图管线
+- `2026-08-27 12:12:58` | **observe** | SKILL 图表纪律固化: ppa-evidence.md §0 新增(PNG禁ASCII图/脚本程序化读数/--with matplotlib注入/resolve锚定与Agg后端坑) | 结果(PASS)
+    plot_pareto.py 经验: Path(root).resolve()防相对拼接错位; pareto_run-20260827-01.png 已归档并嵌入 ppa-report.md; validate_suite PASS

@@ -55,10 +55,10 @@ VLNV 命名：`aixsilicon:cbb:<cbb_name>:<version>`。
 
 ## 当前已交付构件
 
-- `components/fifo_queue_buffer/sync_fifo`（QUE-001，A2，P0）
-- `components/fifo_queue_buffer/width_conversion_fifo`（QUE-012，A2/A3，P1）
+暂无（2026-08：QUE-001 sync_fifo / QUE-012 width_conversion_fifo 工程包已移除、registry 条目回退 planned，
+等待重新开发交付；历史证据见 `reports/quality/run_log.md`）。
 
-更多条目见 [`registry.yaml`](registry.yaml:1)（410 条候选，其中 2 条已实现）。
+更多条目见 [`registry.yaml`](registry.yaml:1)（410 条候选）。
 
 ## 贡献交付件
 

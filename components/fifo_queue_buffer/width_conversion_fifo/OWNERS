@@ -1,8 +1,0 @@
-# OWNERS — width_conversion_fifo
-
-owner: aixsilicon:cbb
-approvers:
-  - rtl-owner
-  - dv-owner
-  - ppa-owner
-reviewers: []

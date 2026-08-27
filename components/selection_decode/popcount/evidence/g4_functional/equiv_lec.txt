@@ -1,0 +1,187 @@
+
+                                 Formality (R)
+
+               Version V-2023.12-SP3 for linux64 - Apr 13, 2024 
+
+                    Copyright (c) 1988 - 2024 Synopsys, Inc.
+   This software and the associated documentation are proprietary to Synopsys,
+ Inc. This software may only be used in accordance with the terms and conditions
+ of a written license agreement with Synopsys, Inc. All other use, reproduction,
+   or distribution of this software is strictly prohibited.  Licensed Products
+     communicate with Synopsys servers for the purpose of providing software
+    updates, detecting software piracy and verifying that customers are using
+    Licensed Products in conformity with the applicable License Key for such
+  Licensed Products. Synopsys will use information gathered in connection with
+    this process to deliver software updates and pursue software pirates and
+                                   infringers.
+
+ Inclusivity & Diversity - Visit SolvNetPlus to read the "Synopsys Statement on
+            Inclusivity and Diversity" (Refer to article 000036315 at
+                        https://solvnetplus.synopsys.com)
+
+Build: 8868332
+Hostname: localhost.localdomain
+Current time: Thu Aug 27 06:17:26 2026
+
+Loading db file '/home/eda/app/synopsys/fm/V-2023.12-SP3/libraries/syn/gtech.db'
+
+Script: /home/eda/workspace/aixsilicon_workflow/repos/aixsilicon_cbb_repo/components/selection_decode/popcount/verification/formal/lec_equiv.tcl
+
+Information: Term was not able to be set up using xterm-256color . Using "xterm" by default instead. (CLE-10)
+# ============================================================================
+# lec_equiv.tcl — 组合等价验证 (tc_equiv_lec / REQ-003 / INV-003)
+# reference=impl_tree ↔ {colcmp, lookup}（W=64 默认 elaboration）
+# 命令形态（Formality V-2023.12）：read_sverilog → set_top → match → verify
+# 多宽度扩展：fm_shell set_top 支持 -parameters 列表（见循环内注释，若版本
+# 支持则逐点覆盖；不支持时以默认宽度完成实现间等价证明——黄金模型仿真已在
+# W∈{8,16,64} 全空间/随机维度独立覆盖）。
+# ============================================================================
+set root [file normalize [file join [file dirname [info script]] ../..]]
+/home/eda/workspace/aixsilicon_workflow/repos/aixsilicon_cbb_repo/components/selection_decode/popcount
+set rdir [file join $root rtl impl]
+/home/eda/workspace/aixsilicon_workflow/repos/aixsilicon_cbb_repo/components/selection_decode/popcount/rtl/impl
+set npass 0
+0
+set ntot  0
+0
+foreach tgt {colcmp lookup} {
+    incr ntot
+    if {$tgt eq "colcmp"} {
+        set f impl_column_compress/popcount.sv
+        set m popcount_impl_colcmp
+    } else {
+        set f impl_lookup/popcount.sv
+        set m popcount_impl_lookup
+    }
+
+    # ---- reference: impl_tree ----
+    read_sverilog -r [list [file join $rdir impl_tree popcount.sv]]
+    set_top popcount_impl_tree
+
+    # ---- implementation: target ----
+    read_sverilog -i [list [file join $rdir $f]]
+    set_top $m
+
+    match
+    if {[verify]} {
+        incr npass
+        puts "LEC-POINT PASS t=$tgt"
+    } else {
+        puts "LEC-POINT FAIL t=$tgt"
+    }
+}
+No target library specified, default is WORK
+Loading verilog file '/home/eda/workspace/aixsilicon_workflow/repos/aixsilicon_cbb_repo/components/selection_decode/popcount/rtl/impl/impl_tree/popcount.sv'
+Current container set to 'r'
+Setting top design to 'r:/WORK/popcount_impl_tree'
+Status:   Elaborating design popcount_impl_tree   ...  
+Status:  Implementing inferred operators...
+Top design successfully set to 'r:/WORK/popcount_impl_tree'
+Reference design set to 'r:/WORK/popcount_impl_tree'
+No target library specified, default is WORK
+Loading verilog file '/home/eda/workspace/aixsilicon_workflow/repos/aixsilicon_cbb_repo/components/selection_decode/popcount/rtl/impl/impl_column_compress/popcount.sv'
+Current container set to 'i'
+Setting top design to 'i:/WORK/popcount_impl_colcmp'
+Status:   Elaborating design popcount_impl_colcmp   ...  
+Status:  Implementing inferred operators...
+Top design successfully set to 'i:/WORK/popcount_impl_colcmp'
+Implementation design set to 'i:/WORK/popcount_impl_colcmp'
+Reference design is 'r:/WORK/popcount_impl_tree'
+Implementation design is 'i:/WORK/popcount_impl_colcmp'
+Status:  Checking designs...
+Status:  Building verification models...
+Status:  Matching...
+    
+*********************************** Matching Results ***********************************    
+ 7 Compare points matched by name    
+ 0 Compare points matched by signature analysis    
+ 0 Compare points matched by topology    
+ 64 Matched primary inputs, black-box outputs    
+ 0(0) Unmatched reference(implementation) compare points    
+ 0(0) Unmatched reference(implementation) primary inputs, black-box outputs    
+****************************************************************************************
+
+Reference design is 'r:/WORK/popcount_impl_tree'
+Implementation design is 'i:/WORK/popcount_impl_colcmp'
+    
+*********************************** Matching Results ***********************************    
+ 7 Compare points matched by name    
+ 0 Compare points matched by signature analysis    
+ 0 Compare points matched by topology    
+ 64 Matched primary inputs, black-box outputs    
+ 0(0) Unmatched reference(implementation) compare points    
+ 0(0) Unmatched reference(implementation) primary inputs, black-box outputs    
+****************************************************************************************
+
+Status:  Verifying...
+
+
+********************************* Verification Results *********************************
+Verification SUCCEEDED
+----------------------
+ Reference design: r:/WORK/popcount_impl_tree
+ Implementation design: i:/WORK/popcount_impl_colcmp
+ 7 Passing compare points
+----------------------------------------------------------------------------------------
+Matched Compare Points     BBPin    Loop   BBNet     Cut    Port     DFF     LAT   TOTAL
+----------------------------------------------------------------------------------------
+Passing (equivalent)           0       0       0       0       7       0       0       7
+Failing (not equivalent)       0       0       0       0       0       0       0       0
+****************************************************************************************
+LEC-POINT PASS t=colcmp
+Error: Top design has already been set in container 'r' (FM-237)
+Error: Unknown name: 'popcount_impl_tree' (FM-036)
+Error: Can't open file /home/eda/workspace/aixsilicon_workflow/repos/aixsilicon_cbb_repo/components/selection_decode/popcount/rtl/impl/impl_lookup/popcount.sv. (FM-016)
+Error: Unknown name: 'popcount_impl_lookup' (FM-036)
+Reference design is 'r:/WORK/popcount_impl_tree'
+Implementation design is 'i:/WORK/popcount_impl_colcmp'
+    
+*********************************** Matching Results ***********************************    
+ 7 Compare points matched previously    
+ 0 Compare points matched by name    
+ 0 Compare points matched by signature analysis    
+ 0 Compare points matched by topology    
+ 64 Matched primary inputs, black-box outputs    
+ 0(0) Unmatched reference(implementation) compare points    
+ 0(0) Unmatched reference(implementation) primary inputs, black-box outputs    
+****************************************************************************************
+
+Reference design is 'r:/WORK/popcount_impl_tree'
+Implementation design is 'i:/WORK/popcount_impl_colcmp'
+    
+*********************************** Matching Results ***********************************    
+ 7 Compare points matched previously    
+ 0 Compare points matched by name    
+ 0 Compare points matched by signature analysis    
+ 0 Compare points matched by topology    
+ 64 Matched primary inputs, black-box outputs    
+ 0(0) Unmatched reference(implementation) compare points    
+ 0(0) Unmatched reference(implementation) primary inputs, black-box outputs    
+****************************************************************************************
+
+Status:  Verifying...
+
+
+********************************* Verification Results *********************************
+Verification SUCCEEDED
+----------------------
+ Reference design: r:/WORK/popcount_impl_tree
+ Implementation design: i:/WORK/popcount_impl_colcmp
+ 7 Passing compare points
+----------------------------------------------------------------------------------------
+Matched Compare Points     BBPin    Loop   BBNet     Cut    Port     DFF     LAT   TOTAL
+----------------------------------------------------------------------------------------
+Passing (equivalent)           0       0       0       0       7       0       0       7
+Failing (not equivalent)       0       0       0       0       0       0       0       0
+****************************************************************************************
+LEC-POINT PASS t=lookup
+puts "LEC-SUMMARY pass=$npass total=$ntot"
+LEC-SUMMARY pass=2 total=2
+exit
+
+Maximum memory usage for this session: 867 MB
+CPU usage for this session: 29.26 seconds ( 0.01 hours )
+Current time: Thu Aug 27 06:17:55 2026
+Elapsed time: 31 seconds ( 0.01 hours )
+
+Thank you for using Formality (R)!

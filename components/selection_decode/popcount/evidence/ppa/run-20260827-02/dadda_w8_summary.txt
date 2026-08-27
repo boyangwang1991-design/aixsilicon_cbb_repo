@@ -1,0 +1,4 @@
+tag=dadda_w8
+comb=27.729000
+area=27.729000
+slack=0.32

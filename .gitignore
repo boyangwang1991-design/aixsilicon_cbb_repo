@@ -52,6 +52,39 @@ venv/
 *.zip
 *.tar
 
+# ---------- EDA 运行时缓存/工作目录（2026-08 popcount 运行实测新增） ----------
+# VCS 编译对象缓存与执行器产物
+csrc/
+csrc/*
+**/csrc/
+*.daidir/
+simv.daidir/
+simv_run/
+ucli.key
+.pcv.lock
+# Design Compiler 元数据与工作区（alib 缓存可达数 MB）
+alib-*/
+cksum_dir/
+fm_work/
+# Formality 会话机器信息快照（host/env/meminfo 等环境元数据，非设计证据）
+**/FM_INFO/
+# SpyGlass 批处理工程的工作生成物；保留 .prj 配置本体供复现
+lint_work/*
+!lint_work/*.prj
+**/lint_work/lint/
+**/.SG_SaveRestoreDB/
+**/consolidated_reports/
+
+# ---------- PPA 原始报告瘦身策略（2026-08 评审决定） ----------
+# 门级原始报告(*.rpt)体积大且可由 synth_sweep.tcl 一键重放再生；
+# 入库仅保留 summary.txt（Pareto 数据锚点）+ 正文报告 ppa-report.md + PNG 图。
+# **/evidence/ppa/**/*.rpt
+
+# ---------- 内部路径敏感评估（若仓库转公开请取消下行注释） ----------
+# characterization/pdk.yaml   # 含本机绝对路径与内部 bundle 标识；
+                               # 该文件由 cbb_tool.py pdk-scan 一键再生，
+                               # 公开场景下忽略后须在 README 注明重建步骤。
+
 # ---------- .roo（默认忽略；CBB 方法由 cbb-development-suite 承载） ----------
 .roo/*
 !.roo/skills/

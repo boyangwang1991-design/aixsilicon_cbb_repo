@@ -1,3 +1,0 @@
-[TB] N2W: RATIO=4 DEPTH=8
-[TB] PASS: err_count=0 (sent_n=39 sent_w=0 got_n=0 got_w=9)
-[TB] PASS: ref_q drained (residual 3 < RATIO, no loss)

@@ -1,0 +1,4 @@
+tag=lookup_w32
+comb=64.817999
+area=64.817999
+slack=0.07

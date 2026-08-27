@@ -1,0 +1,56 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : popcount_impl_dadda_INPUT_WIDTH8
+Version: V-2023.12-SP3
+Date   : Thu Aug 27 06:59:29 2026
+****************************************
+
+Operating Conditions: tt_nominal_max_1p00v_25c   Library: sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c
+Wire Load Model Mode: top
+
+  Startpoint: data_i[3] (input port clocked by vclk)
+  Endpoint: cnt_o[2] (output port clocked by vclk)
+  Path Group: vclk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  popcount_impl_dadda_INPUT_WIDTH8
+                     Small                 sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock vclk (rise edge)                   0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  input external delay                     0.50       0.50 f
+  data_i[3] (in)                           0.00       0.50 f
+  U3157/Y (XOR2_X0P5M_A9TH)                0.09       0.60 f
+  U3166/Y (XOR2_X0P7M_A9TH)                0.12       0.71 r
+  U3164/Y (XOR2_X0P7M_A9TH)                0.13       0.84 r
+  U3180/Y (NAND2_X1B_A9TH)                 0.09       0.93 f
+  U3188/Y (NOR2B_X1M_A9TH)                 0.19       1.11 f
+  U3187/Y (NOR2_X1A_A9TH)                  0.12       1.23 r
+  U3160/Y (XNOR2_X0P7M_A9TH)               0.12       1.35 r
+  U3147/Y (INV_X0P7M_A9TH)                 0.06       1.42 f
+  U3190/Y (AO1B2_X1M_A9TH)                 0.08       1.49 f
+  U3181/Y (NAND2_X1B_A9TH)                 0.05       1.54 r
+  U3191/Y (AO1B2_X1M_A9TH)                 0.13       1.68 r
+  cnt_o[2] (out)                           0.00       1.68 r
+  data arrival time                                   1.68
+
+  clock vclk (rise edge)                   2.50       2.50
+  clock network delay (ideal)              0.00       2.50
+  output external delay                   -0.50       2.00
+  data required time                                  2.00
+  -----------------------------------------------------------
+  data required time                                  2.00
+  data arrival time                                  -1.68
+  -----------------------------------------------------------
+  slack (MET)                                         0.32
+
+
+1

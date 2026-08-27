@@ -1,0 +1,6 @@
+cbb: popcount
+sets:
+  mandatory: 1
+  boundary: 12
+  pairwise: 2
+  negative: 4

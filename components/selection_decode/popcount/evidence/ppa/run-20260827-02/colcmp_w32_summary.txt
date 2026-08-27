@@ -1,0 +1,4 @@
+tag=colcmp_w32
+comb=417.455996
+area=417.455996
+slack=0.00

@@ -1,0 +1,16 @@
+Info: [VCS_SAVE_RESTORE_INFO] ASLR (Address Space Layout Randomization) is detected on the machine. To enable $save functionality, ASLR will be switched off and simv re-executed.
+Please use '-no_save' simv switch to avoid re-execution or '-suppress=ASLR_DETECTED_INFO' to suppress this message.
+Chronologic VCS simulator copyright 1991-2024
+Contains Synopsys proprietary information.
+Compiler version W-2024.09-SP1_Full64; Runtime version W-2024.09-SP1_Full64;  Aug 27 06:17 2026
+=== popcount_tb start (seed=539363367) ===
+[tc_exhaust_w8] done: 256 exhaustive vectors checked
+[tc_edge] done: anchors + onehot scans checked
+[tc_random] done: 3000 seeded random vectors checked
+=== POPCOUNT_TB PASS: all scenarios clean ===
+$finish called from file "/home/eda/workspace/aixsilicon_workflow/repos/aixsilicon_cbb_repo/components/selection_decode/popcount/verification/simulation/popcount_tb.sv", line 153.
+$finish at simulation time              3350000
+           V C S   S i m u l a t i o n   R e p o r t 
+Time: 3350000 ps
+CPU Time:      0.150 seconds;       Data structure size:   0.0Mb
+Thu Aug 27 06:17:23 2026

@@ -1,0 +1,50 @@
+set: boundary
+configs:
+- config_id: cfg_input_width4_chunk_w8
+  parameters:
+    INPUT_WIDTH: 4
+    CHUNK_W: 8
+- config_id: cfg_input_width256_chunk_w8
+  parameters:
+    INPUT_WIDTH: 256
+    CHUNK_W: 8
+- config_id: cfg_input_width130_chunk_w8
+  parameters:
+    INPUT_WIDTH: 130
+    CHUNK_W: 8
+- config_id: cfg_input_width5_chunk_w8
+  parameters:
+    INPUT_WIDTH: 5
+    CHUNK_W: 8
+- config_id: cfg_input_width8_chunk_w8
+  parameters:
+    INPUT_WIDTH: 8
+    CHUNK_W: 8
+- config_id: cfg_input_width16_chunk_w8
+  parameters:
+    INPUT_WIDTH: 16
+    CHUNK_W: 8
+- config_id: cfg_input_width32_chunk_w8
+  parameters:
+    INPUT_WIDTH: 32
+    CHUNK_W: 8
+- config_id: cfg_input_width64_chunk_w8
+  parameters:
+    INPUT_WIDTH: 64
+    CHUNK_W: 8
+- config_id: cfg_input_width128_chunk_w8
+  parameters:
+    INPUT_WIDTH: 128
+    CHUNK_W: 8
+- config_id: cfg_input_width64_chunk_w4
+  parameters:
+    INPUT_WIDTH: 64
+    CHUNK_W: 4
+- config_id: cfg_input_width64_chunk_w6
+  parameters:
+    INPUT_WIDTH: 64
+    CHUNK_W: 6
+- config_id: cfg_input_width64_chunk_w5
+  parameters:
+    INPUT_WIDTH: 64
+    CHUNK_W: 5

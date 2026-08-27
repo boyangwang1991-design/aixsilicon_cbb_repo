@@ -1,0 +1,4 @@
+tag=colcmp_w8
+comb=12.051000
+area=12.051000
+slack=0.53

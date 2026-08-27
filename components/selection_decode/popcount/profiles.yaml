@@ -1,0 +1,40 @@
+# profiles.yaml —— 多实现 Profile（G2）
+# 三实现共享同一可观察契约（参数/端口/函数语义一致），差异仅在 PPA trade-off
+# （domain-rules §4）；微架构选择挂接 implementation，不污染公共功能参数
+
+schema_version: "1.0"
+cbb: aixsilicon:cbb:popcount
+
+profiles:
+  - id: tree_default
+    implementation: impl_tree
+    parameters:
+      INPUT_WIDTH: default        # 使用 cbb.yaml 默认域
+    optimization_target: balanced
+    use_case: ECC 编码器校验位权重、通用计数场景
+    support_status: supported     # G7 后确认
+    notes: O(log W) 加法树深度，综合折叠优化成熟，默认推荐
+
+  - id: fmax_opt
+    implementation: impl_column_compress
+    parameters:
+      INPUT_WIDTH: default
+    optimization_target: fmax
+    use_case: 高频性能事件统计、带宽调度权重计算
+    support_status: experimental  # G6 实测：列计数递推（常数÷/%网络）W≥64 面积~10×且时序违例
+                                  # （plan.yaml run-20260827-01）；显式 FA 网表重测后方可升级
+    notes: 列压缩恒定压缩级联 + 单个窄进位传播收尾器，末级最短；当前形态不优，待 Change Plan
+
+  - id: dadda_sched
+    implementation: impl_dadda
+    parameters:
+      INPUT_WIDTH: default
+    optimization_target: area_exploratory
+    use_case: Dadda 高度调度压缩的 PPA 探索视图（Change C1 引入）
+    support_status: experimental  # G6 W8 点位 27.7μm² vs tree 12.1μm²（2.3×），
+                                  # 大宽度点因 DC 编译耗时未完成；魔数乘网络开销 >
+                                  # 调度节省。待显式 FA 形态重测后裁决去留。
+    notes: 取代 impl_lookup（原被 DC 折叠为 tree 同构，无独立 PPA 价值）
+
+# G2 依赖 DAG 校验：零运行时依赖（三 impl 均 dependencies=[]），自动无环；
+# Profile 选择在编译期通过 wrapper generate（rtl/popcount.sv）完成，见 design.md §1。

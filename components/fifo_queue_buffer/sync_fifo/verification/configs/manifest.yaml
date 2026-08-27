@@ -1,6 +1,0 @@
-cbb: sync_fifo
-sets:
-  mandatory: 1
-  boundary: 18
-  pairwise: 3
-  negative: 4

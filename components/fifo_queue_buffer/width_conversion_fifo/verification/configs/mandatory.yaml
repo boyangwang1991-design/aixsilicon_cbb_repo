@@ -1,8 +1,0 @@
-set: mandatory
-configs:
-- config_id: cfg_directionNARROW_TO_WIDE_narrow_width8_ratio4_depth8
-  parameters:
-    DIRECTION: NARROW_TO_WIDE
-    NARROW_WIDTH: 8
-    RATIO: 4
-    DEPTH: 8

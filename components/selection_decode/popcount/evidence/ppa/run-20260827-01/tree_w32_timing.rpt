@@ -1,0 +1,58 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : popcount_impl_tree_INPUT_WIDTH32
+Version: V-2023.12-SP3
+Date   : Thu Aug 27 05:26:22 2026
+****************************************
+
+Operating Conditions: tt_nominal_max_1p00v_25c   Library: sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c
+Wire Load Model Mode: top
+
+  Startpoint: data_i[12] (input port clocked by vclk)
+  Endpoint: cnt_o[4] (output port clocked by vclk)
+  Path Group: vclk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  popcount_impl_tree_INPUT_WIDTH32
+                     Small                 sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock vclk (rise edge)                   0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  input external delay                     0.50       0.50 r
+  data_i[12] (in)                          0.01       0.51 r
+  U14/Y (XOR2_X0P7M_A9TH)                  0.08       0.59 r
+  U10/Y (XOR2_X0P7M_A9TH)                  0.10       0.69 r
+  U26/Y (XOR2_X1M_A9TH)                    0.11       0.79 r
+  U6/Y (XOR2_X0P7M_A9TH)                   0.09       0.88 r
+  U31/CO (ADDF_X1M_A9TH)                   0.12       1.01 r
+  U19/Y (XOR2_X1M_A9TH)                    0.09       1.09 r
+  U2/Y (XOR2_X0P7M_A9TH)                   0.09       1.18 r
+  U32/CO (ADDF_X1M_A9TH)                   0.11       1.29 r
+  U24/CO (ADDF_X1M_A9TH)                   0.09       1.38 r
+  U27/CO (ADDF_X1M_A9TH)                   0.08       1.45 r
+  U23/Y (INV_X1M_A9TH)                     0.03       1.49 f
+  U1/Y (NOR2_X1M_A9TH)                     0.20       1.69 r
+  U28/Y (AOI21_X1M_A9TH)                   0.25       1.93 f
+  cnt_o[4] (out)                           0.00       1.93 f
+  data arrival time                                   1.93
+
+  clock vclk (rise edge)                   2.50       2.50
+  clock network delay (ideal)              0.00       2.50
+  output external delay                   -0.50       2.00
+  data required time                                  2.00
+  -----------------------------------------------------------
+  data required time                                  2.00
+  data arrival time                                  -1.93
+  -----------------------------------------------------------
+  slack (MET)                                         0.07
+
+
+1

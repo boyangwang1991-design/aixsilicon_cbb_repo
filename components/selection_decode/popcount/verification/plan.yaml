@@ -1,0 +1,61 @@
+# verification/plan.yaml — popcount 验证计划 (F1, verify-cbb)
+# 形态选择依据 verification-strategy §1：组合原子构件 → 黄金模型仿真 +
+# LEC 实现等价 + 变异测试；无时钟→无 CDC/复位专项；轻量 TB 不建 UVM。
+
+plan:
+  cbb: aixsilicon:cbb:popcount
+  version: 0.1.0
+  forms: [simulation, formal_lec, mutation, negative_elab]
+  seed_policy: fixed           # SEED=32'hCBB_2026_0827 于 TB 内声明，可重放
+  evidence_dir: evidence/
+
+# ---- 用例 → 需求/属性映射（引用须与 trace/rtm.yaml 一致）----
+testcases:
+  - id: tc_exhaust_w8
+    form: simulation
+    desc: W=8 全空间 256 向量穷举 × 三实现 + 跨 impl 一致性
+    covers: [REQ-001, INV-001]
+    script: verification/scripts/run_functional_sim.sh
+    evidence: evidence/g4_functional/functional_sim.txt
+
+  - id: tc_edge
+    form: simulation
+    desc: 全0/全1锚点 + one-hot 逐位扫描 W∈{8,16,64}
+    covers: [REQ-002, INV-002]
+    script: verification/scripts/run_functional_sim.sh
+    evidence: evidence/g4_functional/functional_sim.txt
+
+  - id: tc_random
+    form: simulation
+    desc: 固定 seed 随机 3000 向量 W∈{8,16,64}
+    covers: [REQ-001, INV-001]
+    script: verification/scripts/run_functional_sim.sh
+    evidence: evidence/g4_functional/functional_sim.txt
+
+  - id: tc_equiv_lec
+    form: formal_lec
+    desc: fm_shell 实现层直证 impl_tree ↔ colcmp / lookup（W=64 elaboration；
+          多宽度由黄金模型仿真独立覆盖——W∈{8,16,64} 全空间+随机）
+    covers: [REQ-003, INV-003, PROP-PC_EQV-003]
+    script: verification/scripts/run_functional_sim.sh
+    evidence: evidence/g4_functional/equiv_lec.txt
+
+  - id: tc_negative_elab
+    form: negative_elab
+    desc: INPUT_WIDTH=3 / CHUNK_W=9 触发 elaboration $error（RC=255 + 报错 ID）
+    covers: [REQ-004]
+    script: verification/scripts/run_static_checks.sh
+    evidence: evidence/g3_static/negative_w3.txt + negative_cw9.txt
+
+# ---- 静态基线（G3）----
+static_baseline:
+  compile_matrix: 三实现 × W∈{4,8,33,64,127,256} = 18 点全 PASS
+  evidence: evidence/g3_static/param_matrix.txt
+  lint: spyglass lint_rtl（waiver 见 verification/lint_waivers.md）
+
+# ---- 变异测试（checker 有效性）----
+mutation:
+  id: mut_colcmp_divmod
+  injection: POPCC_MUT_DIV2MOD 宏将 colcmp 递推 m/3 → m%3 错位
+  expectation: ≥1 mismatch（FAIL 记录）＝ checker 有效
+  evidence: evidence/g4_functional/mutation.txt

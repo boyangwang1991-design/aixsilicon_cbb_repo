@@ -1,0 +1,10 @@
+set: pairwise
+configs:
+- config_id: cfg_input_width4_chunk_w4
+  parameters:
+    INPUT_WIDTH: 4
+    CHUNK_W: 4
+- config_id: cfg_input_width8_chunk_w4
+  parameters:
+    INPUT_WIDTH: 8
+    CHUNK_W: 4

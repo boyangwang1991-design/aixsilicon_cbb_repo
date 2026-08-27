@@ -1,0 +1,54 @@
+CAPI=2:
+
+# FuseSoC Core — popcount (SEL-014)
+# VLNV: aixsilicon:cbb:popcount:0.1.0
+# 极简单文件规范：wrapper + 三实现同居文件集；PC_IMPL 编译期选择
+name: aixsilicon:cbb:popcount:0.1.0
+description: "Pure combinational Hamming-weight (popcount) atomic CBB, A1, three interchangeable microarchitectures"
+provider:
+  name: aixsilicon
+  library: cbb
+
+filesets:
+  rtl_src:
+    files:
+      - ../rtl/popcount.sv                                # wrapper（参数检查/SVA/实现分派）
+      - ../rtl/impl/impl_tree/popcount.sv                 # 默认推荐
+      - ../rtl/impl/impl_column_compress/popcount.sv      # 列压缩（experimental，PPA 见 plan.yaml）
+      - ../rtl/impl/impl_dadda/popcount.sv               # Dadda 调度列压缩 (Change C1)
+    file_type: systemVerilogSource
+
+  tb_src:
+    files:
+      - ../verification/simulation/popcount_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets: [rtl_src]
+  sim:
+    default_tool: vcs
+    filesets: [rtl_src, tb_src]
+    toplevel: [popcount_tb]
+  synth:
+    default_tool: dc
+    filesets: [rtl_src]
+    toplevel: [popcount]
+  lint:
+    default_tool: spyglass
+    filesets: [rtl_src]
+    toplevel: [popcount]
+
+parameters:
+  INPUT_WIDTH:
+    datatype: int
+    default: 64
+    description: "Input vector width [4..256] (PC-001)"
+  CHUNK_W:
+    datatype: int
+    default: 8
+    description: "Reserved (legacy CHUNK_W, kept for contract compat)"
+  PC_IMPL:
+    datatype: int
+    default: 0
+    description: "Microarchitecture select {0=tree,1=column_compress,2=lookup}"
