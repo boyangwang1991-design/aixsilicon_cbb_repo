@@ -5,7 +5,6 @@
 // 打平布局（用户指令）：本目录无子级目录结构；
 //   popcount.sv             = wrapper + 参数检查 + SVA + 四路分派（本文件）
 //   popcount_compressed.sv  = wallace 显式 FA 核（gen_schedule.py 生成）
-//   pc_sched_table.svh      = 调度常量表          （同上生成）
 //   pc_lut_pkg_inline 内嵌分级查表函数（见 POPCNT_IMPL_LUT）
 //
 // PC_IMPL 微架构选择（profile 挂接点）：
@@ -44,7 +43,6 @@ module popcount #(
     endgenerate
 
 
-    // pc_sched_table.svh 已随 define 就位——压缩核依赖其常量函数
 
     // ------------------------------------------------------------------
     // 分派
