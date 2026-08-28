@@ -1,0 +1,20 @@
+# 表征计划（Characterization Plan）— skid_buffer（QUE-007, A3）
+# G6 PPA：cbb_tool.py pdk-scan 已判定 PDK_READY
+#   （GF CMOS28LP 28nm + ARM SC9 标准单元库，dc_shell 可用）
+# → 必须做真实综合表征（禁止降级 OPTIONAL_UNAVAILABLE(E0)）
+
+benchmark_profiles:
+  - id: prof_skid_400mhz
+    pdk_yaml: characterization/pdk.yaml
+    library: sc9_cmos28lp_base_hvt
+    corner: tt_nominal_max_1p00v_25c
+    clock_period_ns: 2.5          # 400MHz（PDK README §7 建议起步）
+    data_widths: [8, 32, 128]
+    tool: dc_shell
+    constraints: constraints/skid_buffer.sdc
+    script: characterization/synth_quick.tcl
+
+measured_region:
+  DATA_W: [8, 32, 128]
+
+status: PDK_READY

@@ -1,0 +1,8 @@
+set: negative
+configs:
+- config_id: cfg_data_w0
+  parameters:
+    DATA_W: 0
+- config_id: cfg_data_w1025
+  parameters:
+    DATA_W: 1025

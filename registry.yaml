@@ -1,5 +1,5 @@
 schema_version: "2.0"
-updated: "2026-08-27T09:49:45Z"
+updated: "2026-08-28T09:30:00Z"
 # 本文件是 CBB 目录唯一 SSOT（由 scripts/build_cbb_structure.py 治理）。
 # 字段: id/name/family/group/abstraction/priority/implementation/description/status/version/path
 # 修改入口: 直接编辑本文件后运行 'python3 scripts/build_cbb_structure.py' 校验。
@@ -2973,9 +2973,9 @@ cbbs:
     group: components/fifo_queue_buffer
     abstraction: A3
     priority: P0
-    implementation: output/input registered
-    description: 切断Ready组合链
-    status: planned
+    implementation: output/input registered、bubble-free
+    description: 切断Ready组合链，满吞吐无气泡（OUT寄存+SKID槽，FIFO保序）
+    status: implemented          # 2026-08-28 首次物化（G3/G4 证据，PDK_READY 待 G6）
     version: "0.1.0"
     path: components/fifo_queue_buffer/skid_buffer
   - id: QUE-008

@@ -1,0 +1,26 @@
+set: boundary
+configs:
+- config_id: cfg_data_w1
+  parameters:
+    DATA_W: 1
+- config_id: cfg_data_w1024
+  parameters:
+    DATA_W: 1024
+- config_id: cfg_data_w512
+  parameters:
+    DATA_W: 512
+- config_id: cfg_data_w2
+  parameters:
+    DATA_W: 2
+- config_id: cfg_data_w8
+  parameters:
+    DATA_W: 8
+- config_id: cfg_data_w32
+  parameters:
+    DATA_W: 32
+- config_id: cfg_data_w64
+  parameters:
+    DATA_W: 64
+- config_id: cfg_data_w128
+  parameters:
+    DATA_W: 128

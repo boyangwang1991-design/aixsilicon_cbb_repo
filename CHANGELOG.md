@@ -2,6 +2,13 @@
 
 本仓库遵循语义化版本（SemVer）管理 CBB 平台整体版本；单个 CBB 在其工程包内独立维护版本。
 
+## [0.1.2] - 2026-08-28
+
+### Added
+- 交付 **QUE-007 skid_buffer**（[`components/fifo_queue_buffer/skid_buffer/`](components/fifo_queue_buffer/skid_buffer/README.md)，A3/P0）——
+  Valid-Ready 打拍模块（OUT 寄存 + SKID 槽，切断 ready 组合链，满吞吐无气泡、FIFO 保序），
+  G3/G4/G6 证据完整（VCS 功能仿真 + DC 400MHz 真实综合 PPA），2026-08-28 交付。
+
 ## [0.1.1] - 2026-08-12
 
 ### Fixed

@@ -1,0 +1,43 @@
+CAPI=2:
+
+# FuseSoC Core — skid_buffer (QUE-007)
+# VLNV: aixsilicon:cbb:skid_buffer:0.1.0
+# 极简单文件：rtl/skid_buffer.sv（参数化 DATA_W；无 package/interface，无嵌套依赖）
+name: aixsilicon:cbb:skid_buffer:0.1.0
+description: "Valid-Ready skid buffer CBB, A3: 1-slot buffer cutting ready combinational chain, full-throughput bubble-free"
+provider:
+  name: aixsilicon
+  library: cbb
+
+filesets:
+  rtl_src:
+    files:
+      - ../rtl/skid_buffer.sv
+    file_type: systemVerilogSource
+
+  tb_src:
+    files:
+      - ../verification/simulation/skid_buffer_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets: [rtl_src]
+  sim:
+    default_tool: vcs
+    filesets: [rtl_src, tb_src]
+    toplevel: [skid_buffer_tb]
+  synth:
+    default_tool: dc
+    filesets: [rtl_src]
+    toplevel: [skid_buffer]
+  lint:
+    default_tool: spyglass
+    filesets: [rtl_src]
+    toplevel: [skid_buffer]
+
+parameters:
+  DATA_W:
+    datatype: int
+    default: 32
+    description: "Data width [1..1024] (PC-001/002)"

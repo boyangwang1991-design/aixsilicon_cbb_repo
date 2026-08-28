@@ -1,0 +1,94 @@
+# ============================================================
+# cbb.yaml — skid_buffer SSOT 元数据（QUE-007, A3/P0）
+# Valid-Ready Skid Buffer：1 槽缓冲切断 ready 组合链的 vld rdy 打拍模块
+# 拓扑：OUT 寄存级 + SKID 槽（bubble-free full-throughput register slice）
+# ============================================================
+
+schema_version: 1.0
+
+cbb:
+  id: aixsilicon:cbb:skid_buffer
+  name: skid_buffer
+  version: 0.1.0
+  owner: aixsilicon:cbb
+  maturity: E0
+  license: Apache-2.0
+
+classification:
+  abstraction: A3                    # 协议构件（Ready-Valid 握手语义）
+  primary_domain: fifo_queue_buffer
+  secondary_domains: [streaming_pipeline]
+
+contract:
+  interface: ready_valid             # 原生 valid/ready 握手，无总线协议语义
+  clock_domains: 1
+  ordering: in_order                 # FIFO 保序
+  throughput: 1_per_cycle            # 满吞吐无气泡（skid 槽吸收背压）
+
+# ---------------- 可配置参数 ----------------
+parameters:
+  DATA_W:
+    type: int
+    default: 32
+    legal: {min: 1, max: 1024}
+    partitions: [1, 8, 32, 64, 128]
+    affects: [interface_width, area, timing]
+    semantics: 数据通路位宽（in/out 共享，唯一功能参数）
+
+constraints:
+  - id: PC-001
+    expression: "DATA_W >= 1"
+    severity: error                   # 非零位宽
+  - id: PC-002
+    expression: "DATA_W <= 1024"
+    severity: error                   # RTL 位宽上界（面积/时序）
+
+# ---------------- 需求（REQ→PROP/tests/configs 映射）----------------
+requirements:
+  - id: REQ-001
+    description: >-
+      满吞吐与保序——随机 valid/ready/背压流下所有被接受输入按序输出，无丢无重
+      （参考模型队列整体比对；`in_valid&&in_ready |-> ##1 out_valid` 无气泡）。
+    properties: [PROP-SKID_ACCEPT-003, PROP-SKID_DATA-004]
+    tests: [tc_random, tc_backpressure]
+    configs: [cfg_data_w32, cfg_data_w64, cfg_data_w128]
+  - id: REQ-002
+    description: >-
+      反压正确——全满（out_valid && ~out_ready && buf_valid）时 in_ready 拉低；
+      输出级空或 SKID 槽有空位时必可接受输入，数据不丢。
+    properties: [PROP-SKID_READY-001, PROP-SKID_READY-002]
+    tests: [tc_backpressure, tc_edge]
+    configs: [cfg_data_w32, cfg_data_w8]
+  - id: REQ-003
+    description: >-
+      边界——DATA_W=1 / 极值 / 空流 / 单拍 / 连续背压场景行为正确；
+      输出始终寄存（非 fall-through 直通）。
+    properties: [PROP-SKID_ACCEPT-003]
+    tests: [tc_edge]
+    configs: [cfg_data_w1, cfg_data_w2, cfg_data_w1024]
+  - id: REQ-004
+    description: 非法参数在 Elaboration 期被拦截（DATA_W 越界 → generate 块 $error）。
+    properties: []                    # 负向编译证据（非 SVA）
+    tests: [tc_negative_elab]
+    configs: [cfg_data_w0, cfg_data_w1025]
+
+# ---------------- 实现变体（单实现：OUT 寄存 + SKID 槽）----------------
+implementations:
+  - id: impl_output_registered        # 满吞吐 bubble-free 拓扑（经典 skid buffer）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []                  # 无嵌套 CBB 依赖（独立 A3 构件）
+    files:
+      - rtl/skid_buffer.sv
+
+# ---------------- 质量门禁（G0~G8）----------------
+quality:
+  required_gates: [G0, G1, G2, G3, G4, G5, G6, G7, G8]
+
+# ---------------- PPA 表征 ----------------
+characterization:
+  benchmark_profiles: []
+  measured_region: {DATA_W: [8, 32, 64, 128]}
+
+release:
+  fusesoc_core: aixsilicon:cbb:skid_buffer:0.1.0

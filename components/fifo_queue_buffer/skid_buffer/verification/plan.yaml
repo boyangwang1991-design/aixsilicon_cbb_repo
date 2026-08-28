@@ -1,0 +1,48 @@
+# ============================================================================
+# 验证计划（Verification Plan）— skid_buffer (QUE-007, A3)
+# 形态：SVA（RTL 就近）+ Simulation（VCS）+ Negative（elaboration $error）
+# 配置矩阵由 cbb_tool.py config-gen 确定性生成（verification/configs/）
+# ============================================================================
+
+target: skid_buffer
+
+verification_forms:
+  - sva               # RTL 内 PROP-SKID_READY-001/002, PROP-SKID_ACCEPT-003, PROP-SKID_DATA-004
+  - simulation        # VCS：tc_random + tc_backpressure + tc_edge（参考模型队列整体比对）
+  - negative          # DATA_W 越界 elaboration 拦截（run_static_checks.sh）
+
+configs:
+  mandatory: [cfg_data_w32]
+  boundary: [cfg_data_w1, cfg_data_w2, cfg_data_w8, cfg_data_w32,
+             cfg_data_w64, cfg_data_w128, cfg_data_w512, cfg_data_w1024]
+  pairwise: []        # 单参数构件，无二元交互（config-gen 输出为空）
+  negative: [cfg_data_w0, cfg_data_w1025]
+
+testcases:
+  - id: tc_random
+    description: 随机 valid/ready 流（固定 seed），参考模型队列比对保序无丢无重
+    configs: [cfg_data_w32, cfg_data_w64, cfg_data_w128]
+    reqs: [REQ-001]
+    invariants: [INV-001, INV-003]
+    properties: [PROP-SKID_ACCEPT-003, PROP-SKID_DATA-004]
+  - id: tc_backpressure
+    description: 高背压（out_ready ~6%），验证反压时数据不丢、in_ready 全满拉低
+    configs: [cfg_data_w32, cfg_data_w8]
+    reqs: [REQ-002]
+    invariants: [INV-001, INV-002]
+    properties: [PROP-SKID_READY-001, PROP-SKID_READY-002]
+  - id: tc_edge
+    description: 空流 / 单拍 / 连续背压边界（DATA_W=1 特化）
+    configs: [cfg_data_w1, cfg_data_w2, cfg_data_w1024]
+    reqs: [REQ-003]
+    invariants: [INV-002]
+    properties: [PROP-SKID_ACCEPT-003]
+  - id: tc_negative_elab
+    description: DATA_W 越界（0/1025）在 elaboration 期被 generate $error 拦截
+    configs: [cfg_data_w0, cfg_data_w1025]
+    reqs: [REQ-004]
+    invariants: []
+
+evidence:
+  g3_static: build/eda/evidence/g3_static/{param_matrix.txt, negative_w0.txt, negative_w1025.txt}
+  g4_functional: build/eda/evidence/g4_functional/functional_sim.txt

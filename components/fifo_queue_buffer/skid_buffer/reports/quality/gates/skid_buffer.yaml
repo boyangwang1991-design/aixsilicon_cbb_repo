@@ -1,0 +1,48 @@
+cbb: skid_buffer
+updated: '2026-08-28T09:32:01Z'
+gates:
+  G6:
+    status: pass
+    note: 'G7/G8: 待 Qualification/Release（需 Workflow Gate + 消费者 Smoke/SBOM）'
+    evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
+      + build/eda/ppa/run-20260828-01
+  G0:
+    status: pass
+    evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
+      + build/eda/ppa/run-20260828-01
+    note: 'G7/G8: 待 Qualification/Release（需 Workflow Gate + 消费者 Smoke/SBOM）'
+  G1:
+    status: pass
+    evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
+      + build/eda/ppa/run-20260828-01
+    note: 'G7/G8: 待 Qualification/Release（需 Workflow Gate + 消费者 Smoke/SBOM）'
+  G2:
+    status: pass
+    evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
+      + build/eda/ppa/run-20260828-01
+    note: 'G7/G8: 待 Qualification/Release（需 Workflow Gate + 消费者 Smoke/SBOM）'
+  G3:
+    status: pass
+    evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
+      + build/eda/ppa/run-20260828-01
+    note: 'G7/G8: 待 Qualification/Release（需 Workflow Gate + 消费者 Smoke/SBOM）'
+  G4:
+    status: pass
+    evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
+      + build/eda/ppa/run-20260828-01
+    note: 'G7/G8: 待 Qualification/Release（需 Workflow Gate + 消费者 Smoke/SBOM）'
+  G5:
+    status: pass
+    evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
+      + build/eda/ppa/run-20260828-01
+    note: 'G7/G8: 待 Qualification/Release（需 Workflow Gate + 消费者 Smoke/SBOM）'
+  G7:
+    status: blocked
+    evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
+      + build/eda/ppa/run-20260828-01
+    note: 'G7/G8: 待 Qualification/Release（需 Workflow Gate + 消费者 Smoke/SBOM）'
+  G8:
+    status: blocked
+    evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
+      + build/eda/ppa/run-20260828-01
+    note: 'G7/G8: 待 Qualification/Release（需 Workflow Gate + 消费者 Smoke/SBOM）'

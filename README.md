@@ -60,6 +60,9 @@ VLNV 命名：`aixsilicon:cbb:<cbb_name>:<version>`。
 - **SEL-014 popcount**（[`components/selection_decode/popcount/`](components/selection_decode/popcount/README.md)，A1/P1）——
   纯组合位计数（direct/tree/wallace/comp4_2/lut 五实现），G3/G4/G5/G6 证据完整
   （含 PPA 三联对比图与功耗表），2026-08-28 重建交付。
+- **QUE-007 skid_buffer**（[`components/fifo_queue_buffer/skid_buffer/`](components/fifo_queue_buffer/skid_buffer/README.md)，A3/P0）——
+  Valid-Ready 打拍模块（OUT 寄存 + SKID 槽，满吞吐无气泡、FIFO 保序），
+  G3/G4/G6 证据完整（VCS 功能仿真 + DC 400MHz 综合 PPA），2026-08-28 交付。
 
 （此前 QUE-001 sync_fifo / QUE-012 width_conversion_fifo 工程包已移除、
 registry 条目回退 planned；SEL-014 popcount 曾于 2026-08-28 移除后同日重建，

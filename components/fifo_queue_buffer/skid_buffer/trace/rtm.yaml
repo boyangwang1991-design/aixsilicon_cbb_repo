@@ -1,0 +1,114 @@
+cbb: skid_buffer
+requirements:
+- id: REQ-001
+  type: requirement
+  description: '满吞吐与保序——随机 valid/ready/背压流下所有被接受输入按序输出，无丢无重 （参考模型队列整体比对；`in_valid&&in_ready
+    |-> ##1 out_valid` 无气泡）。'
+  properties:
+  - PROP-SKID_ACCEPT-003
+  - PROP-SKID_DATA-004
+  tests:
+  - tc_random
+  - tc_backpressure
+  configs:
+  - cfg_data_w32
+  - cfg_data_w64
+  - cfg_data_w128
+  evidence: []
+- id: REQ-002
+  type: requirement
+  description: 反压正确——全满（out_valid && ~out_ready && buf_valid）时 in_ready 拉低； 输出级空或
+    SKID 槽有空位时必可接受输入，数据不丢。
+  properties:
+  - PROP-SKID_READY-001
+  - PROP-SKID_READY-002
+  tests:
+  - tc_backpressure
+  - tc_edge
+  configs:
+  - cfg_data_w32
+  - cfg_data_w8
+  evidence: []
+- id: REQ-003
+  type: requirement
+  description: 边界——DATA_W=1 / 极值 / 空流 / 单拍 / 连续背压场景行为正确； 输出始终寄存（非 fall-through 直通）。
+  properties:
+  - PROP-SKID_ACCEPT-003
+  tests:
+  - tc_edge
+  configs:
+  - cfg_data_w1
+  - cfg_data_w2
+  - cfg_data_w1024
+  evidence: []
+- id: REQ-004
+  type: requirement
+  description: 非法参数在 Elaboration 期被拦截（DATA_W 越界 → generate 块 $error）。
+  properties: []
+  tests:
+  - tc_negative_elab
+  configs:
+  - cfg_data_w0
+  - cfg_data_w1025
+  evidence: []
+- id: INV-001
+  type: requirement
+  description: '满吞吐——输入在 `in_valid && in_ready` 时每拍被接受；被接受的输入下一拍必然在 输出级可见（`in_valid
+    && in_ready |-> ##1 out_valid`），背压不产生气泡丢拍。'
+  properties:
+  - PROP-SKID_ACCEPT-003
+  tests:
+  - tc_random
+  - tc_backpressure
+  configs: []
+  evidence: []
+- id: INV-002
+  type: requirement
+  description: 反压正确——`in_ready == ~out_valid_r | out_ready | ~buf_valid_r`： 仅当输出级满、下游未就绪且
+    SKID 槽满（三条件齐备）时输入才被反压； 输出级空或槽有空位时必可接受输入（数据不丢）。
+  properties:
+  - PROP-SKID_READY-001
+  - PROP-SKID_READY-002
+  tests:
+  - tc_backpressure
+  - tc_edge
+  configs: []
+  evidence: []
+- id: INV-003
+  type: requirement
+  description: 保序——输入到输出的数据顺序不变（FIFO 语义，参考模型队列比对）。
+  properties:
+  - PROP-SKID_DATA-004
+  tests:
+  - tc_random
+  configs: []
+  evidence: []
+- id: INV-004
+  type: requirement
+  description: 输出为寄存——`out_valid`/`out_data` 由 FF 驱动，切断 valid→ready 组合路径； ready 方向仅组合依赖寄存状态与下游
+    out_ready（组合深度 ≤1 级）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-001
+  type: requirement
+  description: 输入 valid/数据在等待 `in_ready` 期间必须保持稳定（标准 valid-ready 握手约定）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-002
+  type: requirement
+  description: 复位 `rst_n` 为低有效、异步拉低（本构件 FF 用 `negedge rst_n` 复位）；同步释放语义由集成层保证。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-003
+  type: requirement
+  description: 输入 X/Z 不承诺（2-state 仿真语义；数据路径 X 传播视为未定义）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []

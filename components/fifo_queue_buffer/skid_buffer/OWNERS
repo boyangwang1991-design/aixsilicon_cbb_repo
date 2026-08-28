@@ -1,0 +1,8 @@
+# OWNERS — skid_buffer（QUE-007）
+# Owner：aixsilicon:cbb（rtl-owner）
+# 变更审批：rtl-owner；RTL/契约语义变更需 owner 审，验证脚本变更需 dv-owner 审
+owners:
+  - name: aixsilicon:cbb
+    role: rtl-owner
+approvals_required:
+  - rtl-owner

@@ -1,0 +1,5 @@
+set: mandatory
+configs:
+- config_id: cfg_data_w32
+  parameters:
+    DATA_W: 32
