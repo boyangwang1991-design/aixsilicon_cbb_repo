@@ -68,3 +68,5 @@
     Change C2 定稿全量寻优; dadda 网表固定W=64单档(其余宽度=生成器扩展项登记); 文档同步: ppa-report.md重写(§0 C2结论+§2矩阵+§4推荐)/plan.yaml run-03基线/profiles.yaml四profile/CHANGELOG 0.2.0; 校验: check --strict PASS + rtm --check-only PASS + gate 8pass/9record
 - `2026-08-28 00:52:30` | **design** | SKILL 新增强制产物: 每实现一份详细设计说明书(docs/detail-design/<impl>.md, 八节骨架模板 templates/docs/cbb_impl_detail_design.md); popcount 三份落地(tree/wallace/lut) | 结果(PASS)
     骨架: 实现标识/微架构+逻辑深度推导/守恒论证/参数化/验证映射/PPA摘录/限制/变更记录; SKILL implement-cbb-rtl Procedure 首条固化; Change C3 dadda 移除后 wallace 网表 TB 回归 PASS(锚点+500随机); check --strict PASS validate_suite PASS
+- `2026-08-28 00:57:16` | **characterize** | wallace W64 单点复测(C3 纯FA网表): 121.9μm²/+0.01/74.7μW — 与 tree 124μm² 打平(−1.7%面积), 推翻 run-03 dadda 中间态 271μm² 旧数据 | 结果(PASS)
+    上下文同 G6 基线(SC9 HVT tt vclk2.5ns); 证据 characterization/wallace64_run/{area,timing,power}.rpt+dc.log; 文档同步: wallace.md §6 PPA摘录 + ppa-report.md §0 核心发现更新; 结论: W=64 档 wallace 与 tree 同为 Pareto 有效解

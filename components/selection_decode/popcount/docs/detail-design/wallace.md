@@ -41,14 +41,18 @@ SUM 留本列（列内 −2 净变化）、CARRY 进右列（+1 dot 权 2^(c+1)�
 | REQ-001/INV-001 | 网表 TB + verify_netlist.py | /tmp 证据脚本可重放；Python PASS 20/20 |
 | REQ-003/INV-003 | fm_shell LEC vs impl_tree | evidence/g4_functional/equiv_lec.txt |
 
-## 6. PPA 摘录（run-20260827-03）
+## 6. PPA 摘录（Change C3 单点复测：characterization/wallace64_run/）
 
-| W | area μm² | slack ns |
-|---|---|---|
-| 64 | 271.21 | 0.00（MET） |
+| W | area μm² | slack @400MHz | dynamic | leakage |
+|---|---|---|---|---|
+| 64 | **121.91** | **+0.01（MET）** | 74.75 μW | 27.1 nW |
 
-**定位**：被 tree 面积支配（2.2×），experimental 探索资产；
-但对比列计数递推（1258μm²/−1.11）**−78% 面积**——显式 FA 结构化路线的实证成功。
+对比：tree W64 = 124.02μm²/+0.09/72.2μW —— **显式 FA 网表与平衡加法树在
+W=64 几乎打平**（−1.7% 面积、slack 同级、功耗 +3.5%）。此前的 271μm²
+（run-03 dadda_w64）为列计数中间态实现的数据，Change C3 纯 FA 网表已显著优化。
+
+结论：W=64 档 wallace 与 tree 同为 Pareto 有效解（面积略优/功耗略劣），
+selection 依据消费场景对布局规整性的偏好。
 
 ## 7. 已知限制
 

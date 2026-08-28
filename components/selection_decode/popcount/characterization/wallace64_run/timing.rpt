@@ -1,0 +1,57 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : popcount_impl_wallace
+Version: V-2023.12-SP3
+Date   : Thu Aug 27 20:55:20 2026
+****************************************
+
+Operating Conditions: tt_nominal_max_1p00v_25c   Library: sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c
+Wire Load Model Mode: top
+
+  Startpoint: data_i[0] (input port clocked by vclk)
+  Endpoint: cnt_o[5] (output port clocked by vclk)
+  Path Group: vclk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  popcount_impl_wallace
+                     Small                 sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c
+
+  Point                                    Incr       Path
+  -----------------------------------------------------------
+  clock vclk (rise edge)                   0.00       0.00
+  clock network delay (ideal)              0.00       0.00
+  input external delay                     0.50       0.50 f
+  data_i[0] (in)                           0.01       0.51 f
+  U75/S (ADDF_X1M_A9TH)                    0.14       0.64 r
+  U102/S (ADDF_X1M_A9TH)                   0.13       0.77 f
+  U105/CO (ADDF_X1M_A9TH)                  0.11       0.88 f
+  intadd_1/U4/S (ADDF_X1M_A9TH)            0.15       1.03 r
+  intadd_5/U3/S (ADDF_X1M_A9TH)            0.13       1.16 f
+  U108/CO (ADDF_X1M_A9TH)                  0.11       1.27 f
+  intadd_0/U4/CO (ADDF_X1M_A9TH)           0.11       1.38 f
+  intadd_0/U3/CO (ADDF_X1M_A9TH)           0.10       1.48 f
+  intadd_0/U2/S (ADDF_X1M_A9TH)            0.14       1.61 r
+  U68/Y (NAND2_X1B_A9TH)                   0.07       1.68 f
+  U63/Y (NOR2_X2A_A9TH)                    0.13       1.81 r
+  U71/Y (AOI21_X1M_A9TH)                   0.18       1.99 f
+  cnt_o[5] (out)                           0.00       1.99 f
+  data arrival time                                   1.99
+
+  clock vclk (rise edge)                   2.50       2.50
+  clock network delay (ideal)              0.00       2.50
+  output external delay                   -0.50       2.00
+  data required time                                  2.00
+  -----------------------------------------------------------
+  data required time                                  2.00
+  data arrival time                                  -1.99
+  -----------------------------------------------------------
+  slack (MET)                                         0.01
+
+
+1
