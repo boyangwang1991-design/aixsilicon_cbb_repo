@@ -1,4 +1,0 @@
-tag=tree_w16
-comb=27.261000
-area=27.261000
-slack=0.43

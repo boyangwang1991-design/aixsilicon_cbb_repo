@@ -74,3 +74,5 @@
     LUT 反模式实证: ROM×genvar复制+段隔离mux 资源爆炸→SWAR shift/mask/add 183μm²/MET; wallace 纯FA网表单点复测 121.9μm²/+0.01/74.7μW 与 tree 打平(−1.7%面积/+3.5%功耗); W64 Pareto: wallace(面积)与tree(通用+功耗)双有效解; 文档: ppa-report §0 三连实证 + lut.md §6 PPA反思表; TB: LUT-SWAR 1000随机+锚点 PASS; 综合脚本 lut64_synth.tcl 固化
 - `2026-08-28 01:19:13` | **implement** | build/ 目录纪律落地: EDA 中间产物(dc alib/cksum/svf/pvl/syn/mr + vcs csrc/WORK/ucli.key + formality FM_INFO + spyglass lint_work + logs)统一迁移 build/; .gitignore 强制 build/+**/build/+ucli.key; git rm 已入库残留; 脚本 OUT 路径改指 build/; SKILL artifact-contract §2 固化 | 结果(PASS)
     交付件目录回归纯净: popcount 根仅剩 yaml/rtl/docs/evidence/...; characterization 仅留 tcl/py/png/md/pdk/plan; validate_suite + check --strict PASS
+- `2026-08-28 04:12:21` | **observe** | 用户指令移除 SEL-014 popcount 工程包：目录 git rm -rf（47 tracked + 本地生成物全清）；registry 条目回退 planned；README 交付清单同步 | 结果(PASS)
+    删除范围: components/selection_decode/popcount/ 全量移除（含本次 Change C4 的 4:2 compressor 演进产物）；registry.yaml SEL-014 status implemented->planned; README.md 交付清单更新; evidence 67 个生成物此前已 git rm --cached 一并清理

@@ -1,6 +1,0 @@
-set: mandatory
-configs:
-- config_id: cfg_input_width64_chunk_w8
-  parameters:
-    INPUT_WIDTH: 64
-    CHUNK_W: 8

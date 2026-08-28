@@ -78,6 +78,13 @@ lint_work/*
 # ---------- PPA 原始报告瘦身策略（2026-08 评审决定） ----------
 # 门级原始报告(*.rpt)体积大且可由 synth_sweep.tcl 一键重放再生；
 # 入库仅保留 summary.txt（Pareto 数据锚点）+ 正文报告 ppa-report.md + PNG 图。
+
+# ---------- evidence 生成物不入库（2026-08-28 用户指令：PPA/验证结果写 report） ----------
+# EDA 门级/仿真原始日志（*.rpt/*.txt）可由 verification/scripts + characterization
+# 脚本一键重放再生；evidence/ 目录本地保留作可复现证据，但生成物不进版本库，
+# 结论以各 report（ppa-report.md / wallace.md / lint_waivers.md）为正式载体。
+**/evidence/**/*.rpt
+**/evidence/**/*.txt
 # **/evidence/ppa/**/*.rpt
 
 # ---------- 内部路径敏感评估（若仓库转公开请取消下行注释） ----------

@@ -3668,7 +3668,7 @@ cbbs:
     priority: P1
     implementation: adder tree、compressor、lookup
     description: 面积/时序Pareto
-    status: implemented
+    status: planned            # 2026-08-28 用户指令移除工程包，回退 planned；历史证据见 run_log
     version: "0.1.0"
     path: components/selection_decode/popcount
   - id: SEL-015
