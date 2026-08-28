@@ -14,7 +14,7 @@ mkdir -p "$EV"
 command -v vcs >/dev/null 2>&1 || { echo "[BLOCKED] vcs not found"; exit 3; }
 echo "[probe] vcs=$(command -v vcs)"
 
-RTL="$P/rtl/popcount.sv $P/rtl/impl/impl_tree/popcount.sv $P/rtl/impl/impl_column_compress/popcount.sv $P/rtl/impl/impl_dadda/popcount.sv"
+RTL="$P/rtl/popcount.sv $P/rtl/popcount_compressed.sv"
 TB="$P/verification/simulation/popcount_tb.sv"
 
 # ---- tc_exhaust_w8 / tc_edge / tc_random（单仿真同时覆盖三场景）----

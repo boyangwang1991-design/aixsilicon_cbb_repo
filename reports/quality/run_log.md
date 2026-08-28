@@ -56,3 +56,15 @@
     RTL: rtl/impl/impl_dadda/popcount.sv (权值守恒律Σm[c]·2^c, FA=-2本列+1carry, Dadda目标序列 DTBL[14], 魔数floor(eff/3)=(eff*17hAAAB)>>17 无除法网络); 验证: 编译矩阵18/18+exhaust_w8+edge+random3000+变异全PASS; 结论: tree_default 推荐地位不变, dadda_sched/colcmp 均 experimental; ppa-report.md §0/§2' 增补; plot_pareto.py 固化绘图管线
 - `2026-08-27 12:12:58` | **observe** | SKILL 图表纪律固化: ppa-evidence.md §0 新增(PNG禁ASCII图/脚本程序化读数/--with matplotlib注入/resolve锚定与Agg后端坑) | 结果(PASS)
     plot_pareto.py 经验: Path(root).resolve()防相对拼接错位; pareto_run-20260827-01.png 已归档并嵌入 ppa-report.md; validate_suite PASS
+- `2026-08-27 12:19:35` | **release** | GitHub 发布完成: commit 787c2cd pushed to origin/main (boyangwang1991-design/aixsilicon_cbb_repo); popcount 成为仓库首个 implemented CBB 上线 | 结果(PASS)
+    220 files changed(10541+/6190-), 含 fifo_queue_buffer 两个旧包的 reset 删除与本批 .gitignore EDA 残留规则; gitignore 验证: csrc/alib-52/FM_INFO/lint_work/ucli.key 全部隔离, lint.prj 白名单保留
+- `2026-08-27 12:31:00` | **design** | Change C2 重构设计定稿: 四实现(TREE/WALLACE/DADDA/LUT) 显式FA结构化核方案; 调度数学验证器 verify_schedule.py 506/506 PASS(W4-256×wallace/dadda 权值守恒+收敛+可行+列界); RTL 打平规范回归 rtl/ 单层(用户指令) | 结果(PASS)
+    编译期 localparam 函数固化的调度常量替代运行时 % / 除法(对常量的整数除法合法不生成除法器), 数据通路仅 xor/maj 门; Wallace r4 收敛 vs Dadda r10(DTBL序列约束下FA更省但轮多); LUT 分级 nibble->chunk->归并树; 方案表决采纳: 平衡加法树默认+显式FA压缩+分级LUT 为28nm@1GHz推荐组合
+- `2026-08-27 13:14:05` | **design** | Change C2 四实现重构(设计+验证): TREE/WALLACE/DADDA/LUT; Python先行验证链(调度506/506+网表bit-exact 20/20); Graphviz架构图(rank同rank FA行+S/C双色边+W16/W64); SV网表TB锚点+500随机PASS | 结果(PASS)
+    rtln打平布局(popcount.sv wrapper+tree/lut 直写; popcount_compressed.sv gen产物显式FA网表 W=64物化; pc_sched_table.svh 调度常量); 防软件化纪律落地: 零%//运行时除法, FA=xor/maj真门, 收尾常量移位连加; colcmp移除(其列计数递推被G6证伪); LUT分级 nibble-LUT4->byte对合并->归并树; FA正确性判定链: Python verify_netlist bit-exact(用户裁定标准)
+- `2026-08-27 13:19:09` | **design** | Change C2 定稿: 四实现(TREE/WALLACE/DADDA/LUT)+打平RTL布局+Python生成验证链全绿 | 结果(PASS)
+    验证顺序遵用户指令: ①Python: verify_schedule 506/506 + verify_netlist bit-exact 20/20(FA语义xor/maj逐门仿真); ②可视化: Graphviz行交替架构图(inputs行/FA行rank=same/dot输出行, SUM蓝CARRY橙, W16/W64), mpl圈版并存; ③SV: 网表TB锚点+500随机PASS, wrapper四路编译矩阵过; 契约同步 cbb.yaml 四实现打平files; SKILL固化 domain-rules §3.0 防软件化写电路红线(反模式→PPA量化→正确形态三栏)
+- `2026-08-27 13:49:36` | **characterize** | G6 | G6 帕累托寻优完成(run-20260827-03): 四实现15点全落盘; tree 124μm²/+0.09 W64 支配确认; FA显式化 dadda_w64 271μm²/0.00 vs 列递推1258/−1.11(−78%+转MET); tree_default推荐不变, wallace/dadda experimental | 结果(PASS)
+    Change C2 定稿全量寻优; dadda 网表固定W=64单档(其余宽度=生成器扩展项登记); 文档同步: ppa-report.md重写(§0 C2结论+§2矩阵+§4推荐)/plan.yaml run-03基线/profiles.yaml四profile/CHANGELOG 0.2.0; 校验: check --strict PASS + rtm --check-only PASS + gate 8pass/9record
+- `2026-08-28 00:52:30` | **design** | SKILL 新增强制产物: 每实现一份详细设计说明书(docs/detail-design/<impl>.md, 八节骨架模板 templates/docs/cbb_impl_detail_design.md); popcount 三份落地(tree/wallace/lut) | 结果(PASS)
+    骨架: 实现标识/微架构+逻辑深度推导/守恒论证/参数化/验证映射/PPA摘录/限制/变更记录; SKILL implement-cbb-rtl Procedure 首条固化; Change C3 dadda 移除后 wallace 网表 TB 回归 PASS(锚点+500随机); check --strict PASS validate_suite PASS

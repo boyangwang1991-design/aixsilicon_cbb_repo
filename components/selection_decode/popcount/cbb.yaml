@@ -73,29 +73,28 @@ requirements:
     tests: [tc_negative_elab]
     configs: []
 
-# ---------------- 实现变体（多实现 → rtl/impl/<impl>/）----------------
+# ---------------- 实现变体（Change C2：打平布局，四实现）----------------
+# rtl 打平规范（用户指令）：无子目录；wrapper/tree/lut 直写于 popcount.sv，
+# wallace 为 gen_schedule.py 生成的显式 FA 网表（W=64 物化；Change C3 移除 dadda）
 implementations:
-  - id: impl_tree
-    source: rtl/impl/impl_tree/
-    constraints: constraints/
-    dependencies: []              # 无嵌套子 CBB（A1 原子机制）
-    files:
-      - rtl/popcount.sv           # 顶层选择壳 + 公共参数检查/SVA
-      - rtl/impl/impl_tree/popcount.sv
-  - id: impl_column_compress
-    source: rtl/impl/impl_column_compress/
+  - id: impl_tree                 # PC_IMPL=0 默认推荐（28nm@1GHz 主选）
+    source: rtl/
     constraints: constraints/
     dependencies: []
     files:
       - rtl/popcount.sv
-      - rtl/impl/impl_column_compress/popcount.sv
-  - id: impl_lookup
-    source: rtl/impl/impl_lookup/
+  - id: impl_wallace              # PC_IMPL=1 显式 FA 网表（Python 生成）
+    source: rtl/
     constraints: constraints/
     dependencies: []
     files:
       - rtl/popcount.sv
-      - rtl/impl/impl_lookup/popcount.sv
+      - rtl/popcount_compressed.sv  - id: impl_lut                  # PC_IMPL=3 分级查表 nibble→byte对→归并树
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/popcount.sv
 
 # ---------------- 质量门禁（G0~G8）----------------
 quality:

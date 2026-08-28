@@ -17,9 +17,9 @@ set_app_var target_library  $PDKDB
 set_app_var link_library    "* $PDKDB"
 
 analyze -format sverilog [list \
-    [file join $RTLDIR impl impl_tree popcount.sv] \
-    [file join $RTLDIR impl impl_column_compress popcount.sv] \
-    [file join $RTLDIR impl impl_dadda popcount.sv]]
+    [file join $RTLDIR popcount.sv] \
+    [file join $RTLDIR popcount_compressed.sv] \
+    [file join $RTLDIR popcount_compressed.sv]]
 
 set IMPLS {tree popcount_impl_tree colcmp popcount_impl_colcmp dadda popcount_impl_dadda}
 

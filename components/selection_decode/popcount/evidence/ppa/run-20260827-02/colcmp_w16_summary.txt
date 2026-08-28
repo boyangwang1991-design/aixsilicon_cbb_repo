@@ -1,4 +1,0 @@
-tag=colcmp_w16
-comb=100.385999
-area=100.385999
-slack=0.00

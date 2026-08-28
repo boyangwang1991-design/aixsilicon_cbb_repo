@@ -1,6 +1,6 @@
-# profiles.yaml —— 多实现 Profile（G2）
-# 三实现共享同一可观察契约（参数/端口/函数语义一致），差异仅在 PPA trade-off
-# （domain-rules §4）；微架构选择挂接 implementation，不污染公共功能参数
+# profiles.yaml —— 多实现 Profile（Change C2 定稿：四实现）
+# 共享同一可观察契约，差异仅在 PPA trade-off（domain-rules §4）；
+# G6 帕累托寻优（run-20260827-03）支撑以下支持状态
 
 schema_version: "1.0"
 cbb: aixsilicon:cbb:popcount
@@ -9,32 +9,29 @@ profiles:
   - id: tree_default
     implementation: impl_tree
     parameters:
-      INPUT_WIDTH: default        # 使用 cbb.yaml 默认域
+      INPUT_WIDTH: default
     optimization_target: balanced
     use_case: ECC 编码器校验位权重、通用计数场景
-    support_status: supported     # G7 后确认
-    notes: O(log W) 加法树深度，综合折叠优化成熟，默认推荐
+    support_status: supported
+    notes: O(log W) 加法树；G6 Pareto 全宽度支配点（W64 124μm²/+0.09）；默认推荐
 
-  - id: fmax_opt
-    implementation: impl_column_compress
+  - id: lut_compact
+    implementation: impl_lut
     parameters:
       INPUT_WIDTH: default
-    optimization_target: fmax
-    use_case: 高频性能事件统计、带宽调度权重计算
-    support_status: experimental  # G6 实测：列计数递推（常数÷/%网络）W≥64 面积~10×且时序违例
-                                  # （plan.yaml run-20260827-01）；显式 FA 网表重测后方可升级
-    notes: 列压缩恒定压缩级联 + 单个窄进位传播收尾器，末级最短；当前形态不优，待 Change Plan
+    optimization_target: area_small_w
+    use_case: 小宽度计数（≤32）、FPGA 移植视图
+    support_status: supported
+    notes: 分级查表 nibble-LUT4→byte对→归并树（C2 重构）；大 W 与 tree 综合趋同
 
-  - id: dadda_sched
-    implementation: impl_dadda
+  - id: wallace_exp
+    implementation: impl_wallace
     parameters:
-      INPUT_WIDTH: default
-    optimization_target: area_exploratory
-    use_case: Dadda 高度调度压缩的 PPA 探索视图（Change C1 引入）
-    support_status: experimental  # G6 W8 点位 27.7μm² vs tree 12.1μm²（2.3×），
-                                  # 大宽度点因 DC 编译耗时未完成；魔数乘网络开销 >
-                                  # 调度节省。待显式 FA 形态重测后裁决去留。
-    notes: 取代 impl_lookup（原被 DC 折叠为 tree 同构，无独立 PPA 价值）
+      INPUT_WIDTH: 64             # 网表当前物化 W=64 单档
+    optimization_target: structure_exploratory
+    use_case: 压缩结构探索/教学资产；W≥256 扩展后复测潜力
+    support_status: experimental  # G6: 271μm²/0.00 vs tree 124μm²/+0.09（2.2× 面积代价）
+    notes: 显式 FA 网表（Python 生成）——比列计数递推 −78% 面积，结构化路线验证成功
 
-# G2 依赖 DAG 校验：零运行时依赖（三 impl 均 dependencies=[]），自动无环；
-# Profile 选择在编译期通过 wrapper generate（rtl/popcount.sv）完成，见 design.md §1。
+# 依赖 DAG：零运行时依赖（各 impl dependencies=[]），自动无环；
+# PC_IMPL 编译期四路分派见 rtl/popcount.sv；G2 评审通过（docs/design.md 冻结稿）。

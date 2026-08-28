@@ -1,4 +1,0 @@
-tag=colcmp_w64
-comb=1258.217992
-area=1258.217992
-slack=-1.11

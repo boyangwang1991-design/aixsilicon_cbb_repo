@@ -14,7 +14,7 @@ mkdir -p "$EV"
 command -v vcs >/dev/null 2>&1 || { echo "[BLOCKED] vcs not found"; exit 3; }
 echo "[probe] vcs=$(command -v vcs)"
 
-RTL="$P/rtl/popcount.sv $P/rtl/impl/impl_tree/popcount.sv $P/rtl/impl/impl_column_compress/popcount.sv $P/rtl/impl/impl_dadda/popcount.sv"
+RTL="$P/rtl/popcount.sv $P/rtl/popcount_compressed.sv"
 
 # ---- 正向编译矩阵：三实现 × {4,8,33,64,127,256}（含非 2 幂）----
 : > "$EV/param_matrix.txt"

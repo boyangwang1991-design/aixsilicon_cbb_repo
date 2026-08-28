@@ -1,4 +1,0 @@
-tag=lookup_w128
-comb=248.741996
-area=248.741996
-slack=0.04

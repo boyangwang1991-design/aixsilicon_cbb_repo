@@ -11,14 +11,16 @@ context:
   evidence_level: E2                    # 真实门级综合 + 单 corner；多 corner/物理感知未做
 
 runs:
-  - run_id: run-20260827-01
+  - run_id: run-20260827-03      # Change C2 定稿全量寻优 sweep（当前基线）
     date: 2026-08-27
     script: synth_sweep.tcl
-    matrix: {impl}×{8,16,32,64,128} = 15 点
-    evidence: evidence/ppa/run-20260827-01/
-    method_note: >
-      实现选择经子模块顶层直证（dc_shell 对 wrapper generate-case 的
-      -parameters 覆盖不生效，case 恒 default 分支）。
+    matrix: tree/colcmp ×{8,16,32,64,128} + dadda W64 = 15 点（11 有效 + 4 档待扩展）
+    evidence: evidence/ppa/run-20260827-03/
+    key_result: >
+      dadda 显式 FA 网表 W=64: 271.2μm²/0.00 —— vs 列计数递推 1258μm²/−1.11，
+      面积 −78% 且转 MET；tree 124μm²/+0.09 保持 Pareto 支配。
+  - run_id: run-20260827-01 / -02   # 历史存档（C0 初版 / C1 部分）
+    evidence: evidence/ppa/run-20260827-0{1,2}/
 
 results_summary:                         # Total cell area (μm²) / worst slack @2.5ns
   - {w: 8,   tree: "12.05 /+0.53", colcmp: "12.05 /+0.53", lookup: "12.05 /+0.53"}
