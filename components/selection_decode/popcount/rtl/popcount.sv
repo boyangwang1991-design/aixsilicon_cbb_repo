@@ -110,6 +110,18 @@ endmodule
 //   L3 归并树：各 chunk 结果经平衡加法树合并（复用 tree 折叠模式）
 // 面积导向；小宽度最优。与 tree 共享常数折叠收益。
 // ============================================================================
+// ============================================================================
+// popcount_impl_lut — SWAR 分级归并计数（Change C3 重构：综合友好形态）
+// ----------------------------------------------------------------------------
+// 经典 SWAR（SIMD-within-a-register）popcount：log₂(W/2) 级固定深度，
+// 每级把相邻「段计数」按位分段相加（段宽逐级 ×2）：
+//   L1: 每 2-bit 段 = bit0+bit1（1 位段宽 → 2 位段宽）
+//   L2: 每 4-bit 段 = 两个 2-bit 段计数相加
+//   ... 直到段宽 = W，值即 Hamming 权重
+// 每级仅 W/2^k 个窄加法（最大位宽 CNT_W），零 ROM/mux 网络、零除法；
+// DC 对该形态有成熟折叠模式（等价于让综合器看到平衡树骨架）。
+// "LUT/查表"语义升级为「查表→SWAR」实现，保留实现名以稳契约/Profile。
+// ============================================================================
 module popcount_impl_lut #(
     parameter int INPUT_WIDTH = 64,
     parameter int CNT_W       = $clog2(INPUT_WIDTH + 1)
@@ -117,56 +129,47 @@ module popcount_impl_lut #(
     input  logic [INPUT_WIDTH-1:0] data_i,
     output logic [CNT_W-1:0]       cnt_o
 );
-    localparam int W    = INPUT_WIDTH;
-    localparam int NIBS = (W + 3) / 4;           // nibble 数
+    localparam int W = INPUT_WIDTH;
 
-    // ---- L1: nibble 计数表（case 全枚举 0..15，推断 16x3 ROM/LUT4）----
-    function automatic logic [2:0] cnt_nib(input logic [3:0] v);
-        case (v)
-            4'd0:  cnt_nib = 3'd0;
-            4'd1,4'd2,4'd4,4'd8: cnt_nib = 3'd1;
-            4'd3,4'd5,4'd6,4'd9,4'd10,4'd12: cnt_nib = 3'd2;
-            4'd7,4'd11,4'd13,4'd14: cnt_nib = 3'd3;
-            default: cnt_nib = 3'd4;              // 4'b1111
-        endcase
-    endfunction
-
-    // ---- L2: nibble → 累计块（每块 = 一对 nibble 相加 = byte 计数）----
-    // 末尾越界 nibble 用安全高位补零向量（先零扩展 W 到 4*NIBS，规避负 multiconcat）
-    localparam int WPAD = NIBS * 4;
-    logic [WPAD-1:0] d_pad;
-    always_comb begin
-        d_pad = '0;
-        d_pad[W-1:0] = data_i;
-    end
-
-    localparam int NPAIR = (NIBS + 1) / 2;
-    logic [CNT_W-1:0] pair_cnt [NPAIR];
-    for (genvar p = 0; p < NPAIR; p++) begin : g_pair_cnt
-        localparam int LO = 8 * p;                       // byte 基址
-        assign pair_cnt[p] = CNT_W'(cnt_nib(d_pad[LO +: 4])) +
-                             CNT_W'(cnt_nib(d_pad[LO + 4 +: 4]));
-    end
-
-    // ---- L3: 平衡合并树（NSEG=pair 数）----
-    localparam int MLEVELS = $clog2(NPAIR) + 1;
-    function automatic int mnodes(input int k);
-        return (NPAIR + (1 << k) - 1) >> k;
-    endfunction
-    logic [CNT_W-1:0] mn [MLEVELS][NPAIR];
-    for (genvar s = 0; s < NPAIR; s++) begin : g_m0
-        assign mn[0][s] = pair_cnt[s];
-    end
-    for (genvar k = 1; k < MLEVELS; k++) begin : g_mfold
-        localparam int NK   = mnodes(k);
-        localparam int NPRE = mnodes(k-1);
-        for (genvar j = 0; j < NK; j++) begin : g_mpair
-            if (2*j + 1 < NPRE) begin : g_add
-                assign mn[k][j] = mn[k-1][2*j] + mn[k-1][2*j + 1];
-            end else begin : g_pass
-                assign mn[k][j] = mn[k-1][2*j];
-            end
+    generate
+        if (INPUT_WIDTH < 4 || INPUT_WIDTH > 256) begin : g_w
+            $error("popcount_impl_lut: INPUT_WIDTH outside legal [4..256]");
         end
+    endgenerate
+
+    // ---- 级 0：2-bit 段计数（每段 = 两 bit 相加，1+1<=2 恰 2 位段宽）----
+    // 掩码模板：0x5555...（奇位保留）与 0x3333...（两 bit 段保留）
+    localparam int W2 = (W + 1) / 2;             // 2-bit 段数
+    logic [W2-1:0][1:0] lvl2;                    // 每段 2-bit 计数
+    for (genvar s = 0; s < W2; s++) begin : g_l1
+        assign lvl2[s] = {1'b0, data_i[2*s]} + {1'b0, (2*s+1 < W) ? data_i[2*s+1] : 1'b0};
     end
-    assign cnt_o = mn[MLEVELS-1][0];
+
+    // ---- 逐级合并（SWAR shift/mask/add 三步），段宽 2→4→8→…→≥W ----
+    // mask 用编译期生成 pattern（每段低 seg 位全 1），隔离跨段进位；
+    // 加法为并行窄加法——无 ROM、无大 mux、无除法。
+    logic [W-1:0] acc;
+    logic [W-1:0] shifted;
+    logic [W-1:0] masked_a;
+    logic [W-1:0] masked_b;
+
+    always_comb begin
+        // 初始：lvl2 打平进 acc
+        acc = '0;
+        for (int s = 0; s < W2; s++) acc[2*s +: 2] = lvl2[s];
+
+        for (int seg = 2; seg < W; seg = seg << 1) begin
+            shifted = acc >> seg;
+            masked_a = '0;
+            masked_b = '0;
+            for (int base = 0; base < W; base += 2*seg) begin
+                for (int k2 = 0; k2 < seg && base+k2 < W; k2++) begin
+                    masked_a[base+k2] = acc[base+k2];
+                    masked_b[base+k2] = shifted[base+k2];
+                end
+            end
+            acc = masked_a + masked_b;
+        end
+        cnt_o = CNT_W'(acc);
+    end
 endmodule

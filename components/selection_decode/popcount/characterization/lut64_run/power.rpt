@@ -1,0 +1,59 @@
+ 
+****************************************
+Report : power
+        -analysis_effort low
+Design : popcount_lut64
+Version: V-2023.12-SP3
+Date   : Thu Aug 27 21:09:04 2026
+****************************************
+
+
+Library(s) Used:
+
+    sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c (File: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/db/sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c.db)
+
+
+Operating Conditions: tt_nominal_max_1p00v_25c   Library: sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c
+Wire Load Model Mode: top
+
+Design        Wire Load Model            Library
+------------------------------------------------
+popcount_lut64         Small             sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c
+
+
+Global Operating Voltage = 1    
+Power-specific unit information :
+    Voltage Units = 1V
+    Capacitance Units = 1.000000pf
+    Time Units = 1ns
+    Dynamic Power Units = 1mW    (derived from V,C,T units)
+    Leakage Power Units = 1uW
+
+
+Attributes
+----------
+i - Including register clock pin internal power
+
+
+  Cell Internal Power  =  27.7456 uW   (36%)
+  Net Switching Power  =  49.5090 uW   (64%)
+                         ---------
+Total Dynamic Power    =  77.2546 uW  (100%)
+
+Cell Leakage Power     =  33.5342 nW
+
+Information: report_power power group summary does not include estimated clock tree power. (PWR-789)
+
+                 Internal         Switching           Leakage            Total
+Power Group      Power            Power               Power              Power   (   %    )  Attrs
+--------------------------------------------------------------------------------------------------
+io_pad             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+memory             0.0000            0.0000            0.0000            0.0000  (   0.00%)
+black_box          0.0000            0.0000            0.0000            0.0000  (   0.00%)
+clock_network      0.0000            0.0000            0.0000            0.0000  (   0.00%)  i
+register           0.0000            0.0000            0.0000            0.0000  (   0.00%)
+sequential         0.0000            0.0000            0.0000            0.0000  (   0.00%)
+combinational  2.7746e-02        4.9509e-02        3.3534e-02        7.7288e-02  ( 100.00%)
+--------------------------------------------------------------------------------------------------
+Total          2.7746e-02 mW     4.9509e-02 mW     3.3534e-02 uW     7.7288e-02 mW
+1

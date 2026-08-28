@@ -1,0 +1,66 @@
+ 
+****************************************
+Report : timing
+        -path full
+        -delay max
+        -max_paths 1
+Design : popcount_lut64
+Version: V-2023.12-SP3
+Date   : Thu Aug 27 21:09:04 2026
+****************************************
+
+Operating Conditions: tt_nominal_max_1p00v_25c   Library: sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c
+Wire Load Model Mode: top
+
+  Startpoint: data_i[57] (input port clocked by vclk)
+  Endpoint: cnt_o[5] (output port clocked by vclk)
+  Path Group: vclk
+  Path Type: max
+
+  Des/Clust/Port     Wire Load Model       Library
+  ------------------------------------------------
+  popcount_lut64     Small                 sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c
+
+  Point                                                   Incr       Path
+  --------------------------------------------------------------------------
+  clock vclk (rise edge)                                  0.00       0.00
+  clock network delay (ideal)                             0.00       0.00
+  input external delay                                    0.50       0.50 f
+  data_i[57] (in)                                         0.00       0.50 f
+  u_core/data_i[57] (popcount_INPUT_WIDTH64_PC_IMPL2)     0.00       0.50 f
+  u_core/g_lut.u_impl/data_i[57] (popcount_impl_lut_INPUT_WIDTH64)
+                                                          0.00       0.50 f
+  u_core/g_lut.u_impl/U35/Y (AND2_X1M_A9TH)               0.07       0.58 f
+  u_core/g_lut.u_impl/U114/Y (OA21B_X1M_A9TH)             0.09       0.66 r
+  u_core/g_lut.u_impl/U116/Y (XNOR2_X0P7M_A9TH)           0.11       0.77 r
+  u_core/g_lut.u_impl/U117/Y (NAND2_X1B_A9TH)             0.08       0.86 f
+  u_core/g_lut.u_impl/U118/Y (OAI21_X1M_A9TH)             0.08       0.93 r
+  u_core/g_lut.u_impl/U119/Y (NOR2_X1A_A9TH)              0.07       1.01 f
+  u_core/g_lut.u_impl/U120/Y (AO21_X1M_A9TH)              0.08       1.09 f
+  u_core/g_lut.u_impl/U37/Y (AOI211_X1M_A9TH)             0.14       1.23 r
+  u_core/g_lut.u_impl/U158/Y (AOI21_X1M_A9TH)             0.12       1.34 f
+  u_core/g_lut.u_impl/U159/Y (AND2_X3B_A9TH)              0.09       1.43 f
+  u_core/g_lut.u_impl/intadd_0/U5/CO (ADDF_X1M_A9TH)      0.10       1.53 f
+  u_core/g_lut.u_impl/intadd_0/U4/CO (ADDF_X1M_A9TH)      0.10       1.63 f
+  u_core/g_lut.u_impl/intadd_0/U3/CO (ADDF_X1M_A9TH)      0.10       1.73 f
+  u_core/g_lut.u_impl/intadd_0/U2/CO (ADDF_X1M_A9TH)      0.09       1.82 f
+  u_core/g_lut.u_impl/U86/Y (INV_X1M_A9TH)                0.03       1.85 r
+  u_core/g_lut.u_impl/U38/Y (AO21A1AI2_X1M_A9TH)          0.15       2.00 f
+  u_core/g_lut.u_impl/cnt_o[5] (popcount_impl_lut_INPUT_WIDTH64)
+                                                          0.00       2.00 f
+  u_core/cnt_o[5] (popcount_INPUT_WIDTH64_PC_IMPL2)       0.00       2.00 f
+  cnt_o[5] (out)                                          0.00       2.00 f
+  data arrival time                                                  2.00
+
+  clock vclk (rise edge)                                  2.50       2.50
+  clock network delay (ideal)                             0.00       2.50
+  output external delay                                  -0.50       2.00
+  data required time                                                 2.00
+  --------------------------------------------------------------------------
+  data required time                                                 2.00
+  data arrival time                                                 -2.00
+  --------------------------------------------------------------------------
+  slack (MET)                                                        0.00
+
+
+1

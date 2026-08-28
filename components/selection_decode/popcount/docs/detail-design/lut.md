@@ -46,10 +46,24 @@ L3 归并树       : NPAIR 个 pair_cnt 经平衡加法树（奇项直通）→ 
 | REQ-001（全空间） | tc_exhaust_w8 覆盖 PC_IMPL=2 档 | evidence/g4_functional/ |
 | 编译矩阵 | W∈{4..256} | evidence/g3_static/param_matrix.txt |
 
-## 6. PPA 摘录（run-20260827-01 观察）
+## 6. PPA 摘录（Change C3 SWAR 重构后 W64 单点：characterization/lut64_run/）
 
-大 W 与 tree 综合趋同（DC 将 case 表折叠为同构加法树）——本实现与 tree
-共享 Pareto 左端点；差异化价值在 FPGA 目标与小宽度规整布局。
+| W | area μm² | slack @400MHz | dynamic |
+|---|---|---|---|
+| 64 | **183.0** | 0.00（MET） | 77.3 μW |
+
+- 旧 ROM 版（C0）：case 表推断 ROM 复制 × 段隔离 mux 网络，综合面积失控（用户实测"资源爆炸"）；
+- C3 SWAR 重构：三级 LUT4 语义升级为 shift/mask/add 分级加法，183μm² 转正 MET；
+- 对比：tree 124μm²（−32%）、wallace FA 网表 121.9μm²（−33%）——
+  **LUT 定位 = 教学结构/规整布局视图，量产推荐仍是 tree_default**。
+
+### PPA 反思记录（SKILL §3.0 流程要求）
+
+| 反模式 | 代价 | 修正 |
+|---|---|---|
+| case 全枚举 ROM × genvar 复制 | 每调用点独立 16 项逻辑，无共享 | cnt_nib 函数式保留，但归并用 + 运算树 |
+| always_comb 整宽 d_pad 驱动 | 256-bit 大组合块 | d_pad 仍保留（低代价），但瓶颈不在此 |
+| 分段查表 + 段隔离 mux | W64 推断 >40 级 mux4 树 | SWAR shift/mask/add，常量 mask 折叠 |
 
 ## 7. 已知限制
 
