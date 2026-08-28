@@ -25,10 +25,10 @@
 | 项 | 值 |
 |---|---|
 | Owner | aixsilicon:cbb |
-| 范围 | 纯组合奇偶校验（tree/linear 多实现 + PPA 对比） |
+| 范围 | 纯组合奇偶校验（tree/reduction/linear 三实现 + PPA 对比） |
 | 风险级别 | P0（低风险：A1 原子、函数可全枚举验证） |
 | 非目标 | CRC/多项式、掩码奇偶、流水化（消费侧职责，ASM-002） |
 
 ## 5. 执行深度
 
-Standard Loop（新 CBB）；G6 PPA 以 W∈{8,16,32,64,128,256} × {tree,linear} 对比。
+Standard Loop（新 CBB）；G6 PPA 以 W∈{8,16,32,64,128,256} × {tree,reduction,linear} 对比。

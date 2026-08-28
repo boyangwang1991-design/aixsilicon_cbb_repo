@@ -5,7 +5,7 @@
 ## 一句话定位
 
 纯组合**奇偶校验**原子构件（reduction XOR）：`parity_o = ^data_i`（even）/ `~^data_i`（odd），
-tree/linear 双实现 + G3/G4/G6 完整证据（COD-001）。
+tree/reduction/linear **三实现** + G3/G4/G6 完整证据（COD-001）。
 
 ## 索引信息
 
@@ -27,7 +27,7 @@ tree/linear 双实现 + G3/G4/G6 完整证据（COD-001）。
 parity_gen_check #(
   .DATA_WIDTH(64),   // [4..512]
   .PARITY_TYPE(0),   // {0=even, 1=odd}
-  .PC_IMPL(0)        // {0=tree 平衡XOR树, 1=linear 线性XOR链}
+  .PC_IMPL(0)        // {0=tree 显式平衡树, 1=reduction ^data, 2=linear 线性链}
 ) u_parity (
   .data_i(data),     // [DATA_WIDTH-1:0]
   .parity_o(parity)  // 1-bit
@@ -40,7 +40,7 @@ parity_gen_check #(
 |---|---|---|---|
 | `DATA_WIDTH` | 64 | [4..512] | 输入向量位宽（XOR 归约树规模） |
 | `PARITY_TYPE` | 0 | {0,1} | 0=even 偶校验；1=odd 奇校验（int 枚举，DC 综合兼容） |
-| `PC_IMPL` | 0 | {0,1} | 0=tree 平衡 XOR 树；1=linear 线性链 |
+| `PC_IMPL` | 0 | {0,1,2} | 0=tree 显式平衡树；1=reduction ^data；2=linear 线性链 |
 
 ## 报告
 

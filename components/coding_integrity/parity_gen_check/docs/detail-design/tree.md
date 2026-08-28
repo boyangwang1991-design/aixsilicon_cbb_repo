@@ -61,17 +61,17 @@
 
 | W | area | data arrival time | 备注 |
 |---|---|---|---|
-| 8   | 6.55 | 1.13 ns | 与 linear 同 |
-| 16  | 14.04 | 1.40 ns | 与 linear 同 |
-| 32  | 29.02 | 1.52 ns | 与 linear 同 |
+| 8   | 6.55 | 1.13 ns | reduction/linear 1.15（微优 0.02） |
+| 16  | 14.04 | 1.40 ns | 三实现同 |
+| 32  | 29.02 | 1.52 ns | 三实现同 |
 | 64  | 58.97 | 1.80 ns | 功耗 22.65 μW |
 | 128 | 119.92 | 2.00 ns | 组合深度上限 |
 | 256 | 240.08 | 2.00 ns | 组合深度上限 |
 
-结论：W=8~256 与 linear **面积/时序完全收敛**（DC 将等价 XOR 归约统一综合），
-PPA 空间确认为小（单输出 XOR 归约无组合形态差异）；tree_default 为推荐（同面积，
-逻辑结构清晰）。时序主指标 = **data arrival time**（组合逻辑独立于虚拟时钟）。
-Pareto/图见 [`reports/ppa-report.md`](../../reports/ppa-report.md)。
+结论：W=8~256 与 reduction/linear **面积/时序完全收敛**（run-20260828-06 三实现
+综合一致；W8 显式树 1.13ns 微优于 reduction/linear 1.15ns，可忽略）——RTL 写法
+不影响综合最优解；tree_default 为推荐（结构清晰）。时序主指标 = **data arrival time**
+（组合逻辑独立于虚拟时钟）。Pareto/图见 [`reports/ppa-report.md`](../../reports/ppa-report.md)。
 
 ## 7. 已知限制与非目标
 

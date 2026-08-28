@@ -41,8 +41,9 @@ parity_gen_check #(.DATA_WIDTH(W), .PARITY_TYPE(even|odd))
 
 | 实现 | PC_IMPL | 结构 | 定位 |
 |---|---|---|---|
-| impl_tree | 0 | 平衡 XOR 树（O(log W)） | 默认推荐 |
-| impl_linear | 1 | 线性 XOR 链（O(W) 深度） | experimental（面积对比候选） |
+| impl_tree | 0 | 显式平衡 XOR 折半树（O(log W)） | 默认推荐（结构清晰） |
+| impl_reduction | 1 | 一行 reduction XOR（`^data_i`，综合器自动最优树） | experimental（SV 优先验证） |
+| impl_linear | 2 | 显式线性 XOR 链（O(W) 深度） | experimental（结构教学视图） |
 
 ## 7. 验证映射
 
@@ -50,10 +51,10 @@ parity_gen_check #(.DATA_WIDTH(W), .PARITY_TYPE(even|odd))
 |---|---|---|
 | REQ-001/INV-001 | 黄金模型仿真（穷举 W≤8 + 随机） | tc_exhaust_w8 / tc_random |
 | REQ-002/INV-002 | 全0/全1/one-hot 锚点 | tc_edge |
-| REQ-003/INV-003 | 多实现等价（tree≡linear） | tc_equiv |
+| REQ-003/INV-003 | 多实现等价（tree≡reduction≡linear） | tc_equiv |
 | REQ-004 | 负向编译（非法参数拦截） | tc_negative_elab |
 
 ## 8. PPA 目标
 
-- G6：DATA_WIDTH∈{8,16,32,64,128,256} × {tree,linear}，SC9 HVT tt / 2.5ns
-- Pareto：tree（深度/面积平衡）vs linear（面积小/深度大）
+- G6：DATA_WIDTH∈{8,16,32,64,128,256} × {tree,reduction,linear}，SC9 HVT tt / 2.5ns
+- Pareto：三实现综合收敛实证（RTL 写法不影响综合最优解）；时序主指标 = data arrival time
