@@ -23,10 +23,10 @@ def main() -> int:
     if not ppa.is_dir():
         print("[err] ppa dir missing:", ppa); return 10
 
-    impls = ["tree", "linear"]
+    impls = ["tree", "reduction", "linear"]
     data = {i: {"w": [], "area": [], "arrival": [], "slack": []} for i in impls}
     for f in ppa.glob("*_summary.txt"):
-        m = re.match(r"(tree|linear)_w(\d+)", f.stem)
+        m = re.match(r"(tree|reduction|linear)_w(\d+)", f.stem)
         if not m:
             continue
         impl, w = m.group(1), int(m.group(2))

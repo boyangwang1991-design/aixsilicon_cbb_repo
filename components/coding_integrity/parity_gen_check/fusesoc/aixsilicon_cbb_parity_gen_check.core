@@ -48,4 +48,4 @@ parameters:
   PC_IMPL:
     datatype: int
     default: 0
-    description: "Microarchitecture select {0=tree,1=linear}"
+    description: "Microarchitecture select {0=tree explicit,1=reduction ^data,2=linear}"

@@ -17,19 +17,22 @@ module parity_tb;
 
     localparam int SEED = 32'hCBB_2026_0828;  // 固定 seed（可复现纪律）
 
-    // ---- 实例化：tree/linear × even/odd，同输入观测 ----
+    // ---- 实例化：tree/reduction/linear × even/odd，同输入观测（三形态对比）----
     logic [511:0] data;
-    wire  t8_ev, t8_od, l8_ev;               // W=8
-    wire  t16_ev, l16_ev;                    // W=16
-    wire  t64_ev, l64_ev, t64_od;            // W=64
+    wire  t8_ev, t8_od, r8_ev, l8_ev;        // W=8
+    wire  t16_ev, r16_ev, l16_ev;            // W=16
+    wire  t64_ev, r64_ev, l64_ev, t64_od;    // W=64
 
     parity_gen_check #(.DATA_WIDTH(8),  .PC_IMPL(0), .PARITY_TYPE(0)) dut_t8_ev  (.data_i(data[7:0]),   .parity_o(t8_ev));
     parity_gen_check #(.DATA_WIDTH(8),  .PC_IMPL(0), .PARITY_TYPE(1)) dut_t8_od  (.data_i(data[7:0]),   .parity_o(t8_od));
-    parity_gen_check #(.DATA_WIDTH(8),  .PC_IMPL(1), .PARITY_TYPE(0)) dut_l8_ev  (.data_i(data[7:0]),   .parity_o(l8_ev));
+    parity_gen_check #(.DATA_WIDTH(8),  .PC_IMPL(1), .PARITY_TYPE(0)) dut_r8_ev  (.data_i(data[7:0]),   .parity_o(r8_ev));
+    parity_gen_check #(.DATA_WIDTH(8),  .PC_IMPL(2), .PARITY_TYPE(0)) dut_l8_ev  (.data_i(data[7:0]),   .parity_o(l8_ev));
     parity_gen_check #(.DATA_WIDTH(16), .PC_IMPL(0), .PARITY_TYPE(0)) dut_t16_ev (.data_i(data[15:0]), .parity_o(t16_ev));
-    parity_gen_check #(.DATA_WIDTH(16), .PC_IMPL(1), .PARITY_TYPE(0)) dut_l16_ev (.data_i(data[15:0]), .parity_o(l16_ev));
+    parity_gen_check #(.DATA_WIDTH(16), .PC_IMPL(1), .PARITY_TYPE(0)) dut_r16_ev (.data_i(data[15:0]), .parity_o(r16_ev));
+    parity_gen_check #(.DATA_WIDTH(16), .PC_IMPL(2), .PARITY_TYPE(0)) dut_l16_ev (.data_i(data[15:0]), .parity_o(l16_ev));
     parity_gen_check #(.DATA_WIDTH(64), .PC_IMPL(0), .PARITY_TYPE(0)) dut_t64_ev (.data_i(data[63:0]), .parity_o(t64_ev));
-    parity_gen_check #(.DATA_WIDTH(64), .PC_IMPL(1), .PARITY_TYPE(0)) dut_l64_ev (.data_i(data[63:0]), .parity_o(l64_ev));
+    parity_gen_check #(.DATA_WIDTH(64), .PC_IMPL(1), .PARITY_TYPE(0)) dut_r64_ev (.data_i(data[63:0]), .parity_o(r64_ev));
+    parity_gen_check #(.DATA_WIDTH(64), .PC_IMPL(2), .PARITY_TYPE(0)) dut_l64_ev (.data_i(data[63:0]), .parity_o(l64_ev));
     parity_gen_check #(.DATA_WIDTH(64), .PC_IMPL(0), .PARITY_TYPE(1)) dut_t64_od (.data_i(data[63:0]), .parity_o(t64_od));
 
     // ---- 黄金参考（独立逐位 XOR 归约）----
@@ -43,14 +46,18 @@ module parity_tb;
     int errors;
     initial errors = 0;
 
-    // ---- 判定任务：even 实例 vs 黄金，跨实现等价 ----
+    // ---- 判定任务：even 实例 vs 黄金，跨三实现等价 ----
     task automatic chk_even(input int width, input logic [63:0] vec,
-                            input logic got_t, input logic got_l, input string tag);
+                            input logic got_t, input logic got_r, input logic got_l,
+                            input string tag);
         logic exp;
         exp = golden(vec, width);
-        if (got_t !== exp) begin errors++; $display("[FAIL] %s tree vec=%h got=%0b exp=%0b", tag, vec, got_t, exp); end
+        if (got_t !== exp) begin errors++; $display("[FAIL] %s tree got=%0b exp=%0b", tag, got_t, exp); end
+        if (got_r !== exp) begin errors++; $display("[FAIL] %s reduction got=%0b exp=%0b", tag, got_r, exp); end
         if (got_l !== exp) begin errors++; $display("[FAIL] %s linear got=%0b exp=%0b", tag, got_l, exp); end
-        if (got_t !== got_l) begin errors++; $display("[FAIL] %s impl mismatch t/l=%0b/%0b", tag, got_t, got_l); end
+        if (!(got_t === got_r && got_r === got_l)) begin
+            errors++; $display("[FAIL] %s impl mismatch t/r/l=%0b/%0b/%0b", tag, got_t, got_r, got_l);
+        end
     endtask
 
     initial begin
@@ -61,7 +68,7 @@ module parity_tb;
             for (int i = 0; i < 256; i++) begin
                 data = 512'(i[7:0]);
                 #1;
-                chk_even(8, 64'(i[7:0]), t8_ev, l8_ev, "W8");
+                chk_even(8, 64'(i[7:0]), t8_ev, r8_ev, l8_ev, "W8");
             end
             $display("[tc_exhaust_w8] done: 256 exhaustive vectors checked");
         end
@@ -100,15 +107,15 @@ module parity_tb;
             process::self.srandom(SEED);
             for (int i = 0; i < 1000; i++) begin
                 void'(std::randomize(data));
-                #1; chk_even(8, {56'd0, data[7:0]}, t8_ev, l8_ev, "W8");
+                #1; chk_even(8, {56'd0, data[7:0]}, t8_ev, r8_ev, l8_ev, "W8");
             end
             for (int i = 0; i < 1000; i++) begin
                 void'(std::randomize(data));
-                #1; chk_even(16, {48'd0, data[15:0]}, t16_ev, l16_ev, "W16");
+                #1; chk_even(16, {48'd0, data[15:0]}, t16_ev, r16_ev, l16_ev, "W16");
             end
             for (int i = 0; i < 1000; i++) begin
                 void'(std::randomize(data));
-                #1; chk_even(64, data[63:0], t64_ev, l64_ev, "W64");
+                #1; chk_even(64, data[63:0], t64_ev, r64_ev, l64_ev, "W64");
             end
             $display("[tc_random] done: 3000 seeded random vectors checked");
         end

@@ -13,7 +13,17 @@ profiles:
     optimization_target: balanced
     use_case: 通用奇偶校验（ECC 保护、总线协议 parity、存储校验）
     support_status: supported        # G6 Pareto 判定后确认
-    notes: 平衡 XOR 树（O(log W) 深度）；默认推荐
+    notes: 显式平衡 XOR 折半树（O(log W)）；PPA 三形态对比之一
+
+  - id: reduction_alt
+    implementation: impl_reduction
+    parameters:
+      DATA_WIDTH: default
+      PARITY_TYPE: 0
+    optimization_target: code_simplicity
+    use_case: 极简 RTL 首选；综合器自动生成最优平衡树
+    support_status: experimental     # 预期与 tree 综合收敛（实证中）
+    notes: 一行 `^data_i`；SV 优先决策（Python/SV 均可时倾向 SV）
 
   - id: linear_alt
     implementation: impl_linear
@@ -23,7 +33,7 @@ profiles:
     optimization_target: area_small_w
     use_case: 小宽度、面积极敏感场景；结构教学视图
     support_status: experimental     # 线性链 O(W) 深度，大宽度时序劣势
-    notes: 线性 XOR 链（面积略小、深度 O(W)）；PPA 对比候选
+    notes: 显式线性 XOR 链（面积略小、深度 O(W)）；PPA 三形态对比之一
 
   # pipelined 属消费侧（A1 原子无时钟端口）——消费方按需打拍，不设独立 profile。
 

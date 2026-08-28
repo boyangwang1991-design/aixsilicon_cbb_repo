@@ -17,9 +17,9 @@ echo "[probe] vcs=$(command -v vcs)"
 
 RTL="$P/rtl/parity_gen_check.sv"
 
-# ---- 正向编译矩阵：双实现 × {4,8,33,64,127,256}（含非 2 幂）----
+# ---- 正向编译矩阵：三实现 × {4,8,33,64,127,256}（含非 2 幂）----
 : > "$EV/param_matrix.txt"
-for impl in 0 1; do
+for impl in 0 1 2; do
     for w in 4 8 33 64 127 256; do
         ( cd "$WORK" && vcs -full64 -timescale=1ns/1ps -sverilog $RTL \
             -pvalue+parity_gen_check.DATA_WIDTH=$w -pvalue+parity_gen_check.PC_IMPL=$impl \
@@ -38,9 +38,9 @@ grep -q "PC-001" "$EV/negative_w3.txt" || { echo "missing PC-001 id in log"; exi
 
 # ---- 负向参数：PC_IMPL 越界（g_param_impl $error 拦截；数值参数 -pvalue 可靠）----
 ( cd "$WORK" && vcs -full64 -timescale=1ns/1ps -sverilog $RTL \
-    -pvalue+parity_gen_check.DATA_WIDTH=16 -pvalue+parity_gen_check.PC_IMPL=2 \
+    -pvalue+parity_gen_check.DATA_WIDTH=16 -pvalue+parity_gen_check.PC_IMPL=3 \
     -o /tmp/pg_neg_i > "$EV/negative_impl.txt" 2>&1 ) && {
-    echo "negative PC_IMPL=2 unexpectedly PASSED"; exit 1; } || true
+    echo "negative PC_IMPL=3 unexpectedly PASSED"; exit 1; } || true
 grep -q "PC_IMPL" "$EV/negative_impl.txt" || { echo "missing PC_IMPL guard in log"; exit 1; }
 
 rm -f "$EV/tmp.log"

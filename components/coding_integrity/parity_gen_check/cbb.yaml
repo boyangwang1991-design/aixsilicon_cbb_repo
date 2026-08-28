@@ -75,13 +75,19 @@ requirements:
 
 # ---------------- 实现变体（多实现：XOR 归约树结构 trade-off）----------------
 implementations:
-  - id: impl_tree                    # PC_IMPL=0 平衡 XOR 树（默认，O(log W)）
+  - id: impl_tree                    # PC_IMPL=0 显式平衡 XOR 折半树（generate，O(log W)）
     source: rtl/
     constraints: constraints/
     dependencies: []
     files:
       - rtl/parity_gen_check.sv
-  - id: impl_linear                  # PC_IMPL=1 线性 XOR 链（面积小、深度 O(W)）
+  - id: impl_reduction               # PC_IMPL=1 一行 reduction XOR（综合器自动最优树）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/parity_gen_check.sv
+  - id: impl_linear                  # PC_IMPL=2 显式线性 XOR 链（O(W) 深度）
     source: rtl/
     constraints: constraints/
     dependencies: []

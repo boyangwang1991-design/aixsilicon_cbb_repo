@@ -19,7 +19,8 @@ set_app_var link_library    "* $PDKDB"
 
 analyze -format sverilog [file join $RTLDIR parity_gen_check.sv]
 
-set IMPLS {tree parity_impl_tree linear parity_impl_linear}
+# 三实现：显式平衡树 / 一行 reduction XOR / 显式线性链（PPA 形态对比）
+set IMPLS {tree parity_impl_tree reduction parity_impl_reduction linear parity_impl_linear}
 
 foreach {tagmod toplevel} $IMPLS {
     foreach w {8 16 32 64 128 256} {
