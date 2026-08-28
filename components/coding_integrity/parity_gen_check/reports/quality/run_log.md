@@ -10,3 +10,5 @@
     黄金 XOR 归约独立比对; 证据 build/eda/evidence; 跨实现一致 REQ-003
 - `2026-08-28 04:33:28` | **characterize** | G6 | G6 PPA run-20260828-03 全 Sweep(2实现×6宽度): tree/linear 综合完全收敛(面积一致), 单输出 XOR 归约 PPA 空间确认小 | 结果(PASS)
     tree=linear 各宽度 area/slack 一致(DC 重排线性链为树), 小宽度功耗差~9%; 图 reports/ppa-*.png; 报告 reports/ppa-report.md + reports/qualification-report.md(用户指令); SKILL 固化 PPA 合理性/多扫描点/绘图/报告 reports/ + EDA 产物 build/
+- `2026-08-28 05:58:03` | **observe** | G6 | SV 优先 + arrival 时序收尾: impl_tree 简化为一行 reduction XOR(综合器自动最优); PPA 时序主指标= data arrival time; scaffold 不建 evidence/(改 build/eda/evidence) | 结果(PASS)
+    生成方式决策(design-cbb SKILL §2): Python/SV 均可时倾向 SV; parity 复盘 —  由 DC/Genus 生成最优平衡树, tree/linear 综合收敛本质; 删除 gen_parity.py + rtl/parity_impl_tree.sv; 时序报告/绘图用 arrival(独立于虚拟时钟); scaffold.py evidence->build/eda/evidence; 两仓已推送
