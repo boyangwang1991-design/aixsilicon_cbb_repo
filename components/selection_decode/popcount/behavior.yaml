@@ -1,0 +1,42 @@
+# ============================================================
+# popcount 行为契约 (behavior.yaml) —— SSOT
+# 人口统计/位计数：popcnt = 输入位向量中 1 的个数（0..DATA_W）
+# ============================================================
+
+invariants:
+  - id: INV-001
+    description: >-
+      正确性——对任意合法 2-state 输入 din，popcnt 等于 din 中 1 的个数
+      （与独立黄金模型逐位扫描一致）。五实现（direct/tree/wallace/comp4_2/lut）
+      共享同一可观察契约。
+    properties: [PROP-POPCOUNT_CORRECT-001]
+    tests: [tc_exhaust_w4, tc_random]
+  - id: INV-002
+    description: >-
+      上界——popcnt ≤ DATA_W；输出位宽 NBITS=$clog2(DATA_W+1) 精确覆盖 0..DATA_W，
+      不溢出、无饱和截断错误。
+    properties: [PROP-POPCOUNT_BOUND-003]
+    tests: [tc_edge, tc_random]
+  - id: INV-003
+    description: >-
+      边界——din=0 → popcnt=0；din=全1 → popcnt=DATA_W；单热 → popcnt=1；
+      0101 交错 → DATA_W/2。
+    properties: [PROP-POPCOUNT_EDGE-002]
+    tests: [tc_edge]
+
+assumptions:
+  - id: ASM-001
+    description: 输入 X/Z 不承诺（2-state 仿真语义；X 传播视为未定义，断言以 $isunknown 规避）。
+  - id: ASM-002
+    description: DATA_W 与 PC_IMPL 为编译期参数，不运行时切换（生成/参数化语义）。
+  - id: ASM-003
+    description: PC_IMPL∈{2,3}（Wallace/compressor）仅支持 DATA_W∈{8,16,32,64}
+      （生成器位宽集，PC-004）；其余位宽用 direct/tree/lut。
+  - id: ASM-004
+    description: 纯组合，无时钟/复位；调用方负责输入稳定窗口与输出采样时序。
+
+non_goals:
+  - 带时钟/寄存的周期计数或累加（见 CTL-* 计数器、MON-* 事件计数器）
+  - 任意位宽 Wallace/compressor 通用生成（当前生成器仅 {8,16,32,64}；扩展位宽
+    需重新运行 tools/gen_popcount.py 并更新 PC-004 合法域）
+  - 动态/可编程位宽（参数固定，编译期确定）

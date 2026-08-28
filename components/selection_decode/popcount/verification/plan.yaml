@@ -1,0 +1,49 @@
+# 验证计划（Verification Plan）— popcount (SEL-014)
+# G4 功能验证：场景/用例 → 需求（REQ）→ 配置（configs）→ 证据 映射。
+# 与 trace/rtm.yaml（工具生成）保持同源。
+
+scenarios:
+  # 2026-08-28：configs 对齐 config-gen 自动命名的实际 config_id，
+  # 消除人工命名悬空引用（width_conversion_fifo 复盘同类断链）；
+  # 边界/负向用 boundary/negative 集实际生成的 config_id。
+  - id: tc_exhaust_w4
+    description: W=4 全空间 16 向量 × 五实现（direct/tree/wallace/comp4_2/lut）黄金比对
+    requirements: [REQ-001]
+    configs: [cfg_data_w8_pc_impl0, cfg_data_w8_pc_impl1, cfg_data_w8_pc_impl2,
+              cfg_data_w16_pc_impl0, cfg_data_w16_pc_impl1, cfg_data_w16_pc_impl2]
+    testbench: verification/simulation/popcount_tb.sv
+  - id: tc_edge
+    description: 全0/全1/单热逐位/0101 交错边界（各实现）
+    requirements: [REQ-002, REQ-003]
+    configs: [cfg_data_w2_pc_impl1, cfg_data_w3_pc_impl1, cfg_data_w8_pc_impl1,
+              cfg_data_w8_pc_impl2]
+    testbench: verification/simulation/popcount_tb.sv
+  - id: tc_random
+    description: 4000 个 seed 随机向量 × W∈{8,16,32,64} × 各实现，黄金模型比对
+    requirements: [REQ-001]
+    configs: [cfg_data_w32_pc_impl0, cfg_data_w32_pc_impl1, cfg_data_w32_pc_impl2,
+              cfg_data_w32_pc_impl3, cfg_data_w32_pc_impl4, cfg_data_w64_pc_impl1]
+    testbench: verification/simulation/popcount_tb.sv
+  - id: tc_equiv
+    description: 多实现跨实现等价（tree/wallace/comp4_2/lut 两两比对，W=16/32/64）
+    requirements: [REQ-004]
+    configs: [cfg_data_w16_pc_impl1, cfg_data_w16_pc_impl2, cfg_data_w32_pc_impl1,
+              cfg_data_w32_pc_impl2, cfg_data_w64_pc_impl1]
+    testbench: verification/simulation/popcount_tb.sv
+  - id: tc_negative_elab
+    description: 非法参数（DATA_W/PC_IMPL 越界、生成版位宽非法）elaboration $error 拦截
+    requirements: [REQ-005]
+    configs: [cfg_data_w1_pc_impl1, cfg_data_w1025_pc_impl1]
+    testbench: verification/formal/negative_elab_tb.sv
+
+requirements:
+  - id: REQ-001
+    description: 正确性——popcnt 等于 din 中 1 的个数（0..W）
+  - id: REQ-002
+    description: 边界——全 0 → 0；全 1 → W；单热 → 1
+  - id: REQ-003
+    description: 结果上界——popcnt ≤ DATA_W（结果位宽 NBITS=clog2(W+1) 不溢出）
+  - id: REQ-004
+    description: 多实现等价——direct/tree/wallace/comp4_2/lut 同契约可互换
+  - id: REQ-005
+    description: 非法参数在 elaboration 期被拦截

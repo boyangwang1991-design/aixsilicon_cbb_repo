@@ -1,0 +1,50 @@
+CAPI=2:
+
+# FuseSoC Core — popcount (SEL-014)
+# VLNV: aixsilicon:cbb:popcount:0.1.0
+# wrapper + 手写实现同居 popcount.sv；Wallace/compressor 由 rtl/gen/*.sv（生成器产物）
+# 通过 include 引入；PC_IMPL 编译期选择
+name: aixsilicon:cbb:popcount:0.1.0
+description: "Population count CBB, A1, direct/tree/wallace/4:2-compressor/LUT microarchitectures (pure combinational)"
+provider:
+  name: aixsilicon
+  library: cbb
+
+filesets:
+  rtl_src:
+    files:
+      - ../rtl/popcount.sv                 # wrapper（参数检查/SVA/实现分派 + direct/tree/lut）
+    file_type: systemVerilogSource
+    include_dirs:
+      - ../rtl                            # include "gen/*.sv"
+
+  tb_src:
+    files:
+      - ../verification/simulation/popcount_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets: [rtl_src]
+  sim:
+    default_tool: vcs
+    filesets: [rtl_src, tb_src]
+    toplevel: [popcount_tb]
+  synth:
+    default_tool: dc
+    filesets: [rtl_src]
+    toplevel: [popcount]
+  lint:
+    default_tool: spyglass
+    filesets: [rtl_src]
+    toplevel: [popcount]
+
+parameters:
+  DATA_W:
+    datatype: int
+    default: 32
+    description: "Input data width [2..1024] (PC-001/002)"
+  PC_IMPL:
+    datatype: int
+    default: 1
+    description: "Microarchitecture select {0=direct,1=tree,2=wallace,3=comp4_2,4=lut}"

@@ -1,0 +1,50 @@
+set: boundary
+configs:
+- config_id: cfg_data_w2_pc_impl1
+  parameters:
+    DATA_W: 2
+    PC_IMPL: 1
+- config_id: cfg_data_w1024_pc_impl1
+  parameters:
+    DATA_W: 1024
+    PC_IMPL: 1
+- config_id: cfg_data_w513_pc_impl1
+  parameters:
+    DATA_W: 513
+    PC_IMPL: 1
+- config_id: cfg_data_w3_pc_impl1
+  parameters:
+    DATA_W: 3
+    PC_IMPL: 1
+- config_id: cfg_data_w8_pc_impl1
+  parameters:
+    DATA_W: 8
+    PC_IMPL: 1
+- config_id: cfg_data_w16_pc_impl1
+  parameters:
+    DATA_W: 16
+    PC_IMPL: 1
+- config_id: cfg_data_w32_pc_impl1
+  parameters:
+    DATA_W: 32
+    PC_IMPL: 1
+- config_id: cfg_data_w64_pc_impl1
+  parameters:
+    DATA_W: 64
+    PC_IMPL: 1
+- config_id: cfg_data_w32_pc_impl0
+  parameters:
+    DATA_W: 32
+    PC_IMPL: 0
+- config_id: cfg_data_w32_pc_impl2
+  parameters:
+    DATA_W: 32
+    PC_IMPL: 2
+- config_id: cfg_data_w32_pc_impl3
+  parameters:
+    DATA_W: 32
+    PC_IMPL: 3
+- config_id: cfg_data_w32_pc_impl4
+  parameters:
+    DATA_W: 32
+    PC_IMPL: 4

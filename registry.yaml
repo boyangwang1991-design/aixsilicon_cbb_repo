@@ -3666,9 +3666,9 @@ cbbs:
     group: components/selection_decode
     abstraction: A1
     priority: P1
-    implementation: adder tree、compressor、lookup
-    description: 面积/时序Pareto
-    status: planned            # 2026-08-28 用户指令移除工程包，回退 planned；历史证据见 run_log
+    implementation: direct、tree、wallace、4:2 compressor、lut
+    description: 面积/时序Pareto（直接加法基线 + 平衡树 + Wallace + 4:2 compressor + LUT）
+    status: implemented          # 2026-08-28 首次物化（五实现 + G3/G4/G6 证据）
     version: "0.1.0"
     path: components/selection_decode/popcount
   - id: SEL-015

@@ -1,0 +1,132 @@
+cbb: popcount
+requirements:
+- id: REQ-001
+  type: requirement
+  description: 正确性——popcnt 等于 din 中 1 的个数（黄金模型逐位扫描一致；五实现同契约）
+  properties:
+  - PROP-POPCOUNT_CORRECT-001
+  tests:
+  - tc_exhaust_w4
+  - tc_random
+  configs:
+  - cfg_data_w8_pc_impl0
+  - cfg_data_w8_pc_impl2
+  - cfg_data_w32_pc_impl2
+  - cfg_data_w32_pc_impl3
+  - cfg_data_w64_pc_impl1
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-002
+  type: requirement
+  description: 边界——全 0 → 0；全 1 → DATA_W；单热 → 1
+  properties:
+  - PROP-POPCOUNT_EDGE-002
+  tests:
+  - tc_edge
+  configs:
+  - cfg_data_w2_pc_impl1
+  - cfg_data_w8_pc_impl2
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-003
+  type: requirement
+  description: 结果上界——popcnt ≤ DATA_W（NBITS=clog2(DATA_W+1) 不溢出）
+  properties:
+  - PROP-POPCOUNT_BOUND-003
+  tests:
+  - tc_edge
+  - tc_random
+  configs:
+  - cfg_data_w32_pc_impl2
+  - cfg_data_w64_pc_impl1
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-004
+  type: requirement
+  description: 多实现等价——direct/tree/wallace/comp4_2/lut 可互换（同可观察契约）
+  properties:
+  - PROP-POPCOUNT_EQV-004
+  tests:
+  - tc_equiv
+  - tc_random
+  configs:
+  - cfg_data_w8_pc_impl0
+  - cfg_data_w8_pc_impl1
+  - cfg_data_w8_pc_impl2
+  - cfg_data_w16_pc_impl1
+  - cfg_data_w16_pc_impl2
+  - cfg_data_w32_pc_impl1
+  - cfg_data_w64_pc_impl1
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-005
+  type: requirement
+  description: 非法参数在 Elaboration 期被拦截
+  properties: []
+  tests:
+  - tc_negative_elab
+  configs:
+  - cfg_data_w1_pc_impl1
+  - cfg_data_w1025_pc_impl1
+  evidence:
+  - build/eda/evidence/g3_static/compile.txt
+- id: INV-001
+  type: requirement
+  description: 正确性——对任意合法 2-state 输入 din，popcnt 等于 din 中 1 的个数 （与独立黄金模型逐位扫描一致）。五实现（direct/tree/wallace/comp4_2/lut）
+    共享同一可观察契约。
+  properties:
+  - PROP-POPCOUNT_CORRECT-001
+  tests:
+  - tc_exhaust_w4
+  - tc_random
+  configs: []
+  evidence: []
+- id: INV-002
+  type: requirement
+  description: 上界——popcnt ≤ DATA_W；输出位宽 NBITS=$clog2(DATA_W+1) 精确覆盖 0..DATA_W， 不溢出、无饱和截断错误。
+  properties:
+  - PROP-POPCOUNT_BOUND-003
+  tests:
+  - tc_edge
+  - tc_random
+  configs: []
+  evidence: []
+- id: INV-003
+  type: requirement
+  description: 边界——din=0 → popcnt=0；din=全1 → popcnt=DATA_W；单热 → popcnt=1； 0101 交错
+    → DATA_W/2。
+  properties:
+  - PROP-POPCOUNT_EDGE-002
+  tests:
+  - tc_edge
+  configs: []
+  evidence: []
+- id: ASM-001
+  type: requirement
+  description: 输入 X/Z 不承诺（2-state 仿真语义；X 传播视为未定义，断言以 $isunknown 规避）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-002
+  type: requirement
+  description: DATA_W 与 PC_IMPL 为编译期参数，不运行时切换（生成/参数化语义）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-003
+  type: requirement
+  description: PC_IMPL∈{2,3}（Wallace/compressor）仅支持 DATA_W∈{8,16,32,64} （生成器位宽集，PC-004）；其余位宽用
+    direct/tree/lut。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-004
+  type: requirement
+  description: 纯组合，无时钟/复位；调用方负责输入稳定窗口与输出采样时序。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []

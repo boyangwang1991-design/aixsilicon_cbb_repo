@@ -1,0 +1,12 @@
+# popcount (SEL-014) 组件 Owner
+# 维护入口：先改 cbb.yaml/behavior.yaml（SSOT），再同步 README/registry。
+
+owners:
+  - aixsilicon:cbb
+
+reviewers:
+  - aixsilicon:cbb
+  - aixsilicon:dv_common
+
+approvers:
+  - aixsilicon:cbb

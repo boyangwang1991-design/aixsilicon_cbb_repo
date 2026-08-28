@@ -1,0 +1,10 @@
+set: negative
+configs:
+- config_id: cfg_data_w1_pc_impl1
+  parameters:
+    DATA_W: 1
+    PC_IMPL: 1
+- config_id: cfg_data_w1025_pc_impl1
+  parameters:
+    DATA_W: 1025
+    PC_IMPL: 1

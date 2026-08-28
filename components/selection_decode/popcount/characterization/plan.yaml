@@ -1,0 +1,30 @@
+# 表征计划（Characterization Plan）— popcount
+# G6 PPA：characterization/pdk.yaml 为工艺上下文事实源（sc9_cmos28lp_base_hvt tt_1p00v_25c）。
+# 约束基线：create_clock 2.5ns（400MHz）；组合路径以 data arrival 度量。
+benchmark_profiles:
+  - id: impl_direct_w_sweep
+    implementation: impl_direct
+    parameters: {DATA_W: [8, 16, 32, 64], PC_IMPL: 0}
+    optimization_target: area_small_n        # 基线：串行加法链
+  - id: impl_tree_w_sweep
+    implementation: impl_tree
+    parameters: {DATA_W: [8, 16, 32, 64], PC_IMPL: 1}
+    optimization_target: timing              # 平衡树 O(log W)
+  - id: impl_wallace_w_sweep
+    implementation: impl_wallace
+    parameters: {DATA_W: [8, 16, 32, 64], PC_IMPL: 2}
+    optimization_target: area                # Wallace 门数少
+  - id: impl_comp4_2_w_sweep
+    implementation: impl_comp4_2
+    parameters: {DATA_W: [8, 16, 32, 64], PC_IMPL: 3}
+    optimization_target: timing              # 4:2 级数最少
+  - id: impl_lut_w_sweep
+    implementation: impl_lut
+    parameters: {DATA_W: [8, 16, 32, 64], PC_IMPL: 4}
+    optimization_target: balanced            # LUT 规整
+measured_region:
+  DATA_W: [8, 64]
+  PC_IMPL: [0, 1, 2, 3, 4]
+status: SWEEP_DONE
+evidence: build/eda/ppa/run-20260828-01/
+report: reports/ppa-report.md

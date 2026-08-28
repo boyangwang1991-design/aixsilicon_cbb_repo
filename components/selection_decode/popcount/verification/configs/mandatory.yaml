@@ -1,0 +1,6 @@
+set: mandatory
+configs:
+- config_id: cfg_data_w32_pc_impl1
+  parameters:
+    DATA_W: 32
+    PC_IMPL: 1

@@ -1,0 +1,167 @@
+# ============================================================
+# cbb.yaml — popcount SSOT 元数据（SEL-014, A1/P1）
+# Population Count：纯组合位计数（直接加法/平衡树/Wallace/4:2 compressor/LUT）
+# 生成依赖：tools/gen_popcount.py（SSOT）→ rtl/gen/*.sv（派生物，重新生成不手改）
+# ============================================================
+
+schema_version: 1.0
+
+cbb:
+  id: aixsilicon:cbb:popcount
+  name: popcount
+  version: 0.1.0
+  owner: aixsilicon:cbb
+  maturity: E0
+  license: Apache-2.0
+
+classification:
+  abstraction: A1                    # 原子数据通路算子（无状态、纯组合）
+  primary_domain: selection_decode
+  secondary_domains: [arithmetic_datapath]
+
+contract:
+  interface: native_bits_in_count_out  # 原生位向量输入 → 计数输出，无总线协议语义
+  clock_domains: 0                    # 纯组合，无时钟/复位端口
+  ordering: not_applicable            # 单周期组合，无事务序列语义
+  throughput: 1_per_cycle             # 组合路径即时
+
+# ---------------- 可配置参数 ----------------
+parameters:
+  DATA_W:
+    type: int
+    default: 32
+    legal: {min: 2, max: 1024}
+    partitions: [8, 16, 32, 64]
+    affects: [interface_width, area, timing]
+    semantics: 输入数据位宽（位计数宽度）；输出位宽 NBITS=clog2(DATA_W+1)
+  PC_IMPL:
+    type: int
+    default: 1
+    legal: [0, 1, 2, 3, 4]
+    partitions: [0, 1, 2, 3, 4]
+    affects: [area, timing]
+    semantics: >-
+      微架构选择（挂实现/Profile，不进公共功能语义）：
+      0=direct 直接加法基线（O(W) 级加法器链，最直观，PPA 参照）；
+      1=tree 平衡归约树（O(log W) 级，全并行，时序最优）；
+      2=wallace Wallace tree（3:2 FA + 2:1 HA 归约，生成器展开，归约级数少）；
+      3=comp4_2 4:2 compressor（cin/cout 列间链）+FA/HA 归约（生成器展开）；
+      4=lut 4bit 子块 LUT 查表 + 小加法树（结构规整，面积可控）
+
+constraints:
+  - id: PC-001
+    expression: "DATA_W >= 2"
+    severity: error                   # 至少 2 bit 才具计数语义
+  - id: PC-002
+    expression: "DATA_W <= 1024"
+    severity: error                   # RTL 平面/时序上界
+  - id: PC-003
+    expression: "PC_IMPL >= 0 and PC_IMPL <= 4"
+    severity: error                   # 编码合法域
+  - id: PC-004
+    expression: "not (PC_IMPL in {2,3} and DATA_W not in {8,16,32,64})"
+    severity: error                   # 生成器支持的位宽集
+
+# ---------------- 需求（REQ→PROP/tests/configs 映射）----------------
+requirements:
+  - id: REQ-001
+    description: 正确性——popcnt 等于 din 中 1 的个数（黄金模型逐位扫描一致；五实现同契约）
+    properties: [PROP-POPCOUNT_CORRECT-001]
+    tests: [tc_exhaust_w4, tc_random]
+    configs:
+      - cfg_data_w8_pc_impl0
+      - cfg_data_w8_pc_impl2
+      - cfg_data_w32_pc_impl2
+      - cfg_data_w32_pc_impl3
+      - cfg_data_w64_pc_impl1
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-002
+    description: 边界——全 0 → 0；全 1 → DATA_W；单热 → 1
+    properties: [PROP-POPCOUNT_EDGE-002]
+    tests: [tc_edge]
+    configs:
+      - cfg_data_w2_pc_impl1
+      - cfg_data_w8_pc_impl2
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-003
+    description: 结果上界——popcnt ≤ DATA_W（NBITS=clog2(DATA_W+1) 不溢出）
+    properties: [PROP-POPCOUNT_BOUND-003]
+    tests: [tc_edge, tc_random]
+    configs:
+      - cfg_data_w32_pc_impl2
+      - cfg_data_w64_pc_impl1
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-004
+    description: 多实现等价——direct/tree/wallace/comp4_2/lut 可互换（同可观察契约）
+    properties: [PROP-POPCOUNT_EQV-004]
+    tests: [tc_equiv, tc_random]
+    configs:
+      - cfg_data_w8_pc_impl0
+      - cfg_data_w8_pc_impl1
+      - cfg_data_w8_pc_impl2
+      - cfg_data_w16_pc_impl1
+      - cfg_data_w16_pc_impl2
+      - cfg_data_w32_pc_impl1
+      - cfg_data_w64_pc_impl1
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-005
+    description: 非法参数在 Elaboration 期被拦截
+    properties: []                    # 负向编译证据（非 SVA）
+    tests: [tc_negative_elab]
+    configs:
+      - cfg_data_w1_pc_impl1
+      - cfg_data_w1025_pc_impl1
+    evidence: [build/eda/evidence/g3_static/compile.txt]
+
+# ---------------- 实现变体（多实现：位计数结构 trade-off）----------------
+implementations:
+  - id: impl_direct                  # PC_IMPL=0 直接加法基线（O(W) 深）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/popcount.sv
+  - id: impl_tree                    # PC_IMPL=1 平衡归约树（O(log W) 深）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/popcount.sv
+  - id: impl_wallace                 # PC_IMPL=2 Wallace tree（生成器展开）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []                # 无嵌套 CBB 依赖；生成器为构建期工具（tools/gen_popcount.py，见 files/CHANGELOG）
+    files:
+      - rtl/popcount.sv
+      - rtl/gen/popcount_wallace_d8.sv
+      - rtl/gen/popcount_wallace_d16.sv
+      - rtl/gen/popcount_wallace_d32.sv
+      - rtl/gen/popcount_wallace_d64.sv
+  - id: impl_comp4_2                 # PC_IMPL=3 4:2 compressor（生成器展开）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []                # 无嵌套 CBB 依赖；生成器为构建期工具（tools/gen_popcount.py，见 files/CHANGELOG）
+    files:
+      - rtl/popcount.sv
+      - rtl/gen/popcount_compressor_d8.sv
+      - rtl/gen/popcount_compressor_d16.sv
+      - rtl/gen/popcount_compressor_d32.sv
+      - rtl/gen/popcount_compressor_d64.sv
+  - id: impl_lut                     # PC_IMPL=4 LUT 查表（4bit 子块）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/popcount.sv
+
+# ---------------- 质量门禁（G0~G8）----------------
+quality:
+  required_gates: [G0, G1, G2, G3, G4, G5, G6, G7, G8]
+
+# ---------------- PPA 表征 ----------------
+characterization:
+  benchmark_profiles: []
+  measured_region: {}                 # G6 计划：DATA_W∈{8,16,32,64}×{direct,tree,wallace,comp4_2,lut}
+
+release:
+  fusesoc_core: aixsilicon:cbb:popcount:0.1.0

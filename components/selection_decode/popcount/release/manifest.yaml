@@ -1,0 +1,37 @@
+# ============================================================
+# release/manifest.yaml — popcount (SEL-014) 发布清单
+# 与 registry.yaml / fusesoc core 保持同源（SSOT 仍为 cbb.yaml）
+# ============================================================
+release:
+  id: aixsilicon:cbb:popcount:0.1.0
+  version: 0.1.0
+  maturity: E1
+  license: Apache-2.0
+  date: 2026-08-28
+  scope:
+    - 纯组合人口统计/位计数（0..DATA_W）
+    - 五实现微架构：direct/tree/wallace/comp4_2/lut
+    - 生成器 tools/gen_popcount.py（Wallace/compressor 扁平网表展开）
+  artifacts:
+    rtl:
+      - rtl/popcount.sv
+      - rtl/gen/popcount_wallace_d{8,16,32,64}.sv
+      - rtl/gen/popcount_compressor_d{8,16,32,64}.sv
+    verification:
+      - verification/simulation/popcount_tb.sv
+      - verification/formal/negative_elab_tb.sv
+      - verification/scripts/run_static_checks.sh
+      - verification/scripts/run_functional_sim.sh
+    characterization:
+      - characterization/synth_sweep.tcl
+      - characterization/pdk.yaml
+      - characterization/plan.yaml
+    metadata:
+      - cbb.yaml
+      - behavior.yaml
+      - profiles.yaml
+      - fusesoc/aixsilicon_cbb_popcount.core
+  fusesoc_core: aixsilicon:cbb:popcount:0.1.0
+  evidence:
+    - build/eda/evidence/g3_static/compile.txt
+    - build/eda/evidence/g4_functional/functional_sim.txt

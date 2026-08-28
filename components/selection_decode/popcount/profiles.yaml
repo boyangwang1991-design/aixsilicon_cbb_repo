@@ -1,0 +1,58 @@
+# ============================================================
+# profiles.yaml — popcount PPA 使用画像（SEL-014）
+# 描述不同使用场景下的推荐微架构（PC_IMPL）与依据。
+# 依据见 reports/ppa-report.md（G6 综合实证）。
+# ============================================================
+
+profiles:
+  - id: prof_small_area
+    scenario: 面积优先（如大量实例化的位标志计数、寄存器堆伴生统计）
+    recommended:
+      impl: tree                   # G6 实测：tree/direct 面积最小（DC 优化收敛）
+      data_w_range: [8, 64]
+    rationale: G6 实测 tree 面积最小（W=64: 124.0μm²）且时序良好（1.99ns）。
+    pca_notes: 面积因子权重最高。
+
+  - id: prof_min_latency
+    scenario: 时序优先（关键路径敏感，如 QoS 实时统计、回环控制）
+    recommended:
+      impl: lut                    # G6 实测：lut 关键路径最短（W=32: 1.78ns）
+      data_w_range: [8, 64]
+    rationale: G6 实测 lut 关键路径最短（W≤32 优势明显）；结构规整可预测。
+    pca_notes: 时序因子权重最高。
+
+  - id: prof_balanced
+    scenario: 默认通用（面积/时序折中，容量或准入控制等一般统计）
+    recommended:
+      impl: tree
+      data_w_range: [8, 1024]
+    rationale: G6 实测 tree 面积/时序双优（W=64: 124.0μm²/1.99ns），任意位宽可用。
+    pca_notes: 面积/时序均衡。
+
+  - id: prof_reference
+    scenario: PPA 参照基线/教学（最直观实现，度量其他实现的相对收益）
+    recommended:
+      impl: direct
+      data_w_range: [2, 64]
+    rationale: 直接加法链 O(W) 深；注意 G6 实测 compile_ultra 会将串行链优化为树，
+      故直接基线经综合后与 tree 趋同（若需保留原始结构需关闭算术优化）。
+    pca_notes: 仅作基线参照。
+
+  - id: prof_wallace
+    scenario: 经典压缩器（多操作数归约习惯用法、门数考量）
+    recommended:
+      impl: wallace
+      data_w_range: [16, 64]
+    rationale: 3:2 FA 归约，G6 实测 W=16 时序最优（1.52ns）、面积接近 tree。
+    pca_notes: 门数因子较高。
+
+# 位宽→NBITS 输出映射（快速查阅）
+width_to_nbits:
+  8: 4
+  16: 5
+  32: 6
+  64: 7
+  128: 8
+  256: 9
+  512: 10
+  1024: 11

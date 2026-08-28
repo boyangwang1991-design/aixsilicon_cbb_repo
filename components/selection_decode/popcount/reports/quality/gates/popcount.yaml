@@ -1,0 +1,24 @@
+cbb: popcount
+updated: '2026-08-28T08:26:00Z'
+gates:
+  G0:
+    status: pass
+  G1:
+    status: pass
+  G2:
+    status: pass
+  G3:
+    status: pass
+    evidence: build/eda/evidence/g3_static/compile.txt
+  G4:
+    status: pass
+    evidence: build/eda/evidence/g4_functional/functional_sim.txt
+  G5:
+    status: candidate
+  G6:
+    status: pass
+    evidence: build/eda/ppa/run-20260828-01/
+  G7:
+    status: candidate
+  G8:
+    status: candidate

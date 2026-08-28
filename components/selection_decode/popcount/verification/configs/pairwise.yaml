@@ -1,0 +1,18 @@
+set: pairwise
+configs:
+- config_id: cfg_data_w8_pc_impl0
+  parameters:
+    DATA_W: 8
+    PC_IMPL: 0
+- config_id: cfg_data_w8_pc_impl2
+  parameters:
+    DATA_W: 8
+    PC_IMPL: 2
+- config_id: cfg_data_w16_pc_impl0
+  parameters:
+    DATA_W: 16
+    PC_IMPL: 0
+- config_id: cfg_data_w16_pc_impl2
+  parameters:
+    DATA_W: 16
+    PC_IMPL: 2

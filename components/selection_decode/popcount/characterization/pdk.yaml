@@ -1,0 +1,34 @@
+# ============================================================
+# pdk.yaml — popcount G6 PPA 表征工艺上下文（pdk-scan 产物，status=PDK_READY）
+# 工艺：sc9_cmos28lp_base_hvt（GF 28nm LP，tt_1p00v_25c）
+# 约束基线：create_clock 2.5ns（400MHz）；组合路径以 data arrival 度量
+# ============================================================
+schema: cbb-pdk-context/0.1
+status: PDK_READY
+pdk_root: /home/eda/pdk
+node: CMOS28NM
+library:
+  root: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0
+  name: sc9_cmos28lp_base_hvt
+  process_dir: cmos28lp
+  family_dir: sc9_base_hvt
+  vt: hvt
+  corners:
+    - id: tt_1p00v_25c
+      db: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/db/sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c.db
+      lib: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/lib/sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c.lib
+      pvt: {tt, 1.00V, 25C}
+    - id: ss_0p90v_125c
+      db: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/db/sc9_cmos28lp_base_hvt_ss_nominal_max_0p90v_125c.db
+      lib: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/lib/sc9_cmos28lp_base_hvt_ss_nominal_max_0p90v_125c.lib
+      pvt: {ss, 0.90V, 125C}
+    - id: ff_1p10v_m40c
+      db: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/db/sc9_cmos28lp_base_hvt_ff_nominal_min_1p10v_m40c.db
+      lib: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/lib/sc9_cmos28lp_base_hvt_ff_nominal_min_1p10v_m40c.lib
+      pvt: {ff, 1.10V, -40C}
+constraints_baseline:
+  clock_period_ns: 2.5
+  input_delay_ns: 0.5
+  output_delay_ns: 0.5
+  drive_cell: BUFH_X4M_A9TH
+  output_load_pf: 0.01
