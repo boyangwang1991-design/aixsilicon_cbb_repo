@@ -1,0 +1,31 @@
+# profiles.yaml —— 多实现 Profile（parity_gen_check）
+# 共享同一可观察契约，差异仅在 XOR 归约树结构（面积↔时序 trade-off）
+
+schema_version: "1.0"
+cbb: aixsilicon:cbb:parity_gen_check
+
+profiles:
+  - id: tree_default
+    implementation: impl_tree
+    parameters:
+      DATA_WIDTH: default
+      PARITY_TYPE: 0
+    optimization_target: balanced
+    use_case: 通用奇偶校验（ECC 保护、总线协议 parity、存储校验）
+    support_status: supported        # G6 Pareto 判定后确认
+    notes: 平衡 XOR 树（O(log W) 深度）；默认推荐
+
+  - id: linear_alt
+    implementation: impl_linear
+    parameters:
+      DATA_WIDTH: default
+      PARITY_TYPE: 0
+    optimization_target: area_small_w
+    use_case: 小宽度、面积极敏感场景；结构教学视图
+    support_status: experimental     # 线性链 O(W) 深度，大宽度时序劣势
+    notes: 线性 XOR 链（面积略小、深度 O(W)）；PPA 对比候选
+
+  # pipelined 属消费侧（A1 原子无时钟端口）——消费方按需打拍，不设独立 profile。
+
+# 依赖 DAG：零运行时依赖（各 impl dependencies=[]），自动无环；
+# PC_IMPL 编译期分派见 rtl/parity_gen_check.sv。

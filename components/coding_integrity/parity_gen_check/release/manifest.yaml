@@ -1,0 +1,35 @@
+# Release Manifest（G8 候选）— parity_gen_check
+# 状态：candidate（只有 Workflow Gate G8 可确认 released）
+schema_version: 1.0
+release:
+  cbb: aixsilicon:cbb:parity_gen_check
+  version: 0.1.0
+  status: candidate
+  maturity: E2
+artifacts:
+  rtl:
+    - rtl/parity_gen_check.sv               # wrapper + tree/linear 双实现 + SVA
+  fusesoc_core: fusesoc/aixsilicon_cbb_parity_gen_check.core
+  contract:
+    - cbb.yaml
+    - behavior.yaml
+    - profiles.yaml
+  verification:
+    - verification/simulation/parity_tb.sv
+    - verification/plan.yaml
+    - verification/scripts/run_static_checks.sh
+    - verification/scripts/run_functional_sim.sh
+  reports:
+    - reports/ppa-report.md
+    - reports/qualification-report.md
+    - reports/ppa-run-20260828-03.png
+  characterization:
+    - characterization/synth_sweep.tcl
+    - characterization/plot_pareto.py
+sbom:
+  license: Apache-2.0
+  dependencies: []                    # A1 原子构件，零嵌套 CBB 依赖
+known_limits:
+  - X/Z 输入不承诺（ASM-001）
+  - tree/linear 综合收敛（单输出 XOR 归约 PPA 空间小，PPA 报告 §3）
+release_notes: []

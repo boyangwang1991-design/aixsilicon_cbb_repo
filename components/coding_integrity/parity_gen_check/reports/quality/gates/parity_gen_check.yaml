@@ -1,0 +1,27 @@
+cbb: parity_gen_check
+updated: '2026-08-28T04:33:18Z'
+gates:
+  G0:
+    status: pass
+    evidence: reports/ppa-report.md
+    note: parity_gen_check COD-001 完整开发 G0
+  G1:
+    status: pass
+    evidence: reports/ppa-report.md
+    note: parity_gen_check COD-001 完整开发 G1
+  G2:
+    status: pass
+    evidence: reports/ppa-report.md
+    note: parity_gen_check COD-001 完整开发 G2
+  G3:
+    status: pass
+    evidence: reports/ppa-report.md
+    note: parity_gen_check COD-001 完整开发 G3
+  G4:
+    status: pass
+    evidence: reports/ppa-report.md
+    note: parity_gen_check COD-001 完整开发 G4
+  G6:
+    status: pass
+    evidence: reports/ppa-report.md
+    note: parity_gen_check COD-001 完整开发 G6

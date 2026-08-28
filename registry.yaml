@@ -1358,7 +1358,7 @@ cbbs:
     priority: P0
     implementation: even/odd、tree、pipelined
     description: XOR树平衡
-    status: planned
+    status: implemented          # 2026-08-28 首次物化（tree/linear 双实现 + G3/G4/G6 证据）
     version: "0.1.0"
     path: components/coding_integrity/parity_gen_check
   - id: COD-002

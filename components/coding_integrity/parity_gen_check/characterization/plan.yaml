@@ -1,0 +1,7 @@
+# 表征计划（Characterization Plan）— parity_gen_check
+# G6 PPA：先用 cbb_tool.py pdk-scan 生成 characterization/pdk.yaml（工艺上下文）。
+# pdk-scan 判定 PDK_READY 时必须真实综合表征，禁止降级 OPTIONAL_UNAVAILABLE(E0)；
+# 仅当判定 PDK_UNAVAILABLE 时才标注 OPTIONAL_UNAVAILABLE(E0)，不伪造门级数据（ppa-evidence.md）。
+benchmark_profiles: []
+measured_region: {}
+status: PENDING_PDK_SCAN

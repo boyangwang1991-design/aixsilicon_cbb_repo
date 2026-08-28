@@ -1,0 +1,102 @@
+# ============================================================
+# cbb.yaml — parity_gen_check SSOT 元数据（COD-001, A1/P0）
+# Parity Generator/Checker：纯组合奇偶校验（reduction XOR）
+# 嵌套依赖：无（dependencies 为空）；验证资产随包自足
+# ============================================================
+
+schema_version: 1.0
+
+cbb:
+  id: aixsilicon:cbb:parity_gen_check
+  name: parity_gen_check
+  version: 0.1.0
+  owner: aixsilicon:cbb
+  maturity: E0
+  license: Apache-2.0
+
+classification:
+  abstraction: A1                    # 原子机制：单输出奇偶归约
+  primary_domain: coding_integrity
+  secondary_domains: [arithmetic_datapath]
+
+contract:
+  interface: native_vector            # 无总线协议语义，不引用 HWIF（理由见 cbb_spec.md §5）
+  clock_domains: 0                    # 纯组合无时钟端口（A1 原子；流水化属消费侧）
+  ordering: not_applicable            # 无事务概念（函数式组合）
+  throughput: combinational           # 组合逻辑深度即时响应（G6 以 LOGIC_DEPTH 度量）
+
+# ---------------- 可配置参数 ----------------
+parameters:
+  DATA_WIDTH:
+    type: int
+    default: 64
+    legal: {min: 4, max: 512}
+    partitions: [8, 16, 32, 64, 128, 256]
+    affects: [interface_width, area, timing]
+    semantics: 输入向量位宽（XOR 归约树规模）
+  PARITY_TYPE:
+    type: int
+    default: 0
+    legal: [0, 1]
+    affects: [area]
+    semantics: 0=even 偶校验（parity_o=^data_i）；1=odd 奇校验（parity_o=~^data_i）
+               注：int 枚举（DC 综合不支持 string 参数，VER-700 教训）
+
+constraints:
+  - id: PC-001
+    expression: "DATA_WIDTH >= 4"
+    severity: error                   # 防零宽/过窄退化（XOR 归约无意义）
+  - id: PC-002
+    expression: "DATA_WIDTH <= 512"
+    severity: error                   # 防超宽归约树（RTL 平面/时序上界）
+
+# ---------------- 需求（REQ→PROP/tests/configs 映射）----------------
+requirements:
+  - id: REQ-001
+    description: parity_o 恒等于 data_i 的奇偶（reduction XOR 黄金模型）
+    properties: [PROP-PG_FUNC-001]
+    tests: [tc_exhaust_w8, tc_random]
+    configs: []
+  - id: REQ-002
+    description: 边界正确——全 0 时 even→0/odd→1；全 1 时 even→(W%2)/odd→(1-W%2)
+    properties: [PROP-PG_BOUND-002]
+    tests: [tc_edge]
+    configs: []
+  - id: REQ-003
+    description: 多实现（tree/linear）共享同一可观察契约且等价
+    properties: [PROP-PG_EQV-003]
+    tests: [tc_equiv]
+    configs: []
+  - id: REQ-004
+    description: 非法参数组合在 Elaboration 期被拦截
+    properties: []                    # 负向编译证据（非 SVA）
+    tests: [tc_negative_elab]
+    configs: []
+
+# ---------------- 实现变体（多实现：XOR 归约树结构 trade-off）----------------
+implementations:
+  - id: impl_tree                    # PC_IMPL=0 平衡 XOR 树（默认，O(log W)）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/parity_gen_check.sv
+  - id: impl_linear                  # PC_IMPL=1 线性 XOR 链（面积小、深度 O(W)）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/parity_gen_check.sv
+  # PPA 注：pipelined 属消费侧职责（A1 保持原子性），不设独立实现——见 profiles.yaml notes
+
+# ---------------- 质量门禁（G0~G8）----------------
+quality:
+  required_gates: [G0, G1, G2, G3, G4, G5, G6, G7, G8]
+
+# ---------------- PPA 表征 ----------------
+characterization:
+  benchmark_profiles: []
+  measured_region: {}                 # G6 计划：DATA_WIDTH∈{8,16,32,64,128,256}×{tree,linear}
+
+release:
+  fusesoc_core: aixsilicon:cbb:parity_gen_check:0.1.0

@@ -1,0 +1,72 @@
+cbb: parity_gen_check
+requirements:
+- id: REQ-001
+  type: requirement
+  description: parity_o 恒等于 data_i 的奇偶（reduction XOR 黄金模型）
+  properties:
+  - PROP-PG_FUNC-001
+  tests:
+  - tc_exhaust_w8
+  - tc_random
+  configs: []
+  evidence: []
+- id: REQ-002
+  type: requirement
+  description: 边界正确——全 0 时 even→0/odd→1；全 1 时 even→(W%2)/odd→(1-W%2)
+  properties:
+  - PROP-PG_BOUND-002
+  tests:
+  - tc_edge
+  configs: []
+  evidence: []
+- id: REQ-003
+  type: requirement
+  description: 多实现（tree/linear）共享同一可观察契约且等价
+  properties:
+  - PROP-PG_EQV-003
+  tests:
+  - tc_equiv
+  configs: []
+  evidence: []
+- id: REQ-004
+  type: requirement
+  description: 非法参数组合在 Elaboration 期被拦截
+  properties: []
+  tests:
+  - tc_negative_elab
+  configs: []
+  evidence: []
+- id: INV-001
+  type: requirement
+  description: 函数一致性——对任意合法 2-state 输入，parity_o == ^data_i（奇偶归约黄金模型）。 even 型：parity_o
+    == ^data_i；odd 型：parity_o == ~^data_i。
+  properties:
+  - PROP-PG_FUNC-001
+  tests:
+  - tc_exhaust_w8
+  - tc_random
+  configs: []
+  evidence: []
+- id: INV-002
+  type: requirement
+  description: 输出值域封闭——parity_o ∈ {0,1}（单 bit 无多驱动/未定义）。
+  properties:
+  - PROP-PG_BOUND-002
+  tests:
+  - tc_edge
+  configs: []
+  evidence: []
+- id: ASM-001
+  type: requirement
+  description: 输入 X/Z 不承诺（2-state 仿真语义；X 传播视为未定义）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-002
+  type: requirement
+  description: 流水化/寄存输出版本为消费侧职责（A1 保持原子性、无时钟端口）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []

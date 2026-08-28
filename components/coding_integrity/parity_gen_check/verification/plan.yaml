@@ -1,0 +1,35 @@
+# 验证计划（Verification Plan）— parity_gen_check
+# 声明验证形态（Simulation/Formal 等价/负向 Elaboration）、用例→需求映射、
+# 结果解释与证据位置（见 cbb-development-suite references/verification-strategy.md）。
+target: parity_gen_check
+verification_forms: [simulation, formal_equiv, negative_elab]
+configs: []
+testcases:
+  - id: tc_exhaust_w8
+    requirement: REQ-001
+    invariants: [INV-001]
+    form: simulation
+    description: W=8 全空间 256 输入穷举，校验 parity_o == ^data_i（黄金模型）
+    execution: verification/scripts/run_functional_sim.sh
+  - id: tc_edge
+    requirement: REQ-002
+    invariants: [INV-002]
+    form: simulation
+    description: 全0/全1/one-hot 逐位锚点，even/odd 边界判定
+    execution: verification/scripts/run_functional_sim.sh
+  - id: tc_random
+    requirement: REQ-001
+    invariants: [INV-001]
+    form: simulation
+    description: 固定 seed 随机向量 ≥1000，跨 W∈{8,16,64} × {tree,linear}
+    execution: verification/scripts/run_functional_sim.sh
+  - id: tc_equiv
+    requirement: REQ-003
+    form: formal_equiv
+    description: impl_tree ≡ impl_linear 形式等价（fm_shell / 黄金模型比对）
+    execution: verification/scripts/run_functional_sim.sh
+  - id: tc_negative_elab
+    requirement: REQ-004
+    form: negative_elab
+    description: DATA_WIDTH 越界 / PARITY_TYPE 非法 → elaboration $error 拦截
+    execution: verification/scripts/run_static_checks.sh

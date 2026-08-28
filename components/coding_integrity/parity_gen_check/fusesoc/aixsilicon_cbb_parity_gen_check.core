@@ -1,0 +1,51 @@
+CAPI=2:
+
+# FuseSoC Core — parity_gen_check (COD-001)
+# VLNV: aixsilicon:cbb:parity_gen_check:0.1.0
+# 极简单文件：wrapper + 多实现同居 parity_gen_check.sv；PC_IMPL 编译期选择
+name: aixsilicon:cbb:parity_gen_check:0.1.0
+description: "Pure combinational parity generator/checker atomic CBB, A1, tree/linear microarchitectures"
+provider:
+  name: aixsilicon
+  library: cbb
+
+filesets:
+  rtl_src:
+    files:
+      - ../rtl/parity_gen_check.sv              # wrapper（参数检查/SVA/实现分派 + tree/linear）
+    file_type: systemVerilogSource
+
+  tb_src:
+    files:
+      - ../verification/simulation/parity_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets: [rtl_src]
+  sim:
+    default_tool: vcs
+    filesets: [rtl_src, tb_src]
+    toplevel: [parity_tb]
+  synth:
+    default_tool: dc
+    filesets: [rtl_src]
+    toplevel: [parity_gen_check]
+  lint:
+    default_tool: spyglass
+    filesets: [rtl_src]
+    toplevel: [parity_gen_check]
+
+parameters:
+  DATA_WIDTH:
+    datatype: int
+    default: 64
+    description: "Input vector width [4..512] (PC-001/002)"
+  PARITY_TYPE:
+    datatype: int
+    default: 0
+    description: "Parity type {0=even,1=odd}（int 枚举，DC 综合不支持 string）"
+  PC_IMPL:
+    datatype: int
+    default: 0
+    description: "Microarchitecture select {0=tree,1=linear}"

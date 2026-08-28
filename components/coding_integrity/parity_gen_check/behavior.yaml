@@ -1,0 +1,27 @@
+# ============================================================
+# parity_gen_check 行为契约 (behavior.yaml) —— SSOT
+# 纯组合奇偶校验：无状态/无时钟，函数语义可全枚举验证
+# ============================================================
+
+invariants:
+  - id: INV-001
+    description: >-
+      函数一致性——对任意合法 2-state 输入，parity_o == ^data_i（奇偶归约黄金模型）。
+      PARITY_TYPE=0（even）：parity_o == ^data_i；PARITY_TYPE=1（odd）：parity_o == ~^data_i。
+    properties: [PROP-PG_FUNC-001]
+    tests: [tc_exhaust_w8, tc_random]
+  - id: INV-002
+    description: 输出值域封闭——parity_o ∈ {0,1}（单 bit 无多驱动/未定义）。
+    properties: [PROP-PG_BOUND-002]
+    tests: [tc_edge]
+
+assumptions:
+  - id: ASM-001
+    description: 输入 X/Z 不承诺（2-state 仿真语义；X 传播视为未定义）。
+  - id: ASM-002
+    description: 流水化/寄存输出版本为消费侧职责（A1 保持原子性、无时钟端口）。
+
+non_goals:
+  - 加权/掩码奇偶（mask 交由调用方先与运算）
+  - CRC / 多项式校验（属 COD-002 crc_gen_check）
+  - 多周期/握手时序（无事务语义）

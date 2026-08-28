@@ -55,8 +55,11 @@ VLNV 命名：`aixsilicon:cbb:<cbb_name>:<version>`。
 
 ## 当前已交付构件
 
-暂无（2026-08：QUE-001 sync_fifo / QUE-012 width_conversion_fifo / SEL-014 popcount 工程包已移除、
-registry 条目回退 planned，等待重新开发交付；历史证据见 `reports/quality/run_log.md`）。
+- **COD-001 parity_gen_check**（[`components/coding_integrity/parity_gen_check/`](components/coding_integrity/parity_gen_check/README.md)，A1/P0）——
+  纯组合奇偶校验（tree/linear 双实现），G3/G4/G6 证据完整，2026-08-28 交付。
+
+（此前 QUE-001 sync_fifo / QUE-012 width_conversion_fifo / SEL-014 popcount 工程包已移除、
+registry 条目回退 planned；历史证据见 `reports/quality/run_log.md`。）
 
 更多条目见 [`registry.yaml`](registry.yaml:1)（410 条候选）。
 
