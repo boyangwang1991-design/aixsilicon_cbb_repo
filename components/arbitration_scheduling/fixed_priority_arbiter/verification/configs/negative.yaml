@@ -1,0 +1,16 @@
+set: negative
+configs:
+- config_id: cfg_num_req1_priority0_req_type0_fast_grant0_pc_impl0
+  parameters:
+    NUM_REQ: 1
+    PRIORITY: 0
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req65_priority0_req_type0_fast_grant0_pc_impl0
+  parameters:
+    NUM_REQ: 65
+    PRIORITY: 0
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 0

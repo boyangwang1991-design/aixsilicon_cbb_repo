@@ -1,0 +1,9 @@
+set: mandatory
+configs:
+- config_id: cfg_num_req8_priority0_req_type0_fast_grant0_pc_impl0
+  parameters:
+    NUM_REQ: 8
+    PRIORITY: 0
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 0

@@ -1,0 +1,187 @@
+# ============================================================
+# cbb.yaml — fixed_priority_arbiter SSOT 元数据（ARB-001, A2/P0）
+# Fixed-priority Arbiter：纯组合/寄存授权固定优先级仲裁（priority chain）
+# 嵌套依赖：无（dependencies 为空）；验证资产随包自足
+# ============================================================
+
+schema_version: 1.0
+
+cbb:
+  id: aixsilicon:cbb:fixed_priority_arbiter
+  name: fixed_priority_arbiter
+  version: 0.1.0
+  owner: aixsilicon:cbb
+  maturity: E0
+  license: Apache-2.0
+
+classification:
+  abstraction: A2                    # 通用复合：仲裁机制（非协议绑定）
+  primary_domain: arbitration_scheduling
+  secondary_domains: [selection_decode]
+
+contract:
+  interface: native_req_grant         # 原生 request/grant 位向量，无总线协议语义
+  clock_domains: 1                    # FAST_GRANT=1 时使用 clk/rst_n（输出寄存授权）；纯组合时可选
+  ordering: not_applicable            # 单周期授权决策，无事务序列语义
+  throughput: 1_per_cycle             # 组合路径即时；FAST_GRANT=1 为每拍一授权（1 拍延迟）
+
+# ---------------- 可配置参数 ----------------
+parameters:
+  NUM_REQ:
+    type: int
+    default: 8
+    legal: {min: 2, max: 64}
+    partitions: [2, 4, 8, 16, 32, 64]
+    affects: [interface_width, area, timing]
+    semantics: 请求输入端数（请求向量位宽）
+  PRIORITY:
+    type: int
+    default: 0
+    legal: [0, 1]
+    partitions: [0, 1]
+    affects: [area]
+    semantics: >-
+      0=lowest_index_first（req[0] 最高优先级，回绕递减；经典最低位优先）；
+      1=highest_index_first（req[N-1] 最高优先级，回绕递减）。
+      注：int 枚举（DC 综合不支持 string 参数，VER-700 教训）
+  REQ_TYPE:
+    type: int
+    default: 0
+    legal: [0, 1]
+    partitions: [0, 1]
+    affects: [area, timing, state_space]
+    semantics: >-
+      0=level（组合，每周期按当前 req_i 决策，不锁定）；
+      1=latched（内部寄存输入请求，直到 grant 被消费方以 grant_ack_i 应答后清除；
+        多拍保持授权，适合慢速/需稳定授权的场景）
+  FAST_GRANT:
+    type: int
+    default: 0
+    legal: [0, 1]
+    partitions: [0, 1]
+    affects: [latency, timing, area]
+    semantics: >-
+      0=combinational（grant_o 与 req_i 同拍组合输出，零延迟）；
+      1=registered（grant_o 输出寄存，1 拍授权延迟；关键路径从 req_i→grant_o 变为
+        reg→grant_o，时序更优；时钟复位：异步复位有效）
+  PC_IMPL:
+    type: int
+    default: 0
+    legal: [0, 1, 2]
+    partitions: [0, 1, 2]
+    affects: [area, timing]
+    semantics: >-
+      微架构选择（挂实现/Profile，不进公共功能语义）：
+      0=linear 显式优先级链（O(N) 深度，最小面积，适合小 N）；
+      1=tree 折半并行前缀/树（O(log N) 深度，时序优，面积略增）；
+      2=grouped 分组并行（N 分组树 + 组内链，面积/时序折中）
+
+constraints:
+  - id: PC-001
+    expression: "NUM_REQ >= 2"
+    severity: error                   # 仲裁至少 2 路（单路无仲裁语义）
+  - id: PC-002
+    expression: "NUM_REQ <= 64"
+    severity: error                   # RTL 平面/时序上界（64 路优先链）
+  - id: PC-003
+    expression: "PRIORITY >= 0 and PRIORITY <= 1"
+    severity: error                   # 编码合法域
+  - id: PC-004
+    expression: "REQ_TYPE >= 0 and REQ_TYPE <= 1"
+    severity: error
+  - id: PC-005
+    expression: "FAST_GRANT >= 0 and FAST_GRANT <= 1"
+    severity: error
+  - id: PC-006
+    expression: "PC_IMPL >= 0 and PC_IMPL <= 2"
+    severity: error
+
+# ---------------- 需求（REQ→PROP/tests/configs 映射）----------------
+requirements:
+  - id: REQ-001
+    description: 授权互斥——任意合法请求组合最多一个 grant_o 有效（无多授权/无授权冲突）
+    properties: [PROP-FPA_MUTEX-001]
+    tests: [tc_mutex, tc_random, tc_exhaust_w4]
+    configs:
+      - cfg_num_req2_priority0_req_type0_fast_grant0_pc_impl0
+      - cfg_num_req8_priority0_req_type0_fast_grant0_pc_impl0
+      - cfg_num_req64_priority0_req_type0_fast_grant0_pc_impl0
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-002
+    description: 优先级语义——PRIORITY=0 时 grant 为 req 中最低有效位（LSB 优先）；PRIORITY=1 时最高有效位（MSB 优先）
+    properties: [PROP-FPA_PRIO-002]
+    tests: [tc_priority, tc_edge]
+    configs:
+      - cfg_num_req8_priority0_req_type0_fast_grant0_pc_impl0
+      - cfg_num_req8_priority1_req_type0_fast_grant0_pc_impl0
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-003
+    description: 无请求时 grant 全零；有请求必有且仅有一个授权
+    properties: [PROP-FPA_NONE-003]
+    tests: [tc_edge]
+    configs:
+      - cfg_num_req4_priority0_req_type0_fast_grant0_pc_impl0
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-004
+    description: REQ_TYPE=1（latched）——请求被寄存，grant 保持直到 grant_ack_i 应答后清除；应答无请求时清除为 0
+    properties: [PROP-FPA_LATCH-004]
+    tests: [tc_latched]
+    configs:
+      - cfg_num_req8_priority0_req_type1_fast_grant0_pc_impl0
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-005
+    description: FAST_GRANT=1（registered）——grant_o 比组合授权延迟 1 拍，且与组合授权（考虑延迟）一致
+    properties: [PROP-FPA_REG-005]
+    tests: [tc_registered, tc_equiv]
+    configs:
+      - cfg_num_req8_priority0_req_type0_fast_grant1_pc_impl0
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-006
+    description: 多实现（linear/tree/grouped）共享同一可观察契约且等价
+    properties: [PROP-FPA_EQV-006]
+    tests: [tc_equiv]
+    configs:
+      - cfg_num_req8_priority0_req_type0_fast_grant0_pc_impl0
+      - cfg_num_req32_priority0_req_type0_fast_grant0_pc_impl0
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-007
+    description: 非法参数组合在 Elaboration 期被拦截
+    properties: []                    # 负向编译证据（非 SVA）
+    tests: [tc_negative_elab]
+    configs:
+      - cfg_num_req1_priority0_req_type0_fast_grant0_pc_impl0
+      - cfg_num_req65_priority0_req_type0_fast_grant0_pc_impl0
+    evidence: [build/eda/evidence/g3_static/compile.txt]
+
+# ---------------- 实现变体（多实现：优先链结构 trade-off）----------------
+implementations:
+  - id: impl_linear                  # PC_IMPL=0 显式线性优先级链（O(N) 深度）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/fixed_priority_arbiter.sv
+  - id: impl_tree                    # PC_IMPL=1 并行前缀/树结构（O(log N) 深度）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/fixed_priority_arbiter.sv
+  - id: impl_grouped                 # PC_IMPL=2 分组树 + 组内链（折中）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/fixed_priority_arbiter.sv
+
+# ---------------- 质量门禁（G0~G8）----------------
+quality:
+  required_gates: [G0, G1, G2, G3, G4, G5, G6, G7, G8]
+
+# ---------------- PPA 表征 ----------------
+characterization:
+  benchmark_profiles: []
+  measured_region: {}                 # G6 计划：NUM_REQ∈{4,8,16,32}×{linear,tree,grouped}
+
+release:
+  fusesoc_core: aixsilicon:cbb:fixed_priority_arbiter:0.1.0

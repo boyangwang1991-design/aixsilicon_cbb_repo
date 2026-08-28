@@ -1,0 +1,6 @@
+cbb: fixed_priority_arbiter
+sets:
+  mandatory: 1
+  boundary: 13
+  pairwise: 19
+  negative: 2

@@ -15,8 +15,8 @@ cbbs:
     abstraction: A2
     priority: P0
     implementation: linear、tree、grouped
-    description: 优先级链
-    status: planned
+    description: 优先级链（授权互斥 + LSB/MSB 优先；支持 latched/registered 授权）
+    status: implemented          # 2026-08-28 首次物化（linear/tree/grouped 三实现 + G3/G4/G6 证据）
     version: "0.1.0"
     path: components/arbitration_scheduling/fixed_priority_arbiter
   - id: ARB-002

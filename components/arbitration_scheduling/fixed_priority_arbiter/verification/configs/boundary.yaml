@@ -1,0 +1,93 @@
+set: boundary
+configs:
+- config_id: cfg_num_req2_priority0_req_type0_fast_grant0_pc_impl0
+  parameters:
+    NUM_REQ: 2
+    PRIORITY: 0
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req64_priority0_req_type0_fast_grant0_pc_impl0
+  parameters:
+    NUM_REQ: 64
+    PRIORITY: 0
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req33_priority0_req_type0_fast_grant0_pc_impl0
+  parameters:
+    NUM_REQ: 33
+    PRIORITY: 0
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req3_priority0_req_type0_fast_grant0_pc_impl0
+  parameters:
+    NUM_REQ: 3
+    PRIORITY: 0
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req4_priority0_req_type0_fast_grant0_pc_impl0
+  parameters:
+    NUM_REQ: 4
+    PRIORITY: 0
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req8_priority0_req_type0_fast_grant0_pc_impl0
+  parameters:
+    NUM_REQ: 8
+    PRIORITY: 0
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req16_priority0_req_type0_fast_grant0_pc_impl0
+  parameters:
+    NUM_REQ: 16
+    PRIORITY: 0
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req32_priority0_req_type0_fast_grant0_pc_impl0
+  parameters:
+    NUM_REQ: 32
+    PRIORITY: 0
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req8_priority1_req_type0_fast_grant0_pc_impl0
+  parameters:
+    NUM_REQ: 8
+    PRIORITY: 1
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req8_priority0_req_type1_fast_grant0_pc_impl0
+  parameters:
+    NUM_REQ: 8
+    PRIORITY: 0
+    REQ_TYPE: 1
+    FAST_GRANT: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req8_priority0_req_type0_fast_grant1_pc_impl0
+  parameters:
+    NUM_REQ: 8
+    PRIORITY: 0
+    REQ_TYPE: 0
+    FAST_GRANT: 1
+    PC_IMPL: 0
+- config_id: cfg_num_req8_priority0_req_type0_fast_grant0_pc_impl1
+  parameters:
+    NUM_REQ: 8
+    PRIORITY: 0
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 1
+- config_id: cfg_num_req8_priority0_req_type0_fast_grant0_pc_impl2
+  parameters:
+    NUM_REQ: 8
+    PRIORITY: 0
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 2

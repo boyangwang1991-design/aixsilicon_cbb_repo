@@ -1,0 +1,290 @@
+schema: cbb-pdk-context/0.1
+status: PDK_READY
+pdk_root: /home/eda/pdk
+searched_candidates:
+- /home/eda/pdk
+nodes:
+- node: CMOS28NM
+  readme_index: /home/eda/pdk/CMOS28NM/README.md
+  has_archive: true
+  bundles_scanned:
+  - GF21LB004-FB-00000-r5p0-03rel0
+  - GF21LB020-FB-00000-r0p0-00rel0
+  - GF21LE001-FB-00000-r5p0-02rel0
+  - GF21LP004-FB-00000-r5p0-02rel0
+  - GF21LP005-FB-00000-r5p0-02rel0
+  libraries:
+  - root: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0
+    version_dir: r5p0
+    views:
+    - cdl
+    - db
+    - gds2
+    - lef
+    - lib
+    - milkyway
+    - verilog
+    libraries:
+    - library: sc9_cmos28lp_base_hvt
+      views:
+        cdl: true
+        db: true
+        gds2: true
+        lef: true
+        lib: true
+        milkyway: true
+        verilog: true
+      corner_files:
+        lib:
+          ff_nominal_min_1p10v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/lib/sc9_cmos28lp_base_hvt_ff_nominal_min_1p10v_125c.lib
+          ff_nominal_min_1p10v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/lib/sc9_cmos28lp_base_hvt_ff_nominal_min_1p10v_m40c.lib
+          ss_nominal_max_0p90v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/lib/sc9_cmos28lp_base_hvt_ss_nominal_max_0p90v_125c.lib
+          ss_nominal_max_0p90v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/lib/sc9_cmos28lp_base_hvt_ss_nominal_max_0p90v_m40c.lib
+          tt_nominal_max_1p00v_25c: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/lib/sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c.lib
+        db:
+          ff_nominal_min_1p10v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/db/sc9_cmos28lp_base_hvt_ff_nominal_min_1p10v_125c.db
+          ff_nominal_min_1p10v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/db/sc9_cmos28lp_base_hvt_ff_nominal_min_1p10v_m40c.db
+          ss_nominal_max_0p90v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/db/sc9_cmos28lp_base_hvt_ss_nominal_max_0p90v_125c.db
+          ss_nominal_max_0p90v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/db/sc9_cmos28lp_base_hvt_ss_nominal_max_0p90v_m40c.db
+          tt_nominal_max_1p00v_25c: /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/db/sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c.db
+      vt: hvt
+      num_corners: 5
+    process_dir: cmos28lp
+    family_dir: sc9_base_hvt
+    bundle: GF21LB004-FB-00000-r5p0-03rel0
+  - root: /home/eda/pdk/CMOS28NM/extracted/GF21LB020-FB-00000-r0p0-00rel0/arm/cp/cmos28lp/sc9_base_hvt_c38/r0p0
+    version_dir: r0p0
+    views:
+    - cdl
+    - db
+    - gds2
+    - lef
+    - lib
+    - milkyway
+    - verilog
+    libraries:
+    - library: sc9_cmos28lp_base_hvt_c38
+      views:
+        cdl: true
+        db: true
+        gds2: true
+        lef: true
+        lib: true
+        milkyway: true
+        verilog: true
+      corner_files:
+        lib:
+          ff_nominal_min_1p10v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LB020-FB-00000-r0p0-00rel0/arm/cp/cmos28lp/sc9_base_hvt_c38/r0p0/lib/sc9_cmos28lp_base_hvt_c38_ff_nominal_min_1p10v_125c.lib
+          ff_nominal_min_1p10v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LB020-FB-00000-r0p0-00rel0/arm/cp/cmos28lp/sc9_base_hvt_c38/r0p0/lib/sc9_cmos28lp_base_hvt_c38_ff_nominal_min_1p10v_m40c.lib
+          ss_nominal_max_0p90v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LB020-FB-00000-r0p0-00rel0/arm/cp/cmos28lp/sc9_base_hvt_c38/r0p0/lib/sc9_cmos28lp_base_hvt_c38_ss_nominal_max_0p90v_125c.lib
+          ss_nominal_max_0p90v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LB020-FB-00000-r0p0-00rel0/arm/cp/cmos28lp/sc9_base_hvt_c38/r0p0/lib/sc9_cmos28lp_base_hvt_c38_ss_nominal_max_0p90v_m40c.lib
+          tt_nominal_max_1p00v_25c: /home/eda/pdk/CMOS28NM/extracted/GF21LB020-FB-00000-r0p0-00rel0/arm/cp/cmos28lp/sc9_base_hvt_c38/r0p0/lib/sc9_cmos28lp_base_hvt_c38_tt_nominal_max_1p00v_25c.lib
+        db:
+          ff_nominal_min_1p10v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LB020-FB-00000-r0p0-00rel0/arm/cp/cmos28lp/sc9_base_hvt_c38/r0p0/db/sc9_cmos28lp_base_hvt_c38_ff_nominal_min_1p10v_125c.db
+          ff_nominal_min_1p10v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LB020-FB-00000-r0p0-00rel0/arm/cp/cmos28lp/sc9_base_hvt_c38/r0p0/db/sc9_cmos28lp_base_hvt_c38_ff_nominal_min_1p10v_m40c.db
+          ss_nominal_max_0p90v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LB020-FB-00000-r0p0-00rel0/arm/cp/cmos28lp/sc9_base_hvt_c38/r0p0/db/sc9_cmos28lp_base_hvt_c38_ss_nominal_max_0p90v_125c.db
+          ss_nominal_max_0p90v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LB020-FB-00000-r0p0-00rel0/arm/cp/cmos28lp/sc9_base_hvt_c38/r0p0/db/sc9_cmos28lp_base_hvt_c38_ss_nominal_max_0p90v_m40c.db
+          tt_nominal_max_1p00v_25c: /home/eda/pdk/CMOS28NM/extracted/GF21LB020-FB-00000-r0p0-00rel0/arm/cp/cmos28lp/sc9_base_hvt_c38/r0p0/db/sc9_cmos28lp_base_hvt_c38_tt_nominal_max_1p00v_25c.db
+      vt: hvt
+      num_corners: 5
+    process_dir: cmos28lp
+    family_dir: sc9_base_hvt_c38
+    bundle: GF21LB020-FB-00000-r0p0-00rel0
+  - root: /home/eda/pdk/CMOS28NM/extracted/GF21LE001-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_eco_rvt/r5p0
+    version_dir: r5p0
+    views:
+    - cdl
+    - db
+    - gds2
+    - lef
+    - lib
+    - milkyway
+    - verilog
+    libraries:
+    - library: sc9_cmos28lp_eco_rvt
+      views:
+        cdl: true
+        db: true
+        gds2: true
+        lef: true
+        lib: true
+        milkyway: true
+        verilog: true
+      corner_files:
+        lib:
+          ff_nominal_min_1p10v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LE001-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_eco_rvt/r5p0/lib/sc9_cmos28lp_eco_rvt_ff_nominal_min_1p10v_125c.lib
+          ff_nominal_min_1p10v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LE001-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_eco_rvt/r5p0/lib/sc9_cmos28lp_eco_rvt_ff_nominal_min_1p10v_m40c.lib
+          ss_nominal_max_0p90v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LE001-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_eco_rvt/r5p0/lib/sc9_cmos28lp_eco_rvt_ss_nominal_max_0p90v_125c.lib
+          ss_nominal_max_0p90v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LE001-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_eco_rvt/r5p0/lib/sc9_cmos28lp_eco_rvt_ss_nominal_max_0p90v_m40c.lib
+          tt_nominal_max_1p00v_25c: /home/eda/pdk/CMOS28NM/extracted/GF21LE001-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_eco_rvt/r5p0/lib/sc9_cmos28lp_eco_rvt_tt_nominal_max_1p00v_25c.lib
+        db:
+          ff_nominal_min_1p10v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LE001-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_eco_rvt/r5p0/db/sc9_cmos28lp_eco_rvt_ff_nominal_min_1p10v_125c.db
+          ff_nominal_min_1p10v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LE001-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_eco_rvt/r5p0/db/sc9_cmos28lp_eco_rvt_ff_nominal_min_1p10v_m40c.db
+          ss_nominal_max_0p90v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LE001-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_eco_rvt/r5p0/db/sc9_cmos28lp_eco_rvt_ss_nominal_max_0p90v_125c.db
+          ss_nominal_max_0p90v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LE001-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_eco_rvt/r5p0/db/sc9_cmos28lp_eco_rvt_ss_nominal_max_0p90v_m40c.db
+          tt_nominal_max_1p00v_25c: /home/eda/pdk/CMOS28NM/extracted/GF21LE001-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_eco_rvt/r5p0/db/sc9_cmos28lp_eco_rvt_tt_nominal_max_1p00v_25c.db
+      vt: rvt
+      num_corners: 5
+    process_dir: cmos28lp
+    family_dir: sc9_eco_rvt
+    bundle: GF21LE001-FB-00000-r5p0-02rel0
+  - root: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0
+    version_dir: r5p0
+    views:
+    - cdl
+    - db
+    - gds2
+    - lef
+    - lib
+    - milkyway
+    - verilog
+    libraries:
+    - library: sc9_cmos28lp_pmk_hvt
+      views:
+        cdl: true
+        db: true
+        gds2: true
+        lef: true
+        lib: true
+        milkyway: true
+        verilog: true
+      corner_files:
+        lib:
+          ff_nominal_min_1p10v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/lib/sc9_cmos28lp_pmk_hvt_ff_nominal_min_1p10v_125c.lib
+          ff_nominal_min_1p10v_1p10v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/lib/sc9_cmos28lp_pmk_hvt_ff_nominal_min_1p10v_1p10v_125c.lib
+          ff_nominal_min_1p10v_1p10v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/lib/sc9_cmos28lp_pmk_hvt_ff_nominal_min_1p10v_1p10v_m40c.lib
+          ff_nominal_min_1p10v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/lib/sc9_cmos28lp_pmk_hvt_ff_nominal_min_1p10v_m40c.lib
+          ss_nominal_max_0p90v_0p90v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/lib/sc9_cmos28lp_pmk_hvt_ss_nominal_max_0p90v_0p90v_125c.lib
+          ss_nominal_max_0p90v_0p90v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/lib/sc9_cmos28lp_pmk_hvt_ss_nominal_max_0p90v_0p90v_m40c.lib
+          ss_nominal_max_0p90v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/lib/sc9_cmos28lp_pmk_hvt_ss_nominal_max_0p90v_125c.lib
+          ss_nominal_max_0p90v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/lib/sc9_cmos28lp_pmk_hvt_ss_nominal_max_0p90v_m40c.lib
+          tt_nominal_max_1p00v_1p00v_25c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/lib/sc9_cmos28lp_pmk_hvt_tt_nominal_max_1p00v_1p00v_25c.lib
+          tt_nominal_max_1p00v_25c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/lib/sc9_cmos28lp_pmk_hvt_tt_nominal_max_1p00v_25c.lib
+        db:
+          ff_nominal_min_1p10v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/db/sc9_cmos28lp_pmk_hvt_ff_nominal_min_1p10v_125c.db
+          ff_nominal_min_1p10v_1p10v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/db/sc9_cmos28lp_pmk_hvt_ff_nominal_min_1p10v_1p10v_125c.db
+          ff_nominal_min_1p10v_1p10v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/db/sc9_cmos28lp_pmk_hvt_ff_nominal_min_1p10v_1p10v_m40c.db
+          ff_nominal_min_1p10v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/db/sc9_cmos28lp_pmk_hvt_ff_nominal_min_1p10v_m40c.db
+          ss_nominal_max_0p90v_0p90v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/db/sc9_cmos28lp_pmk_hvt_ss_nominal_max_0p90v_0p90v_125c.db
+          ss_nominal_max_0p90v_0p90v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/db/sc9_cmos28lp_pmk_hvt_ss_nominal_max_0p90v_0p90v_m40c.db
+          ss_nominal_max_0p90v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/db/sc9_cmos28lp_pmk_hvt_ss_nominal_max_0p90v_125c.db
+          ss_nominal_max_0p90v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/db/sc9_cmos28lp_pmk_hvt_ss_nominal_max_0p90v_m40c.db
+          tt_nominal_max_1p00v_1p00v_25c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/db/sc9_cmos28lp_pmk_hvt_tt_nominal_max_1p00v_1p00v_25c.db
+          tt_nominal_max_1p00v_25c: /home/eda/pdk/CMOS28NM/extracted/GF21LP004-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_hvt/r5p0/db/sc9_cmos28lp_pmk_hvt_tt_nominal_max_1p00v_25c.db
+      vt: hvt
+      num_corners: 10
+    process_dir: cmos28lp
+    family_dir: sc9_pmk_hvt
+    bundle: GF21LP004-FB-00000-r5p0-02rel0
+  - root: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0
+    version_dir: r5p0
+    views:
+    - cdl
+    - db
+    - gds2
+    - lef
+    - lib
+    - milkyway
+    - verilog
+    libraries:
+    - library: sc9_cmos28lp_pmk_lvt
+      views:
+        cdl: true
+        db: true
+        gds2: true
+        lef: true
+        lib: true
+        milkyway: true
+        verilog: true
+      corner_files:
+        lib:
+          ff_nominal_min_1p10v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/lib/sc9_cmos28lp_pmk_lvt_ff_nominal_min_1p10v_125c.lib
+          ff_nominal_min_1p10v_1p10v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/lib/sc9_cmos28lp_pmk_lvt_ff_nominal_min_1p10v_1p10v_125c.lib
+          ff_nominal_min_1p10v_1p10v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/lib/sc9_cmos28lp_pmk_lvt_ff_nominal_min_1p10v_1p10v_m40c.lib
+          ff_nominal_min_1p10v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/lib/sc9_cmos28lp_pmk_lvt_ff_nominal_min_1p10v_m40c.lib
+          ss_nominal_max_0p90v_0p90v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/lib/sc9_cmos28lp_pmk_lvt_ss_nominal_max_0p90v_0p90v_125c.lib
+          ss_nominal_max_0p90v_0p90v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/lib/sc9_cmos28lp_pmk_lvt_ss_nominal_max_0p90v_0p90v_m40c.lib
+          ss_nominal_max_0p90v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/lib/sc9_cmos28lp_pmk_lvt_ss_nominal_max_0p90v_125c.lib
+          ss_nominal_max_0p90v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/lib/sc9_cmos28lp_pmk_lvt_ss_nominal_max_0p90v_m40c.lib
+          tt_nominal_max_1p00v_1p00v_25c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/lib/sc9_cmos28lp_pmk_lvt_tt_nominal_max_1p00v_1p00v_25c.lib
+          tt_nominal_max_1p00v_25c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/lib/sc9_cmos28lp_pmk_lvt_tt_nominal_max_1p00v_25c.lib
+        db:
+          ff_nominal_min_1p10v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/db/sc9_cmos28lp_pmk_lvt_ff_nominal_min_1p10v_125c.db
+          ff_nominal_min_1p10v_1p10v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/db/sc9_cmos28lp_pmk_lvt_ff_nominal_min_1p10v_1p10v_125c.db
+          ff_nominal_min_1p10v_1p10v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/db/sc9_cmos28lp_pmk_lvt_ff_nominal_min_1p10v_1p10v_m40c.db
+          ff_nominal_min_1p10v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/db/sc9_cmos28lp_pmk_lvt_ff_nominal_min_1p10v_m40c.db
+          ss_nominal_max_0p90v_0p90v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/db/sc9_cmos28lp_pmk_lvt_ss_nominal_max_0p90v_0p90v_125c.db
+          ss_nominal_max_0p90v_0p90v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/db/sc9_cmos28lp_pmk_lvt_ss_nominal_max_0p90v_0p90v_m40c.db
+          ss_nominal_max_0p90v_125c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/db/sc9_cmos28lp_pmk_lvt_ss_nominal_max_0p90v_125c.db
+          ss_nominal_max_0p90v_m40c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/db/sc9_cmos28lp_pmk_lvt_ss_nominal_max_0p90v_m40c.db
+          tt_nominal_max_1p00v_1p00v_25c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/db/sc9_cmos28lp_pmk_lvt_tt_nominal_max_1p00v_1p00v_25c.db
+          tt_nominal_max_1p00v_25c: /home/eda/pdk/CMOS28NM/extracted/GF21LP005-FB-00000-r5p0-02rel0/arm/cp/cmos28lp/sc9_pmk_lvt/r5p0/db/sc9_cmos28lp_pmk_lvt_tt_nominal_max_1p00v_25c.db
+      vt: lvt
+      num_corners: 10
+    process_dir: cmos28lp
+    family_dir: sc9_pmk_lvt
+    bundle: GF21LP005-FB-00000-r5p0-02rel0
+  description: CMOS28NM (GF 28nm LP) PDK 环境说明
+  num_bundles: 5
+  num_libraries: 5
+  num_timing_views: 70
+  status: OK
+eda_tools:
+- tool: dc_shell
+  available: true
+  path: /home/eda/app/synopsys/syn/V-2023.12-SP3/bin/dc_shell
+- tool: dc_shell-t
+  available: true
+  path: /home/eda/app/synopsys/syn/V-2023.12-SP3/bin/dc_shell-t
+- tool: pt_shell
+  available: false
+  path: null
+- tool: primetime
+  available: false
+  path: null
+- tool: lc_shell
+  available: true
+  path: /home/eda/app/synopsys/lc/V-2023.12-SP3/bin/lc_shell
+- tool: formality
+  available: true
+  path: /home/eda/app/synopsys/fm/V-2023.12-SP3/bin/formality
+- tool: fm_shell
+  available: true
+  path: /home/eda/app/synopsys/fm/V-2023.12-SP3/bin/fm_shell
+- tool: vcs
+  available: true
+  path: /home/eda/app/synopsys/vcs/W-2024.09-SP1/bin/vcs
+- tool: verdi
+  available: true
+  path: /home/eda/app/synopsys/verdi/W-2024.09-SP1/bin/verdi
+- tool: spyglass
+  available: true
+  path: /home/eda/app/synopsys/spyglass/X-2025.06/SPYGLASS_HOME/bin/spyglass
+- tool: genus
+  available: false
+  path: null
+- tool: innovus
+  available: false
+  path: null
+- tool: xrun
+  available: false
+  path: null
+- tool: yosys
+  available: false
+  path: null
+- tool: verilator
+  available: false
+  path: null
+- tool: iverilog
+  available: false
+  path: null
+- tool: sta
+  available: false
+  path: null
+synthesis_capable: true
+usage_discipline:
+- 权威视图只在 extracted/*-FB-* bundle；勿重复解压 archive/
+- DC/VCS 避坑见 PDK 根 README 第 7 节（-full64/-timescale/set_driving_cell 等）
+- operating_conditions 名随 corner 变化，set_operating_conditions 必须同步
+- 本文件是工艺上下文快照，不是 PPA 表征结果；正式结论绑定 run_id 证据
+bound_cbb: fixed_priority_arbiter

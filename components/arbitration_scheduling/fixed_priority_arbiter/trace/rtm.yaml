@@ -1,0 +1,169 @@
+cbb: fixed_priority_arbiter
+requirements:
+- id: REQ-001
+  type: requirement
+  description: 授权互斥——任意合法请求组合最多一个 grant_o 有效（无多授权/无授权冲突）
+  properties:
+  - PROP-FPA_MUTEX-001
+  tests:
+  - tc_mutex
+  - tc_random
+  - tc_exhaust_w4
+  configs:
+  - cfg_num_req2_priority0_req_type0_fast_grant0_pc_impl0
+  - cfg_num_req8_priority0_req_type0_fast_grant0_pc_impl0
+  - cfg_num_req64_priority0_req_type0_fast_grant0_pc_impl0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-002
+  type: requirement
+  description: 优先级语义——PRIORITY=0 时 grant 为 req 中最低有效位（LSB 优先）；PRIORITY=1 时最高有效位（MSB
+    优先）
+  properties:
+  - PROP-FPA_PRIO-002
+  tests:
+  - tc_priority
+  - tc_edge
+  configs:
+  - cfg_num_req8_priority0_req_type0_fast_grant0_pc_impl0
+  - cfg_num_req8_priority1_req_type0_fast_grant0_pc_impl0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-003
+  type: requirement
+  description: 无请求时 grant 全零；有请求必有且仅有一个授权
+  properties:
+  - PROP-FPA_NONE-003
+  tests:
+  - tc_edge
+  configs:
+  - cfg_num_req4_priority0_req_type0_fast_grant0_pc_impl0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-004
+  type: requirement
+  description: REQ_TYPE=1（latched）——请求被寄存，grant 保持直到 grant_ack_i 应答后清除；应答无请求时清除为 0
+  properties:
+  - PROP-FPA_LATCH-004
+  tests:
+  - tc_latched
+  configs:
+  - cfg_num_req8_priority0_req_type1_fast_grant0_pc_impl0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-005
+  type: requirement
+  description: FAST_GRANT=1（registered）——grant_o 比组合授权延迟 1 拍，且与组合授权（考虑延迟）一致
+  properties:
+  - PROP-FPA_REG-005
+  tests:
+  - tc_registered
+  - tc_equiv
+  configs:
+  - cfg_num_req8_priority0_req_type0_fast_grant1_pc_impl0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-006
+  type: requirement
+  description: 多实现（linear/tree/grouped）共享同一可观察契约且等价
+  properties:
+  - PROP-FPA_EQV-006
+  tests:
+  - tc_equiv
+  configs:
+  - cfg_num_req8_priority0_req_type0_fast_grant0_pc_impl0
+  - cfg_num_req32_priority0_req_type0_fast_grant0_pc_impl0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-007
+  type: requirement
+  description: 非法参数组合在 Elaboration 期被拦截
+  properties: []
+  tests:
+  - tc_negative_elab
+  configs:
+  - cfg_num_req1_priority0_req_type0_fast_grant0_pc_impl0
+  - cfg_num_req65_priority0_req_type0_fast_grant0_pc_impl0
+  evidence:
+  - build/eda/evidence/g3_static/compile.txt
+- id: INV-001
+  type: requirement
+  description: 授权互斥——对任意合法 2-state 请求向量，grant_o 中至多一位有效 （无多授权、无授权冲突）。
+  properties:
+  - PROP-FPA_MUTEX-001
+  tests:
+  - tc_mutex
+  - tc_random
+  - tc_exhaust_w4
+  configs: []
+  evidence: []
+- id: INV-002
+  type: requirement
+  description: 优先级语义——PRIORITY=0 时 grant 为请求向量中最低有效位（LSB 优先，即 req[0] 最高优先级）；PRIORITY=1
+    时 grant 为最高有效位（MSB 优先，req[N-1] 最高优先级）。 与黄金模型（从高到低扫描首个置位）一致。
+  properties:
+  - PROP-FPA_PRIO-002
+  tests:
+  - tc_priority
+  - tc_edge
+  configs: []
+  evidence: []
+- id: INV-003
+  type: requirement
+  description: 无请求 → grant_o 全零；有请求 → 恰好一个授权（活性：不丢授权）。
+  properties:
+  - PROP-FPA_NONE-003
+  tests:
+  - tc_edge
+  configs: []
+  evidence: []
+- id: INV-004
+  type: requirement
+  description: REQ_TYPE=1（latched）——请求被内部寄存；grant 保持至 grant_ack_i 上升沿后清除； 清除后若原请求仍有效则重新授权（或按当前优先级重选）；ack
+    时无保持请求 → grant=0。
+  properties:
+  - PROP-FPA_LATCH-004
+  tests:
+  - tc_latched
+  configs: []
+  evidence: []
+- id: INV-005
+  type: requirement
+  description: FAST_GRANT=1（registered）——grant_o 相对组合参考模型延迟 1 拍， 且每周期组合参考（req_i 经优先级选择）等于寄存
+    grant 一拍前的期望。
+  properties:
+  - PROP-FPA_REG-005
+  tests:
+  - tc_registered
+  - tc_equiv
+  configs: []
+  evidence: []
+- id: ASM-001
+  type: requirement
+  description: 输入 X/Z 不承诺（2-state 仿真语义；X 传播视为未定义）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-002
+  type: requirement
+  description: REQ_TYPE=1 时 grant_ack_i 必须在 grant_o 有效后的下一拍内拉高（或在授权 保持期间），否则授权保持（防活锁由消费方保证）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-003
+  type: requirement
+  description: PRIORITY 与 PC_IMPL 为编译期参数，不运行时切换（生成/参数化语义）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-004
+  type: requirement
+  description: FAST_GRANT=1 需要 clk/rst_n；纯组合配置（FAST_GRANT=0 且 REQ_TYPE=0） 可不接时钟（RTL
+    仍保留端口，接 clk 亦可）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []

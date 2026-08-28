@@ -1,0 +1,27 @@
+# Release Manifest（G8 候选）— fixed_priority_arbiter
+# 状态：candidate（只有 Workflow Gate G8 可确认 released）
+schema_version: 1.0
+release:
+  cbb: aixsilicon:cbb:fixed_priority_arbiter
+  version: 0.1.0
+  status: candidate
+  maturity: E2
+  released_at: "2026-08-28"
+  fusesoc_core: aixsilicon:cbb:fixed_priority_arbiter:0.1.0
+artifacts:
+  - rtl/fixed_priority_arbiter.sv
+  - fusesoc/aixsilicon_cbb_fixed_priority_arbiter.core
+  - cbb.yaml
+  - behavior.yaml
+  - profiles.yaml
+sbom:
+  license: Apache-2.0
+  dependencies: []        # 无运行时子 CBB 依赖
+  verification_deps: []   # 无外部 VIP/DV 依赖（TB 自足）
+known_limits:
+  - FAST_GRANT=1 单独 PPA 表征未做（消费场景按需实例化）
+  - 多 corner STA 未做（当前单 corner tt_1p00v_25c）
+  - 消费者 Smoke 待外部 IP 落地后补齐
+release_notes:
+  - 首次发布 0.1.0：固定优先级仲裁器（A2），授权互斥 + 优先级链语义
+  - G0–G6 pass；三实现（linear/tree/grouped）综合收敛实证

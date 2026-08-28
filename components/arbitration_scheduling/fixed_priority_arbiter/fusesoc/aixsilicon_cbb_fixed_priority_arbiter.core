@@ -1,0 +1,59 @@
+CAPI=2:
+
+# FuseSoC Core — fixed_priority_arbiter (ARB-001)
+# VLNV: aixsilicon:cbb:fixed_priority_arbiter:0.1.0
+# 极简单文件：wrapper + 三实现同居 fixed_priority_arbiter.sv；PC_IMPL 编译期选择
+name: aixsilicon:cbb:fixed_priority_arbiter:0.1.0
+description: "Fixed-priority arbiter CBB, A2, linear/tree/grouped microarchitectures with optional latched/registered grant"
+provider:
+  name: aixsilicon
+  library: cbb
+
+filesets:
+  rtl_src:
+    files:
+      - ../rtl/fixed_priority_arbiter.sv   # wrapper（参数检查/SVA/实现分派 + linear/tree/grouped）
+    file_type: systemVerilogSource
+
+  tb_src:
+    files:
+      - ../verification/simulation/fpa_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets: [rtl_src]
+  sim:
+    default_tool: vcs
+    filesets: [rtl_src, tb_src]
+    toplevel: [fpa_tb]
+  synth:
+    default_tool: dc
+    filesets: [rtl_src]
+    toplevel: [fixed_priority_arbiter]
+  lint:
+    default_tool: spyglass
+    filesets: [rtl_src]
+    toplevel: [fixed_priority_arbiter]
+
+parameters:
+  NUM_REQ:
+    datatype: int
+    default: 8
+    description: "Number of requesters [2..64] (PC-001/002)"
+  PRIORITY:
+    datatype: int
+    default: 0
+    description: "Priority direction {0=LSB first,1=MSB first}（int 枚举，DC 综合不支持 string）"
+  REQ_TYPE:
+    datatype: int
+    default: 0
+    description: "Request type {0=level,1=latched until grant_ack}"
+  FAST_GRANT:
+    datatype: int
+    default: 0
+    description: "Grant output {0=combinational,1=registered (1 cycle)}"
+  PC_IMPL:
+    datatype: int
+    default: 0
+    description: "Microarchitecture select {0=linear chain,1=tree prefix,2=grouped}"

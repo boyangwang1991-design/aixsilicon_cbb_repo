@@ -1,0 +1,61 @@
+# 验证计划（Verification Plan）— fixed_priority_arbiter
+# 声明验证形态（Simulation/Formal 等价/负向 Elaboration）、用例→需求映射、
+# 结果解释与证据位置（见 cbb-development-suite references/verification-strategy.md）。
+# 形态默认：轻量 SVA（模块内 immediate）+ 定向/随机 VCS 仿真 + 跨实现等价 + 负向变异。
+target: fixed_priority_arbiter
+verification_forms: [simulation, cross_impl_equiv, negative_elab, mutation]
+configs: []
+testcases:
+  - id: tc_exhaust_w4
+    requirement: REQ-001
+    invariants: [INV-001]
+    form: simulation
+    description: N=4 全空间 16 请求向量穷举 × {linear,tree,grouped} × PRIORITY{0,1}，授权互斥校验
+    execution: verification/scripts/run_functional_sim.sh
+  - id: tc_mutex
+    requirement: REQ-001
+    invariants: [INV-001]
+    form: simulation
+    description: 随机请求向量（N=8/16/32/64），$countones(grant)<=1 全校验（含模块内 SVA 兜底）
+    execution: verification/scripts/run_functional_sim.sh
+  - id: tc_priority
+    requirement: REQ-002
+    invariants: [INV-002]
+    form: simulation
+    description: 定向优先级语义——单热请求逐位 + 多请求从高到低扫描（PRIORITY 0/1 黄金模型比对）
+    execution: verification/scripts/run_functional_sim.sh
+  - id: tc_edge
+    requirement: REQ-003
+    invariants: [INV-003]
+    form: simulation
+    description: 边界——全 0 请求→grant=0；单请求→对应位授权；全 1→最高优先级位授权
+    execution: verification/scripts/run_functional_sim.sh
+  - id: tc_latched
+    requirement: REQ-004
+    invariants: [INV-004]
+    form: simulation
+    description: REQ_TYPE=1 锁存——请求后 grant 保持；ack 后清除；ack 无请求时 grant=0
+    execution: verification/scripts/run_functional_sim.sh
+  - id: tc_registered
+    requirement: REQ-005
+    invariants: [INV-005]
+    form: simulation
+    description: FAST_GRANT=1 寄存授权——grant_o 比组合授权延迟 1 拍，且与组合黄金模型一致
+    execution: verification/scripts/run_functional_sim.sh
+  - id: tc_equiv
+    requirement: REQ-006
+    invariants: [INV-005]
+    form: cross_impl_equiv
+    description: linear/tree/grouped 跨实现一致——同请求向量下三实现 grant 相同（含 N=8/32 随机）
+    execution: verification/scripts/run_functional_sim.sh
+  - id: tc_negative_elab
+    requirement: REQ-007
+    form: negative_elab
+    description: 非法参数（NUM_REQ=1/PRIORITY=2/REQ_TYPE=2/FAST_GRANT=2/PC_IMPL=3）elaboration $error 拦截
+    execution: verification/scripts/run_static_checks.sh
+  - id: tc_mutation
+    requirement: REQ-001
+    invariants: [INV-001]
+    form: mutation
+    description: 变异测试——人为破坏优先级语义/授权互斥断言，断言应能检测（验证 SVA 有效性）
+    execution: verification/scripts/run_functional_sim.sh

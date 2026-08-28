@@ -1,0 +1,71 @@
+# profiles.yaml —— 多实现 Profile（fixed_priority_arbiter）
+# 共享同一可观察契约，差异仅在优先级链结构（面积↔时序 trade-off）
+# PC_IMPL: 0=linear(链) 1=tree(折半树/并行前缀) 2=grouped(分组)
+# PRIORITY/REQ_TYPE/FAST_GRANT 为功能参数，与微架构正交
+
+schema_version: "1.0"
+cbb: aixsilicon:cbb:fixed_priority_arbiter
+
+profiles:
+  - id: linear_small_n
+    implementation: impl_linear
+    parameters:
+      NUM_REQ: default
+      PRIORITY: 0
+      REQ_TYPE: 0
+      FAST_GRANT: 0
+    optimization_target: area_small_n
+    use_case: 少量请求端（N≤8）、面积极敏感、无时序压力；经典逐位优先链
+    support_status: supported        # G6 Pareto 判定后确认
+    notes: 显式线性优先级链（O(N) 逻辑深度）；最小面积实现
+
+  - id: linear_small_n_reg
+    implementation: impl_linear
+    parameters:
+      NUM_REQ: default
+      PRIORITY: 0
+      REQ_TYPE: 0
+      FAST_GRANT: 1
+    optimization_target: timing_small_n
+    use_case: 小请求数 + 需要寄存授权（关键路径 reg→grant 更短、避免大扇出组合）
+    support_status: experimental     # 与 tree 时序对比实证中
+    notes: 线性链 + 输出寄存授权（1 拍延迟），降低组合关键路径
+
+  - id: tree_timing
+    implementation: impl_tree
+    parameters:
+      NUM_REQ: default
+      PRIORITY: 0
+      REQ_TYPE: 0
+      FAST_GRANT: 0
+    optimization_target: timing
+    use_case: 中大规模请求（N≥16）、fmax 优先、授权延迟可接受 0 拍
+    support_status: supported        # G6 实证：N≥32 面积略优（39.31 vs 40.13 @N32）
+    notes: 折半树/并行前缀（O(log N) 深度）；综合后与 linear 基本收敛（差异<3%）
+
+  - id: grouped_balanced
+    implementation: impl_grouped
+    parameters:
+      NUM_REQ: default
+      PRIORITY: 0
+      REQ_TYPE: 0
+      FAST_GRANT: 0
+    optimization_target: balanced
+    use_case: 中规模（N=8~32）、面积与时序均衡、组内链+组间并行
+    support_status: experimental     # G6 实证：与 tree 综合收敛（同网表），无独立优势
+    notes: 分组树 + 组内链折中；综合器折叠为与 tree 近同结构；代码清晰性价值保留
+
+  - id: latched_stable
+    implementation: impl_linear
+    parameters:
+      NUM_REQ: default
+      PRIORITY: 0
+      REQ_TYPE: 1
+      FAST_GRANT: 0
+    optimization_target: stable_grant
+    use_case: 慢速/需授权保持场景；请求到达后锁定授权直到 ack 应答
+    support_status: experimental     # 功能型 Profile（非 PPA 驱动），G4 tc_latched 已验
+    notes: 锁存请求（REQ_TYPE=1），grant 保持至 grant_ack_i；不保证公平性（固定优先）
+
+# 依赖 DAG：零运行时依赖（各 impl dependencies=[]），自动无环；
+# PC_IMPL 编译期分派见 rtl/fixed_priority_arbiter.sv；PRIORITY 正交（generate 反转输入序）。

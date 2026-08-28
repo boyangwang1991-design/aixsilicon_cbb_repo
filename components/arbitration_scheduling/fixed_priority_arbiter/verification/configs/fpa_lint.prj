@@ -1,0 +1,10 @@
+# SpyGlass Lint Project — fixed_priority_arbiter (ARB-001)
+# G3 静态基线：lint/lint_rtl goal
+# 运行：spyglass -project fpa_lint.prj -goal lint/lint_rtl -batch
+# 注意：本项目文件在 build/eda 下运行（见 run_static_checks.sh），此处为可复现脚本输入。
+
+set_option top fixed_priority_arbiter
+
+current_goal lint/lint_rtl -top fixed_priority_arbiter
+read_file -type sverilog ../rtl/fixed_priority_arbiter.sv
+run_goal

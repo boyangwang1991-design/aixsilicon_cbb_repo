@@ -1,0 +1,21 @@
+cbb: fixed_priority_arbiter
+updated: '2026-08-28T07:38:20Z'
+gates:
+  G0:
+    status: pass
+  G1:
+    status: pass
+  G2:
+    status: pass
+  G3:
+    status: pass
+  G4:
+    status: pass
+  G5:
+    status: pass
+  G6:
+    status: pass
+  G7:
+    status: pass
+  G8:
+    status: pass

@@ -1,0 +1,23 @@
+# 表征计划（Characterization Plan）— fixed_priority_arbiter
+# G6 PPA：characterization/pdk.yaml（pdk-scan 生成，status=PDK_READY）为工艺上下文事实源。
+# PDK_READY 判定 → 必须真实综合表征（sc9_cmos28lp_base_hvt tt_1p00v_25c，dc_shell）。
+# 约束基线：create_clock 2.5ns（400MHz，PDK README 建议起步）；组合路径以 data arrival 度量。
+benchmark_profiles:
+  - id: impl_linear_n_sweep
+    implementation: impl_linear
+    parameters: {NUM_REQ: [4, 8, 16, 32, 64], PRIORITY: 0, REQ_TYPE: 0, FAST_GRANT: 0}
+    optimization_target: area_small_n
+  - id: impl_tree_n_sweep
+    implementation: impl_tree
+    parameters: {NUM_REQ: [4, 8, 16, 32, 64], PRIORITY: 0, REQ_TYPE: 0, FAST_GRANT: 0}
+    optimization_target: timing
+  - id: impl_grouped_n_sweep
+    implementation: impl_grouped
+    parameters: {NUM_REQ: [4, 8, 16, 32, 64], PRIORITY: 0, REQ_TYPE: 0, FAST_GRANT: 0}
+    optimization_target: balanced
+measured_region:
+  NUM_REQ: [4, 64]
+  PC_IMPL: [0, 1, 2]
+status: SWEEP_DONE
+evidence: build/eda/ppa/run-20260828-01/
+report: reports/ppa-report.md
