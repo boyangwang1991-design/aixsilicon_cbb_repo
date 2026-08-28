@@ -1,8 +1,10 @@
 # parity_gen_check PPA 分析报告
 
-> **Run ID**: `run-20260828-04`（双实现 × 6 宽度 Sweep，时序主指标 = data arrival time）· 2026-08-28 · **G6 pass**
-> 原始证据（本地可复现，不入库）：`build/eda/ppa/run-20260828-04/`；结论以本报告为正式载体
-> 脚本：[`synth_sweep.tcl`](../characterization/synth_sweep.tcl) · 图：[`plot_pareto.py`](../characterization/plot_pareto.py) → [ppa-run-20260828-04.png](ppa-run-20260828-04.png)
+> **Run ID**: `run-20260828-05`（双实现 × 6 宽度 Sweep，时序主指标 = data arrival time）· 2026-08-28 · **G6 pass**
+> 原始证据（本地可复现，不入库）：`build/eda/ppa/run-20260828-05/`；结论以本报告为正式载体
+> 脚本：[`synth_sweep.tcl`](../characterization/synth_sweep.tcl) · 图：[`plot_pareto.py`](../characterization/plot_pareto.py) → [ppa-run-20260828-05.png](ppa-run-20260828-05.png)
+> 注：本 run 为 **SV 简化 RTL**（impl_tree = 一行 `assign parity_i = ^data_i`）——综合结果与
+> 显式结构 run-04 完全一致，实证"综合器对 reduction XOR 生成最优平衡树、RTL 写法不影响最优解"。
 
 ## 1. 表征上下文（证据等级 E2）
 
@@ -27,7 +29,7 @@
 
 动态功耗（W=64）：tree 22.65 μW / linear 20.66 μW（~8.8% 差异，线性链翻转较少）。
 
-![PPA 对比（面积 + data arrival time）](ppa-run-20260828-04.png)
+![PPA 对比（面积 + data arrival time）](ppa-run-20260828-05.png)
 
 ## 3. PPA 结论（诚实定性）
 
