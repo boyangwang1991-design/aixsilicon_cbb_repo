@@ -22,7 +22,7 @@ artifacts:
   reports:
     - reports/ppa-report.md
     - reports/qualification-report.md
-    - reports/ppa-run-20260828-03.png
+    - reports/ppa-run-20260828-04.png
   characterization:
     - characterization/synth_sweep.tcl
     - characterization/plot_pareto.py

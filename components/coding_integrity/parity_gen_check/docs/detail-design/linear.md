@@ -55,18 +55,19 @@
 
 ## 6. PPA 表征摘录
 
-| W | area | slack @400MHz | 备注 |
+| W | area | data arrival time | 备注 |
 |---|---|---|---|
-| 8   | 6.55 | +0.85 | 与 tree 同 |
-| 16  | 14.04 | +0.60 | 与 tree 同 |
-| 32  | 29.02 | +0.48 | 与 tree 同 |
-| 64  | 58.97 | +0.20 | 功耗 20.66 μW（略低 ~9%） |
-| 128 | 119.92 | 0.00 | 与 tree 同 |
-| 256 | 240.08 | 0.00 | 与 tree 同 |
+| 8   | 6.55 | 1.15 ns | 与 tree 略差（链深） |
+| 16  | 14.04 | 1.40 ns | 与 tree 同 |
+| 32  | 29.02 | 1.52 ns | 与 tree 同 |
+| 64  | 58.97 | 1.80 ns | 功耗 20.66 μW（略低 ~9%） |
+| 128 | 119.92 | 2.00 ns | 与 tree 同 |
+| 256 | 240.08 | 2.00 ns | 与 tree 同 |
 
-结论：**综合收敛实证**——DC 将显式线性 XOR 链重排为平衡归约树，各宽度面积/slack
-与 tree 一致（仅小宽度功耗略低 ~9%）；本实现定位 experimental/结构教学视图，无独立
-PPA 价值。Pareto/图见 [`reports/ppa-report.md`](../../reports/ppa-report.md)。
+结论：**综合收敛实证**——DC 将显式线性 XOR 链重排为平衡归约树，各宽度面积/arrival
+与 tree 一致（W8 arrival 1.15 vs tree 1.13，链深略差；仅小宽度功耗略低 ~9%）；本实现
+定位 experimental/结构教学视图，无独立 PPA 价值。Pareto/图见
+[`reports/ppa-report.md`](../../reports/ppa-report.md)。
 
 ## 7. 已知限制与非目标
 

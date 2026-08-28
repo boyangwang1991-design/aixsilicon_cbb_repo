@@ -12,14 +12,14 @@
 
 ## 2. 微架构说明
 
-平衡 XOR 归约树（折半合并）：
-- 第 0 级：`nodes[0] = data_i`（W 个 bit）
-- 第 k 级：相邻两两 XOR 合并（`nodes[k][j] = nodes[k-1][2j] ^ nodes[k-1][2j+1]`），
-  节点数减半（向上取整），奇数余项直通（g_pass）
-- 末级 `nodes[LEVELS-1][0]` 即归约结果
+平衡 XOR 归约树——**SV 一行 `assign parity_i = ^data_i;`**（reduction 一元运算符），
+由综合工具（DC/Genus）自动生成最优平衡 XOR 树：
 
-- **逻辑深度**：`LEVELS = clog2(W)+1` 级 XOR，关键路径 `ceil(log₂W)` 个 XOR 级；
-- 面积要素：`W-1` 个 2 输入 XOR（SC9 单 XOR 面积远小于加法器，整体紧凑）。
+- 综合器对 `^data_i` 构造折半归约：关键路径 `ceil(log₂W)` 个 XOR 级（O(log W) 深度）、
+  `W-1` 个 XOR——理论最优（生成方式决策：Python 与 SV 均可时倾向 SV，parity 复盘）；
+- 面积要素：`W-1` 个 2 输入 XOR（SC9 单 XOR 面积远小于加法器，整体紧凑）；
+- 注：G6 实测 tree 与 linear 综合完全收敛，正源于 DC 对函数等价的归约统一生成
+  最优平衡树（RTL 写法不影响综合最优解）。
 
 ## 3. 权值/功能守恒论证
 
@@ -59,18 +59,19 @@
 
 ## 6. PPA 表征摘录
 
-| W | area | slack @400MHz | 备注 |
+| W | area | data arrival time | 备注 |
 |---|---|---|---|
-| 8   | 6.55 | +0.87 | 与 linear 同 |
-| 16  | 14.04 | +0.60 | 与 linear 同 |
-| 32  | 29.02 | +0.48 | 与 linear 同 |
-| 64  | 58.97 | +0.20 | 功耗 22.65 μW |
-| 128 | 119.92 | 0.00 | 400MHz 边际 |
-| 256 | 240.08 | 0.00 | 400MHz 边际 |
+| 8   | 6.55 | 1.13 ns | 与 linear 同 |
+| 16  | 14.04 | 1.40 ns | 与 linear 同 |
+| 32  | 29.02 | 1.52 ns | 与 linear 同 |
+| 64  | 58.97 | 1.80 ns | 功耗 22.65 μW |
+| 128 | 119.92 | 2.00 ns | 组合深度上限 |
+| 256 | 240.08 | 2.00 ns | 组合深度上限 |
 
 结论：W=8~256 与 linear **面积/时序完全收敛**（DC 将等价 XOR 归约统一综合），
 PPA 空间确认为小（单输出 XOR 归约无组合形态差异）；tree_default 为推荐（同面积，
-逻辑结构清晰）。Pareto/图见 [`reports/ppa-report.md`](../../reports/ppa-report.md)。
+逻辑结构清晰）。时序主指标 = **data arrival time**（组合逻辑独立于虚拟时钟）。
+Pareto/图见 [`reports/ppa-report.md`](../../reports/ppa-report.md)。
 
 ## 7. 已知限制与非目标
 

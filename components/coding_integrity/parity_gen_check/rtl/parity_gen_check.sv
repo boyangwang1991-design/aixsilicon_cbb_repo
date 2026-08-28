@@ -65,7 +65,10 @@ module parity_gen_check #(
 endmodule
 
 // ============================================================================
-// parity_impl_tree — 平衡 XOR 归约树（折半合并，O(log W) 深度）
+// parity_impl_tree — 平衡 XOR 归约树（SV 一行 reduction XOR）
+// 综合工具（DC/Genus）对 `^` 归约自动生成最优平衡 XOR 树——这是 G6 实测 tree/linear
+// 综合收敛的本质（RTL 写法不影响综合最优解）。生成方式决策：SV（Python 与 SV 均可
+// 时倾向 SV；规整归约用一元运算符由综合器自动优化）。
 // ============================================================================
 module parity_impl_tree #(
     parameter int DATA_WIDTH = 64
@@ -73,24 +76,7 @@ module parity_impl_tree #(
     input  logic [DATA_WIDTH-1:0] data_i,
     output logic                  parity_i
 );
-    localparam int W = DATA_WIDTH;
-    localparam int LEVELS = $clog2(W) + 1;
-
-    logic [W-1:0] nodes [LEVELS];
-
-    assign nodes[0] = data_i;
-    for (genvar k = 1; k < LEVELS; k++) begin : g_fold
-        localparam int NK   = (W + (1 << k) - 1) >> k;
-        localparam int NPRE = (W + (1 << (k-1)) - 1) >> (k-1);
-        for (genvar j = 0; j < NK; j++) begin : g_pair
-            if (2*j + 1 < NPRE) begin : g_xor
-                assign nodes[k][j] = nodes[k-1][2*j] ^ nodes[k-1][2*j+1];
-            end else begin : g_pass
-                assign nodes[k][j] = nodes[k-1][2*j];
-            end
-        end
-    end
-    assign parity_i = nodes[LEVELS-1][0];
+    assign parity_i = ^data_i;
 endmodule
 
 // ============================================================================

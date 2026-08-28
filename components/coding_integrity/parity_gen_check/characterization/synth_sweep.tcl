@@ -49,6 +49,9 @@ foreach {tagmod toplevel} $IMPLS {
         set tr [open "$OUT/${tag}_timing.rpt" r]
         foreach ln [split [read $tr] "\n"] {
             if {[regexp {slack \((?:MET|VIOLATED)\)\s+(-?[0-9.]+)} $ln -> s]} { puts $fh "slack=$s" }
+            # 纯组合构件时序主指标 = data arrival time（输入→输出传播延迟，
+            # 独立于虚拟时钟周期；slack 依赖时钟设定仅作参考）
+            if {[regexp {data arrival time\s+([0-9.]+)} $ln -> a]} { puts $fh "arrival=$a" }
         }
         close $tr
         close $fh

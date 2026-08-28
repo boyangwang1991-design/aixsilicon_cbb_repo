@@ -24,7 +24,7 @@ def main() -> int:
         print("[err] ppa dir missing:", ppa); return 10
 
     impls = ["tree", "linear"]
-    data = {i: {"w": [], "area": [], "slack": []} for i in impls}
+    data = {i: {"w": [], "area": [], "arrival": [], "slack": []} for i in impls}
     for f in ppa.glob("*_summary.txt"):
         m = re.match(r"(tree|linear)_w(\d+)", f.stem)
         if not m:
@@ -33,10 +33,13 @@ def main() -> int:
         for line in f.read_text(encoding="utf-8").splitlines():
             if line.startswith("area="):
                 data[impl]["area"].append((w, float(line[5:])))
+            elif line.startswith("arrival="):
+                data[impl]["arrival"].append((w, float(line[8:])))
             elif line.startswith("slack="):
                 data[impl]["slack"].append((w, float(line[6:])))
     for i in impls:
         data[i]["area"].sort()
+        data[i]["arrival"].sort()
         data[i]["slack"].sort()
 
     fig, (ax1, ax2) = plt.subplots(1, 2, figsize=(11, 4))
@@ -51,15 +54,16 @@ def main() -> int:
     ax1.set_title(f"parity_gen_check area — {runid}")
     ax1.legend(); ax1.grid(True, alpha=0.3)
 
+    # 时序主指标 = data arrival time（纯组合：输入→输出传播延迟，独立于虚拟时钟）
     for i in impls:
-        w = [x[0] for x in data[i]["slack"]]
-        s = [x[1] for x in data[i]["slack"]]
+        w = [x[0] for x in data[i]["arrival"]]
+        s = [x[1] for x in data[i]["arrival"]]
         ax2.plot(w, s, marker="s", label=i)
     ax2.set_xscale("log", base=2)
     ax2.set_xticks([8, 16, 32, 64, 128, 256])
     ax2.set_xlabel("DATA_WIDTH (log2)")
-    ax2.set_ylabel("Worst slack @400MHz (ns)")
-    ax2.set_title(f"parity_gen_check timing — {runid}")
+    ax2.set_ylabel("Data arrival time (ns)")
+    ax2.set_title(f"parity_gen_check timing (arrival) — {runid}")
     ax2.legend(); ax2.grid(True, alpha=0.3)
 
     fig.tight_layout()
