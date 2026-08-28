@@ -10,8 +10,9 @@
 set PDKDB /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/db/sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c.db
 set RUNID $env(PC_RUN_ID)
 set RTLDIR $env(PC_RTL_DIR)
-set OUT [file normalize "../evidence/ppa/$RUNID"]
+set OUT [file normalize "../../build/eda/ppa/$RUNID"]
 file mkdir $OUT
+file mkdir [file normalize "../../build/eda"]
 
 set_app_var target_library  $PDKDB
 set_app_var link_library    "* $PDKDB"

@@ -1,7 +1,7 @@
 # wallace W64 单点综合（同 G6 基线上下文：SC9 HVT tt / vclk 2.5ns）
 set PDKDB /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/db/sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c.db
 set RTLDIR $env(PC_RTL_DIR)
-set OUT [file normalize "wallace64_run"]
+set OUT [file normalize "../../build/eda/wallace64_run"]
 file mkdir $OUT
 set_app_var target_library $PDKDB
 set_app_var link_library "* $PDKDB"

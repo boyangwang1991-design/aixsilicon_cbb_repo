@@ -210,7 +210,7 @@ def draw_arch(mode, W, out_png):
     ax.set_title("%s compression tree (W=%d): circle = one bit; "
                  "columns = weight 2^c; layers top-down"
                  % (mode.capitalize(), W), fontsize=10.5)
-    fig.savefig(out_png, dpi=140, bbox_inches="tight")
+    fig.savefig(str(out_png), dpi=140, bbox_inches='tight')
     plt.close(fig)
 
 
@@ -336,13 +336,13 @@ def main():
     want = [int(x) for x in sys.argv[1:]] or [64]
     for w in want:
         for mode in ("wallace", "dadda"):
-            png = root / ("arch_%s_W%d.png" % (mode, w))
+            png = root.parent / "build" / ("arch_%s_W%d.png" % (mode, w)); png.parent.mkdir(parents=True, exist_ok=True)
             try:
                 draw_arch(mode, w, str(png))            # matplotlib 圈图
                 print("[gen]", png.name)
             except Exception as e:
                 print("[warn] mpl arch:", e)
-            base = root / ("gvarch_%s_W%d" % (mode, w))
+            base = root.parent / "build" / ("gvarch_%s_W%d" % (mode, w)); base.parent.mkdir(parents=True, exist_ok=True)
             try:
                 draw_arch_graphviz(mode, w, str(base))   # graphviz DAG 图
             except ImportError:

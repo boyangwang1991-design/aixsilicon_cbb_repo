@@ -72,3 +72,5 @@
     上下文同 G6 基线(SC9 HVT tt vclk2.5ns); 证据 characterization/wallace64_run/{area,timing,power}.rpt+dc.log; 文档同步: wallace.md §6 PPA摘录 + ppa-report.md §0 核心发现更新; 结论: W=64 档 wallace 与 tree 同为 Pareto 有效解
 - `2026-08-28 01:10:58` | **characterize** | LUT SWAR 重构修复资源爆炸 + W64 三实现综合对照: wallace 121.9/tree 124.0/lut(SWAR) 183.0μm² 全MET; 递推1258 淘汰结论维持 | 结果(PASS)
     LUT 反模式实证: ROM×genvar复制+段隔离mux 资源爆炸→SWAR shift/mask/add 183μm²/MET; wallace 纯FA网表单点复测 121.9μm²/+0.01/74.7μW 与 tree 打平(−1.7%面积/+3.5%功耗); W64 Pareto: wallace(面积)与tree(通用+功耗)双有效解; 文档: ppa-report §0 三连实证 + lut.md §6 PPA反思表; TB: LUT-SWAR 1000随机+锚点 PASS; 综合脚本 lut64_synth.tcl 固化
+- `2026-08-28 01:19:13` | **implement** | build/ 目录纪律落地: EDA 中间产物(dc alib/cksum/svf/pvl/syn/mr + vcs csrc/WORK/ucli.key + formality FM_INFO + spyglass lint_work + logs)统一迁移 build/; .gitignore 强制 build/+**/build/+ucli.key; git rm 已入库残留; 脚本 OUT 路径改指 build/; SKILL artifact-contract §2 固化 | 结果(PASS)
+    交付件目录回归纯净: popcount 根仅剩 yaml/rtl/docs/evidence/...; characterization 仅留 tcl/py/png/md/pdk/plan; validate_suite + check --strict PASS
