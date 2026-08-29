@@ -2,7 +2,8 @@ schema_version: "2.0"
 updated: "2026-08-29T03:06:00Z"
 # 本文件是 CBB 目录唯一 SSOT（由 scripts/build_cbb_structure.py 治理）。
 # 字段: id/name/family/group/abstraction/priority/implementation/description/status/version/path
-# 修改入口: 直接编辑本文件后运行 'python3 scripts/build_cbb_structure.py' 校验。
+# 修改入口: 直接编辑本文件后运行 'python3 scripts/build_cbb_structure.py' 校验，
+#           再运行 'python3 scripts/update_registry_readme.py' 将状态总览同步到 README.md。
 # status=implemented 表示物理目录存在且通过验证；未实现条目无物理目录。
 vendor: aixsilicon
 library: cbb

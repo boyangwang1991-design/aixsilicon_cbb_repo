@@ -62,12 +62,14 @@ sync-branch = main
 EOF
 
 # --------------------------------------------------------------
-# 3) registry.yaml SSOT 一致性校验（只读；--rebuild-dirs 可重建缺失空目录）
+# 3) registry.yaml SSOT 一致性校验 + README 状态总览刷新
+#    （build_cbb_structure.py 校验；update_registry_readme.py 同步派生视图）
 # --------------------------------------------------------------
 if command -v python3 >/dev/null 2>&1; then
   python3 scripts/build_cbb_structure.py || true
+  python3 scripts/update_registry_readme.py || true
 else
-  echo "警告: 未找到 python3，跳过 registry.yaml 校验"
+  echo "警告: 未找到 python3，跳过 registry.yaml 校验与 README 刷新"
 fi
 
 # --------------------------------------------------------------
