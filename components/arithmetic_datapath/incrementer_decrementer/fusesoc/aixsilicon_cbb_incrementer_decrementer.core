@@ -50,3 +50,7 @@ parameters:
     datatype: int
     default: 4
     description: "Segment width for segmented impl [2..16] (PC-004)"
+  CG_EN:
+    datatype: int
+    default: 1
+    description: "Auto Carry/Data Gating {0=off, 1=on(default)} (PC-005)"

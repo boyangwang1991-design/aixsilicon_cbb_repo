@@ -31,9 +31,13 @@ assumptions:
   - id: ASM-002
     description: inc_en 与 dec_en 不同时断言（互斥）；同时断言行为未定义（调用方负责）。
   - id: ASM-003
-    description: DATA_W/ID_IMPL/SEG_W 为编译期参数，不运行时切换（生成/参数化语义）。
+    description: DATA_W/ID_IMPL/SEG_W/CG_EN 为编译期参数，不运行时切换（生成/参数化语义）。
   - id: ASM-004
     description: 纯组合，无时钟/复位；调用方负责输入稳定窗口与输出采样时序。
+  - id: ASM-005
+    description: CG_EN=1（自动 Carry/Data Gating）不新增外部使能端口——基于已有 inc_en/dec_en
+      自动生效（active=inc_en|dec_en）；hold 模式（active=0）下进位链强制 0、XOR 退化为直通，
+      输出语义与 CG_EN=0 完全等价（dout=din、carry_out=0）。
 
 non_goals:
   - 带时钟/寄存的周期计数或累加（见 CTL-* 计数器、MON-* 事件计数器）

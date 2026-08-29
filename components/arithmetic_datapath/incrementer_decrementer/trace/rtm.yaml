@@ -10,9 +10,9 @@ requirements:
   - tc_random
   - tc_equiv
   configs:
-  - cfg_data_w32_id_impl0_seg_w4
-  - cfg_data_w8_id_impl1_seg_w4
-  - cfg_data_w16_id_impl0_seg_w8
+  - cfg_data_w32_id_impl0_seg_w4_cg_en1
+  - cfg_data_w8_id_impl1_seg_w4_cg_en1
+  - cfg_data_w16_id_impl0_seg_w8_cg_en1
   evidence:
   - build/eda/evidence/g4_functional/functional_sim.txt
 - id: REQ-002
@@ -24,8 +24,8 @@ requirements:
   - tc_edge
   - tc_random
   configs:
-  - cfg_data_w8_id_impl0_seg_w4
-  - cfg_data_w64_id_impl0_seg_w4
+  - cfg_data_w8_id_impl0_seg_w4_cg_en1
+  - cfg_data_w64_id_impl0_seg_w4_cg_en1
   evidence:
   - build/eda/evidence/g4_functional/functional_sim.txt
 - id: REQ-003
@@ -37,35 +37,39 @@ requirements:
   - tc_edge
   - tc_random
   configs:
-  - cfg_data_w32_id_impl0_seg_w4
-  - cfg_data_w32_id_impl1_seg_w4
+  - cfg_data_w32_id_impl0_seg_w4_cg_en1
+  - cfg_data_w32_id_impl1_seg_w4_cg_en1
   evidence:
   - build/eda/evidence/g4_functional/functional_sim.txt
 - id: REQ-004
   type: requirement
-  description: 多实现等价——ripple/segmented 对同一 (din, inc_en, dec_en) 输出一致 （同一可观察契约，差异仅面积/时序）
+  description: 多实现等价——ripple/segmented 对同一 (din, inc_en, dec_en) 输出一致； 含 CG_EN=0 vs
+    CG_EN=1 输出等价（tc_cg_equiv，ASM-005；自动 CG 不改变可观察契约）
   properties:
   - PROP-INC_DEC_EQV-004
   tests:
   - tc_equiv
   - tc_random
+  - tc_cg_equiv
   configs:
-  - cfg_data_w8_id_impl0_seg_w8
-  - cfg_data_w16_id_impl1_seg_w4
-  - cfg_data_w32_id_impl1_seg_w8
+  - cfg_data_w8_id_impl0_seg_w8_cg_en1
+  - cfg_data_w16_id_impl1_seg_w4_cg_en1
+  - cfg_data_w32_id_impl1_seg_w8_cg_en1
+  - cfg_data_w8_id_impl0_seg_w4_cg_en0
+  - cfg_data_w32_id_impl1_seg_w4_cg_en0
   evidence:
   - build/eda/evidence/g4_functional/functional_sim.txt
 - id: REQ-005
   type: requirement
-  description: 非法参数在 Elaboration 期被拦截（DATA_W/ID_IMPL/SEG_W 越界）
+  description: 非法参数在 Elaboration 期被拦截（DATA_W/ID_IMPL/SEG_W/CG_EN 越界）
   properties: []
   tests:
   - tc_negative_elab
   configs:
-  - cfg_data_w1_id_impl0_seg_w4
-  - cfg_data_w1025_id_impl0_seg_w4
-  - cfg_data_w32_id_impl0_seg_w1
-  - cfg_data_w32_id_impl0_seg_w17
+  - cfg_data_w1_id_impl0_seg_w4_cg_en1
+  - cfg_data_w1025_id_impl0_seg_w4_cg_en1
+  - cfg_data_w32_id_impl0_seg_w1_cg_en1
+  - cfg_data_w32_id_impl0_seg_w17_cg_en1
   evidence:
   - build/eda/evidence/g3_static/compile.txt
 - id: INV-001
@@ -117,7 +121,7 @@ requirements:
   evidence: []
 - id: ASM-003
   type: requirement
-  description: DATA_W/ID_IMPL/SEG_W 为编译期参数，不运行时切换（生成/参数化语义）。
+  description: DATA_W/ID_IMPL/SEG_W/CG_EN 为编译期参数，不运行时切换（生成/参数化语义）。
   properties: []
   tests: []
   configs: []
@@ -125,6 +129,14 @@ requirements:
 - id: ASM-004
   type: requirement
   description: 纯组合，无时钟/复位；调用方负责输入稳定窗口与输出采样时序。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-005
+  type: requirement
+  description: CG_EN=1（自动 Carry/Data Gating）不新增外部使能端口——基于已有 inc_en/dec_en 自动生效（active=inc_en|dec_en）；hold
+    模式（active=0）下进位链强制 0、XOR 退化为直通， 输出语义与 CG_EN=0 完全等价（dout=din、carry_out=0）。
   properties: []
   tests: []
   configs: []

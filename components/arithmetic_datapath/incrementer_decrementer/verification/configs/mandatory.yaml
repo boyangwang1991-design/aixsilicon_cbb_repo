@@ -1,7 +1,8 @@
 set: mandatory
 configs:
-- config_id: cfg_data_w32_id_impl0_seg_w4
+- config_id: cfg_data_w32_id_impl0_seg_w4_cg_en1
   parameters:
     DATA_W: 32
     ID_IMPL: 0
     SEG_W: 4
+    CG_EN: 1

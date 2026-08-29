@@ -8,8 +8,9 @@
 | `ID_IMPL=0` ripple | 任意位宽 | 验证通过（G4） |
 | `ID_IMPL=1` segmented | 任意位宽（SEG_W∈[2,16]） | 验证通过（G4） |
 | `SEG_W` | 2..16 | 支持（elab 矩阵 {4,8} 通过；PC-004 约束） |
+| `CG_EN` | {0,1} | 支持（elab 矩阵 {0,1} 通过；CG0/1 等价 G4 证明；PC-005 约束） |
 | inc/dec 互斥 | 仅单使能 | 行为假设 ASM-002（不同时断言）；TB 强制互斥 |
-| 非法参数 | — | elaboration $error 拦截（PC-001..004，G3） |
+| 非法参数 | — | elaboration $error 拦截（PC-001..005，G3） |
 
 ## 2. Gate 证据
 
@@ -30,7 +31,8 @@
 - 穷举：W=8 全空间 256 向量 × 两实现 × {inc,dec,hold}（3 模式）= 1536 向量。
 - 边界：全 0 / 全 1（溢出/借位 carry_out）/ 单 bit 逐位 inc/dec / 保持。
 - 随机：4000 个 seed 向量 × W∈{8,16,32} × 两实现，黄金模型（独立算术）+ 跨实现等价。
-- 负向：非法参数（DATA_W=1/1025、ID_IMPL=2、SEG_W=1/17）elaboration 拦截。
+- CG 等价：CG_EN=0 vs CG_EN=1 穷举 768 向量输出一致（自动 CG 不改变可观察契约，ASM-005）。
+- 负向：非法参数（DATA_W=1/1025、ID_IMPL=2、SEG_W=1/17、CG_EN=2）elaboration 拦截。
 - 变异：借位传播条件写反，256/256 向量被黄金模型检测（checker 有效）。
 
 ## 4. 已知限制（Waiver / 计划）

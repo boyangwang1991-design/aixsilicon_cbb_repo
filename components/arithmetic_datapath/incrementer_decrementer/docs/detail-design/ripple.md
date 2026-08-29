@@ -1,5 +1,10 @@
 # ripple 详设（ID_IMPL=0，半加器进位链）
 
+> CG（Carry/Data Gating，2026-08-29 PPA 优化）：
+> 实现引入显式 `active=inc_en|dec_en` 门控——hold 模式（active=0）下进位链强制 0
+> （carry gating，零翻转）、XOR 退化为直通（operand isolation，data gating），
+> 动态功耗显著降低；语义与未门控版完全等价（G4 回归证明）。
+
 ## 微架构
 
 ```

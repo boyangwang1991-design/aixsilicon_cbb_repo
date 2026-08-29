@@ -24,6 +24,9 @@ module negative_elab_tb;
     incrementer_decrementer #(.DATA_W(32), .ID_IMPL(1), .SEG_W(1))  u_bad_seg1  (.din(din[31:0]), .inc_en(inc_en), .dec_en(dec_en), .dout(dout[31:0]), .carry_out(carry_out));
     incrementer_decrementer #(.DATA_W(32), .ID_IMPL(1), .SEG_W(17)) u_bad_seg17 (.din(din[31:0]), .inc_en(inc_en), .dec_en(dec_en), .dout(dout[31:0]), .carry_out(carry_out));
 
+    // 非法：CG_EN 越界（PC-005: {0,1}）
+    incrementer_decrementer #(.DATA_W(32), .ID_IMPL(0), .CG_EN(2)) u_bad_cg (.din(din[31:0]), .inc_en(inc_en), .dec_en(dec_en), .dout(dout[31:0]), .carry_out(carry_out));
+
     initial begin
         $display("negative_elab_tb: illegal parameter instances instantiated; expecting $error at elaboration");
         $finish;

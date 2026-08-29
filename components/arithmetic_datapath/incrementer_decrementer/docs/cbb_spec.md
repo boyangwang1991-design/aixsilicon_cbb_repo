@@ -37,8 +37,17 @@ carry_out = (inc_en & &din) | (dec_en & ~|din)   # 递增到全 1 溢出，或�
 | `DATA_W` | 32 | [2,1024] | 数据位宽（PC-001/002） |
 | `ID_IMPL` | 0 | {0,1} | 微架构（PC-003）：0=ripple, 1=segmented |
 | `SEG_W` | 4 | [2,16] | segmented 段位宽（PC-004，仅 ID_IMPL=1 生效） |
+| `CG_EN` | 1 | {0,1} | 自动 Carry/Data Gating（PC-005）：0=off, 1=on（基于已有 inc_en/dec_en，无外部 en 端口） |
 
 ## 4. 微架构
+
+### CG_EN 自动 Carry/Data Gating（选项）
+两实现共享同一可观察契约，`CG_EN` 为可选的功耗优化开关（无需外部 en 端口）：
+- **0 = 关闭**：原始结构——进位链由 `c[0]=inc_en|dec_en` 起止，XOR 直连。
+- **1 = 开启（默认）**：以 `active=inc_en|dec_en` 显式门控——
+  - 进位链强制 0（`c[i+1]=active&…`）→ hold 模式零翻转（carry gating）；
+  - XOR 输入 `c&active=0` → 退化为直通（operand isolation / data gating）。
+- 两种模式输出语义完全等价（active=0 → dout=din、carry_out=0）；CG_EN=1 动态功耗更低。
 
 ### 0 = ripple（半加器进位链，基线）
 逐位传播进位：`c[0]=inc_en|dec_en; dout[i]=din[i]^c[i]; c[i+1]=inc_en ? (din[i]&c[i]) : (~din[i]&c[i])`。

@@ -1,5 +1,10 @@
 # segmented 详设（ID_IMPL=1，分段进位 carry-skip）
 
+> CG（Carry/Data Gating，2026-08-29 PPA 优化）：
+> 实现引入显式 `active=inc_en|dec_en` 门控——hold 模式（active=0）下段内进位链与
+> 段间 carry-skip 均强制 0（零翻转，carry gating）、XOR 退化为直通
+> （operand isolation，data gating）；语义与未门控版完全等价（G4 回归证明）。
+
 ## 微架构
 
 ```

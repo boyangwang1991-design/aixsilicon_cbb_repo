@@ -21,20 +21,23 @@ command -v spyglass >/dev/null 2>&1 && echo "spyglass=$(command -v spyglass)" ||
 
 # ---- 1. Compile + Elaboration（正例 + 负向参数拦截）----
 if command -v vcs >/dev/null 2>&1; then
-  # 正向：两实现 × 多参数点编译/elab 矩阵（可复现）
+  # 正向：两实现 × 多参数点 × CG_EN 编译/elab 矩阵（可复现）
   : > "$EV/param_matrix.txt"
   for impl in 0 1; do
     for n in 8 16 32 64; do
       for seg in 4 8; do
-        if ( cd "$WORK" && vcs -full64 -timescale=1ns/1ps -sverilog \
-            -pvalue+incrementer_decrementer.DATA_W=$n \
-            -pvalue+incrementer_decrementer.ID_IMPL=$impl \
-            -pvalue+incrementer_decrementer.SEG_W=$seg \
-            "$RTL" -o /tmp/ide_g3_${impl}_${n}_${seg} > "$EV/tmp.log" 2>&1 ); then
-          echo "PASS impl=$impl W=$n SEG=$seg" | tee -a "$EV/param_matrix.txt"
-        else
-          echo "FAIL impl=$impl W=$n SEG=$seg" | tee -a "$EV/param_matrix.txt"; cat "$EV/tmp.log"; exit 1
-        fi
+        for cg in 0 1; do
+          if ( cd "$WORK" && vcs -full64 -timescale=1ns/1ps -sverilog \
+              -pvalue+incrementer_decrementer.DATA_W=$n \
+              -pvalue+incrementer_decrementer.ID_IMPL=$impl \
+              -pvalue+incrementer_decrementer.SEG_W=$seg \
+              -pvalue+incrementer_decrementer.CG_EN=$cg \
+              "$RTL" -o /tmp/ide_g3_${impl}_${n}_${seg}_${cg} > "$EV/tmp.log" 2>&1 ); then
+            echo "PASS impl=$impl W=$n SEG=$seg CG=$cg" | tee -a "$EV/param_matrix.txt"
+          else
+            echo "FAIL impl=$impl W=$n SEG=$seg CG=$cg" | tee -a "$EV/param_matrix.txt"; cat "$EV/tmp.log"; exit 1
+          fi
+        done
       done
     done
   done
@@ -50,7 +53,7 @@ if command -v vcs >/dev/null 2>&1; then
   if [ "$neg_rc" -eq 0 ]; then
     echo "[NEGATIVE] 非法参数未拦截，负向测试失败"; exit 1
   fi
-  grep -qi "PC-001\|PC-002\|PC-003\|PC-004" "$EV/negative_elab.txt" || {
+  grep -qi "PC-001\|PC-002\|PC-003\|PC-004\|PC-005" "$EV/negative_elab.txt" || {
     echo "[NEGATIVE] vcs 非零退出但未命中预期报错 ID"; cat "$EV/negative_elab.txt"; exit 1; }
   echo "compile/elab PASS: $(grep -c PASS "$EV/param_matrix.txt") positive configs + negative elab intercepted" \
     > "$EV/compile.txt"

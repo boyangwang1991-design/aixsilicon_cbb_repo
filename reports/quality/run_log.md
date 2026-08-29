@@ -121,3 +121,4 @@
 - `2026-08-29 08:13:02` | **qualify** | G7 | ARI-001 G7: 支持矩阵+资格报告, 已知限制(ss/ff corner, toggle) waiver, candidate | 结果(PASS)
 - `2026-08-29 08:13:33` | **qualify** | G7 | ARI-001 G7: 支持矩阵+资格报告, waiver(ss/ff corner+toggle), G8 release manifest candidate | 结果(PASS)
 - `2026-08-29 08:14:05` | **release** | G8 | ARI-001 G8: release/manifest.yaml+SBOM(无依赖), registry implemented, README 状态总览同步 | 结果(PASS)
+- `2026-08-29 08:44:25` | **characterize** | G6 | CG PPA 优化: CG_EN 参数, DC功耗对比(run-02) ripple leak-30%/dyn-6%, segmented leak-9%/dyn-2.5%, 无需ICG | 结果(PASS)

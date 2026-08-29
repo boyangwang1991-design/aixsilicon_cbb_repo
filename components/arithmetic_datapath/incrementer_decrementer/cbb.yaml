@@ -51,6 +51,16 @@ parameters:
     partitions: [4, 8]
     affects: [area, timing]
     semantics: segmented 段位宽（仅 ID_IMPL=1 生效；ripple 忽略）
+  CG_EN:
+    type: int
+    default: 1
+    legal: [0, 1]
+    partitions: [0, 1]
+    affects: [area, power]
+    semantics: >-
+      自动 Carry/Data Gating（2026-08-29 PPA 选项，基于已有 inc_en/dec_en，无外部 en 端口）：
+      0=关闭（原始结构）；1=开启（默认）——hold 模式进位链强制 0（carry gating 零翻转）
+      + XOR 退化为直通（operand isolation/data gating），动态功耗更低；语义与 0 等价。
 
 constraints:
   - id: PC-001
@@ -65,6 +75,9 @@ constraints:
   - id: PC-004
     expression: "SEG_W >= 2 and SEG_W <= 16"
     severity: error                   # segmented 段宽合法域
+  - id: PC-005
+    expression: "CG_EN >= 0 and CG_EN <= 1"
+    severity: error                   # CG 选项编码合法域
 
 # ---------------- 需求（REQ→PROP/tests/configs 映射）----------------
 # configs 回填纪律：先 config-gen 生成配置集 → 核对 config_id → 回填本段 → check --strict
@@ -75,9 +88,9 @@ requirements:
     properties: [PROP-INC_DEC_CORRECT-001]
     tests: [tc_exhaust_w8, tc_random, tc_equiv]
     configs:
-      - cfg_data_w32_id_impl0_seg_w4
-      - cfg_data_w8_id_impl1_seg_w4
-      - cfg_data_w16_id_impl0_seg_w8
+      - cfg_data_w32_id_impl0_seg_w4_cg_en1
+      - cfg_data_w8_id_impl1_seg_w4_cg_en1
+      - cfg_data_w16_id_impl0_seg_w8_cg_en1
     evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
   - id: REQ-002
     description: 回绕边界——din=全1 且 inc → dout=0 且 carry_out=1；din=0 且 dec →
@@ -85,8 +98,8 @@ requirements:
     properties: [PROP-INC_DEC_WRAP-002]
     tests: [tc_edge, tc_random]
     configs:
-      - cfg_data_w8_id_impl0_seg_w4
-      - cfg_data_w64_id_impl0_seg_w4
+      - cfg_data_w8_id_impl0_seg_w4_cg_en1
+      - cfg_data_w64_id_impl0_seg_w4_cg_en1
     evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
   - id: REQ-003
     description: 溢出/借位标志——carry_out=(inc_en & &din) | (dec_en & ~|din)；仅在
@@ -94,28 +107,30 @@ requirements:
     properties: [PROP-INC_DEC_CARRY-003]
     tests: [tc_edge, tc_random]
     configs:
-      - cfg_data_w32_id_impl0_seg_w4
-      - cfg_data_w32_id_impl1_seg_w4
+      - cfg_data_w32_id_impl0_seg_w4_cg_en1
+      - cfg_data_w32_id_impl1_seg_w4_cg_en1
     evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
   - id: REQ-004
-    description: 多实现等价——ripple/segmented 对同一 (din, inc_en, dec_en) 输出一致
-      （同一可观察契约，差异仅面积/时序）
+    description: 多实现等价——ripple/segmented 对同一 (din, inc_en, dec_en) 输出一致；
+      含 CG_EN=0 vs CG_EN=1 输出等价（tc_cg_equiv，ASM-005；自动 CG 不改变可观察契约）
     properties: [PROP-INC_DEC_EQV-004]
-    tests: [tc_equiv, tc_random]
+    tests: [tc_equiv, tc_random, tc_cg_equiv]
     configs:
-      - cfg_data_w8_id_impl0_seg_w8
-      - cfg_data_w16_id_impl1_seg_w4
-      - cfg_data_w32_id_impl1_seg_w8
+      - cfg_data_w8_id_impl0_seg_w8_cg_en1
+      - cfg_data_w16_id_impl1_seg_w4_cg_en1
+      - cfg_data_w32_id_impl1_seg_w8_cg_en1
+      - cfg_data_w8_id_impl0_seg_w4_cg_en0
+      - cfg_data_w32_id_impl1_seg_w4_cg_en0
     evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
   - id: REQ-005
-    description: 非法参数在 Elaboration 期被拦截（DATA_W/ID_IMPL/SEG_W 越界）
+    description: 非法参数在 Elaboration 期被拦截（DATA_W/ID_IMPL/SEG_W/CG_EN 越界）
     properties: []                    # 负向编译证据（非 SVA）
     tests: [tc_negative_elab]
     configs:
-      - cfg_data_w1_id_impl0_seg_w4
-      - cfg_data_w1025_id_impl0_seg_w4
-      - cfg_data_w32_id_impl0_seg_w1
-      - cfg_data_w32_id_impl0_seg_w17
+      - cfg_data_w1_id_impl0_seg_w4_cg_en1
+      - cfg_data_w1025_id_impl0_seg_w4_cg_en1
+      - cfg_data_w32_id_impl0_seg_w1_cg_en1
+      - cfg_data_w32_id_impl0_seg_w17_cg_en1
     evidence: [build/eda/evidence/g3_static/compile.txt]
 
 # ---------------- 实现变体（多实现：进位结构 trade-off）----------------

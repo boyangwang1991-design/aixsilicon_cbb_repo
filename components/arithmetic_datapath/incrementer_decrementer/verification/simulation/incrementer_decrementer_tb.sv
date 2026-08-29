@@ -24,18 +24,24 @@ module incrementer_decrementer_tb;
     logic [63:0] din8;
     wire [7:0]  r8, s8;
     wire        cr8, cs8;
-    incrementer_decrementer #(.DATA_W(8),  .ID_IMPL(0))          dut_r8  (.din(din8[7:0]),  .inc_en(inc_en), .dec_en(dec_en), .dout(r8),  .carry_out(cr8));
-    incrementer_decrementer #(.DATA_W(8),  .ID_IMPL(1), .SEG_W(4)) dut_s8 (.din(din8[7:0]),  .inc_en(inc_en), .dec_en(dec_en), .dout(s8),  .carry_out(cs8));
+    incrementer_decrementer #(.DATA_W(8),  .ID_IMPL(0), .CG_EN(1))          dut_r8  (.din(din8[7:0]),  .inc_en(inc_en), .dec_en(dec_en), .dout(r8),  .carry_out(cr8));
+    incrementer_decrementer #(.DATA_W(8),  .ID_IMPL(1), .SEG_W(4), .CG_EN(1)) dut_s8 (.din(din8[7:0]),  .inc_en(inc_en), .dec_en(dec_en), .dout(s8),  .carry_out(cs8));
+
+    // ---- CG 等价：CG_EN=0（原始） vs CG_EN=1（自动门控）输出必须一致（ASM-005）----
+    wire [7:0]  r8_cg0, s8_cg0;
+    wire        cr8_cg0, cs8_cg0;
+    incrementer_decrementer #(.DATA_W(8),  .ID_IMPL(0), .CG_EN(0))          dut_r8_cg0  (.din(din8[7:0]),  .inc_en(inc_en), .dec_en(dec_en), .dout(r8_cg0),  .carry_out(cr8_cg0));
+    incrementer_decrementer #(.DATA_W(8),  .ID_IMPL(1), .SEG_W(4), .CG_EN(0)) dut_s8_cg0 (.din(din8[7:0]),  .inc_en(inc_en), .dec_en(dec_en), .dout(s8_cg0),  .carry_out(cs8_cg0));
 
     // ---- W=16 / 32 随机 + 等价 ----
     logic [63:0] din16, din32;
     wire [15:0] r16, s16;
     wire [31:0] r32, s32;
     wire        cr16, cs16, cr32, cs32;
-    incrementer_decrementer #(.DATA_W(16), .ID_IMPL(0))          dut_r16 (.din(din16[15:0]), .inc_en(inc_en), .dec_en(dec_en), .dout(r16), .carry_out(cr16));
-    incrementer_decrementer #(.DATA_W(16), .ID_IMPL(1), .SEG_W(4)) dut_s16 (.din(din16[15:0]), .inc_en(inc_en), .dec_en(dec_en), .dout(s16), .carry_out(cs16));
-    incrementer_decrementer #(.DATA_W(32), .ID_IMPL(0))          dut_r32 (.din(din32[31:0]), .inc_en(inc_en), .dec_en(dec_en), .dout(r32), .carry_out(cr32));
-    incrementer_decrementer #(.DATA_W(32), .ID_IMPL(1), .SEG_W(8)) dut_s32 (.din(din32[31:0]), .inc_en(inc_en), .dec_en(dec_en), .dout(s32), .carry_out(cs32));
+    incrementer_decrementer #(.DATA_W(16), .ID_IMPL(0), .CG_EN(1))          dut_r16 (.din(din16[15:0]), .inc_en(inc_en), .dec_en(dec_en), .dout(r16), .carry_out(cr16));
+    incrementer_decrementer #(.DATA_W(16), .ID_IMPL(1), .SEG_W(4), .CG_EN(1)) dut_s16 (.din(din16[15:0]), .inc_en(inc_en), .dec_en(dec_en), .dout(s16), .carry_out(cs16));
+    incrementer_decrementer #(.DATA_W(32), .ID_IMPL(0), .CG_EN(1))          dut_r32 (.din(din32[31:0]), .inc_en(inc_en), .dec_en(dec_en), .dout(r32), .carry_out(cr32));
+    incrementer_decrementer #(.DATA_W(32), .ID_IMPL(1), .SEG_W(8), .CG_EN(1)) dut_s32 (.din(din32[31:0]), .inc_en(inc_en), .dec_en(dec_en), .dout(s32), .carry_out(cs32));
 
     // ---- 黄金参考：独立算术 ----
     function automatic logic [63:0] golden_dout(input logic [63:0] din, input int n,
@@ -110,9 +116,12 @@ module incrementer_decrementer_tb;
                 chk(din8,8,inc_en,dec_en,64'(r8),cr8,"E8R");
                 chk(din8,8,inc_en,dec_en,64'(s8),cs8,"E8S");
                 chk_eq(din8,8,inc_en,dec_en,64'(r8),64'(s8),cr8,cs8,"E8RS");
+                // tc_cg_equiv：CG_EN=0 vs CG_EN=1 输出一致（ASM-005）
+                chk_eq(din8,8,inc_en,dec_en,64'(r8),64'(r8_cg0),cr8,cr8_cg0,"CG_R");
+                chk_eq(din8,8,inc_en,dec_en,64'(s8),64'(s8_cg0),cs8,cs8_cg0,"CG_S");
             end
         end
-        $display("[tc_exhaust_w8] 256×3 × 2 impl + eq done");
+        $display("[tc_exhaust_w8] 256×3 × 2 impl + CG0/1 eq done");
 
         // ---------------- tc_edge ----------------
         // 全 0：inc→1, dec→全1+carry, hold→0

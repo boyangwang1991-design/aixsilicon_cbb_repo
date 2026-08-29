@@ -5,6 +5,16 @@
 # ============================================================
 
 profiles:
+  - id: prof_low_power_cg
+    scenario: 低功耗优先（Counter 频繁保持、数据活动稀疏；CG 选项收益场景）
+    recommended:
+      impl: segmented               # ID_IMPL=1，SEG_W=4
+      cg_en: 1                      # 自动 Carry/Data Gating（hold 模式动态功耗显著更低）
+      data_w_range: [8, 64]
+    rationale: CG_EN=1 在 hold 模式下进位链零翻转 + XOR 直通，动态功耗显著低于 CG_EN=0
+      （G6 功耗对比实证，见 reports/ppa-report.md §CG）。
+    pca_notes: 功耗因子权重最高。
+
   - id: prof_area_opt
     scenario: 面积优先（大量实例化的步进计数器、指针更新，面积敏感）
     recommended:

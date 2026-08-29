@@ -13,10 +13,10 @@ verification_forms:
 
 # 配置矩阵（config-gen 生成，见 verification/configs/；此处为分区意图）
 configs:
-  - {set: mandatory,  intent: "默认参数点：W32/ripple；W32/segmented"}
-  - {set: boundary,   intent: "W 边界{2,1024}、SEG 边界{2,16}、ID_IMPL{0,1}"}
-  - {set: pairwise,   intent: "两参数交互（W×ID_IMPL、W×SEG_W）"}
-  - {set: negative,   intent: "W=1/W=1025、ID_IMPL=2、SEG_W=1/SEG_W=17 → $error"}
+  - {set: mandatory,  intent: "默认参数点：W32/ripple/CG_EN=1；W32/segmented"}
+  - {set: boundary,   intent: "W 边界{2,1024}、SEG 边界{2,16}、ID_IMPL{0,1}、CG_EN{0,1}"}
+  - {set: pairwise,   intent: "两参数交互（W×ID_IMPL、W×SEG_W、ID_IMPL×CG_EN）"}
+  - {set: negative,   intent: "W=1/W=1025、ID_IMPL=2、SEG_W=1/SEG_W=17、CG_EN=2 → $error"}
 
 # 用例→需求映射（REQ 见 cbb.yaml / trace/rtm.yaml）
 testcases:
@@ -35,6 +35,9 @@ testcases:
   - id: tc_mutation
     desc: "变异（借位传播条件写反）；断言应检测差异"
     maps: [REQ-001]
+  - id: tc_cg_equiv
+    desc: "CG_EN=0 vs CG_EN=1 输出等价（自动 CG 不改变可观察契约，ASM-005）"
+    maps: [REQ-004]
   - id: tc_negative_elab
     desc: "非法参数 elaboration $error（verification/formal/negative_elab_tb.sv + -pvalue 注入）"
     maps: [REQ-005]

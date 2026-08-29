@@ -1,5 +1,5 @@
 cbb: incrementer_decrementer
-updated: '2026-08-29T08:13:29Z'
+updated: '2026-08-29T08:44:25Z'
 gates:
   G0:
     status: pass
@@ -15,7 +15,7 @@ gates:
     status: pass
   G6:
     status: pass
-    evidence: reports/ppa-report.md;reports/ppa_run-20260829-01.png;docs/qualification-report.md
+    evidence: reports/ppa-report.md;reports/ppa_run-20260829-01.png;reports/ppa_cg_run-20260829-02.png;docs/qualification-report.md
   G7:
     status: pass_with_waiver
-    evidence: reports/ppa-report.md;reports/ppa_run-20260829-01.png;docs/qualification-report.md
+    evidence: reports/ppa-report.md;reports/ppa_run-20260829-01.png;reports/ppa_cg_run-20260829-02.png;docs/qualification-report.md

@@ -11,7 +11,8 @@ release:
   scope:
     - Counter 专用 ±1 运算器（模 2^W 回绕）：inc/dec/hold + carry_out 溢出/借位标志
     - 两实现微架构：ripple（半加器进位链）/ segmented（分段进位 carry-skip）
-    - 纯组合、无时钟；参数 DATA_W/ID_IMPL/SEG_W（PC-001..004 约束）
+    - 纯组合、无时钟；参数 DATA_W/ID_IMPL/SEG_W/CG_EN（PC-001..005 约束）
+    - CG（Carry/Data Gating）低功耗选项：自动门控（无需 ICG），hold 零翻转+XOR 直通
   artifacts:
     rtl:
       - rtl/incrementer_decrementer.sv
@@ -26,6 +27,9 @@ release:
       - verification/configs/negative.yaml
     characterization:
       - characterization/synth_sweep.tcl
+      - characterization/synth_power_cg.tcl
+      - characterization/plot_ppa_comparison.py
+      - characterization/plot_cg_power.py
       - characterization/pdk.yaml
       - characterization/plan.yaml
     metadata:

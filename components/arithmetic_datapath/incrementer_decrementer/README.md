@@ -45,6 +45,7 @@ incrementer_decrementer #(
 | `DATA_W` | 32 | [2,1024] | 数据位宽（PC-001/002） |
 | `ID_IMPL` | 0 | {0,1} | 微架构（PC-003）：0=ripple, 1=segmented |
 | `SEG_W` | 4 | [2,16] | segmented 段位宽（PC-004，仅 ID_IMPL=1 生效） |
+| `CG_EN` | 1 | {0,1} | 自动 Carry/Data Gating（PC-005）：0=off, 1=on（hold 零翻转+XOR 直通，低功耗；无需 ICG） |
 
 ## 语义速览
 

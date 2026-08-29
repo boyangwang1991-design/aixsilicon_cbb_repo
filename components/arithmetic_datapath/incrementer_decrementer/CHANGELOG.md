@@ -12,3 +12,6 @@
   G4 功能（穷举 256×3 + 边界 + 随机 4000×3 + 等价 + 变异 256/256 检测）、
   G5 配置集（mandatory/boundary/pairwise/negative，check --strict 通过）。
 - G6：pdk-scan（PDK_READY）+ DC 综合 sweep（两实现 × W{8,16,32,64} × SEG{4,8}）。
+- CG（Carry/Data Gating）PPA 优化：`CG_EN` 参数（0=off/1=on 自动 gate，无需 ICG），
+  hold 模式进位链零翻转 + XOR 直通；DC 功耗对比（run-20260829-02）——
+  ripple leak -30%/dyn -6%，segmented leak -9%/dyn -2.5%；CG0/1 输出等价（G4 证明）。
