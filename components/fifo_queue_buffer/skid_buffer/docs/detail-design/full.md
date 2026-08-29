@@ -19,6 +19,44 @@
   out_ready ─▶ in_ready（组合，深度≤1，由寄存状态决定）
 ```
 
+### 1.1 波形图（Wavedrom）
+
+背压场景（7 拍）：拍0 接受 A（输出级空直达）；拍1 输出显示 A 但 `out_ready=0`（背压）→ B 进槽；
+拍2 **全满反压**（`in_ready=0`，C 被拒）；拍3 `out_ready=1` 消费 A → 输出级补槽 B（槽优先）、D 进槽；
+拍5 排空后 `out_valid=0`。接受后 `##1 out_valid`（满吞吐无气泡）。
+
+```wavedrom
+{ "signal": [
+  { "name": "clk",        "wave": "p......" },
+  { "name": "in_valid",   "wave": "1...0.." },
+  { "name": "in_ready",   "wave": "1.01..." },
+  { "name": "out_valid",  "wave": "01...0." },
+  { "name": "out_ready",  "wave": "10.1..." }
+], "head": { "tick": 0, "every": 1 } }
+```
+
+### 1.2 电路图（Wavedrom Circuit）
+
+OUT 寄存级（`out_valid_r/out_data_r`）+ SKID 槽（`buf_valid_r/buf_data_r`）；
+`in_ready = ~out_valid_r | out_ready | ~buf_valid_r`（NOT ×2 → OR 级联，全满才反压）。
+
+```wavedrom
+{ "circuit": {
+  "input": ["out_ready", "in_valid", "in_data[7:0]"],
+  "output": ["in_ready", "out_valid", "out_data[7:0]"],
+  "reg": [
+    { "name": "out_valid_r", "in": "v_in",  "out": "out_valid" },
+    { "name": "out_data_r",  "in": "d_sel", "out": "out_data" },
+    { "name": "buf_valid_r", "in": "bv_in", "out": "bv" },
+    { "name": "buf_data_r",  "in": "in_data", "out": "bd" }
+  ],
+  "not": [ { "name": "n_ov", "in": "out_valid", "out": "n_ov_o" } ],
+  "not": [ { "name": "n_bv", "in": "bv", "out": "n_bv_o" } ],
+  "or": [ { "name": "o1", "in": ["n_ov_o", "out_ready"], "out": "o1o" } ],
+  "or": [ { "name": "o2", "in": ["o1o", "n_bv_o"], "out": "in_ready" } ]
+}}
+```
+
 ## 2. 逻辑深度
 
 | 路径 | 起点→终点 | 逻辑深度 |

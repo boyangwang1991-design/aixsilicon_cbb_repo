@@ -27,6 +27,43 @@ in_ready_r <= out_ready | ~in_valid;    // 下游可接受 或 输入无效 → 
   （深流水反压路径关键路径改善）；
 - **代价**：反压 1 拍延迟传导（`out_ready` 拉低后下一拍 `in_ready` 才拉低），数据透传无打拍。
 
+### 1.1 波形图（Wavedrom）
+
+反压场景时序（8 拍）：拍1 接受 A 并透传消费；拍2 接受 B 但下游 `out_ready=0` → 拍3 `in_ready` 拉低
+（**反压 1 拍延迟传导**）；拍5 恢复后接受 C。`out_valid/out_data` 与 `in_valid/in_data` **同拍透传**
+（0 数据延迟）。
+
+```wavedrom
+{ "signal": [
+  { "name": "clk",        "wave": "p......" },
+  { "name": "in_valid",   "wave": "01..010" },
+  { "name": "in_ready",   "wave": "1.0.1.." },
+  { "name": "in_data",    "wave": "x22.x2x", "data": ["A", "B", "C"] },
+  { "name": "out_valid",  "wave": "01..010" },
+  { "name": "out_data",   "wave": "x22.x2x", "data": ["A", "B", "C"] },
+  { "name": "out_ready",  "wave": "1.01..." }
+], "head": { "tick": 0, "every": 1 } }
+```
+
+### 1.2 电路图（Wavedrom Circuit）
+
+`in_ready_r <= out_ready | ~in_valid`（OR+NOT → FF），`in_ready = in_ready_r`（FF 输出，切反压链）；
+`out_valid/out_data` 与 `in_valid/in_data` 直连（透传）。
+
+```wavedrom
+{ "circuit": {
+  "input": ["out_ready", "in_valid", "in_data[7:0]"],
+  "output": ["in_ready", "out_valid", "out_data[7:0]"],
+  "not":  [ { "name": "n1", "in": "in_valid", "out": "n1o" } ],
+  "or":   [ { "name": "o1", "in": ["out_ready", "n1o"], "out": "r1" } ],
+  "reg":  [ { "name": "in_ready_r", "in": "r1", "out": "in_ready" } ],
+  "assign": [
+    ["out_valid", "in_valid"],
+    ["out_data", "in_data"]
+  ]
+}}
+```
+
 ## 2. 逻辑深度
 
 | 路径 | 起点→终点 | 逻辑深度 |

@@ -19,6 +19,38 @@
 
 无 SKID 槽；valid/data 各 1 级打拍，延迟 1 拍；ready 方向不寄存（透传）。
 
+### 1.1 波形图（Wavedrom）
+
+打拍时序（5 拍）：`in_valid/in_data` 在拍 t 打拍，**拍 t+1** 在 `out_valid/out_data` 显示
+（1 拍延迟）；`in_ready == out_ready`（组合透传，背压直接传导上游）。
+
+```wavedrom
+{ "signal": [
+  { "name": "clk",        "wave": "p....." },
+  { "name": "in_valid",   "wave": "1.010" },
+  { "name": "in_ready",   "wave": "1...." },
+  { "name": "in_data",    "wave": "22.2.", "data": ["A", "B", "C"] },
+  { "name": "out_valid",  "wave": "01.01" },
+  { "name": "out_data",   "wave": ".22.2", "data": ["A", "B", "C"] }
+], "head": { "tick": 0, "every": 1 } }
+```
+
+### 1.2 电路图（Wavedrom Circuit）
+
+`out_valid_r/out_data_r` 打拍 FF（`D=in_valid/in_data`，无条件）；`in_ready` 与 `out_ready` 直连（透传）。
+
+```wavedrom
+{ "circuit": {
+  "input": ["out_ready", "in_valid", "in_data[7:0]"],
+  "output": ["in_ready", "out_valid", "out_data[7:0]"],
+  "reg": [
+    { "name": "out_valid_r", "in": "in_valid", "out": "out_valid" },
+    { "name": "out_data_r",  "in": "in_data",  "out": "out_data" }
+  ],
+  "assign": [ ["in_ready", "out_ready"] ]
+}}
+```
+
 ## 2. 逻辑深度
 
 | 路径 | 起点→终点 | 逻辑深度 |

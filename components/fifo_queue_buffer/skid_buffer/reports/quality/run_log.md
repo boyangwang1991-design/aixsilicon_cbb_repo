@@ -19,3 +19,4 @@
 - `2026-08-29 03:06:12` | **implement** | G3 | Implement: rtl/impl/backward + wrapper IMPL==2, G3 静态 5W×3I+BYPASS 全过+负向 IMPL=3 | 结果(PASS)
 - `2026-08-29 03:06:12` | **verify** | G4 | Verify: G4 仿真 5 配置(含 bwd32) PASS, PROP-BWD_* 无失败, rtm 18 条 | 结果(PASS)
 - `2026-08-29 03:06:12` | **characterize** | G6 | PPA run-20260829-03: backward 面积3.39um2(1FF)/功耗2.0uW 全实现最低, slack 2.02ns MET; 四实现对比图 | 结果(PASS)
+- `2026-08-29 03:47:39` | **design** | G2 | 详设添加 Wavedrom 波形+电路图(backward/forward/full)：连续电平用 . 延续(1.../0...)避免毛刺，wavedrom-cli 渲染验证通过 | 结果(PASS)
