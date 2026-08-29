@@ -1,0 +1,131 @@
+cbb: incrementer_decrementer
+requirements:
+- id: REQ-001
+  type: requirement
+  description: 正确性——inc_en=1 时 dout=din+1，dec_en=1 时 dout=din-1（模 2^W 回绕）， 均不使能时 dout=din；与独立参考模型一致（两实现同契约）
+  properties:
+  - PROP-INC_DEC_CORRECT-001
+  tests:
+  - tc_exhaust_w8
+  - tc_random
+  - tc_equiv
+  configs:
+  - cfg_data_w32_id_impl0_seg_w4
+  - cfg_data_w8_id_impl1_seg_w4
+  - cfg_data_w16_id_impl0_seg_w8
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-002
+  type: requirement
+  description: 回绕边界——din=全1 且 inc → dout=0 且 carry_out=1；din=0 且 dec → dout=全1 且 carry_out=1（溢出/借位标志）
+  properties:
+  - PROP-INC_DEC_WRAP-002
+  tests:
+  - tc_edge
+  - tc_random
+  configs:
+  - cfg_data_w8_id_impl0_seg_w4
+  - cfg_data_w64_id_impl0_seg_w4
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-003
+  type: requirement
+  description: 溢出/借位标志——carry_out=(inc_en & &din) | (dec_en & ~|din)；仅在 inc/dec 使能且到达边界时置位
+  properties:
+  - PROP-INC_DEC_CARRY-003
+  tests:
+  - tc_edge
+  - tc_random
+  configs:
+  - cfg_data_w32_id_impl0_seg_w4
+  - cfg_data_w32_id_impl1_seg_w4
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-004
+  type: requirement
+  description: 多实现等价——ripple/segmented 对同一 (din, inc_en, dec_en) 输出一致 （同一可观察契约，差异仅面积/时序）
+  properties:
+  - PROP-INC_DEC_EQV-004
+  tests:
+  - tc_equiv
+  - tc_random
+  configs:
+  - cfg_data_w8_id_impl0_seg_w8
+  - cfg_data_w16_id_impl1_seg_w4
+  - cfg_data_w32_id_impl1_seg_w8
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-005
+  type: requirement
+  description: 非法参数在 Elaboration 期被拦截（DATA_W/ID_IMPL/SEG_W 越界）
+  properties: []
+  tests:
+  - tc_negative_elab
+  configs:
+  - cfg_data_w1_id_impl0_seg_w4
+  - cfg_data_w1025_id_impl0_seg_w4
+  - cfg_data_w32_id_impl0_seg_w1
+  - cfg_data_w32_id_impl0_seg_w17
+  evidence:
+  - build/eda/evidence/g3_static/compile.txt
+- id: INV-001
+  type: requirement
+  description: 正确性——对任意合法 2-state 输入 (din, inc_en, dec_en)（inc_en 与 dec_en 不同时 断言，ASM-002），dout
+    与独立参考模型一致：inc_en=1 → dout=din+1（模 2^W）， dec_en=1 → dout=din-1（模 2^W），均不使能 → dout=din。
+    两实现（ripple/segmented）共享同一可观察契约。
+  properties:
+  - PROP-INC_DEC_CORRECT-001
+  tests:
+  - tc_exhaust_w8
+  - tc_random
+  configs: []
+  evidence: []
+- id: INV-002
+  type: requirement
+  description: 回绕——din=全1 且 inc_en=1 → dout=0（回绕）；din=0 且 dec_en=1 → dout=全1 （回绕）；无算术截断/饱和错误。
+  properties:
+  - PROP-INC_DEC_WRAP-002
+  tests:
+  - tc_edge
+  - tc_random
+  configs: []
+  evidence: []
+- id: INV-003
+  type: requirement
+  description: 溢出/借位标志——carry_out=(inc_en & &din) | (dec_en & ~|din)；仅在 inc/dec 使能且输入到达边界时置位，其余为
+    0。
+  properties:
+  - PROP-INC_DEC_CARRY-003
+  tests:
+  - tc_edge
+  - tc_random
+  configs: []
+  evidence: []
+- id: ASM-001
+  type: requirement
+  description: 输入 X/Z 不承诺（2-state 仿真语义；X 传播视为未定义，断言以 $isunknown 规避）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-002
+  type: requirement
+  description: inc_en 与 dec_en 不同时断言（互斥）；同时断言行为未定义（调用方负责）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-003
+  type: requirement
+  description: DATA_W/ID_IMPL/SEG_W 为编译期参数，不运行时切换（生成/参数化语义）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-004
+  type: requirement
+  description: 纯组合，无时钟/复位；调用方负责输入稳定窗口与输出采样时序。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []

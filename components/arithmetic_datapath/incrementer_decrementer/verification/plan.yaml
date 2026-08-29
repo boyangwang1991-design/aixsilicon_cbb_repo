@@ -1,0 +1,49 @@
+# 验证计划（Verification Plan）— incrementer_decrementer（ARI-001, A1/P0）
+# 声明验证形态、配置矩阵、用例→需求映射、结果解释与证据位置。
+# 对齐 cbb-development-suite references/verification-strategy.md；轻量 SVA/Formal + 定向 TB。
+
+target: incrementer_decrementer
+
+# 验证形态
+verification_forms:
+  - simulation: "穷举(W8)+随机(W8/16/32)+边界+等价（黄金模型：独立算术）"
+  - negative: "非法参数 elaboration $error 拦截（DATA_W/ID_IMPL/SEG_W 越界）"
+  - mutation: "借位传播条件变异 → 断言检测能力（tc_mutation）"
+  - lint: "SpyGlass lint/lint_rtl（0 Fatal / 0 Error）"
+
+# 配置矩阵（config-gen 生成，见 verification/configs/；此处为分区意图）
+configs:
+  - {set: mandatory,  intent: "默认参数点：W32/ripple；W32/segmented"}
+  - {set: boundary,   intent: "W 边界{2,1024}、SEG 边界{2,16}、ID_IMPL{0,1}"}
+  - {set: pairwise,   intent: "两参数交互（W×ID_IMPL、W×SEG_W）"}
+  - {set: negative,   intent: "W=1/W=1025、ID_IMPL=2、SEG_W=1/SEG_W=17 → $error"}
+
+# 用例→需求映射（REQ 见 cbb.yaml / trace/rtm.yaml）
+testcases:
+  - id: tc_exhaust_w8
+    desc: "W=8 全空间 256 向量 × 两实现 × {inc,dec,hold}"
+    maps: [REQ-001]
+  - id: tc_edge
+    desc: "全0/全1/单bit逐位/保持；carry_out 溢出与借位"
+    maps: [REQ-002, REQ-003]
+  - id: tc_random
+    desc: "4000 随机 × W{8,16,32} × 两实现（黄金+等价，inc/dec 互斥）"
+    maps: [REQ-001, REQ-003, REQ-004]
+  - id: tc_equiv
+    desc: "两实现跨实现一致（同 din/inc/dec → 同 dout/carry_out）"
+    maps: [REQ-004]
+  - id: tc_mutation
+    desc: "变异（借位传播条件写反）；断言应检测差异"
+    maps: [REQ-001]
+  - id: tc_negative_elab
+    desc: "非法参数 elaboration $error（verification/formal/negative_elab_tb.sv + -pvalue 注入）"
+    maps: [REQ-005]
+
+# 结果解释与证据位置
+results:
+  evidence_dir: build/eda/evidence
+  g3_static: [compile.txt, negative_elab.txt, lint.txt]
+  g4_functional: [functional_sim.txt]
+  interpretation: >
+    每个 fail 必须有根因与修复计划；无未解释失败。变异/负向必须证明
+    checker 有效（变异触发失败、非法参数非零退出+报错 ID）。

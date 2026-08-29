@@ -1,0 +1,148 @@
+# ============================================================
+# cbb.yaml — incrementer_decrementer SSOT 元数据（ARI-001, A1/P0）
+# Incrementer/Decrementer：Counter 专用 ±1 运算（模 2^W 回绕）
+# 多实现：ripple（半加器进位链，O(W) 深）/ segmented（分段进位，O(SEG+W/SEG)）
+# ============================================================
+
+schema_version: 1.0
+
+cbb:
+  id: aixsilicon:cbb:incrementer_decrementer
+  name: incrementer_decrementer
+  version: 0.1.0
+  owner: aixsilicon:cbb
+  maturity: E0
+  license: Apache-2.0
+
+classification:
+  abstraction: A1                    # 原子数据通路算子（纯组合、无状态）
+  primary_domain: arithmetic_datapath
+  secondary_domains: [control_event_status]
+
+contract:
+  interface: native_bits_in_out       # 原生位向量 ±1，无总线协议语义
+  clock_domains: 0                    # 纯组合，无时钟/复位端口
+  ordering: not_applicable            # 单周期组合，无事务序列语义
+  throughput: 1_per_cycle             # 组合路径即时
+
+# ---------------- 可配置参数 ----------------
+parameters:
+  DATA_W:
+    type: int
+    default: 32
+    legal: {min: 2, max: 1024}
+    partitions: [8, 16, 32, 64]
+    affects: [interface_width, area, timing]
+    semantics: 数据位宽；dout = din ± 1（模 2^W 回绕）
+  ID_IMPL:
+    type: int
+    default: 0
+    legal: [0, 1]
+    partitions: [0, 1]
+    affects: [area, timing]
+    semantics: >-
+      微架构选择（挂实现/Profile，不进公共功能语义）：
+      0=ripple 半加器进位链（O(W) 深，面积最小，基线）；
+      1=segmented 分段进位（O(SEG+W/SEG) 深，时序更优）
+  SEG_W:
+    type: int
+    default: 4
+    legal: {min: 2, max: 16}
+    partitions: [4, 8]
+    affects: [area, timing]
+    semantics: segmented 段位宽（仅 ID_IMPL=1 生效；ripple 忽略）
+
+constraints:
+  - id: PC-001
+    expression: "DATA_W >= 2"
+    severity: error                   # 至少 2 bit 才有 ±1 语义
+  - id: PC-002
+    expression: "DATA_W <= 1024"
+    severity: error                   # RTL 平面/时序上界
+  - id: PC-003
+    expression: "ID_IMPL >= 0 and ID_IMPL <= 1"
+    severity: error                   # 编码合法域
+  - id: PC-004
+    expression: "SEG_W >= 2 and SEG_W <= 16"
+    severity: error                   # segmented 段宽合法域
+
+# ---------------- 需求（REQ→PROP/tests/configs 映射）----------------
+# configs 回填纪律：先 config-gen 生成配置集 → 核对 config_id → 回填本段 → check --strict
+requirements:
+  - id: REQ-001
+    description: 正确性——inc_en=1 时 dout=din+1，dec_en=1 时 dout=din-1（模 2^W 回绕），
+      均不使能时 dout=din；与独立参考模型一致（两实现同契约）
+    properties: [PROP-INC_DEC_CORRECT-001]
+    tests: [tc_exhaust_w8, tc_random, tc_equiv]
+    configs:
+      - cfg_data_w32_id_impl0_seg_w4
+      - cfg_data_w8_id_impl1_seg_w4
+      - cfg_data_w16_id_impl0_seg_w8
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-002
+    description: 回绕边界——din=全1 且 inc → dout=0 且 carry_out=1；din=0 且 dec →
+      dout=全1 且 carry_out=1（溢出/借位标志）
+    properties: [PROP-INC_DEC_WRAP-002]
+    tests: [tc_edge, tc_random]
+    configs:
+      - cfg_data_w8_id_impl0_seg_w4
+      - cfg_data_w64_id_impl0_seg_w4
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-003
+    description: 溢出/借位标志——carry_out=(inc_en & &din) | (dec_en & ~|din)；仅在
+      inc/dec 使能且到达边界时置位
+    properties: [PROP-INC_DEC_CARRY-003]
+    tests: [tc_edge, tc_random]
+    configs:
+      - cfg_data_w32_id_impl0_seg_w4
+      - cfg_data_w32_id_impl1_seg_w4
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-004
+    description: 多实现等价——ripple/segmented 对同一 (din, inc_en, dec_en) 输出一致
+      （同一可观察契约，差异仅面积/时序）
+    properties: [PROP-INC_DEC_EQV-004]
+    tests: [tc_equiv, tc_random]
+    configs:
+      - cfg_data_w8_id_impl0_seg_w8
+      - cfg_data_w16_id_impl1_seg_w4
+      - cfg_data_w32_id_impl1_seg_w8
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-005
+    description: 非法参数在 Elaboration 期被拦截（DATA_W/ID_IMPL/SEG_W 越界）
+    properties: []                    # 负向编译证据（非 SVA）
+    tests: [tc_negative_elab]
+    configs:
+      - cfg_data_w1_id_impl0_seg_w4
+      - cfg_data_w1025_id_impl0_seg_w4
+      - cfg_data_w32_id_impl0_seg_w1
+      - cfg_data_w32_id_impl0_seg_w17
+    evidence: [build/eda/evidence/g3_static/compile.txt]
+
+# ---------------- 实现变体（多实现：进位结构 trade-off）----------------
+implementations:
+  - id: impl_ripple                  # ID_IMPL=0 半加器进位链（O(W) 深，面积最小）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []                 # 无嵌套 CBB 依赖
+    files:
+      - rtl/incrementer_decrementer.sv
+  - id: impl_segmented               # ID_IMPL=1 分段进位（O(SEG+W/SEG) 深，时序更优）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []                 # 无嵌套 CBB 依赖
+    files:
+      - rtl/incrementer_decrementer.sv
+
+# ---------------- 质量门禁（G0~G8） ----------------
+quality:
+  required_gates: [G0, G1, G2, G3, G4, G5, G6]
+
+# ---------------- PPA 表征 ----------------
+characterization:
+  benchmark_profiles: [prof_timing_opt, prof_area_opt, prof_balanced, prof_reference]
+  measured_region: {DATA_W: [8, 64], SEG_W: [4, 8]}
+  # status: PDK_READY（pdk-scan 判定；G6 已真实综合，见 reports/ppa-report.md）
+
+# ---------------- 发布 ----------------
+release:
+  fusesoc_core: aixsilicon:cbb:incrementer_decrementer:0.1.0

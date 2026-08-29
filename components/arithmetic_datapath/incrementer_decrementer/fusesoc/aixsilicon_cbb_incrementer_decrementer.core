@@ -1,0 +1,52 @@
+CAPI=2:
+
+# FuseSoC Core — incrementer_decrementer (ARI-001)
+# VLNV: aixsilicon:cbb:incrementer_decrementer:0.1.0
+# wrapper + ripple/segmented 实现同居 incrementer_decrementer.sv；
+# ID_IMPL 编译期选择；SEG_W 仅 segmented 生效
+name: aixsilicon:cbb:incrementer_decrementer:0.1.0
+description: "Incrementer/Decrementer CBB, A1, ripple/segmented microarchitectures (pure combinational, counter-optimized)"
+provider:
+  name: aixsilicon
+  library: cbb
+
+filesets:
+  rtl_src:
+    files:
+      - ../rtl/incrementer_decrementer.sv  # wrapper（参数检查/SVA/实现分派 + ripple/segmented）
+    file_type: systemVerilogSource
+
+  tb_src:
+    files:
+      - ../verification/simulation/incrementer_decrementer_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets: [rtl_src]
+  sim:
+    default_tool: vcs
+    filesets: [rtl_src, tb_src]
+    toplevel: [incrementer_decrementer_tb]
+  synth:
+    default_tool: dc
+    filesets: [rtl_src]
+    toplevel: [incrementer_decrementer]
+  lint:
+    default_tool: spyglass
+    filesets: [rtl_src]
+    toplevel: [incrementer_decrementer]
+
+parameters:
+  DATA_W:
+    datatype: int
+    default: 32
+    description: "Data width [2..1024] (PC-001/002)"
+  ID_IMPL:
+    datatype: int
+    default: 0
+    description: "Microarchitecture select {0=ripple, 1=segmented}"
+  SEG_W:
+    datatype: int
+    default: 4
+    description: "Segment width for segmented impl [2..16] (PC-004)"

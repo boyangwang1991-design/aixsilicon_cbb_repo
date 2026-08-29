@@ -1,0 +1,21 @@
+cbb: incrementer_decrementer
+updated: '2026-08-29T08:13:29Z'
+gates:
+  G0:
+    status: pass
+  G1:
+    status: pass
+  G2:
+    status: pass
+  G3:
+    status: pass
+  G4:
+    status: pass
+  G5:
+    status: pass
+  G6:
+    status: pass
+    evidence: reports/ppa-report.md;reports/ppa_run-20260829-01.png;docs/qualification-report.md
+  G7:
+    status: pass_with_waiver
+    evidence: reports/ppa-report.md;reports/ppa_run-20260829-01.png;docs/qualification-report.md

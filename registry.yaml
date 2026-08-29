@@ -236,8 +236,8 @@ cbbs:
     abstraction: A1
     priority: P0
     implementation: ripple、segmented
-    description: Counter专用优化
-    status: planned
+    description: Counter专用优化（±1 模回绕 + carry_out 溢出/借位）
+    status: implemented          # 2026-08-29 首次物化（ripple/segmented 双实现 + G0-G7 证据）
     version: "0.1.0"
     path: components/arithmetic_datapath/incrementer_decrementer
   - id: ARI-002

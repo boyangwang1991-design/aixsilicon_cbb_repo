@@ -1,0 +1,15 @@
+# 表征计划（Characterization Plan）— incrementer_decrementer
+# G6 PPA：pdk-scan 判定 PDK_READY，已做真实综合（16 点，run-20260829-01）。
+# 证据：reports/ppa-report.md + build/eda/ppa/run-20260829-01/（E1 等级，tt 单 corner）
+benchmark_profiles:
+  - prof_timing_opt
+  - prof_area_opt
+  - prof_balanced
+  - prof_reference
+measured_region:
+  DATA_W: [8, 64]
+  SEG_W: [4, 8]
+status: COMPLETE_TT_SINGLE_CORNER
+planned:
+  - ss/ff corner 补充（后续 Gate）
+  - 功耗 toggle 约束（当前为静态估计）

@@ -69,17 +69,18 @@ VLNV 命名：`aixsilicon:cbb:<cbb_name>:<version>`。
 | 指标                         | 数量 |
 |------------------------------|------|
 | 总条目（cbbs）               | 410  |
-| implemented（已实现/已交付） | 6    |
-| planned（规划候选）          | 404  |
-| 实现率                       | 1.5% |
+| implemented（已实现/已交付） | 7    |
+| planned（规划候选）          | 403  |
+| 实现率                       | 1.7% |
 
-### 已实现 / 已交付构件（6）
+### 已实现 / 已交付构件（7）
 
 | ID      | 构件                                                                                         | 构件族                   | 抽象 | 优先级 | 版本  | 类别                              |
 |---------|----------------------------------------------------------------------------------------------|--------------------------|------|--------|-------|-----------------------------------|
 | ARB-001 | [fixed_priority_arbiter](components/arbitration_scheduling/fixed_priority_arbiter/README.md) | Fixed-priority Arbiter   | A2   | P0     | 0.1.0 | components/arbitration_scheduling |
 | ARB-002 | [round_robin_arbiter](components/arbitration_scheduling/round_robin_arbiter/README.md)       | Round-robin Arbiter      | A2   | P0     | 0.1.0 | components/arbitration_scheduling |
 | ARB-003 | [weighted_rr_arbiter](components/arbitration_scheduling/weighted_rr_arbiter/README.md)       | Weighted RR Arbiter      | A2   | P2     | 0.1.0 | components/arbitration_scheduling |
+| ARI-001 | [incrementer_decrementer](components/arithmetic_datapath/incrementer_decrementer/README.md)  | Incrementer/Decrementer  | A1   | P0     | 0.1.0 | components/arithmetic_datapath    |
 | COD-001 | [parity_gen_check](components/coding_integrity/parity_gen_check/README.md)                   | Parity Generator/Checker | A1   | P0     | 0.1.0 | components/coding_integrity       |
 | QUE-007 | [skid_buffer](components/fifo_queue_buffer/skid_buffer/README.md)                            | Skid Buffer              | A3   | P0     | 0.3.0 | components/fifo_queue_buffer      |
 | SEL-014 | [popcount](components/selection_decode/popcount/README.md)                                   | Population Count         | A1   | P1     | 0.1.0 | components/selection_decode       |
@@ -91,7 +92,7 @@ VLNV 命名：`aixsilicon:cbb:<cbb_name>:<version>`。
 | adapters                          | 0           | 22      | 22   |
 | components/apb_ahb_register       | 0           | 16      | 16   |
 | components/arbitration_scheduling | 3           | 17      | 20   |
-| components/arithmetic_datapath    | 0           | 35      | 35   |
+| components/arithmetic_datapath    | 1           | 34      | 35   |
 | components/axi_axi_stream         | 0           | 38      | 38   |
 | components/cdc_rdc                | 0           | 19      | 19   |
 | components/clock_reset_power      | 0           | 22      | 22   |
@@ -128,7 +129,7 @@ VLNV 命名：`aixsilicon:cbb:<cbb_name>:<version>`。
 
 | 优先级 | implemented | planned | 合计 |
 |--------|-------------|---------|------|
-| P0     | 4           | 74      | 78   |
+| P0     | 5           | 73      | 78   |
 | P1     | 1           | 139     | 140  |
 | P2     | 1           | 123     | 124  |
 | P3     | 0           | 68      | 68   |
@@ -208,45 +209,45 @@ VLNV 命名：`aixsilicon:cbb:<cbb_name>:<version>`。
 | ARB-019 | [reservation_lock_manager](components/arbitration_scheduling/reservation_lock_manager/README.md)   | Reservation/Lock Manager  | planned     | A2    | P3     | 0.1.0 | 死锁与状态开销                                                                 |
 | ARB-020 | [barrier_join_controller](components/arbitration_scheduling/barrier_join_controller/README.md)     | Barrier/Join Controller   | planned     | A2    | P2     | 0.1.0 | 参与者数量与扇入                                                               |
 
-#### components/arithmetic_datapath（35，implemented=0）
+#### components/arithmetic_datapath（35，implemented=1）
 
-| ID      | 名称                                                                                        | 构件族                         | 状态    | 抽象  | 优先级 | 版本  | 功能/描述                 |
-|---------|---------------------------------------------------------------------------------------------|--------------------------------|---------|-------|--------|-------|---------------------------|
-| ARI-001 | [incrementer_decrementer](components/arithmetic_datapath/incrementer_decrementer/README.md) | Incrementer/Decrementer        | planned | A1    | P0     | 0.1.0 | Counter专用优化           |
-| ARI-002 | [adder_subtractor](components/arithmetic_datapath/adder_subtractor/README.md)               | Adder/Subtractor               | planned | A1    | P0     | 0.1.0 | 位宽、进位结构、流水      |
-| ARI-003 | [carry_save_adder](components/arithmetic_datapath/carry_save_adder/README.md)               | Carry-save Adder               | planned | A1    | P1     | 0.1.0 | 多操作数压缩              |
-| ARI-004 | [multi_operand_adder](components/arithmetic_datapath/multi_operand_adder/README.md)         | Multi-operand Adder            | planned | A2    | P1     | 0.1.0 | 操作数数量与树平衡        |
-| ARI-005 | [adder_tree](components/arithmetic_datapath/adder_tree/README.md)                           | Adder Tree                     | planned | A2    | P1     | 0.1.0 | 流水级与吞吐              |
-| ARI-006 | [accumulator](components/arithmetic_datapath/accumulator/README.md)                         | Accumulator                    | planned | A2    | P0     | 0.1.0 | 反馈路径与门控            |
-| ARI-007 | [absolute_value_negate](components/arithmetic_datapath/absolute_value_negate/README.md)     | Absolute Value/Negate          | planned | A1    | P1     | 0.1.0 | 最小负数语义              |
-| ARI-008 | [comparator](components/arithmetic_datapath/comparator/README.md)                           | Comparator                     | planned | A1    | P0     | 0.1.0 | Early-out与关键路径       |
-| ARI-009 | [multiway_min_max](components/arithmetic_datapath/multiway_min_max/README.md)               | Multi-way Min/Max              | planned | A2    | P1     | 0.1.0 | 路数、索引回传            |
-| ARI-010 | [clamp_clip](components/arithmetic_datapath/clamp_clip/README.md)                           | Clamp/Clip                     | planned | A1    | P1     | 0.1.0 | 比较共享与常量特化        |
-| ARI-011 | [saturating_add_sub](components/arithmetic_datapath/saturating_add_sub/README.md)           | Saturating Add/Sub             | planned | A1    | P1     | 0.1.0 | 溢出判定与延迟            |
-| ARI-012 | [fixed_point_round](components/arithmetic_datapath/fixed_point_round/README.md)             | Fixed-point Round              | planned | A1    | P1     | 0.1.0 | 精度、偏差、随机源        |
-| ARI-013 | [fixed_point_resize](components/arithmetic_datapath/fixed_point_resize/README.md)           | Fixed-point Resize             | planned | A1    | P0     | 0.1.0 | 位宽最小化                |
-| ARI-014 | [scale_shift](components/arithmetic_datapath/scale_shift/README.md)                         | Scale/Shift                    | planned | A1    | P1     | 0.1.0 | 常量传播与复用            |
-| ARI-015 | [logical_arith_shifter](components/arithmetic_datapath/logical_arith_shifter/README.md)     | Logical/Arithmetic Shifter     | planned | A1/A2 | P1     | 0.1.0 | 面积、周期数、路由        |
-| ARI-016 | [rotator_funnel_shifter](components/arithmetic_datapath/rotator_funnel_shifter/README.md)   | Rotator/Funnel Shifter         | planned | A2    | P2     | 0.1.0 | 双输入拼接与布线          |
-| ARI-017 | [integer_multiplier](components/arithmetic_datapath/integer_multiplier/README.md)           | Integer Multiplier             | planned | A2    | P1     | 0.1.0 | 位宽、符号、流水          |
-| ARI-018 | [constant_multiplier](components/arithmetic_datapath/constant_multiplier/README.md)         | Constant Multiplier            | planned | A2    | P1     | 0.1.0 | 常量特化与共享            |
-| ARI-019 | [mac](components/arithmetic_datapath/mac/README.md)                                         | Multiply-Accumulate            | planned | A2    | P1     | 0.1.0 | 融合、截断、吞吐          |
-| ARI-020 | [dot_product_engine](components/arithmetic_datapath/dot_product_engine/README.md)           | Dot-product Engine             | planned | A2    | P2     | 0.1.0 | 并行度、累加宽度          |
-| ARI-021 | [integer_divider](components/arithmetic_datapath/integer_divider/README.md)                 | Integer Divider                | planned | A2    | P2     | 0.1.0 | 面积/延迟/吞吐            |
-| ARI-022 | [constant_divider](components/arithmetic_datapath/constant_divider/README.md)               | Constant Divider               | planned | A2    | P2     | 0.1.0 | 误差与常量特化            |
-| ARI-023 | [modulo_reducer](components/arithmetic_datapath/modulo_reducer/README.md)                   | Modulo/Reducer                 | planned | A2    | P3     | 0.1.0 | 除法消除与延迟            |
-| ARI-024 | [square_sum_squares](components/arithmetic_datapath/square_sum_squares/README.md)           | Square/Sum-of-squares          | planned | A2    | P3     | 0.1.0 | DSP场景资源共享           |
-| ARI-025 | [average_weighted_sum](components/arithmetic_datapath/average_weighted_sum/README.md)       | Average/Weighted Sum           | planned | A2    | P2     | 0.1.0 | 系数与位宽增长            |
-| ARI-026 | [reciprocal_rsqrt_approx](components/arithmetic_datapath/reciprocal_rsqrt_approx/README.md) | Reciprocal/RSqrt Approximation | planned | A2    | P3     | 0.1.0 | 精度/延迟/面积            |
-| ARI-027 | [cordic](components/arithmetic_datapath/cordic/README.md)                                   | CORDIC                         | planned | A2    | P3     | 0.1.0 | 迭代次数、精度            |
-| ARI-028 | [polynomial_evaluator](components/arithmetic_datapath/polynomial_evaluator/README.md)       | Polynomial Evaluator           | planned | A2    | P3     | 0.1.0 | 系数常量化与MAC复用       |
-| ARI-029 | [bcd_binary_converter](components/arithmetic_datapath/bcd_binary_converter/README.md)       | BCD/Binary Converter           | planned | A2    | P3     | 0.1.0 | 周期与面积                |
-| ARI-030 | [decimal_bcd_arith](components/arithmetic_datapath/decimal_bcd_arith/README.md)             | Decimal/BCD Arithmetic         | planned | A2    | P3     | 0.1.0 | 专用业务驱动              |
-| ARI-031 | [fp_classify_compare](components/arithmetic_datapath/fp_classify_compare/README.md)         | FP Classify/Compare            | planned | A1/A2 | P3     | 0.1.0 | NaN/Inf/zero语义          |
-| ARI-032 | [fp_math_shell](components/arithmetic_datapath/fp_math_shell/README.md)                     | FP Add/Multiply/FMA Shell      | planned | A2    | P3     | 0.1.0 | 不重复造完整FPU，重在适配 |
-| ARI-033 | [block_fp_scale](components/arithmetic_datapath/block_fp_scale/README.md)                   | Block Floating-point Scale     | planned | A2    | P3     | 0.1.0 | 精度与存储带宽            |
-| ARI-034 | [quantize_dequantize](components/arithmetic_datapath/quantize_dequantize/README.md)         | Quantize/Dequantize            | planned | A2    | P2     | 0.1.0 | AI数据通路位宽与功耗      |
-| ARI-035 | [packed_simd_lane_op](components/arithmetic_datapath/packed_simd_lane_op/README.md)         | Packed SIMD Lane Operator      | planned | A2    | P3     | 0.1.0 | Lane复用与门控            |
+| ID      | 名称                                                                                        | 构件族                         | 状态        | 抽象  | 优先级 | 版本  | 功能/描述                                          |
+|---------|---------------------------------------------------------------------------------------------|--------------------------------|-------------|-------|--------|-------|----------------------------------------------------|
+| ARI-001 | [incrementer_decrementer](components/arithmetic_datapath/incrementer_decrementer/README.md) | Incrementer/Decrementer        | implemented | A1    | P0     | 0.1.0 | Counter专用优化（±1 模回绕 + carry_out 溢出/借位） |
+| ARI-002 | [adder_subtractor](components/arithmetic_datapath/adder_subtractor/README.md)               | Adder/Subtractor               | planned     | A1    | P0     | 0.1.0 | 位宽、进位结构、流水                               |
+| ARI-003 | [carry_save_adder](components/arithmetic_datapath/carry_save_adder/README.md)               | Carry-save Adder               | planned     | A1    | P1     | 0.1.0 | 多操作数压缩                                       |
+| ARI-004 | [multi_operand_adder](components/arithmetic_datapath/multi_operand_adder/README.md)         | Multi-operand Adder            | planned     | A2    | P1     | 0.1.0 | 操作数数量与树平衡                                 |
+| ARI-005 | [adder_tree](components/arithmetic_datapath/adder_tree/README.md)                           | Adder Tree                     | planned     | A2    | P1     | 0.1.0 | 流水级与吞吐                                       |
+| ARI-006 | [accumulator](components/arithmetic_datapath/accumulator/README.md)                         | Accumulator                    | planned     | A2    | P0     | 0.1.0 | 反馈路径与门控                                     |
+| ARI-007 | [absolute_value_negate](components/arithmetic_datapath/absolute_value_negate/README.md)     | Absolute Value/Negate          | planned     | A1    | P1     | 0.1.0 | 最小负数语义                                       |
+| ARI-008 | [comparator](components/arithmetic_datapath/comparator/README.md)                           | Comparator                     | planned     | A1    | P0     | 0.1.0 | Early-out与关键路径                                |
+| ARI-009 | [multiway_min_max](components/arithmetic_datapath/multiway_min_max/README.md)               | Multi-way Min/Max              | planned     | A2    | P1     | 0.1.0 | 路数、索引回传                                     |
+| ARI-010 | [clamp_clip](components/arithmetic_datapath/clamp_clip/README.md)                           | Clamp/Clip                     | planned     | A1    | P1     | 0.1.0 | 比较共享与常量特化                                 |
+| ARI-011 | [saturating_add_sub](components/arithmetic_datapath/saturating_add_sub/README.md)           | Saturating Add/Sub             | planned     | A1    | P1     | 0.1.0 | 溢出判定与延迟                                     |
+| ARI-012 | [fixed_point_round](components/arithmetic_datapath/fixed_point_round/README.md)             | Fixed-point Round              | planned     | A1    | P1     | 0.1.0 | 精度、偏差、随机源                                 |
+| ARI-013 | [fixed_point_resize](components/arithmetic_datapath/fixed_point_resize/README.md)           | Fixed-point Resize             | planned     | A1    | P0     | 0.1.0 | 位宽最小化                                         |
+| ARI-014 | [scale_shift](components/arithmetic_datapath/scale_shift/README.md)                         | Scale/Shift                    | planned     | A1    | P1     | 0.1.0 | 常量传播与复用                                     |
+| ARI-015 | [logical_arith_shifter](components/arithmetic_datapath/logical_arith_shifter/README.md)     | Logical/Arithmetic Shifter     | planned     | A1/A2 | P1     | 0.1.0 | 面积、周期数、路由                                 |
+| ARI-016 | [rotator_funnel_shifter](components/arithmetic_datapath/rotator_funnel_shifter/README.md)   | Rotator/Funnel Shifter         | planned     | A2    | P2     | 0.1.0 | 双输入拼接与布线                                   |
+| ARI-017 | [integer_multiplier](components/arithmetic_datapath/integer_multiplier/README.md)           | Integer Multiplier             | planned     | A2    | P1     | 0.1.0 | 位宽、符号、流水                                   |
+| ARI-018 | [constant_multiplier](components/arithmetic_datapath/constant_multiplier/README.md)         | Constant Multiplier            | planned     | A2    | P1     | 0.1.0 | 常量特化与共享                                     |
+| ARI-019 | [mac](components/arithmetic_datapath/mac/README.md)                                         | Multiply-Accumulate            | planned     | A2    | P1     | 0.1.0 | 融合、截断、吞吐                                   |
+| ARI-020 | [dot_product_engine](components/arithmetic_datapath/dot_product_engine/README.md)           | Dot-product Engine             | planned     | A2    | P2     | 0.1.0 | 并行度、累加宽度                                   |
+| ARI-021 | [integer_divider](components/arithmetic_datapath/integer_divider/README.md)                 | Integer Divider                | planned     | A2    | P2     | 0.1.0 | 面积/延迟/吞吐                                     |
+| ARI-022 | [constant_divider](components/arithmetic_datapath/constant_divider/README.md)               | Constant Divider               | planned     | A2    | P2     | 0.1.0 | 误差与常量特化                                     |
+| ARI-023 | [modulo_reducer](components/arithmetic_datapath/modulo_reducer/README.md)                   | Modulo/Reducer                 | planned     | A2    | P3     | 0.1.0 | 除法消除与延迟                                     |
+| ARI-024 | [square_sum_squares](components/arithmetic_datapath/square_sum_squares/README.md)           | Square/Sum-of-squares          | planned     | A2    | P3     | 0.1.0 | DSP场景资源共享                                    |
+| ARI-025 | [average_weighted_sum](components/arithmetic_datapath/average_weighted_sum/README.md)       | Average/Weighted Sum           | planned     | A2    | P2     | 0.1.0 | 系数与位宽增长                                     |
+| ARI-026 | [reciprocal_rsqrt_approx](components/arithmetic_datapath/reciprocal_rsqrt_approx/README.md) | Reciprocal/RSqrt Approximation | planned     | A2    | P3     | 0.1.0 | 精度/延迟/面积                                     |
+| ARI-027 | [cordic](components/arithmetic_datapath/cordic/README.md)                                   | CORDIC                         | planned     | A2    | P3     | 0.1.0 | 迭代次数、精度                                     |
+| ARI-028 | [polynomial_evaluator](components/arithmetic_datapath/polynomial_evaluator/README.md)       | Polynomial Evaluator           | planned     | A2    | P3     | 0.1.0 | 系数常量化与MAC复用                                |
+| ARI-029 | [bcd_binary_converter](components/arithmetic_datapath/bcd_binary_converter/README.md)       | BCD/Binary Converter           | planned     | A2    | P3     | 0.1.0 | 周期与面积                                         |
+| ARI-030 | [decimal_bcd_arith](components/arithmetic_datapath/decimal_bcd_arith/README.md)             | Decimal/BCD Arithmetic         | planned     | A2    | P3     | 0.1.0 | 专用业务驱动                                       |
+| ARI-031 | [fp_classify_compare](components/arithmetic_datapath/fp_classify_compare/README.md)         | FP Classify/Compare            | planned     | A1/A2 | P3     | 0.1.0 | NaN/Inf/zero语义                                   |
+| ARI-032 | [fp_math_shell](components/arithmetic_datapath/fp_math_shell/README.md)                     | FP Add/Multiply/FMA Shell      | planned     | A2    | P3     | 0.1.0 | 不重复造完整FPU，重在适配                          |
+| ARI-033 | [block_fp_scale](components/arithmetic_datapath/block_fp_scale/README.md)                   | Block Floating-point Scale     | planned     | A2    | P3     | 0.1.0 | 精度与存储带宽                                     |
+| ARI-034 | [quantize_dequantize](components/arithmetic_datapath/quantize_dequantize/README.md)         | Quantize/Dequantize            | planned     | A2    | P2     | 0.1.0 | AI数据通路位宽与功耗                               |
+| ARI-035 | [packed_simd_lane_op](components/arithmetic_datapath/packed_simd_lane_op/README.md)         | Packed SIMD Lane Operator      | planned     | A2    | P3     | 0.1.0 | Lane复用与门控                                     |
 
 #### components/axi_axi_stream（38，implemented=0）
 

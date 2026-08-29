@@ -1,0 +1,6 @@
+cbb: incrementer_decrementer
+sets:
+  mandatory: 1
+  boundary: 14
+  pairwise: 8
+  negative: 4

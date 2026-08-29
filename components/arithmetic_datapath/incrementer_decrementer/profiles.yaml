@@ -1,0 +1,56 @@
+# ============================================================
+# profiles.yaml — incrementer_decrementer PPA 使用画像（ARI-001）
+# 描述不同使用场景下的推荐微架构（ID_IMPL）与依据。
+# 依据见 reports/ppa-report.md（G6 综合实证，先暂定后回填）。
+# ============================================================
+
+profiles:
+  - id: prof_area_opt
+    scenario: 面积优先（大量实例化的步进计数器、指针更新，面积敏感）
+    recommended:
+      impl: segmented               # ID_IMPL=1，SEG_W=4
+      data_w_range: [16, 32]
+    rationale: G6 实测 W=16 segmented(SEG4) 面积最小（44.5μm²，比 ripple 59.1 小 25%）
+      且时序等价；W=8 ripple 面积最小但时序差。
+    pca_notes: 面积因子权重最高。
+
+  - id: prof_timing_opt
+    scenario: 时序优先（关键路径敏感的高频 Counter、回环控制）
+    recommended:
+      impl: segmented               # ID_IMPL=1，SEG_W=4
+      data_w_range: [8, 64]
+    rationale: G6 实测 W=8 segmented(SEG4) arrival 1.63ns 最短、slack 余量最大
+      （ripple 1.90ns）；窄位宽时序优势明显。
+    pca_notes: 时序因子权重最高。
+
+  - id: prof_balanced
+    scenario: 默认通用（面积/时序折中，一般计数器/索引更新）
+    recommended:
+      impl: ripple
+      data_w_range: [8, 64]
+    rationale: 窄位宽 ripple 时序已足够且面积最直观；400MHz 约束下两实现均收敛。
+    pca_notes: 面积/时序均衡。
+
+  - id: prof_reference
+    scenario: PPA 参照基线/教学（最直观实现，度量其他实现的相对收益）
+    recommended:
+      impl: ripple
+      data_w_range: [2, 64]
+    rationale: 半加器进位链最直观；DC compile_ultra 会将串行链优化为树，
+      若需保留原始结构需关闭算术优化（与 popcount 同观察）。
+    pca_notes: 仅作基线参照。
+
+# 每个实现声明（可选）
+implementation_notes:
+  impl_ripple:
+    max_recommended_scale: {DATA_W: 1024}
+    dependencies: []
+    characterized_region: {DATA_W: [8, 64]}
+    known_limits:
+      - 关键路径 O(DATA_W)，宽位宽时序差（>128 建议 segmented）
+  impl_segmented:
+    max_recommended_scale: {DATA_W: 1024, SEG_W: 16}
+    dependencies: []
+    characterized_region: {DATA_W: [8, 64], SEG_W: [4, 8]}
+    known_limits:
+      - SEG_W 过小段间逻辑增加；过大退化为 ripple

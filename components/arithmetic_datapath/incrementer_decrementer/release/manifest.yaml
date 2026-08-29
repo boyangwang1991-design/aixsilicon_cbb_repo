@@ -1,0 +1,44 @@
+# ============================================================
+# release/manifest.yaml — incrementer_decrementer (ARI-001) 发布清单
+# 与 registry.yaml / fusesoc core 保持同源（SSOT 仍为 cbb.yaml）
+# ============================================================
+release:
+  id: aixsilicon:cbb:incrementer_decrementer:0.1.0
+  version: 0.1.0
+  maturity: E1
+  license: Apache-2.0
+  date: 2026-08-29
+  scope:
+    - Counter 专用 ±1 运算器（模 2^W 回绕）：inc/dec/hold + carry_out 溢出/借位标志
+    - 两实现微架构：ripple（半加器进位链）/ segmented（分段进位 carry-skip）
+    - 纯组合、无时钟；参数 DATA_W/ID_IMPL/SEG_W（PC-001..004 约束）
+  artifacts:
+    rtl:
+      - rtl/incrementer_decrementer.sv
+    verification:
+      - verification/simulation/incrementer_decrementer_tb.sv
+      - verification/formal/negative_elab_tb.sv
+      - verification/scripts/run_static_checks.sh
+      - verification/scripts/run_functional_sim.sh
+      - verification/configs/mandatory.yaml
+      - verification/configs/boundary.yaml
+      - verification/configs/pairwise.yaml
+      - verification/configs/negative.yaml
+    characterization:
+      - characterization/synth_sweep.tcl
+      - characterization/pdk.yaml
+      - characterization/plan.yaml
+    metadata:
+      - cbb.yaml
+      - behavior.yaml
+      - profiles.yaml
+      - fusesoc/aixsilicon_cbb_incrementer_decrementer.core
+  fusesoc_core: aixsilicon:cbb:incrementer_decrementer:0.1.0
+  sbom:
+    dependencies: []                  # 无嵌套 CBB 依赖
+  evidence:
+    - build/eda/evidence/g3_static/compile.txt
+    - build/eda/evidence/g3_static/negative_elab.txt
+    - build/eda/evidence/g3_static/lint.txt
+    - build/eda/evidence/g4_functional/functional_sim.txt
+    - build/eda/evidence/g4_functional/mutation.txt

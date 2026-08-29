@@ -1,0 +1,8 @@
+# incrementer_decrementer (ARI-001) — OWNERS
+# CBB 构件维护责任清单（owner 在 cbb.yaml 固化：aixsilicon:cbb）
+approvers:
+  - aixsilicon:cbb-rtl-owner
+  - aixsilicon:cbb-dv-owner
+reviewers:
+  - aixsilicon:cbb-architect
+  - aixsilicon:cbb-ppa-owner
