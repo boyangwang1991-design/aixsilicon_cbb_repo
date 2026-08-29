@@ -41,6 +41,14 @@ invariants:
       `in_ready == out_ready`（忽略 IMPL）。
     properties: [PROP-BYP_DIRECT-001]
     tests: [tc_bypass]
+  - id: INV-007
+    description: >-
+      backward 实现（IMPL=2）——`in_ready` 由 FF 寄存（`in_ready_r`，**切断反压组合链**，
+      `in_ready_r <= out_ready | ~in_valid`）；valid/data **组合透传**（`out_valid==in_valid`、
+      `out_data==in_data`，0 数据延迟）；反压 1 拍延迟传导
+      （`~out_ready && in_valid |-> ##1 ~in_ready`）；保序无丢（ready=0 时输入不被采样）。
+    properties: [PROP-BWD_READY-001, PROP-BWD_ACCEPT-002, PROP-BWD_DATA-003]
+    tests: [tc_bwd_random, tc_bwd_backpressure]
 
 assumptions:
   - id: ASM-001

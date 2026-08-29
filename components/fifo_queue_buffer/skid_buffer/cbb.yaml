@@ -1,9 +1,10 @@
 # ============================================================
 # cbb.yaml — skid_buffer SSOT 元数据（QUE-007, A3/P0）
-# Valid-Ready 打拍模块（多实现 profile：forward 简单打拍 / full skid 满吞吐）
-# - IMPL=0 forward：data/valid 打拍 1 拍，ready 组合透传（面积最小，背压由 ready 传导）
-# - IMPL=1 full   ：OUT 寄存 + SKID 槽，满吞吐无气泡、双向切时序（默认）
-# - BYPASS=1      ：零延迟直通（组合旁路，in→out 直连）
+# Valid-Ready 打拍模块（多实现 profile：forward / full / backward）
+# - IMPL=0 forward  ：data/valid 打拍 1 拍，ready 组合透传（面积最小）
+# - IMPL=1 full     ：OUT 寄存 + SKID 槽，满吞吐无气泡、双向切时序（默认）
+# - IMPL=2 backward ：in_ready 由 FF 寄存（切反压组合链），valid/data 组合透传
+# - BYPASS=1        ：零延迟直通（组合旁路，in→out 直连）
 # ============================================================
 
 schema_version: 1.0
@@ -11,7 +12,7 @@ schema_version: 1.0
 cbb:
   id: aixsilicon:cbb:skid_buffer
   name: skid_buffer
-  version: 0.2.0
+  version: 0.3.0
   owner: aixsilicon:cbb
   maturity: E0
   license: Apache-2.0
@@ -25,7 +26,7 @@ contract:
   interface: ready_valid             # 原生 valid/ready 握手，无总线协议语义
   clock_domains: 1
   ordering: in_order                 # FIFO 保序（含 forward/full/BYPASS 全模式）
-  throughput: 1_per_cycle            # full/BYPASS 满吞吐；forward 打拍 1 拍、ready 透传
+  throughput: 1_per_cycle            # full/BYPASS 满吞吐；forward 打拍 1 拍、ready 透传；backward ready 寄存/valid 透传
 
 # ---------------- 可配置参数 ----------------
 parameters:
@@ -39,13 +40,14 @@ parameters:
   IMPL:
     type: int
     default: 1
-    legal: {min: 0, max: 1}
-    partitions: [0, 1]
+    legal: {min: 0, max: 2}
+    partitions: [0, 1, 2]
     affects: [area, timing, latency]
     semantics: >-
       微架构选择（多实现/Profile）：
       0=forward 简单打拍（data/valid 寄存，ready 组合透传，面积最小）；
-      1=full 满吞吐 skid（OUT 寄存 + SKID 槽，双向切时序，无气泡，默认）
+      1=full 满吞吐 skid（OUT 寄存 + SKID 槽，双向切时序，无气泡，默认）；
+      2=backward 反向打拍（in_ready 由 FF 寄存，切断反压组合链；valid/data 组合透传）
   BYPASS:
     type: int
     default: 0
@@ -62,7 +64,7 @@ constraints:
     expression: "DATA_W <= 1024"
     severity: error                   # RTL 位宽上界（面积/时序）
   - id: PC-003
-    expression: "IMPL >= 0 and IMPL <= 1"
+    expression: "IMPL >= 0 and IMPL <= 2"
     severity: error                   # 微架构编码合法域
   - id: PC-004
     expression: "BYPASS >= 0 and BYPASS <= 1"
@@ -94,7 +96,7 @@ requirements:
     description: 非法参数在 Elaboration 期被拦截（DATA_W/BYPASS/IMPL 越界 → generate 块 $error）。
     properties: []                    # 负向编译证据（非 SVA）
     tests: [tc_negative_elab]
-    configs: [cfg_data_w0_impl1_bypass0, cfg_data_w1025_impl1_bypass0, cfg_data_w32_impl2_bypass0, cfg_data_w32_impl1_bypass2]
+    configs: [cfg_data_w0_impl1_bypass0, cfg_data_w1025_impl1_bypass0, cfg_data_w32_impl3_bypass0, cfg_data_w32_impl1_bypass2]
   - id: REQ-005
     description: >-
       forward 实现（IMPL=0）——data/valid 打拍 1 拍、ready 组合透传（in_ready=out_ready），
@@ -109,8 +111,16 @@ requirements:
     properties: [PROP-BYP_DIRECT-001]
     tests: [tc_bypass]
     configs: [cfg_data_w32_impl1_bypass1, cfg_data_w32_impl0_bypass1, cfg_data_w8_impl1_bypass1]
+  - id: REQ-007
+    description: >-
+      backward 实现（IMPL=2）——`in_ready` 由 FF 寄存（`in_ready_r`，切断反压组合链），
+      valid/data 组合透传（`out_valid=in_valid`、`out_data=in_data`，0 数据延迟）；
+      反压 1 拍延迟传导（`~out_ready && in_valid |-> ##1 ~in_ready`）；保序无丢。
+    properties: [PROP-BWD_READY-001, PROP-BWD_ACCEPT-002, PROP-BWD_DATA-003]
+    tests: [tc_bwd_random, tc_bwd_backpressure]
+    configs: [cfg_data_w32_impl2_bypass0, cfg_data_w8_impl2_bypass0]
 
-# ---------------- 实现变体（多实现：forward / full 微架构）----------------
+# ---------------- 实现变体（多实现：forward / full / backward 微架构）----------------
 implementations:
   - id: impl_forward                  # IMPL=0：简单打拍（面积最小）
     source: rtl/
@@ -126,6 +136,13 @@ implementations:
     files:
       - rtl/skid_buffer.sv
       - rtl/impl/full/skid_buffer.sv
+  - id: impl_backward                 # IMPL=2：ready 寄存 + valid/data 透传（切反压路径）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/skid_buffer.sv
+      - rtl/impl/backward/skid_buffer.sv
 
 # ---------------- 质量门禁（G0~G8）----------------
 quality:
@@ -134,7 +151,7 @@ quality:
 # ---------------- PPA 表征 ----------------
 characterization:
   benchmark_profiles: []
-  measured_region: {DATA_W: [8, 32, 128], IMPL: [0, 1], BYPASS: [0, 1]}
+  measured_region: {DATA_W: [8, 32, 128], IMPL: [0, 1, 2], BYPASS: [0, 1]}
 
 release:
-  fusesoc_core: aixsilicon:cbb:skid_buffer:0.2.0
+  fusesoc_core: aixsilicon:cbb:skid_buffer:0.3.0

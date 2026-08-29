@@ -1,5 +1,5 @@
 schema_version: "2.0"
-updated: "2026-08-29T01:23:00Z"
+updated: "2026-08-29T03:06:00Z"
 # 本文件是 CBB 目录唯一 SSOT（由 scripts/build_cbb_structure.py 治理）。
 # 字段: id/name/family/group/abstraction/priority/implementation/description/status/version/path
 # 修改入口: 直接编辑本文件后运行 'python3 scripts/build_cbb_structure.py' 校验。
@@ -2973,10 +2973,10 @@ cbbs:
     group: components/fifo_queue_buffer
     abstraction: A3
     priority: P0
-    implementation: forward、full、bypass（多实现 profile）
-    description: 切断Ready组合链，满吞吐无气泡（OUT寄存+SKID槽）；forward/full/BYPASS 多实现可对比选型
-    status: implemented          # 2026-08-29 多实现 profile（G1-G6 证据，PPA 对比 run-20260829-01）
-    version: "0.2.0"
+    implementation: forward、full、backward、bypass（多实现 profile）
+    description: 切断Ready组合链，满吞吐无气泡（OUT寄存+SKID槽）；forward/full/backward/BYPASS 多实现可对比选型
+    status: implemented          # 2026-08-29 多实现 profile（G1-G6 证据，PPA 对比 run-20260829-03）
+    version: "0.3.0"
     path: components/fifo_queue_buffer/skid_buffer
   - id: QUE-008
     name: pipeline_fifo

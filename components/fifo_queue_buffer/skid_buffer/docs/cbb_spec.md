@@ -13,16 +13,17 @@
 | REQ-004 | 非法参数 DATA_W/BYPASS/IMPL 越界在 Elaboration 期被拦截（generate `$error`） | —（负向编译证据） | tc_negative_elab |
 | REQ-005 | forward（IMPL=0）：data/valid 打拍 1 拍、ready 组合透传，保序无丢 | PROP-FWD_ACCEPT-001, PROP-FWD_DATA-002 | tc_fwd_random, tc_fwd_backpressure |
 | REQ-006 | BYPASS=1：组合零延迟直通（out=in、in_ready=out_ready），忽略 IMPL | PROP-BYP_DIRECT-001 | tc_bypass |
+| REQ-007 | backward（IMPL=2）：`in_ready` 由 FF 寄存（切反压组合链），valid/data 组合透传（0 数据延迟），反压 1 拍传导、保序无丢 | PROP-BWD_READY-001, PROP-BWD_ACCEPT-002, PROP-BWD_DATA-003 | tc_bwd_random, tc_bwd_backpressure |
 
 ## 2. 参数
 
 | 参数 | 类型 | 默认 | 合法域 | 影响面 | 语义 |
 |---|---|---|---|---|---|
 | `DATA_W` | int | 32 | [1, 1024] | 接口宽度/面积/时序 | 数据通路位宽（in/out 共享） |
-| `IMPL` | int | 1 | {0,1} | 面积/时序/延迟 | 0=forward 简单打拍；1=full skid 满吞吐（默认） |
+| `IMPL` | int | 1 | {0,1,2} | 面积/时序/延迟 | 0=forward 简单打拍；1=full skid 满吞吐（默认）；2=backward ready 寄存 |
 | `BYPASS` | int | 0 | {0,1} | 延迟/面积/时序 | 1=组合直通（零延迟），忽略 IMPL |
 
-约束：`PC-001 DATA_W>=1`；`PC-002 DATA_W<=1024`；`PC-003 IMPL∈{0,1}`；`PC-004 BYPASS∈{0,1}`
+约束：`PC-001 DATA_W>=1`；`PC-002 DATA_W<=1024`；`PC-003 IMPL∈{0,1,2}`；`PC-004 BYPASS∈{0,1}`
 （error 级，RTL generate `$error` 双拦截）。
 
 ## 3. 行为契约
@@ -32,7 +33,7 @@
 - **吞吐**：full/BYPASS 1/cycle；forward 打拍 1 拍、ready 组合透传（背压由 ready 传导）；
 - **顺序**：in-order（FIFO 保序，无丢无重，全模式）；
 - **不变量 INV**：full 满吞吐/反压（INV-001/002）、保序（INV-003）、输出寄存（INV-004）、
-  forward 打拍+ready 透传（INV-005）、BYPASS 直通（INV-006）；
+  forward 打拍+ready 透传（INV-005）、BYPASS 直通（INV-006）、backward ready 寄存+透传（INV-007）；
 - **假设 ASM**：valid/数据在等待 `in_ready` 时保持稳定；同步复位释放；2-state 语义；
   BYPASS=1 时 IMPL 忽略；
 - **非目标**：多级打拍（QUE-008）、fall-through、CDC、ICG 门控数据路径。
@@ -47,10 +48,14 @@ BYPASS=1 ──▶ in_ready=out_ready; out_valid=in_valid; out_data=in_data   //
 IMPL=0   ──▶ skid_buffer_forward：out_valid_r<=in_valid; out_data_r<=in_data;
              in_ready=out_ready（ready 组合透传，背压直接传导）
 IMPL=1   ──▶ skid_buffer_full：OUT 寄存 + SKID 槽（bubble-free 满吞吐，FIFO 保序）
+IMPL=2   ──▶ skid_buffer_backward：in_ready_r<=out_ready|~in_valid（FF 切反压链），
+             out_valid=in_valid、out_data=in_data（0 数据延迟透传）
 ```
 
-- `impl_forward`（IMPL=0）：面积最小（1×DATA_W FF + 1 valid FF），延迟 1 拍，ready 链 = `out_ready→in_ready`（透传）；
-- `impl_full`（IMPL=1）：满吞吐无气泡，双向切时序，ready 组合链 ≤1 级（寄存状态 + out_ready）。
+- `impl_forward`（IMPL=0）：面积小（DATA_W+1 FF），延迟 1 拍，ready 链 = `out_ready→in_ready`（组合透传）；
+- `impl_full`（IMPL=1）：满吞吐无气泡，双向切时序，ready 组合链 ≤1 级（寄存状态 + out_ready）；
+- `impl_backward`（IMPL=2）：**ready 寄存**（1 FF，切断反压组合链），valid/data 组合透传
+  （0 数据延迟），反压 1 拍传导——面积/功耗最低，适用反压路径时序瓶颈。
 
 ## 5. 时钟/复位
 

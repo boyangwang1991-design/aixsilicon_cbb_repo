@@ -8,10 +8,10 @@
 | corner | `tt_nominal_max_1p00v_25c` |
 | 约束 | 400MHz（`create_clock 2.5` 绑定 `clk` 端口） |
 | 工具 | `dc_shell`（`compile_ultra -no_autoungroup`） |
-| run | `run-20260829-01`（完整报告集 `build/eda/ppa/run-20260829-01/`；指标由 [`characterization/extract_ppa.py`](../characterization/extract_ppa.py) 抽取，可复现不重复综合） |
-| 实现 | `impl_forward`（IMPL=0）/ `impl_full`（IMPL=1）/ `BYPASS`（组合直通） |
+| run | `run-20260829-03`（完整报告集 `build/eda/ppa/run-20260829-03/`；指标由 [`characterization/extract_ppa.py`](../characterization/extract_ppa.py) 抽取，可复现不重复综合） |
+| 实现 | `impl_forward`（IMPL=0）/ `impl_full`（IMPL=1）/ `impl_backward`（IMPL=2）/ `BYPASS` |
 
-## 结果（时序主判据：forward/full = **reg→reg 最差 setup slack**；BYPASS = 组合 arrival）
+## 结果（时序主判据：forward/full/backward = reg→reg/reg→out 最差 slack；BYPASS = 组合 arrival）
 
 | mode | DATA_W | area(µm²) | regs | worst_slack(ns) | slack_status | io_arrival(ns) | verdict | dyn(µW) | leak(nW) |
 |---|---|---|---|---|---|---|---|---|---|
@@ -21,24 +21,26 @@
 | full | 8  | 70.90 | 18 | 1.35 | MET | 0.65 | **PASS** | 35.4  | 8.1 |
 | full | 32 | 251.90 | 66 | 0.81 | MET | 0.65 | **PASS** | 128.7 | 27.7 |
 | full | 128| 975.43 | 258| 0.39 | MET | 0.68 | **PASS** | 500.9 | 107.4 |
+| backward | 8/32/128 | **3.39** | 1 | 2.02 | MET | 0.28 | **PASS** | **2.0** | n/a |
 | bypass | 32| ~0 (wire) | 0 | —(组合) | MET | 0.02 | **PASS** | n/a | n/a |
 
-![PPA 对比图（面积/时序/功耗 × DATA_W）](ppa_run-20260829-01.png)
+![PPA 对比图（面积/时序/功耗 × DATA_W）](ppa_run-20260829-03.png)
 
 ## 多实现对比（Pareto）
 
-- **面积**：forward ≈ full 的 **1/3**（W32: 85.8 vs 251.9 µm²；regs 33 vs 66 = DATA_W+1 vs 2×(DATA_W+1)），
-  达"简单打拍"面积下界；full 多 SKID 槽 + DATA_W 宽 mux；
-- **时序**：forward worst_slack 恒定 2.02ns（无 mux，打拍路径极短）；full 随 `DATA_W` 增大
-  slack 下降（W128 最紧 0.39ns，mux 扇出）；两者 400MHz 均 MET；
-- **BYPASS**：组合直通被 DC 优化为 wire（面积≈0、arrival 0.02ns），零延迟参考；
-- **功耗**：与位宽线性；full 略高于 forward（多槽/mux 翻转）；
-- **选择建议**：面积/浅流水 → `forward`；满吞吐 + 短反压路径（深流水背压频繁）→ `full`；
-  零延迟旁路 → `BYPASS=1`；
-- vs `STR-006 full_register_slice`：本 full 实现即其 skid 变体，面积/时序等价。
+- **面积**：**backward（3.39 µm²，1 FF）< forward（≈full 的 1/3）< full**——
+  backward 仅 1 个 `in_ready_r` FF + 透传 wire，面积/功耗最低；full 多 SKID 槽 + DATA_W 宽 mux；
+- **时序**：forward/backward worst_slack 恒 2.02ns（backward 仅 reg→out 路径，无 reg→reg）；
+  full 随 `DATA_W` slack 下降（W128 最紧 0.39ns，mux 扇出）；均 400MHz MET；
+- **backward 定位**：**ready 路径寄存（切反压组合链）**、valid/data 透传（0 数据延迟）——
+  反压路径时序瓶颈、面积/功耗极敏感场景；代价：无缓冲槽，背压恢复 1 拍气泡；
+- **功耗**：backward（2.0 µW，1 FF）<< forward（67.8 µW）< full（128.7 µW）@W32；
+- **选择建议**：反压链时序瓶颈/面积功耗极限 → `backward`；面积/浅流水 → `forward`；
+  满吞吐 + 深流水背压频繁 → `full`；零延迟旁路 → `BYPASS=1`；
+- vs `STR-005 backward_register_slice`：本 backward 实现即其标准形式（ready registered）。
 
 ## 说明
 
 - IO arrival（组合输出 `reg→out`）仅作参考，不作为时序结论；
 - 违规只看 vclk slack 的 VIOLATED（`report_constraint` 的 leakage power slack 属功耗、非时序）；
-- 完整原始报告（area/timing_max/io/power/regs）保留在 `build/eda/ppa/run-20260829-01/` 供人查看。
+- 完整原始报告保留在 `build/eda/ppa/run-20260829-03/` 供人查看。

@@ -15,6 +15,7 @@ filesets:
       - ../rtl/skid_buffer.sv                       # wrapper（参数检查/BYPASS/IMPL 分派）
       - ../rtl/impl/forward/skid_buffer.sv          # impl_forward（简单打拍）
       - ../rtl/impl/full/skid_buffer.sv             # impl_full（OUT+SKID 槽）
+      - ../rtl/impl/backward/skid_buffer.sv         # impl_backward（ready 寄存/透传）
     file_type: systemVerilogSource
 
   tb_src:

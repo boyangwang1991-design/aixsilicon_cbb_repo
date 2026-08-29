@@ -15,16 +15,18 @@
 | 参数 | 默认 | 说明 |
 |---|---|---|
 | `DATA_W` | 32 | 数据位宽 [1,1024] |
-| `IMPL` | 1 | 0=forward 简单打拍（面积最小）；1=full 满吞吐 skid（默认） |
+| `IMPL` | 1 | 0=forward 简单打拍；1=full 满吞吐 skid（默认）；2=backward ready 寄存 |
 | `BYPASS` | 0 | 1=组合零延迟直通（out=in、in_ready=out_ready，忽略 IMPL） |
 
 | 实现 | 微架构 | PPA 特征（400MHz 实测） |
 |---|---|---|
-| `forward` | data/valid 打拍 1 拍，ready 组合透传 | 面积最小（W32≈86µm²），slack 2.02ns（与位宽无关） |
+| `backward` | in_ready 由 FF 寄存（切反压链），valid/data 透传 | **面积/功耗最低**（3.4µm²，1 FF，2.0µW），slack 2.02ns |
+| `forward` | data/valid 打拍 1 拍，ready 组合透传 | 面积小（W32≈86µm²），slack 2.02ns（与位宽无关） |
 | `full` | OUT 寄存 + SKID 槽（bubble-free） | 满吞吐 + 短反压路径；W32≈252µm²，slack 0.81ns |
 | `bypass` | 组合直通（零延迟） | 面积≈0（wire），arrival 0.02ns |
 
-选择建议：面积/浅流水 → `forward`；满吞吐 + 深流水背压频繁 → `full`；零延迟旁路 → `BYPASS=1`。
+选择建议：**反压链时序瓶颈/面积功耗极限 → `backward`**；面积/浅流水 → `forward`；
+满吞吐 + 深流水背压频繁 → `full`；零延迟旁路 → `BYPASS=1`。
 详见 [`reports/ppa-report.md`](reports/ppa-report.md)。
 
 ## 接口

@@ -34,8 +34,8 @@ module skid_buffer #(
         if (DATA_W < 1 || DATA_W > 1024) begin : g_bad_data_w
             $error("skid_buffer: DATA_W=%0d 越界 [1,1024] (PC-001/PC-002)", DATA_W);
         end
-        if (IMPL < 0 || IMPL > 1) begin : g_bad_impl
-            $error("skid_buffer: IMPL=%0d 越界 {0,1} (PC-003)", IMPL);
+        if (IMPL < 0 || IMPL > 2) begin : g_bad_impl
+            $error("skid_buffer: IMPL=%0d 越界 {0,1,2} (PC-003)", IMPL);
         end
         if (BYPASS < 0 || BYPASS > 1) begin : g_bad_bypass
             $error("skid_buffer: BYPASS=%0d 越界 {0,1} (PC-004)", BYPASS);
@@ -53,6 +53,17 @@ module skid_buffer #(
             assign out_data  = in_data;
         end else if (IMPL == 0) begin : g_fwd
             skid_buffer_forward #(.DATA_W(DW)) u_fwd (
+                .clk       (clk),
+                .rst_n     (rst_n),
+                .in_valid  (in_valid),
+                .in_data   (in_data),
+                .in_ready  (in_ready),
+                .out_valid (out_valid),
+                .out_data  (out_data),
+                .out_ready (out_ready)
+            );
+        end else if (IMPL == 2) begin : g_bwd
+            skid_buffer_backward #(.DATA_W(DW)) u_bwd (
                 .clk       (clk),
                 .rst_n     (rst_n),
                 .in_valid  (in_valid),

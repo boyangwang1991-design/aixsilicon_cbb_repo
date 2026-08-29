@@ -1,9 +1,10 @@
 # ============================================================================
 # synth_quick.tcl — skid_buffer G6 PPA 多实现对比综合
 # 配置矩阵：
-#   forward: skid_w<W>_i0  (IMPL=0, BYPASS=0)  简单打拍，ready 透传
-#   full   : skid_w<W>_i1  (IMPL=1, BYPASS=0)  OUT 寄存 + SKID 槽（默认）
-#   bypass : skid_byp_w<W> (IMPL=1, BYPASS=1)  组合直通（零延迟参考）
+#   forward : skid_w<W>_i0  (IMPL=0, BYPASS=0)  简单打拍，ready 透传
+#   full    : skid_w<W>_i1  (IMPL=1, BYPASS=0)  OUT 寄存 + SKID 槽（默认）
+#   backward: skid_w<W>_i2  (IMPL=2, BYPASS=0)  ready 寄存/valid 透传（切反压链）
+#   bypass  : skid_byp_w<W> (IMPL=1, BYPASS=1)  组合直通（零延迟参考）
 # 库上下文：characterization/pdk.yaml（sc9_cmos28lp_base_hvt tt_1p00v_25c）
 # 约束：create_clock 2.5ns（400MHz）绑定 clk 端口（时序模块必须）
 # 方法论：一次综合记录完整报告集（本 tcl 不内嵌解析），指标由 extract_ppa.py 抽取。
@@ -29,6 +30,7 @@ analyze -format sverilog [list \
     [file join $RTLDIR skid_buffer.sv] \
     [file join $RTLDIR impl/forward/skid_buffer.sv] \
     [file join $RTLDIR impl/full/skid_buffer.sv] \
+    [file join $RTLDIR impl/backward/skid_buffer.sv] \
 ] -define SYNTHESIS
 
 # ---- forward（IMPL=0）----
@@ -56,6 +58,26 @@ foreach w {8 32 128} {
     set tag "skid_w${w}_i1"
     remove_design -all
     elaborate skid_buffer -parameters "DATA_W=$w, IMPL=1, BYPASS=0"
+    link
+    create_clock -name vclk -period 2.5 [get_ports clk]
+    set_input_delay  0.2 -clock vclk [get_ports {in_valid in_data}]
+    set_output_delay 0.2 -clock vclk [get_ports {out_valid out_data in_ready}]
+    set_driving_cell -lib_cell BUFH_X4M_A9TH -pin Y [get_ports {in_valid in_data out_ready}]
+    set_load 0.01 [get_ports {out_valid out_data in_ready}]
+    compile_ultra -no_autoungroup
+    redirect -file "$OUT/${tag}_area.rpt"       { report_area }
+    redirect -file "$OUT/${tag}_timing_max.rpt" { report_timing -delay_type max -nworst 10 -path_type full }
+    redirect -file "$OUT/${tag}_io.rpt"         { report_timing -delay_type max -to [get_ports {in_ready}] -path_type full }
+    redirect -file "$OUT/${tag}_power.rpt"      { report_power }
+    redirect -file "$OUT/${tag}_regs.txt"       { puts [sizeof_collection [all_registers]] }
+    puts "PPA-DONE $tag"
+}
+
+# ---- backward（IMPL=2，ready 寄存/透传）----
+foreach w {8 32 128} {
+    set tag "skid_w${w}_i2"
+    remove_design -all
+    elaborate skid_buffer -parameters "DATA_W=$w, IMPL=2, BYPASS=0"
     link
     create_clock -name vclk -period 2.5 [get_ports clk]
     set_input_delay  0.2 -clock vclk [get_ports {in_valid in_data}]

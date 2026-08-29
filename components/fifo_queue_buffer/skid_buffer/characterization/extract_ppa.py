@@ -100,7 +100,7 @@ def main() -> int:
         mbyp = re.match(r"skid_byp_w(\d+)", tag)
         if mw:
             data_w, impl = mw.group(1), int(mw.group(2))
-            mode = "forward" if impl == 0 else "full"
+            mode = {0: "forward", 1: "full", 2: "backward"}.get(impl, f"impl{impl}")
             bypass = "0"
         elif mbyp:
             data_w, impl, mode, bypass = mbyp.group(1), "1", "bypass", "1"

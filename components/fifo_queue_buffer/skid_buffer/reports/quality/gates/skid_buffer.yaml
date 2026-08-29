@@ -1,48 +1,48 @@
 cbb: skid_buffer
-updated: '2026-08-29T01:23:14Z'
+updated: '2026-08-29T03:06:12Z'
 gates:
   G6:
     status: pass
-    note: 多实现 profile(forward/full/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
+    note: 多实现 profile(forward/full/backward/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
     evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
-      + build/eda/ppa/run-20260829-01
+      + build/eda/ppa/run-20260829-03
   G0:
     status: pass
     evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
-      + build/eda/ppa/run-20260829-01
-    note: 多实现 profile(forward/full/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
+      + build/eda/ppa/run-20260829-03
+    note: 多实现 profile(forward/full/backward/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
   G1:
     status: pass
     evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
-      + build/eda/ppa/run-20260829-01
-    note: 多实现 profile(forward/full/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
+      + build/eda/ppa/run-20260829-03
+    note: 多实现 profile(forward/full/backward/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
   G2:
     status: pass
     evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
-      + build/eda/ppa/run-20260829-01
-    note: 多实现 profile(forward/full/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
+      + build/eda/ppa/run-20260829-03
+    note: 多实现 profile(forward/full/backward/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
   G3:
     status: pass
     evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
-      + build/eda/ppa/run-20260829-01
-    note: 多实现 profile(forward/full/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
+      + build/eda/ppa/run-20260829-03
+    note: 多实现 profile(forward/full/backward/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
   G4:
     status: pass
     evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
-      + build/eda/ppa/run-20260829-01
-    note: 多实现 profile(forward/full/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
+      + build/eda/ppa/run-20260829-03
+    note: 多实现 profile(forward/full/backward/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
   G5:
     status: pass
     evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
-      + build/eda/ppa/run-20260829-01
-    note: 多实现 profile(forward/full/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
+      + build/eda/ppa/run-20260829-03
+    note: 多实现 profile(forward/full/backward/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
   G7:
     status: blocked
     evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
-      + build/eda/ppa/run-20260829-01
-    note: 多实现 profile(forward/full/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
+      + build/eda/ppa/run-20260829-03
+    note: 多实现 profile(forward/full/backward/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
   G8:
     status: blocked
     evidence: reports/quality/run_log.md + build/eda/evidence/{g3_static,g4_functional}
-      + build/eda/ppa/run-20260829-01
-    note: 多实现 profile(forward/full/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release
+      + build/eda/ppa/run-20260829-03
+    note: 多实现 profile(forward/full/backward/BYPASS) G1-G6 pass; G7/G8 待 Qualification/Release

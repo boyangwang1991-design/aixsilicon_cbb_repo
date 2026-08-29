@@ -33,7 +33,7 @@ from extract_ppa import (  # noqa: E402
     parse_worst_setup_slack,
 )
 
-MODES = ("forward", "full", "bypass")
+MODES = ("forward", "full", "backward", "bypass")
 WIDTHS = [8, 32, 128]
 
 
@@ -77,7 +77,8 @@ def main() -> int:
         mw = re.match(r"skid_w(\d+)_i(\d)", tag)
         mbyp = re.match(r"skid_byp_w(\d+)", tag)
         if mw:
-            mode = "forward" if mw.group(2) == "0" else "full"
+            impl = mw.group(2)
+            mode = {"0": "forward", "1": "full", "2": "backward"}.get(impl, f"impl{impl}")
             data[mode][int(mw.group(1))] = load_report(run_dir, tag)
         elif mbyp:
             data["bypass"][int(mbyp.group(1))] = load_report(run_dir, tag)
@@ -86,8 +87,8 @@ def main() -> int:
         return 10
 
     fig, axes = plt.subplots(1, 3, figsize=(16, 4.6))
-    style = {"forward": "o-", "full": "s-", "bypass": "^--"}
-    color = {"forward": "tab:blue", "full": "tab:orange", "bypass": "tab:green"}
+    style = {"forward": "o-", "full": "s-", "backward": "d-.", "bypass": "^--"}
+    color = {"forward": "tab:blue", "full": "tab:orange", "backward": "tab:purple", "bypass": "tab:green"}
 
     # 1) 面积 vs DATA_W
     ax = axes[0]
@@ -110,7 +111,7 @@ def main() -> int:
 
     # 2) 时序主判据：reg→reg worst setup slack vs DATA_W（越高越好；bypass 组合 arrival 标注）
     ax = axes[1]
-    for mode in ("forward", "full"):
+    for mode in ("forward", "full", "backward"):
         xs = [w for w in WIDTHS if w in data[mode]]
         ys = []
         for w in xs:

@@ -1,5 +1,15 @@
 # Changelog — skid_buffer
 
+## [0.3.0] - 2026-08-29
+
+### Added（backward registered slice，IMPL=2）
+- `IMPL=2` backward：`in_ready` 由 FF 寄存（切断反压组合链）、valid/data 组合透传
+  （0 数据延迟）、反压 1 拍传导——面积/功耗最低（3.4µm²、1 FF、2.0µW @400MHz）；
+- RTL：`rtl/impl/backward/skid_buffer.sv`（含 SVA PROP-BWD_*）+ wrapper IMPL==2 分支；
+- 契约：REQ-007 / INV-007 / PC-003 {0,1,2} / config-gen 26 配置 / RTM 18 条；
+- G3 静态矩阵扩展 IMPL∈{0,1,2} + 负向 IMPL=3；G4 仿真 5 配置（含 bwd32）；
+- G6 PPA 四实现对比（run-20260829-03）+ 对比图 `reports/ppa_run-20260829-03.png`。
+
 ## [0.2.0] - 2026-08-29
 
 ### Added（多实现 profile）

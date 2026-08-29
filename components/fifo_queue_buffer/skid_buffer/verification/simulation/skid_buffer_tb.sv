@@ -7,6 +7,8 @@
 //   tc_edge           : 空流/单拍/连续背压边界（full, REQ-003/INV-002）
 //   tc_fwd_random     : 随机流（forward, IMPL=0, REQ-005/INV-005）
 //   tc_fwd_backpressure: 高背压（forward, IMPL=0, REQ-005/INV-005）
+//   tc_bwd_random     : 随机流（backward, IMPL=2, REQ-007/INV-007）
+//   tc_bwd_backpressure: 高背压（backward, IMPL=2, REQ-007/INV-007）
 //   tc_bypass         : 组合直通（BYPASS=1, REQ-006/INV-006）
 //   tc_negative_elab  : 非法参数（DATA_W/IMPL/BYPASS 越界）elaboration 拦截
 //                       （执行体 verification/scripts/run_static_checks.sh，REQ-004）
@@ -27,7 +29,7 @@ module skid_buffer_tb #(
 
     localparam int DW = DATA_W;
     localparam int SEED = 32'hCBB_2026_0828;
-    localparam string MODE = BYPASS ? "BYPASS" : (IMPL == 0 ? "FORWARD" : "FULL");
+    localparam string MODE = BYPASS ? "BYPASS" : (IMPL == 0 ? "FORWARD" : (IMPL == 2 ? "BACKWARD" : "FULL"));
 
     // ---- 信号 ----
     logic              clk;
@@ -96,16 +98,18 @@ module skid_buffer_tb #(
         end
     end
 
-    // ---- drain：停输入、out_ready=1，等队列清空 ----
+    // ---- drain：先放开输出消费（保持 in_valid 直至 inq 清空），再停输入 ----
+    // （backward 透传：in_valid 保持时数据才在输出可见，先置 0 会漏 pop）
     task automatic drain(input int max_cyc = 96);
         int cyc = 0;
         @(negedge clk);
-        in_valid <= 1'b0;
-        out_ready <= 1'b1;
+        out_ready <= 1'b1;                 // 先放开输出消费
         while (inq.size() > 0 && cyc < max_cyc) begin
             @(negedge clk);
             cyc++;
         end
+        @(negedge clk);
+        in_valid <= 1'b0;                  // 清空后再停输入
         if (inq.size() > 0) begin
             errors++;
             $display("[FAIL] drain 后 inq 仍有 %0d 项（丢数据/漏输出）", inq.size());

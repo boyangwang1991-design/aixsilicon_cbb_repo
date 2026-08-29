@@ -16,12 +16,12 @@ mkdir -p "$EV" "$WORK"
 command -v vcs >/dev/null 2>&1 || { echo "[BLOCKED] vcs not found"; exit 3; }
 echo "[probe] vcs=$(command -v vcs)"
 
-RTL="$P/rtl/skid_buffer.sv $P/rtl/impl/forward/skid_buffer.sv $P/rtl/impl/full/skid_buffer.sv"
+RTL="$P/rtl/skid_buffer.sv $P/rtl/impl/forward/skid_buffer.sv $P/rtl/impl/full/skid_buffer.sv $P/rtl/impl/backward/skid_buffer.sv"
 
-# ---- 正向编译矩阵：DATA_W ∈ {1,8,32,64,128} × IMPL ∈ {0,1} + BYPASS=1 ----
+# ---- 正向编译矩阵：DATA_W ∈ {1,8,32,64,128} × IMPL ∈ {0,1,2} + BYPASS=1 ----
 : > "$EV/param_matrix.txt"
 for w in 1 8 32 64 128; do
-    for impl in 0 1; do
+    for impl in 0 1 2; do
         ( cd "$WORK" && vcs -full64 -timescale=1ns/1ps -sverilog $RTL \
             -pvalue+skid_buffer.DATA_W=$w -pvalue+skid_buffer.IMPL=$impl \
             -o /tmp/skid_g3_${w}_i${impl} > "$EV/tmp.log" 2>&1 ) || {
@@ -47,11 +47,11 @@ for n in "0 PC-001" "1025 PC-002"; do
     grep -q "$tag" "$EV/negative_w${w}.txt" || { echo "missing $tag in negative_w${w} log"; exit 1; }
 done
 
-# ---- 负向：IMPL=2（PC-003）、BYPASS=2（PC-004）----
+# ---- 负向：IMPL=3（PC-003）、BYPASS=2（PC-004）----
 ( cd "$WORK" && vcs -full64 -timescale=1ns/1ps -sverilog $RTL \
-    -pvalue+skid_buffer.IMPL=2 \
+    -pvalue+skid_buffer.IMPL=3 \
     -o /tmp/skid_neg_impl > "$EV/negative_impl.txt" 2>&1 ) && {
-    echo "negative IMPL=2 unexpectedly PASSED"; exit 1; } || true
+    echo "negative IMPL=3 unexpectedly PASSED"; exit 1; } || true
 grep -q "PC-003" "$EV/negative_impl.txt" || { echo "missing PC-003 in negative_impl log"; exit 1; }
 ( cd "$WORK" && vcs -full64 -timescale=1ns/1ps -sverilog $RTL \
     -pvalue+skid_buffer.BYPASS=2 \

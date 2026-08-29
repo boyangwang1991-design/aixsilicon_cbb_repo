@@ -14,3 +14,8 @@
 - `2026-08-29 01:23:14` | **verify** | G4 | Verify: G4 功能仿真 4 配置(full32/fwd32/bypass32/full1) PASS, SVA(PROP-SKID/FWD/BYP) 无失败, rtm 16 条 | 结果(PASS)
 - `2026-08-29 01:23:14` | **characterize** | G6 | PPA 多实现对比 run-20260829-01: forward W32 85.8um2/slack2.02ns vs full 251.9um2/0.81ns(400MHz MET), bypass 面积~0; reg→reg slack 主判据 | 结果(PASS)
 - `2026-08-29 02:47:47` | **characterize** | G6 | PPA 图: plot_ppa_comparison.py(uv run --with matplotlib) 生成 reports/ppa_run-20260829-01.png 三联图(面积/slack/功耗×W), ppa-report 引用 | 结果(PASS)
+- `2026-08-29 03:06:12` | **specify** | G1 | Specify backward(IMPL=2): REQ-007/INV-007 ready寄存+透传, PC-003 {0,1,2}, config-gen 26(m1/b11/p8/n6), check --strict 全绿 | 结果(PASS)
+- `2026-08-29 03:06:12` | **design** | G2 | Design: detail-design/backward.md(切反压链/透传/守恒/PPA), 用户确认通过 | 结果(PASS)
+- `2026-08-29 03:06:12` | **implement** | G3 | Implement: rtl/impl/backward + wrapper IMPL==2, G3 静态 5W×3I+BYPASS 全过+负向 IMPL=3 | 结果(PASS)
+- `2026-08-29 03:06:12` | **verify** | G4 | Verify: G4 仿真 5 配置(含 bwd32) PASS, PROP-BWD_* 无失败, rtm 18 条 | 结果(PASS)
+- `2026-08-29 03:06:12` | **characterize** | G6 | PPA run-20260829-03: backward 面积3.39um2(1FF)/功耗2.0uW 全实现最低, slack 2.02ns MET; 四实现对比图 | 结果(PASS)
