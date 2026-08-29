@@ -38,10 +38,13 @@ ready 关键路径 ≤1 级，满足"切断 ready 组合链"目标。
 - **杠杆**：DATA_W 是唯一面积杠杆（线性）。DATA_W=1024 时面积 ~2K FF + 2K 宽 mux，
   大宽度场景（>512）建议评估拆分为流水分片（属 QUE-008 多级打拍范畴，非本 CBB）。
 
-### 4.2 时序
+### 4.2 时序（2026-08-29 修正：主判据 = reg→reg 最差 setup slack）
 - 数据/ready 关键路径均 ≤1 级组合，综合收敛风险极低；
-- 主频上界主要由 `buf_data_r → mux → out_data_r`（1 级 + Tcq + Tsetup）决定；
-  400MHz（2.5ns）约束下裕量充足（本地 PDK 典型 300–600MHz）。
+- **主判据**：skid buffer 为时序模块（含寄存器），PPA 时序用 **reg→reg 最差 setup slack**
+  判定（`create_clock` 须绑定 `clk` 端口，否则 FF 无 setup 约束、报告只有组合 arrival）；
+  实测（run-20260828-07，400MHz）：W8/W32/W128 worst_slack = 1.35 / 0.81 / 0.39ns，全部
+  MET——主频上界由 `buf_data_r → mux → out_data_r`（1 级 + Tcq + Tsetup）决定，400MHz
+  收敛，W128 为最紧（扇出增大）；600MHz 上限需进一步 slack 验证；
 - **优化杠杆**：若需更高频率，可把 OUT 装载 mux 用门控时钟替代（引入 ICG 属低功耗
   白名单结构，本版本不引入——面积/DFT 权衡留给 Profile 层）。
 
