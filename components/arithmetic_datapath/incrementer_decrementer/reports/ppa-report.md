@@ -23,6 +23,8 @@
 
 > ripple 的 SEG_W 参数不生效（忽略），故 seg4/seg8 数据相同。
 
+![incrementer_decrementer PPA 对比图（面积/时序/功耗 × DATA_W，ripple vs segmented）](ppa_run-20260829-01.png)
+
 ## 2. 观察
 
 - **窄位宽（W=8）**：segmented 时序显著优于 ripple（1.63 vs 1.90ns，+0.27ns slack 余量）；
