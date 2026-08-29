@@ -23,6 +23,8 @@
 | full | 128| 975.43 | 258| 0.39 | MET | 0.68 | **PASS** | 500.9 | 107.4 |
 | bypass | 32| ~0 (wire) | 0 | —(组合) | MET | 0.02 | **PASS** | n/a | n/a |
 
+![PPA 对比图（面积/时序/功耗 × DATA_W）](ppa_run-20260829-01.png)
+
 ## 多实现对比（Pareto）
 
 - **面积**：forward ≈ full 的 **1/3**（W32: 85.8 vs 251.9 µm²；regs 33 vs 66 = DATA_W+1 vs 2×(DATA_W+1)），

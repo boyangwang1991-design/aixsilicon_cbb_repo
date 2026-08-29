@@ -13,3 +13,4 @@
 - `2026-08-29 01:23:14` | **implement** | G3 | Implement: wrapper + rtl/impl/{forward,full}, G3 静态矩阵(5W×2I + BYPASS) + 负向(PC-001..004) 全过 | 结果(PASS)
 - `2026-08-29 01:23:14` | **verify** | G4 | Verify: G4 功能仿真 4 配置(full32/fwd32/bypass32/full1) PASS, SVA(PROP-SKID/FWD/BYP) 无失败, rtm 16 条 | 结果(PASS)
 - `2026-08-29 01:23:14` | **characterize** | G6 | PPA 多实现对比 run-20260829-01: forward W32 85.8um2/slack2.02ns vs full 251.9um2/0.81ns(400MHz MET), bypass 面积~0; reg→reg slack 主判据 | 结果(PASS)
+- `2026-08-29 02:47:47` | **characterize** | G6 | PPA 图: plot_ppa_comparison.py(uv run --with matplotlib) 生成 reports/ppa_run-20260829-01.png 三联图(面积/slack/功耗×W), ppa-report 引用 | 结果(PASS)
