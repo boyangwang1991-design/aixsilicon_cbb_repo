@@ -1,6 +1,6 @@
 cbb: skid_buffer
 sets:
   mandatory: 1
-  boundary: 8
-  pairwise: 0
-  negative: 2
+  boundary: 10
+  pairwise: 5
+  negative: 6

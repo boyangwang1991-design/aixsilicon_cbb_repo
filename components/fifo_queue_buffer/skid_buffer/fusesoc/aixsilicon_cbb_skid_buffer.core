@@ -1,10 +1,10 @@
 CAPI=2:
 
-# FuseSoC Core — skid_buffer (QUE-007)
-# VLNV: aixsilicon:cbb:skid_buffer:0.1.0
-# 极简单文件：rtl/skid_buffer.sv（参数化 DATA_W；无 package/interface，无嵌套依赖）
-name: aixsilicon:cbb:skid_buffer:0.1.0
-description: "Valid-Ready skid buffer CBB, A3: 1-slot buffer cutting ready combinational chain, full-throughput bubble-free"
+# FuseSoC Core — skid_buffer (QUE-007, v0.2.0 多实现)
+# VLNV: aixsilicon:cbb:skid_buffer:0.2.0
+# 多实现：wrapper（BYPASS/IMPL 分派）+ rtl/impl/{forward,full}（极简单文件，无 package/interface）
+name: aixsilicon:cbb:skid_buffer:0.2.0
+description: "Valid-Ready pipeline stage CBB, A3: forward/full microarchitectures + BYPASS direct, multi-impl profile"
 provider:
   name: aixsilicon
   library: cbb
@@ -12,7 +12,9 @@ provider:
 filesets:
   rtl_src:
     files:
-      - ../rtl/skid_buffer.sv
+      - ../rtl/skid_buffer.sv                       # wrapper（参数检查/BYPASS/IMPL 分派）
+      - ../rtl/impl/forward/skid_buffer.sv          # impl_forward（简单打拍）
+      - ../rtl/impl/full/skid_buffer.sv             # impl_full（OUT+SKID 槽）
     file_type: systemVerilogSource
 
   tb_src:
@@ -41,3 +43,11 @@ parameters:
     datatype: int
     default: 32
     description: "Data width [1..1024] (PC-001/002)"
+  IMPL:
+    datatype: int
+    default: 1
+    description: "Microarchitecture {0=forward,1=full} (PC-003)"
+  BYPASS:
+    datatype: int
+    default: 0
+    description: "Direct combinational bypass {0,1} (PC-004)"

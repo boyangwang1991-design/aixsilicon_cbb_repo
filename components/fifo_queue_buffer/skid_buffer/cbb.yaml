@@ -1,7 +1,9 @@
 # ============================================================
 # cbb.yaml — skid_buffer SSOT 元数据（QUE-007, A3/P0）
-# Valid-Ready Skid Buffer：1 槽缓冲切断 ready 组合链的 vld rdy 打拍模块
-# 拓扑：OUT 寄存级 + SKID 槽（bubble-free full-throughput register slice）
+# Valid-Ready 打拍模块（多实现 profile：forward 简单打拍 / full skid 满吞吐）
+# - IMPL=0 forward：data/valid 打拍 1 拍，ready 组合透传（面积最小，背压由 ready 传导）
+# - IMPL=1 full   ：OUT 寄存 + SKID 槽，满吞吐无气泡、双向切时序（默认）
+# - BYPASS=1      ：零延迟直通（组合旁路，in→out 直连）
 # ============================================================
 
 schema_version: 1.0
@@ -9,7 +11,7 @@ schema_version: 1.0
 cbb:
   id: aixsilicon:cbb:skid_buffer
   name: skid_buffer
-  version: 0.1.0
+  version: 0.2.0
   owner: aixsilicon:cbb
   maturity: E0
   license: Apache-2.0
@@ -22,8 +24,8 @@ classification:
 contract:
   interface: ready_valid             # 原生 valid/ready 握手，无总线协议语义
   clock_domains: 1
-  ordering: in_order                 # FIFO 保序
-  throughput: 1_per_cycle            # 满吞吐无气泡（skid 槽吸收背压）
+  ordering: in_order                 # FIFO 保序（含 forward/full/BYPASS 全模式）
+  throughput: 1_per_cycle            # full/BYPASS 满吞吐；forward 打拍 1 拍、ready 透传
 
 # ---------------- 可配置参数 ----------------
 parameters:
@@ -33,7 +35,24 @@ parameters:
     legal: {min: 1, max: 1024}
     partitions: [1, 8, 32, 64, 128]
     affects: [interface_width, area, timing]
-    semantics: 数据通路位宽（in/out 共享，唯一功能参数）
+    semantics: 数据通路位宽（in/out 共享）
+  IMPL:
+    type: int
+    default: 1
+    legal: {min: 0, max: 1}
+    partitions: [0, 1]
+    affects: [area, timing, latency]
+    semantics: >-
+      微架构选择（多实现/Profile）：
+      0=forward 简单打拍（data/valid 寄存，ready 组合透传，面积最小）；
+      1=full 满吞吐 skid（OUT 寄存 + SKID 槽，双向切时序，无气泡，默认）
+  BYPASS:
+    type: int
+    default: 0
+    legal: {min: 0, max: 1}
+    partitions: [0, 1]
+    affects: [latency, area, timing]
+    semantics: 1=组合直通（out=in 零延迟，in_ready=out_ready 直连），忽略 IMPL
 
 constraints:
   - id: PC-001
@@ -42,44 +61,71 @@ constraints:
   - id: PC-002
     expression: "DATA_W <= 1024"
     severity: error                   # RTL 位宽上界（面积/时序）
+  - id: PC-003
+    expression: "IMPL >= 0 and IMPL <= 1"
+    severity: error                   # 微架构编码合法域
+  - id: PC-004
+    expression: "BYPASS >= 0 and BYPASS <= 1"
+    severity: error                   # 旁路编码合法域
 
 # ---------------- 需求（REQ→PROP/tests/configs 映射）----------------
 requirements:
   - id: REQ-001
     description: >-
-      满吞吐与保序——随机 valid/ready/背压流下所有被接受输入按序输出，无丢无重
-      （参考模型队列整体比对；`in_valid&&in_ready |-> ##1 out_valid` 无气泡）。
+      满吞吐与保序（full 实现）——随机 valid/ready/背压流下所有被接受输入按序输出，
+      无丢无重（参考模型队列整体比对；`in_valid&&in_ready |-> ##1 out_valid` 无气泡）。
     properties: [PROP-SKID_ACCEPT-003, PROP-SKID_DATA-004]
     tests: [tc_random, tc_backpressure]
-    configs: [cfg_data_w32, cfg_data_w64, cfg_data_w128]
+    configs: [cfg_data_w32_impl1_bypass0]
   - id: REQ-002
     description: >-
-      反压正确——全满（out_valid && ~out_ready && buf_valid）时 in_ready 拉低；
+      反压正确（full 实现）——全满（out_valid && ~out_ready && buf_valid）时 in_ready 拉低；
       输出级空或 SKID 槽有空位时必可接受输入，数据不丢。
     properties: [PROP-SKID_READY-001, PROP-SKID_READY-002]
     tests: [tc_backpressure, tc_edge]
-    configs: [cfg_data_w32, cfg_data_w8]
+    configs: [cfg_data_w8_impl1_bypass0]
   - id: REQ-003
     description: >-
-      边界——DATA_W=1 / 极值 / 空流 / 单拍 / 连续背压场景行为正确；
-      输出始终寄存（非 fall-through 直通）。
+      边界——DATA_W=1 / 极值 / 空流 / 单拍 / 连续背压场景行为正确；输出始终寄存（非 fall-through）。
     properties: [PROP-SKID_ACCEPT-003]
     tests: [tc_edge]
-    configs: [cfg_data_w1, cfg_data_w2, cfg_data_w1024]
+    configs: [cfg_data_w1_impl1_bypass0, cfg_data_w2_impl1_bypass0, cfg_data_w1024_impl1_bypass0]
   - id: REQ-004
-    description: 非法参数在 Elaboration 期被拦截（DATA_W 越界 → generate 块 $error）。
+    description: 非法参数在 Elaboration 期被拦截（DATA_W/BYPASS/IMPL 越界 → generate 块 $error）。
     properties: []                    # 负向编译证据（非 SVA）
     tests: [tc_negative_elab]
-    configs: [cfg_data_w0, cfg_data_w1025]
+    configs: [cfg_data_w0_impl1_bypass0, cfg_data_w1025_impl1_bypass0, cfg_data_w32_impl2_bypass0, cfg_data_w32_impl1_bypass2]
+  - id: REQ-005
+    description: >-
+      forward 实现（IMPL=0）——data/valid 打拍 1 拍、ready 组合透传（in_ready=out_ready），
+      保序无丢（背压由 ready 直接传导上游），`in_valid&&in_ready |-> ##1 out_valid`。
+    properties: [PROP-FWD_ACCEPT-001, PROP-FWD_DATA-002]
+    tests: [tc_fwd_random, tc_fwd_backpressure]
+    configs: [cfg_data_w32_impl0_bypass0, cfg_data_w8_impl0_bypass0]
+  - id: REQ-006
+    description: >-
+      BYPASS 直通——BYPASS=1 时 out_valid=in_valid、out_data=in_data、in_ready=out_ready
+      （零延迟组合直通，忽略 IMPL）。
+    properties: [PROP-BYP_DIRECT-001]
+    tests: [tc_bypass]
+    configs: [cfg_data_w32_impl1_bypass1, cfg_data_w32_impl0_bypass1, cfg_data_w8_impl1_bypass1]
 
-# ---------------- 实现变体（单实现：OUT 寄存 + SKID 槽）----------------
+# ---------------- 实现变体（多实现：forward / full 微架构）----------------
 implementations:
-  - id: impl_output_registered        # 满吞吐 bubble-free 拓扑（经典 skid buffer）
+  - id: impl_forward                  # IMPL=0：简单打拍（面积最小）
     source: rtl/
     constraints: constraints/
     dependencies: []                  # 无嵌套 CBB 依赖（独立 A3 构件）
     files:
       - rtl/skid_buffer.sv
+      - rtl/impl/forward/skid_buffer.sv
+  - id: impl_full                     # IMPL=1：OUT 寄存 + SKID 槽（满吞吐无气泡，默认）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/skid_buffer.sv
+      - rtl/impl/full/skid_buffer.sv
 
 # ---------------- 质量门禁（G0~G8）----------------
 quality:
@@ -88,7 +134,7 @@ quality:
 # ---------------- PPA 表征 ----------------
 characterization:
   benchmark_profiles: []
-  measured_region: {DATA_W: [8, 32, 64, 128]}
+  measured_region: {DATA_W: [8, 32, 128], IMPL: [0, 1], BYPASS: [0, 1]}
 
 release:
-  fusesoc_core: aixsilicon:cbb:skid_buffer:0.1.0
+  fusesoc_core: aixsilicon:cbb:skid_buffer:0.2.0

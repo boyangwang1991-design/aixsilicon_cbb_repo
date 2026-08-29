@@ -1,5 +1,5 @@
 # ============================================================================
-# 验证计划（Verification Plan）— skid_buffer (QUE-007, A3)
+# 验证计划（Verification Plan）— skid_buffer (QUE-007, A3, 多实现)
 # 形态：SVA（RTL 就近）+ Simulation（VCS）+ Negative（elaboration $error）
 # 配置矩阵由 cbb_tool.py config-gen 确定性生成（verification/configs/）
 # ============================================================================
@@ -7,42 +7,64 @@
 target: skid_buffer
 
 verification_forms:
-  - sva               # RTL 内 PROP-SKID_READY-001/002, PROP-SKID_ACCEPT-003, PROP-SKID_DATA-004
-  - simulation        # VCS：tc_random + tc_backpressure + tc_edge（参考模型队列整体比对）
-  - negative          # DATA_W 越界 elaboration 拦截（run_static_checks.sh）
+  - sva               # RTL 内 PROP-SKID_*（full）、PROP-FWD_*（forward）、PROP-BYP_*（BYPASS）
+  - simulation        # VCS：随机/背压/边界 + forward/BYPASS 场景（参考模型队列比对）
+  - negative          # DATA_W/BYPASS/IMPL 越界 elaboration 拦截（run_static_checks.sh）
 
 configs:
-  mandatory: [cfg_data_w32]
-  boundary: [cfg_data_w1, cfg_data_w2, cfg_data_w8, cfg_data_w32,
-             cfg_data_w64, cfg_data_w128, cfg_data_w512, cfg_data_w1024]
-  pairwise: []        # 单参数构件，无二元交互（config-gen 输出为空）
-  negative: [cfg_data_w0, cfg_data_w1025]
+  mandatory: [cfg_data_w32_impl1_bypass0]
+  boundary: [cfg_data_w1_impl1_bypass0, cfg_data_w2_impl1_bypass0, cfg_data_w8_impl1_bypass0,
+             cfg_data_w32_impl1_bypass0, cfg_data_w64_impl1_bypass0, cfg_data_w128_impl1_bypass0,
+             cfg_data_w512_impl1_bypass0, cfg_data_w1024_impl1_bypass0,
+             cfg_data_w32_impl0_bypass0, cfg_data_w32_impl1_bypass1]
+  pairwise: [cfg_data_w8_impl0_bypass0, cfg_data_w8_impl1_bypass1, cfg_data_w32_impl0_bypass1]
+  negative: [cfg_data_w0_impl1_bypass0, cfg_data_w1025_impl1_bypass0,
+             cfg_data_w32_impl2_bypass0, cfg_data_w32_impl1_bypass2]
 
 testcases:
   - id: tc_random
-    description: 随机 valid/ready 流（固定 seed），参考模型队列比对保序无丢无重
-    configs: [cfg_data_w32, cfg_data_w64, cfg_data_w128]
+    description: 随机 valid/ready 流（full，固定 seed），参考模型队列比对保序无丢无重
+    configs: [cfg_data_w32_impl1_bypass0, cfg_data_w64_impl1_bypass0, cfg_data_w128_impl1_bypass0]
     reqs: [REQ-001]
     invariants: [INV-001, INV-003]
     properties: [PROP-SKID_ACCEPT-003, PROP-SKID_DATA-004]
   - id: tc_backpressure
-    description: 高背压（out_ready ~6%），验证反压时数据不丢、in_ready 全满拉低
-    configs: [cfg_data_w32, cfg_data_w8]
+    description: 高背压（full），验证反压不丢数据、in_ready 全满拉低
+    configs: [cfg_data_w32_impl1_bypass0, cfg_data_w8_impl1_bypass0]
     reqs: [REQ-002]
     invariants: [INV-001, INV-002]
     properties: [PROP-SKID_READY-001, PROP-SKID_READY-002]
   - id: tc_edge
-    description: 空流 / 单拍 / 连续背压边界（DATA_W=1 特化）
-    configs: [cfg_data_w1, cfg_data_w2, cfg_data_w1024]
+    description: 空流 / 单拍 / 连续背压边界（full）
+    configs: [cfg_data_w1_impl1_bypass0, cfg_data_w2_impl1_bypass0, cfg_data_w1024_impl1_bypass0]
     reqs: [REQ-003]
     invariants: [INV-002]
     properties: [PROP-SKID_ACCEPT-003]
+  - id: tc_fwd_random
+    description: 随机 valid/ready 流（forward，IMPL=0），打拍 1 拍 + ready 透传，保序
+    configs: [cfg_data_w32_impl0_bypass0, cfg_data_w8_impl0_bypass0]
+    reqs: [REQ-005]
+    invariants: [INV-003, INV-005]
+    properties: [PROP-FWD_ACCEPT-001, PROP-FWD_DATA-002]
+  - id: tc_fwd_backpressure
+    description: 高背压（forward），ready 组合透传直接传导上游，数据不丢
+    configs: [cfg_data_w32_impl0_bypass0, cfg_data_w8_impl0_bypass0]
+    reqs: [REQ-005]
+    invariants: [INV-005]
+    properties: [PROP-FWD_ACCEPT-001]
+  - id: tc_bypass
+    description: 组合直通（BYPASS=1），out=in 零延迟、in_ready=out_ready，忽略 IMPL
+    configs: [cfg_data_w32_impl1_bypass1, cfg_data_w32_impl0_bypass1, cfg_data_w8_impl1_bypass1]
+    reqs: [REQ-006]
+    invariants: [INV-006]
+    properties: [PROP-BYP_DIRECT-001]
   - id: tc_negative_elab
-    description: DATA_W 越界（0/1025）在 elaboration 期被 generate $error 拦截
-    configs: [cfg_data_w0, cfg_data_w1025]
+    description: DATA_W/BYPASS/IMPL 越界在 elaboration 期被 generate $error 拦截
+    configs: [cfg_data_w0_impl1_bypass0, cfg_data_w1025_impl1_bypass0,
+              cfg_data_w32_impl2_bypass0, cfg_data_w32_impl1_bypass2]
     reqs: [REQ-004]
     invariants: []
 
 evidence:
-  g3_static: build/eda/evidence/g3_static/{param_matrix.txt, negative_w0.txt, negative_w1025.txt}
+  g3_static: build/eda/evidence/g3_static/{param_matrix.txt, negative_*.txt}
   g4_functional: build/eda/evidence/g4_functional/functional_sim.txt

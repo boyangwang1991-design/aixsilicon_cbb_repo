@@ -8,3 +8,8 @@
 - `2026-08-28 09:31:45` | **verify** | G5 | Config-space(G5): config-gen 去重+约束过滤(mandatory1/boundary8/pairwise0单参数/negative2), rtm 11条 check --strict 全绿 | 结果(PASS)
 - `2026-08-28 09:31:45` | **characterize** | G6 | PPA(G6): pdk-scan PDK_READY, DC 400MHz tt corner 真实综合 run-20260828-01(W8/32/128), 面积线性~252um2@W32 时序余量充裕 | 结果(PASS)
 - `2026-08-29 01:00:51` | **characterize** | G6 | PPA 主判据修正(2026-08-29): skid buffer 非纯组合→用 reg→reg 最差 setup slack 判时序(create_clock 绑定 clk 端口), run-20260828-07 全 MET(0.39/0.81/1.35ns @400MHz); 完整报告集+extract_ppa.py 独立抽取 | 结果(PASS)
+- `2026-08-29 01:23:14` | **specify** | G1 | Specify 多实现扩展: IMPL{0,1}+BYPASS{0,1} 参数/约束 PC-001..004, REQ-001..006, config-gen 21 配置(m1/b10/p5/n6), check --strict 全绿 | 结果(PASS)
+- `2026-08-29 01:23:14` | **design** | G2 | Design 多实现: design.md + detail-design/forward.md + full.md(微架构/守恒/PPA对比), 用户确认通过 | 结果(PASS)
+- `2026-08-29 01:23:14` | **implement** | G3 | Implement: wrapper + rtl/impl/{forward,full}, G3 静态矩阵(5W×2I + BYPASS) + 负向(PC-001..004) 全过 | 结果(PASS)
+- `2026-08-29 01:23:14` | **verify** | G4 | Verify: G4 功能仿真 4 配置(full32/fwd32/bypass32/full1) PASS, SVA(PROP-SKID/FWD/BYP) 无失败, rtm 16 条 | 结果(PASS)
+- `2026-08-29 01:23:14` | **characterize** | G6 | PPA 多实现对比 run-20260829-01: forward W32 85.8um2/slack2.02ns vs full 251.9um2/0.81ns(400MHz MET), bypass 面积~0; reg→reg slack 主判据 | 结果(PASS)

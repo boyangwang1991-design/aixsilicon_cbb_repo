@@ -1,43 +1,59 @@
 # ============================================================
 # skid_buffer 行为契约 (behavior.yaml) —— SSOT
-# Valid-Ready Skid Buffer：OUT 寄存级 + SKID 槽，满吞吐无气泡
+# Valid-Ready 打拍模块（多实现：forward 简单打拍 / full skid 满吞吐 / BYPASS 直通）
 # ============================================================
 
 invariants:
   - id: INV-001
     description: >-
-      满吞吐——输入在 `in_valid && in_ready` 时每拍被接受；被接受的输入下一拍必然在
-      输出级可见（`in_valid && in_ready |-> ##1 out_valid`），背压不产生气泡丢拍。
+      满吞吐（full 实现，IMPL=1）——输入在 `in_valid && in_ready` 时每拍被接受；
+      被接受的输入下一拍必然在输出级可见（`in_valid && in_ready |-> ##1 out_valid`），
+      背压不产生气泡丢拍。
     properties: [PROP-SKID_ACCEPT-003]
     tests: [tc_random, tc_backpressure]
   - id: INV-002
     description: >-
-      反压正确——`in_ready == ~out_valid_r | out_ready | ~buf_valid_r`：
+      反压正确（full 实现，IMPL=1）——`in_ready == ~out_valid_r | out_ready | ~buf_valid_r`：
       仅当输出级满、下游未就绪且 SKID 槽满（三条件齐备）时输入才被反压；
       输出级空或槽有空位时必可接受输入（数据不丢）。
     properties: [PROP-SKID_READY-001, PROP-SKID_READY-002]
     tests: [tc_backpressure, tc_edge]
   - id: INV-003
-    description: 保序——输入到输出的数据顺序不变（FIFO 语义，参考模型队列比对）。
-    properties: [PROP-SKID_DATA-004]
-    tests: [tc_random]
+    description: 保序——输入到输出的数据顺序不变（FIFO 语义，参考模型队列比对，适用 forward/full）。
+    properties: [PROP-SKID_DATA-004, PROP-FWD_DATA-002]
+    tests: [tc_random, tc_fwd_random]
   - id: INV-004
     description: >-
-      输出为寄存——`out_valid`/`out_data` 由 FF 驱动，切断 valid→ready 组合路径；
+      输出为寄存（full 实现）——`out_valid`/`out_data` 由 FF 驱动，切断 valid→ready 组合路径；
       ready 方向仅组合依赖寄存状态与下游 out_ready（组合深度 ≤1 级）。
     properties: []
     tests: []
+  - id: INV-005
+    description: >-
+      forward 实现（IMPL=0）——`out_valid`/`out_data` 打拍 1 拍（`out_valid_r <= in_valid`、
+      `out_data_r <= in_data`），`in_ready == out_ready`（ready 组合透传，背压直接传导上游），
+      `in_valid && in_ready |-> ##1 out_valid`；数据保序、无丢无重。
+    properties: [PROP-FWD_ACCEPT-001, PROP-FWD_DATA-002]
+    tests: [tc_fwd_random, tc_fwd_backpressure]
+  - id: INV-006
+    description: >-
+      BYPASS 直通（BYPASS=1）——组合零延迟：`out_valid == in_valid`、`out_data == in_data`、
+      `in_ready == out_ready`（忽略 IMPL）。
+    properties: [PROP-BYP_DIRECT-001]
+    tests: [tc_bypass]
 
 assumptions:
   - id: ASM-001
     description: 输入 valid/数据在等待 `in_ready` 期间必须保持稳定（标准 valid-ready 握手约定）。
   - id: ASM-002
-    description: 复位 `rst_n` 为低有效、异步拉低（本构件 FF 用 `negedge rst_n` 复位）；同步释放语义由集成层保证。
+    description: 复位 `rst_n` 为低有效、异步拉低（FF 用 `negedge rst_n` 复位）；同步释放语义由集成层保证。
   - id: ASM-003
     description: 输入 X/Z 不承诺（2-state 仿真语义；数据路径 X 传播视为未定义）。
+  - id: ASM-004
+    description: BYPASS=1 时 IMPL 参数被忽略（直通语义优先，无微架构）；配置集不产生 BYPASS=1 与 IMPL 冲突组合。
 
 non_goals:
-  - 可旁路直通（BYPASS，属 STR-007 bypassable_register_slice）
   - 多级/可变深度打拍（属 QUE-008 pipeline_fifo）
   - 跨时钟域 / 异步复位释放同步（属 cdc_rdc 套件）
-  - fall-through（零延迟直通）输出——本构件输出始终寄存（打拍语义）
+  - 时钟门控（ICG）数据路径（低功耗白名单结构，留 Profile 层）
+  - 可变延迟/流水线重排（保序 in-order 语义固定）
