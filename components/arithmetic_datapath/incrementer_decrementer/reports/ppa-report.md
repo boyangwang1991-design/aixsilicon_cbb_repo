@@ -55,24 +55,28 @@
 
 > 自动 CG（CG_EN=1）基于已有 `inc_en/dec_en` 门控进位链与 XOR（无外部 en 端口）；
 > 纯组合，无需 ICG（时钟门控）专用器件——ICG 仅适用于时序电路的时钟路径（下游 Counter 范畴）。
-> 数据：`build/eda/ppa/run-20260829-02/`（W=32 代表点，ACTIVE/HOLD 两翻转率场景，DC report_power）
+> 数据：`build/eda/ppa/run-20260829-03/`（W=32 代表点，ACTIVE/HOLD 两翻转率场景，
+> DC report_power + report_area）
 
-| 实现 | CG_EN | 场景 | dyn (uW) | leak (nW) | 备注 |
-|---|---|---|---|---|---|
-| ripple | 0 | ACTIVE | 18.50 | 23.64 | 原始结构基线 |
-| ripple | 0 | HOLD | 19.18 | 25.05 | din 高翻转但 inc/dec 恒定 |
-| ripple | 1 | ACTIVE | **17.40** | **16.45** | CG 门控，-6% dyn / -30% leak |
-| ripple | 1 | HOLD | **17.40** | **16.45** | 门控后 HOLD 与 ACTIVE 一致 |
-| segmented | 0 | ACTIVE | 17.47 | 16.31 | 原始结构基线 |
-| segmented | 0 | HOLD | 17.47 | 16.31 | carry-skip 天然低翻转 |
-| segmented | 1 | ACTIVE | **17.04** | **14.86** | CG 门控，-2.5% dyn / -9% leak |
-| segmented | 1 | HOLD | **17.04** | **14.86** | 门控后 HOLD 与 ACTIVE 一致 |
+| 实现 | CG_EN | 场景 | area (μm²) | dyn (uW) | leak (nW) | 备注 |
+|---|---|---|---|---|---|---|
+| ripple | 0 | ACTIVE | 95.35 | 18.50 | 23.64 | 原始结构基线 |
+| ripple | 0 | HOLD | 101.79 | 19.18 | 25.05 | din 高翻转但 inc/dec 恒定 |
+| ripple | 1 | ACTIVE | **93.83** | **17.40** | **16.45** | CG 门控，area -1.6% / dyn -6% / leak -30% |
+| ripple | 1 | HOLD | **93.83** | **17.40** | **16.45** | 门控后 HOLD 与 ACTIVE 一致（area -7.8%） |
+| segmented | 0 | ACTIVE | 102.26 | 17.47 | 16.31 | 原始结构基线 |
+| segmented | 0 | HOLD | 102.26 | 17.47 | 16.31 | carry-skip 天然低翻转 |
+| segmented | 1 | ACTIVE | **102.02** | **17.04** | **14.86** | CG 门控，area -0.2% / dyn -2.5% / leak -9% |
+| segmented | 1 | HOLD | **102.02** | **17.04** | **14.86** | 门控后 HOLD 与 ACTIVE 一致 |
 
-![CG 功耗对比（CG_EN=0 vs 1，ACTIVE/HOLD；dyn/leak）](ppa_cg_run-20260829-02.png)
+![CG 面积/功耗对比（CG_EN=0 vs 1，ACTIVE/HOLD；area/dyn/leak）](ppa_cg_run-20260829-03.png)
 
 **观察与结论**
+- **面积：CG 不增反降**：ripple ACTIVE -1.6%（95.35→93.83μm²）、HOLD -7.8%
+  （101.79→93.83μm²）；segmented -0.2%（102.26→102.02μm²，基本持平）。
+  门控边界让综合器裁剪 hold 模式冗余进位逻辑，面积/漏电双降，无面积 penalty。
 - **leak 收益显著**：ripple CG=1 漏电 -30%（25.05→16.45nW）；segmented -9%。
-  门控边界使综合器消掉 hold 模式不工作的冗余进位逻辑，面积/漏电下降。
+  与面积下降同源（冗余逻辑裁剪）。
 - **dyn 收益 modest**：ripple -6%、segmented -2.5%。纯组合下 dout 在 HOLD 仍须直通
   din（契约 dout=din），din→输出路径翻转不可避免；CG 收益主要来自进位链与
   carry-skip 内部节点零翻转 + 门控单元裁剪。
@@ -89,8 +93,8 @@ export IDE_CBB_ROOT=<cbb_root> IDE_RTL_DIR=<cbb_root>/rtl IDE_RUN_ID=run-2026082
 dc_shell -f characterization/synth_sweep.tcl
 ```
 
-### CG 功耗对比
+### CG 面积/功耗对比
 ```bash
-export IDE_CBB_ROOT=<cbb_root> IDE_RTL_DIR=<cbb_root>/rtl IDE_RUN_ID=run-20260829-02
+export IDE_CBB_ROOT=<cbb_root> IDE_RTL_DIR=<cbb_root>/rtl IDE_RUN_ID=run-20260829-03
 dc_shell -f characterization/synth_power_cg.tcl
 ```

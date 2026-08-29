@@ -1,12 +1,13 @@
 #!/usr/bin/env python3
-"""CG 功耗对比绘图 — incrementer_decrementer（CG_EN=0 vs 1，ACTIVE/HOLD 场景）。
+"""CG 功耗/面积对比绘图 — incrementer_decrementer（CG_EN=0 vs 1，ACTIVE/HOLD 场景）。
 
-数据源：build/eda/ppa/<run-id>/cg_*.txt（tag 含 impl/cg/scene；dyn_power_uW/leak_power_nW）。
+数据源：build/eda/ppa/<run-id>/cg_*.txt（tag 含 impl/cg/scene；
+        dyn_power_uW/leak_power_nW/area）。
 输出：reports/ppa_cg_<run-id>.png（300dpi）+ stdout 数据表。
 
 用法（从 CBB 根目录执行，matplotlib 经 uv 临时环境提供）：
   uv run --with matplotlib python characterization/plot_cg_power.py \
-      --run-dirs run-20260829-02 --out reports/ppa_cg_run-20260829-02.png
+      --run-dirs run-20260829-03 --out reports/ppa_cg_run-20260829-03.png
 """
 
 import argparse
@@ -41,6 +42,7 @@ def load(run_dirs: list[Path]) -> dict[tuple[int, int, str], dict[str, float]]:
                     except ValueError:
                         pass
             data[(impl, cg, scene)] = {
+                "area": fields.get("area", float("nan")),
                 "dyn_power_uW": fields.get("dyn_power_uW", float("nan")),
                 "leak_power_nW": fields.get("leak_power_nW", float("nan")),
                 "total_power_uW": fields.get("total_power_uW", float("nan")),
@@ -66,9 +68,10 @@ def main() -> int:
         print("ERROR: no cg_*_summary.txt parsed", file=sys.stderr)
         return 10
 
-    # 2 行（ripple/segmented）× 2 列（dyn/leak），x 轴为 CG_EN，ACTIVE/HOLD 双线
-    fig, axes = plt.subplots(2, 2, figsize=(14, 8))
+    # 2 行（ripple/segmented）× 3 列（area/dyn/leak），x 轴为 CG_EN，ACTIVE/HOLD 双线
+    fig, axes = plt.subplots(2, 3, figsize=(16, 8))
     metrics = [
+        ("area", "Total cell area (um^2)"),
         ("dyn_power_uW", "Dynamic power (uW)"),
         ("leak_power_nW", "Leakage power (nW)"),
     ]
@@ -87,7 +90,7 @@ def main() -> int:
             ax.legend(fontsize=9)
             ax.set_title(f"{IMPL_NAMES[impl]} (W=32)")
     fig.suptitle(
-        "incrementer_decrementer CG power — CG_EN=0 vs 1, ACTIVE/HOLD "
+        "incrementer_decrementer CG area/power — CG_EN=0 vs 1, ACTIVE/HOLD "
         "(sc9_cmos28lp_base_hvt tt 1.00V 25C, 400MHz)"
     )
     fig.tight_layout()
@@ -95,11 +98,11 @@ def main() -> int:
     fig.savefig(out, dpi=300)
     print(f"PNG written: {out}")
 
-    print(f"{'impl':>10} {'CG_EN':>5} {'scene':>7} {'dyn_uW':>9} {'leak_nW':>9}")
+    print(f"{'impl':>10} {'CG_EN':>5} {'scene':>7} {'area':>9} {'dyn_uW':>9} {'leak_nW':>9}")
     for (impl, cg, scene) in sorted(data):
         d = data[(impl, cg, scene)]
-        print(f"{IMPL_NAMES[impl]:>10} {cg:>5} {scene:>7} {d['dyn_power_uW']:>9.3f} "
-              f"{d['leak_power_nW']:>9.3f}")
+        print(f"{IMPL_NAMES[impl]:>10} {cg:>5} {scene:>7} {d['area']:>9.3f} "
+              f"{d['dyn_power_uW']:>9.3f} {d['leak_power_nW']:>9.3f}")
     return 0
 
 

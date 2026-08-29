@@ -5,10 +5,11 @@
 # 场景（DC 功耗用 set_switching_activity 指定输入翻转率）：
 #   ACTIVE ：inc_en/dec_en 高翻转（Counter 常计数），din 随机高翻转
 #   HOLD   ：inc_en=dec_en=0 恒定（Counter 保持），din 仍随机翻转
+# 面积：report_area（CG 门控裁剪冗余进位逻辑，面积通常下降或持平）
 # 库：sc9_cmos28lp_base_hvt tt_1p00v_25c；约束 create_clock 2.5ns
 # 用法：IDE_CBB_ROOT=<root> IDE_RTL_DIR=<root>/rtl IDE_RUN_ID=run-<id> \
 #         dc_shell -f characterization/synth_power_cg.tcl
-# 产物：build/eda/ppa/<RUNID>/cg_<impl>_w<W>_cg<CG>_<SCENE>_{power,summary}.txt
+# 产物：build/eda/ppa/<RUNID>/cg_<impl>_w<W>_cg<CG>_<SCENE>_{power,area,summary}.txt
 # ============================================================================
 
 set PDKDB /home/eda/pdk/CMOS28NM/extracted/GF21LB004-FB-00000-r5p0-03rel0/arm/cp/cmos28lp/sc9_base_hvt/r5p0/db/sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c.db
@@ -50,27 +51,35 @@ foreach {impl seg} {0 4 1 8} {
         set_switching_activity -type wire_toggles -toggle_rate 0.5 [get_ports din]
         set_switching_activity -type wire_toggles -toggle_rate 0.0 [get_ports inc_en]
         set_switching_activity -type wire_toggles -toggle_rate 0.0 [get_ports dec_en]
-      }
-
-      redirect -file "$OUT/${tag}_power.txt" { report_power }
-
-      set fh [open "$OUT/${tag}_summary.txt" w]
-      puts $fh "tag=$tag impl=$impl w=32 seg=$seg cg=$cg scene=$scene"
-      set pr [open "$OUT/${tag}_power.txt" r]
-      foreach ln [split [read $pr] "\n"] {
-        if {[regexp {Total Dynamic Power\s+=\s+([0-9.eE+-]+)\s+uW} $ln -> p]} {
-          puts $fh "dyn_power_uW=$p"
         }
-        if {[regexp {Cell Leakage Power\s+=\s+([0-9.eE+-]+)\s+nW} $ln -> p]} {
-          puts $fh "leak_power_nW=$p"
+  
+        redirect -file "$OUT/${tag}_power.txt" { report_power }
+        redirect -file "$OUT/${tag}_area.txt"  { report_area }
+  
+        set fh [open "$OUT/${tag}_summary.txt" w]
+        puts $fh "tag=$tag impl=$impl w=32 seg=$seg cg=$cg scene=$scene"
+        set pr [open "$OUT/${tag}_power.txt" r]
+        foreach ln [split [read $pr] "\n"] {
+          if {[regexp {Total Dynamic Power\s+=\s+([0-9.eE+-]+)\s+uW} $ln -> p]} {
+            puts $fh "dyn_power_uW=$p"
+          }
+          if {[regexp {Cell Leakage Power\s+=\s+([0-9.eE+-]+)\s+nW} $ln -> p]} {
+            puts $fh "leak_power_nW=$p"
+          }
+          if {[regexp {Total Power\s+=\s+([0-9.eE+-]+)\s+uW} $ln -> p]} {
+            puts $fh "total_power_uW=$p"
+          }
         }
-        if {[regexp {Total Power\s+=\s+([0-9.eE+-]+)\s+uW} $ln -> p]} {
-          puts $fh "total_power_uW=$p"
+        close $pr
+        set ar [open "$OUT/${tag}_area.txt" r]
+        foreach ln [split [read $ar] "\n"] {
+          if {[regexp {Total cell area:\s+([0-9.]+)} $ln -> a]} {
+            puts $fh "area=$a"
+          }
         }
-      }
-      close $pr
-      close $fh
-      puts "CG-PPA-DONE $tag"
+        close $ar
+        close $fh
+        puts "CG-PPA-DONE $tag"
     }
   }
 }
