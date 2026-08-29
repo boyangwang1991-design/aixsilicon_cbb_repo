@@ -1,0 +1,77 @@
+# ============================================================
+# weighted_rr_arbiter 行为契约 (behavior.yaml) —— SSOT
+# 加权轮转仲裁：授权互斥 + 权重公平（quota 配额 / smooth credit）+ 可选寄存/ack 锁定
+# ============================================================
+
+invariants:
+  - id: INV-001
+    description: >-
+      授权互斥——对任意合法 2-state 请求向量，grant_o 中至多一位有效
+      （无多授权、无授权冲突）。对 WMODE=0/1 与所有微架构均成立。
+    properties: [PROP-WRRA_MUTEX-001]
+    tests: [tc_mutex, tc_random, tc_quota_window]
+  - id: INV-002
+    description: >-
+      quota 权重公平（WMODE=0）——每轮配额窗口内，每路有效请求的授权次数不超过其权重值；
+      所有未饱和路授权完成后整轮重置（各计数清零）；连续满请求下授权比例趋近权重比例，
+      不超发、不饿死（每轮至少授予每路一次，若其权重>0 且有请求）。
+    properties: [PROP-WRRA_QUOTA-002]
+    tests: [tc_quota_window, tc_random]
+  - id: INV-003
+    description: >-
+      无请求 → grant_o 全零；有请求 → 恰好一个授权（活性：不丢授权）。
+      权重为 0 的请求不参与选择（视为无资格，不阻塞其它请求）。
+    properties: [PROP-WRRA_NONE-003]
+    tests: [tc_edge, tc_random]
+  - id: INV-004
+    description: >-
+      smooth WRR（WMODE=1，credit 平滑）——每轮按"credit 最大且有资格（权重>0 且有请求）"
+      的路动态选择；被授权路 credit 减少 1，未授权路不变；所有资格路 credit 耗尽后统一回补
+      （各加权重），实现跨轮累计、比例趋近权重且无负 credit（不超发）。
+    properties: [PROP-WRRA_SMOOTH-004]
+    tests: [tc_smooth_ratio, tc_random]
+  - id: INV-005
+    description: >-
+      FAST_GRANT=1（registered）——grant_o 相对组合参考模型延迟 1 拍，
+      且每周期组合参考（req_i/weight_i 经加权 RR 选择）等于寄存 grant 一拍前的期望。
+    properties: [PROP-WRRA_REG-005]
+    tests: [tc_registered, tc_equiv]
+  - id: INV-006
+    description: >-
+      GRANT_ACK_EN=1（ack 锁定）——grant 在未被 grant_ack_i 应答前保持锁定不变；
+      ack 应答后按加权 RR 顺序移动到下一请求（或重新选择）。此模式要求消费方应答，
+      否则授权不轮转（防活锁由消费方保证）。
+    properties: [PROP-WRRA_ACK-007]
+    tests: [tc_ack_lock]
+
+assumptions:
+  - id: ASM-001
+    description: 输入 X/Z 不承诺（2-state 仿真语义；X 传播视为未定义）。
+  - id: ASM-002
+    description: >-
+      GRANT_ACK_EN=1 时，grant_ack_i 必须在 grant_o 有效后的下一拍内拉高
+      （或在授权保持期间），否则授权保持（防活锁由消费方保证）。
+  - id: ASM-003
+    description: WMODE / FAST_GRANT / GRANT_ACK_EN / PC_IMPL 为编译期参数，不运行时切换
+      （生成/参数化语义）。
+  - id: ASM-004
+    description: >-
+      FAST_GRANT=1 或 GRANT_ACK_EN=1 需要 clk/rst_n；纯组合配置
+      （FAST_GRANT=0 且 GRANT_ACK_EN=0）可不接时钟（RTL 仍保留端口，接 clk 亦可）。
+  - id: ASM-005
+    description: >-
+      权重端口 weight_i 由上游静态/低频配置提供（每路独立编码）；WRR 公平语义建立在
+      权重比例之上，权重为 0 的路永不被授权（除非 WMODE=1 且其为唯一资格路，见 INV-004）。
+  - id: ASM-006
+    description: >-
+      quota 窗口重置时机为"本轮所有未饱和资格路授权完成后的下一拍"；窗口内授权不保证
+      连续（若某路无请求或权重为 0，其配额不消耗、直接跳过）。
+
+non_goals:
+  - 包长/字节感知的 Deficit RR（ARB-004 deficit_rr_arbiter，量子粒度）。
+  - 年龄/时间戳公平（ARB-005 age_based_arbiter）。
+  - 随机/抽奖调度（ARB-006 lottery_arbiter，LFSR 加权）。
+  - 多授权（top-K 同时授权，ARB-007 multi_grant_arbiter）。
+  - 层次化跨模块仲裁（ARB-008 hierarchical_arbiter）。
+  - 流水化/多拍事务语义（单周期决策；寄存授权仅 1 拍）。
+  - 运行时权重热更新（weight_i 变化视作上游配置约束，窗口内不原子切换）。

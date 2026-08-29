@@ -1,0 +1,135 @@
+set: pairwise
+configs:
+- config_id: cfg_num_req2_req_type1_fast_grant0_pc_impl0_grant_ack_en0
+  parameters:
+    NUM_REQ: 2
+    REQ_TYPE: 1
+    FAST_GRANT: 0
+    PC_IMPL: 0
+    GRANT_ACK_EN: 0
+- config_id: cfg_num_req4_req_type1_fast_grant0_pc_impl0_grant_ack_en0
+  parameters:
+    NUM_REQ: 4
+    REQ_TYPE: 1
+    FAST_GRANT: 0
+    PC_IMPL: 0
+    GRANT_ACK_EN: 0
+- config_id: cfg_num_req2_req_type0_fast_grant1_pc_impl0_grant_ack_en0
+  parameters:
+    NUM_REQ: 2
+    REQ_TYPE: 0
+    FAST_GRANT: 1
+    PC_IMPL: 0
+    GRANT_ACK_EN: 0
+- config_id: cfg_num_req4_req_type0_fast_grant1_pc_impl0_grant_ack_en0
+  parameters:
+    NUM_REQ: 4
+    REQ_TYPE: 0
+    FAST_GRANT: 1
+    PC_IMPL: 0
+    GRANT_ACK_EN: 0
+- config_id: cfg_num_req2_req_type0_fast_grant0_pc_impl1_grant_ack_en0
+  parameters:
+    NUM_REQ: 2
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 1
+    GRANT_ACK_EN: 0
+- config_id: cfg_num_req2_req_type0_fast_grant0_pc_impl2_grant_ack_en0
+  parameters:
+    NUM_REQ: 2
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 2
+    GRANT_ACK_EN: 0
+- config_id: cfg_num_req4_req_type0_fast_grant0_pc_impl1_grant_ack_en0
+  parameters:
+    NUM_REQ: 4
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 1
+    GRANT_ACK_EN: 0
+- config_id: cfg_num_req4_req_type0_fast_grant0_pc_impl2_grant_ack_en0
+  parameters:
+    NUM_REQ: 4
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 2
+    GRANT_ACK_EN: 0
+- config_id: cfg_num_req2_req_type0_fast_grant0_pc_impl0_grant_ack_en1
+  parameters:
+    NUM_REQ: 2
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 0
+    GRANT_ACK_EN: 1
+- config_id: cfg_num_req4_req_type0_fast_grant0_pc_impl0_grant_ack_en1
+  parameters:
+    NUM_REQ: 4
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 0
+    GRANT_ACK_EN: 1
+- config_id: cfg_num_req8_req_type1_fast_grant1_pc_impl0_grant_ack_en0
+  parameters:
+    NUM_REQ: 8
+    REQ_TYPE: 1
+    FAST_GRANT: 1
+    PC_IMPL: 0
+    GRANT_ACK_EN: 0
+- config_id: cfg_num_req8_req_type1_fast_grant0_pc_impl1_grant_ack_en0
+  parameters:
+    NUM_REQ: 8
+    REQ_TYPE: 1
+    FAST_GRANT: 0
+    PC_IMPL: 1
+    GRANT_ACK_EN: 0
+- config_id: cfg_num_req8_req_type1_fast_grant0_pc_impl2_grant_ack_en0
+  parameters:
+    NUM_REQ: 8
+    REQ_TYPE: 1
+    FAST_GRANT: 0
+    PC_IMPL: 2
+    GRANT_ACK_EN: 0
+- config_id: cfg_num_req8_req_type1_fast_grant0_pc_impl0_grant_ack_en1
+  parameters:
+    NUM_REQ: 8
+    REQ_TYPE: 1
+    FAST_GRANT: 0
+    PC_IMPL: 0
+    GRANT_ACK_EN: 1
+- config_id: cfg_num_req8_req_type0_fast_grant1_pc_impl1_grant_ack_en0
+  parameters:
+    NUM_REQ: 8
+    REQ_TYPE: 0
+    FAST_GRANT: 1
+    PC_IMPL: 1
+    GRANT_ACK_EN: 0
+- config_id: cfg_num_req8_req_type0_fast_grant1_pc_impl2_grant_ack_en0
+  parameters:
+    NUM_REQ: 8
+    REQ_TYPE: 0
+    FAST_GRANT: 1
+    PC_IMPL: 2
+    GRANT_ACK_EN: 0
+- config_id: cfg_num_req8_req_type0_fast_grant1_pc_impl0_grant_ack_en1
+  parameters:
+    NUM_REQ: 8
+    REQ_TYPE: 0
+    FAST_GRANT: 1
+    PC_IMPL: 0
+    GRANT_ACK_EN: 1
+- config_id: cfg_num_req8_req_type0_fast_grant0_pc_impl1_grant_ack_en1
+  parameters:
+    NUM_REQ: 8
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 1
+    GRANT_ACK_EN: 1
+- config_id: cfg_num_req8_req_type0_fast_grant0_pc_impl2_grant_ack_en1
+  parameters:
+    NUM_REQ: 8
+    REQ_TYPE: 0
+    FAST_GRANT: 0
+    PC_IMPL: 2
+    GRANT_ACK_EN: 1

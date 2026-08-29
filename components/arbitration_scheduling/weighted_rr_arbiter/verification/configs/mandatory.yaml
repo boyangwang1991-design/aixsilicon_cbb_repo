@@ -1,0 +1,10 @@
+set: mandatory
+configs:
+- config_id: cfg_num_req8_weight_width4_wmode0_fast_grant0_grant_ack_en0_pc_impl0
+  parameters:
+    NUM_REQ: 8
+    WEIGHT_WIDTH: 4
+    WMODE: 0
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 0
+    PC_IMPL: 0

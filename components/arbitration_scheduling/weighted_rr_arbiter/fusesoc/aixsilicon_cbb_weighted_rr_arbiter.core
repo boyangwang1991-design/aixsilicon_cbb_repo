@@ -1,0 +1,68 @@
+CAPI=2:
+
+# FuseSoC Core — weighted_rr_arbiter (ARB-003)
+# VLNV: aixsilicon:cbb:weighted_rr_arbiter:0.1.0
+# 极简单文件：wrapper + 两实现同居 weighted_rr_arbiter.sv；WMODE/PC_IMPL 编译期选择
+name: aixsilicon:cbb:weighted_rr_arbiter:0.1.0
+description: "Weighted round-robin arbiter CBB, A2, quota/smooth WRR with optional registered/ack-locked grant"
+provider:
+  name: aixsilicon
+  library: cbb
+
+filesets:
+  rtl_src:
+    files:
+      - ../rtl/weighted_rr_arbiter.sv   # wrapper（参数检查/SVA/实现分派 + w_rr_scan/w_first_set/w_idx_encode）
+    file_type: systemVerilogSource
+
+  tb_src:
+    files:
+      - ../verification/simulation/wrra_tb.sv
+    file_type: systemVerilogSource
+
+  neg_tb_src:
+    files:
+      - ../verification/formal/negative_elab_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets: [rtl_src]
+  sim:
+    default_tool: vcs
+    filesets: [rtl_src, tb_src]
+    toplevel: [wrra_tb]
+  synth:
+    default_tool: dc
+    filesets: [rtl_src]
+    toplevel: [weighted_rr_arbiter]
+  lint:
+    default_tool: spyglass
+    filesets: [rtl_src]
+    toplevel: [weighted_rr_arbiter]
+
+parameters:
+  NUM_REQ:
+    datatype: int
+    default: 8
+    description: "Number of requesters [2..64] (PC-001/002)"
+  WEIGHT_WIDTH:
+    datatype: int
+    default: 4
+    description: "Weight bit-width per requester [2..16] (PC-003/004)"
+  WMODE:
+    datatype: int
+    default: 0
+    description: "Weighting mode {0=quota counters,1=smooth credit WRR} (PC-005)"
+  FAST_GRANT:
+    datatype: int
+    default: 0
+    description: "Grant output {0=combinational,1=registered (1 cycle)} (PC-006)"
+  GRANT_ACK_EN:
+    datatype: int
+    default: 0
+    description: "Grant lock {0=per-cycle re-arbitrate,1=lock until grant_ack} (PC-007)"
+  PC_IMPL:
+    datatype: int
+    default: 0
+    description: "Microarchitecture select {0=quota_counter,1=deficit_rotate} (PC-008)"

@@ -1,0 +1,29 @@
+# 表征计划（Characterization Plan）— weighted_rr_arbiter
+# G6 PPA：pdk-scan 判定 PDK_READY（sc9_cmos28lp_base_hvt tt_1p00v_25c），已做真实 DC 综合表征（E2）。
+benchmark_profiles: [quota_small, quota_reg, smooth_credit, ack_lock]
+measured_region:
+  # run-20260829-01（WMODE=0 quota）与 run-20260829-02（WMODE=1 smooth）
+  NUM_REQ: [4, 8, 16]
+  PC_IMPL: [0, 1]
+  WEIGHT_WIDTH: [4]
+  WMODE: [0, 1]
+  FAST_GRANT: [0]
+  GRANT_ACK_EN: [0]
+status: CHARACTERIZED_E2
+runs:
+  - run_id: run-20260829-01
+    wmode: 0
+    corner: tt_1p00v_25c
+    clock: 2.5ns (400MHz)
+    tools: dc_shell V-2023.12-SP3
+    evidence: build/eda/ppa/run-20260829-01/
+  - run_id: run-20260829-02
+    wmode: 1
+    corner: tt_1p00v_25c
+    clock: 2.5ns (400MHz)
+    tools: dc_shell V-2023.12-SP3
+    evidence: build/eda/ppa/run-20260829-02/
+notes: |
+  - quota（WMODE=0）两实现综合一致（跨实现等价 PPA 证实）；smooth 面积/功耗约为 quota 的 3–5×。
+  - 功耗为默认概率传播估计（无 SAIF），activity 上下文：恒定全请求近似。
+  - 未覆盖：WEIGHT_WIDTH>4、FAST_GRANT=1、GRANT_ACK_EN=1（后续扩展）。

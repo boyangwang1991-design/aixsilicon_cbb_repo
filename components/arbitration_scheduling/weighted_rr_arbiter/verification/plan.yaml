@@ -1,0 +1,7 @@
+# 验证计划（Verification Plan）— weighted_rr_arbiter
+# 声明验证形态（SVA/Formal/Simulation/负向/变异）、配置矩阵、用例→需求映射、
+# 结果解释与证据位置（见 cbb-development-suite references/verification-strategy.md）。
+target: weighted_rr_arbiter
+verification_forms: []
+configs: []
+testcases: []

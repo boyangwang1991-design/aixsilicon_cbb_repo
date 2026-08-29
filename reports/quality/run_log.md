@@ -103,3 +103,11 @@
     根因: 早期 synth_sweep.tcl 只抓 area/arrival/slack 三字段, power.rpt 完整存在但 summary/报告漏抓=证据管线断链; 数据: W64 动态功耗 direct/tree=71.95 wallace=79.08 lut=80.11 comp4_2=100.97uW(+40% vs tree); 漏电<0.04%动态主导; 结论: tree_default 推荐不变, comp4_2 W64 面积+54%/功耗+40% 双差; 回填脚本可重放: uv run python characterization/extract_power_summary.py --run-dir build/eda/ppa/run-20260828-01
 - `2026-08-28 09:10:30` | **verify** | G5 | G5 配置空间修复: config-gen 集合约束表达式求值 bug 修复(PC-004 花括号 fail-closed 致 mandatory/boundary/pairwise 全空) -> 生成 1+12+4+2=19 配置; plan.yaml/cbb.yaml REQ 引用对齐自动命名 config_id 消除悬空断链; cbb.yaml dependencies 移除非 VLNV 文件项(生成器为构建期工具); check --strict PASS + rtm check-only PASS | 结果(PASS)
     skill 仓 cbb_common.py eval_constraint_expr: _EXPR_ALLOWED 补 {} 与逗号, _EXPR_FORBIDDEN 补 for/while/** 封堵推导式/解包注入面(源仓已改并 --force 重物化); tc_negative_elab 场景索引补入 popcount_tb.sv 头注释; gate G5/G7/G8 candidate 非法状态遗留待 Workflow 裁决后更新
+- `2026-08-29 03:55:03` | **intake** | G0 | G0 Intake：ARB-002 round_robin_arbiter 边界判定 CBB/A2，查重命中已登记 planned 条目，本次物化；无嵌套依赖 | 结果(PASS)
+- `2026-08-29 03:56:09` | **specify** | G1 | G1 规格：cbb.yaml+behavior.yaml 契约（5 参数 6 约束 8 需求）+ config-gen 配置集（mandatory/boundary/pairwise/negative）+ cbb_spec.md + RTM(19) 生成，check 通过 | 结果(PASS)
+- `2026-08-29 03:57:42` | **design** | G2 | G2 设计：design.md + profiles.yaml（5 Profile）+ 三实现详设 mask/rotate_prio/pointer（含逻辑深度/PPA 优化点/生成方式 SV 手写），check 通过 | 结果(PASS)
+- `2026-08-29 04:16:47` | **implement** | G3 | G3 RTL 实现：rtl/round_robin_arbiter.sv（wrapper+三实现+SVA 极简单文件）+ FuseSoC Core + 静态基线（VCS 编译矩阵 18 点 + 负向 elab 拦截 + SpyGlass lint 0F/0E） | 结果(PASS)
+- `2026-08-29 04:16:47` | **verify** | G4 | G4/G5 验证：VCS 功能仿真全 PASS（穷举/轮转序/边界/随机2000×N64/等价/锁存/寄存/ack锁定）+ 负向 elab + 变异测试（互斥破坏→20078 断言失败）+ check --strict 通过（RTM 无悬空） | 结果(PASS)
+- `2026-08-29 04:23:07` | **characterize** | G6 | G6 PPA：pdk-scan PDK_READY + DC 合成 15 点（mask/rotate/pointer×N4-64），Pareto：mask 面积最小、rotate/pointer 时序优 | 结果(PASS)
+- `2026-08-29 05:41:34` | **characterize** | G6 | G6 PPA 绘图：plot_ppa_comparison.py 生成 reports/ppa_run-20260829-01.png（300dpi，面积/arrival/功耗×N），功耗数据补齐（mask 全 N 功耗最低） | 结果(PASS)
+- `2026-08-29 05:53:02` | **qualify** | G6 | SKILL 复盘落地（2026-08-29）：7 项优化到 skill 源仓并重物化——①gate G6 证据检查器（负向验证：删 PNG 即拦截）②domain-rules 动态索引 LHS/循环移位坑 ③SVA 按功能参数模式限定 ④gate --update 语法兼容 ⑤TB 场景隔离模板 ⑥PPA summary 绘图模板；validate_suite OK | 结果(PASS)

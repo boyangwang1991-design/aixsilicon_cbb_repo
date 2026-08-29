@@ -1,0 +1,63 @@
+# profiles.yaml —— 多实现 Profile（weighted_rr_arbiter）
+# 共享同一可观察契约（授权互斥 + 权重公平），差异仅在加权轮转结构（面积↔时序/平滑 trade-off）
+# PC_IMPL: 0=quota_counter(每路独立配额计数) 1=deficit_rotate(统一 credit 减法+旋转选择)
+# WMODE/FAST_GRANT/GRANT_ACK_EN 为功能参数，与微架构正交
+
+schema_version: "1.0"
+cbb: aixsilicon:cbb:weighted_rr_arbiter
+
+profiles:
+  - id: quota_small
+    implementation: impl_quota_counter
+    parameters:
+      NUM_REQ: default
+      WEIGHT_WIDTH: 4
+      WMODE: 0
+      FAST_GRANT: 0
+      GRANT_ACK_EN: 0
+    optimization_target: area_small_n
+    use_case: 少量请求端（N≤8）、权重区分明显、面积极敏感；配额计数最直观、面积最小
+    support_status: supported        # G6 Pareto 判定后确认
+    notes: 每路独立配额计数器 + RR 选择（O(N) 计数逻辑）
+
+  - id: quota_reg
+    implementation: impl_quota_counter
+    parameters:
+      NUM_REQ: default
+      WEIGHT_WIDTH: 4
+      WMODE: 0
+      FAST_GRANT: 1
+      GRANT_ACK_EN: 0
+    optimization_target: timing_small_n
+    use_case: 小请求数 + 需要寄存授权（关键路径 reg→grant 更短）
+    support_status: experimental
+    notes: 配额计数 + 输出寄存授权（1 拍延迟）
+
+  - id: smooth_credit
+    implementation: impl_deficit_rotate
+    parameters:
+      NUM_REQ: default
+      WEIGHT_WIDTH: 4
+      WMODE: 1
+      FAST_GRANT: 0
+      GRANT_ACK_EN: 0
+    optimization_target: fairness_smooth
+    use_case: 需要更平滑、更接近理想权重比例的调度（流量整形/带宽分配），接受更高状态/逻辑
+    support_status: experimental    # G6 实证：与 quota 的公平性/面积对比
+    notes: 统一 credit 减法 + 旋转选择（credit 跨轮累计）
+
+  - id: ack_lock
+    implementation: impl_quota_counter
+    parameters:
+      NUM_REQ: default
+      WEIGHT_WIDTH: 4
+      WMODE: 0
+      FAST_GRANT: 0
+      GRANT_ACK_EN: 1
+    optimization_target: stable_grant
+    use_case: 慢速/需稳定授权场景；grant 锁定到 ack 应答后才轮转（消费方背压感知）
+    support_status: experimental    # 功能型 Profile（非 PPA 驱动），G4 tc_ack_lock 已验
+    notes: ack 锁定（GRANT_ACK_EN=1），grant 保持至 grant_ack_i；消费方必须应答（ASM-002）
+
+# 依赖 DAG：零运行时依赖（各 impl dependencies=[]），自动无环；
+# PC_IMPL 编译期分派见 rtl/weighted_rr_arbiter.sv；WMODE/FAST_GRANT/GRANT_ACK_EN 正交（generate 分支）。

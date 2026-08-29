@@ -1,0 +1,24 @@
+cbb: weighted_rr_arbiter
+updated: '2026-08-29T06:44:52Z'
+gates:
+  G4:
+    status: pass
+    note: 见 run_log 证据
+  G0:
+    status: pass
+    note: 见 run_log 证据
+  G1:
+    status: pass
+    note: 见 run_log 证据
+  G2:
+    status: pass
+    note: 见 run_log 证据
+  G3:
+    status: pass
+    note: 见 run_log 证据
+  G5:
+    status: pass
+    note: 见 run_log 证据
+  G6:
+    status: pass
+    note: PDK_READY + DC 真实综合 E2（quota/smooth sweep）；PPA 报告与对比图已生成

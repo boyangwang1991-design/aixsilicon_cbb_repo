@@ -1,0 +1,26 @@
+cbb: round_robin_arbiter
+updated: '2026-08-29T05:45:07Z'
+gates:
+  G5:
+    status: pass
+    note: G0-G5 candidate（Workflow Gate 确认后转换 implemented→verified）
+  G4:
+    status: pass
+    note: G0-G5 candidate（Workflow Gate 确认后转换 implemented→verified）
+  G0:
+    status: pass
+    note: G0-G5 candidate（Workflow Gate 确认后转换 implemented→verified）
+  G1:
+    status: pass
+    note: G0-G5 candidate（Workflow Gate 确认后转换 implemented→verified）
+  G2:
+    status: pass
+    note: G0-G5 candidate（Workflow Gate 确认后转换 implemented→verified）
+  G3:
+    status: pass
+    note: G0-G5 candidate（Workflow Gate 确认后转换 implemented→verified）
+  G6:
+    status: pass
+    evidence: reports/ppa-report.md run-20260829-01
+    note: G6 PPA：DC 综合 15 点（3实现×5请求数，CMOS28LP sc9 tt_1p00v_25c），mask 面积最优、rotate/pointer
+      时序 O(log N)，Pareto 见 reports/ppa-report.md

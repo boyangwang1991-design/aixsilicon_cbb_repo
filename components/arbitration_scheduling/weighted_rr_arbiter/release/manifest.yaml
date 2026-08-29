@@ -1,0 +1,18 @@
+# Release Manifest（G8 候选）— weighted_rr_arbiter
+# 状态：candidate（只有 Workflow Gate G8 可确认 released）
+# 当前进度：G0-G6 pass（实现+验证+PPA 表征 E2）；G7/G8 待 Qualification/Release 协调
+schema_version: 1.0
+release:
+  cbb: aixsilicon:cbb:weighted_rr_arbiter
+  version: 0.1.0
+  status: candidate
+  maturity: E2                # Implemented + Verified + Characterized（G4 功能 + G6 PPA E2）
+artifacts: []
+sbom:
+  license: Apache-2.0
+  dependencies: []
+known_limits:
+  - G6 PPA 仅覆盖 WEIGHT_WIDTH=4 / FAST_GRANT=0 / GRANT_ACK_EN=0（扩展需补 sweep）
+  - G7/G8 未执行（Qualification/Release 非本任务范围）
+  - smooth（WMODE=1）面积/功耗约为 quota 的 3–5×（E2 实测），公平性敏感场景才选用
+release_notes: []

@@ -1,0 +1,6 @@
+cbb: weighted_rr_arbiter
+sets:
+  mandatory: 1
+  boundary: 17
+  pairwise: 26
+  negative: 4

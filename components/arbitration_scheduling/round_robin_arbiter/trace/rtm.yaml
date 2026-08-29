@@ -1,0 +1,200 @@
+cbb: round_robin_arbiter
+requirements:
+- id: REQ-001
+  type: requirement
+  description: 授权互斥——任意合法请求组合最多一个 grant_o 有效（无多授权/无授权冲突）
+  properties:
+  - PROP-RRA_MUTEX-001
+  tests:
+  - tc_mutex
+  - tc_random
+  - tc_exhaust_w4
+  configs:
+  - cfg_num_req2_req_type0_fast_grant0_pc_impl0_grant_ack_en0
+  - cfg_num_req8_req_type0_fast_grant0_pc_impl0_grant_ack_en0
+  - cfg_num_req64_req_type0_fast_grant0_pc_impl0_grant_ack_en0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-002
+  type: requirement
+  description: 轮转公平——连续请求下授权按 RR 顺序轮流（无固定优先；单请求一直有效则重复授权同一位）
+  properties:
+  - PROP-RRA_FAIR-002
+  tests:
+  - tc_rr_order
+  - tc_random
+  configs:
+  - cfg_num_req8_req_type0_fast_grant0_pc_impl0_grant_ack_en0
+  - cfg_num_req8_req_type0_fast_grant0_pc_impl1_grant_ack_en0
+  - cfg_num_req8_req_type0_fast_grant0_pc_impl2_grant_ack_en0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-003
+  type: requirement
+  description: 无请求时 grant 全零；有请求必有且仅有一个授权（活性）
+  properties:
+  - PROP-RRA_NONE-003
+  tests:
+  - tc_edge
+  - tc_random
+  configs:
+  - cfg_num_req4_req_type0_fast_grant0_pc_impl0_grant_ack_en0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-004
+  type: requirement
+  description: REQ_TYPE=1（latched）——请求被寄存，grant 保持直到 grant_ack_i 应答后清除；应答无请求时清除为 0
+  properties:
+  - PROP-RRA_LATCH-004
+  tests:
+  - tc_latched
+  configs:
+  - cfg_num_req8_req_type1_fast_grant0_pc_impl0_grant_ack_en0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-005
+  type: requirement
+  description: FAST_GRANT=1（registered）——grant_o 比组合授权延迟 1 拍，且与组合授权（考虑延迟）一致
+  properties:
+  - PROP-RRA_REG-005
+  tests:
+  - tc_registered
+  - tc_equiv
+  configs:
+  - cfg_num_req8_req_type0_fast_grant1_pc_impl0_grant_ack_en0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-006
+  type: requirement
+  description: 多实现（mask/rotate+priority/pointer）共享同一可观察契约且等价
+  properties:
+  - PROP-RRA_EQV-006
+  tests:
+  - tc_equiv
+  - tc_rr_order
+  configs:
+  - cfg_num_req8_req_type0_fast_grant0_pc_impl0_grant_ack_en0
+  - cfg_num_req32_req_type0_fast_grant0_pc_impl0_grant_ack_en0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-007
+  type: requirement
+  description: GRANT_ACK_EN=1——grant 锁定到 ack 应答后才轮转；ack 应答后按 RR 顺序移动到下一请求
+  properties:
+  - PROP-RRA_ACK-007
+  tests:
+  - tc_ack_lock
+  configs:
+  - cfg_num_req8_req_type0_fast_grant0_pc_impl0_grant_ack_en1
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-008
+  type: requirement
+  description: 非法参数组合在 Elaboration 期被拦截
+  properties: []
+  tests:
+  - tc_negative_elab
+  configs:
+  - cfg_num_req1_req_type0_fast_grant0_pc_impl0_grant_ack_en0
+  - cfg_num_req65_req_type0_fast_grant0_pc_impl0_grant_ack_en0
+  evidence:
+  - build/eda/evidence/g3_static/compile.txt
+- id: INV-001
+  type: requirement
+  description: 授权互斥——对任意合法 2-state 请求向量，grant_o 中至多一位有效 （无多授权、无授权冲突）。
+  properties:
+  - PROP-RRA_MUTEX-001
+  tests:
+  - tc_mutex
+  - tc_random
+  - tc_exhaust_w4
+  configs: []
+  evidence: []
+- id: INV-002
+  type: requirement
+  description: 轮转公平（等权，无静态优先）——连续多周期请求下，授权以 round-robin 顺序轮流： 本轮授权后，下一授权从本轮授权位的下一索引（回绕）开始扫描首个置位。
+    单请求一直有效时重复授权同一位（不会饿死其它请求）。
+  properties:
+  - PROP-RRA_FAIR-002
+  tests:
+  - tc_rr_order
+  - tc_random
+  configs: []
+  evidence: []
+- id: INV-003
+  type: requirement
+  description: 无请求 → grant_o 全零；有请求 → 恰好一个授权（活性：不丢授权）。
+  properties:
+  - PROP-RRA_NONE-003
+  tests:
+  - tc_edge
+  - tc_random
+  configs: []
+  evidence: []
+- id: INV-004
+  type: requirement
+  description: REQ_TYPE=1（latched）——请求被内部寄存；grant 保持至 grant_ack_i 上升沿后清除； 清除后若原请求仍有效则重新授权（按当前
+    RR 指针）；ack 时无保持请求 → grant=0。
+  properties:
+  - PROP-RRA_LATCH-004
+  tests:
+  - tc_latched
+  configs: []
+  evidence: []
+- id: INV-005
+  type: requirement
+  description: FAST_GRANT=1（registered）——grant_o 相对组合参考模型延迟 1 拍， 且每周期组合参考（req_i 经
+    RR 选择）等于寄存 grant 一拍前的期望。
+  properties:
+  - PROP-RRA_REG-005
+  tests:
+  - tc_registered
+  - tc_equiv
+  configs: []
+  evidence: []
+- id: INV-006
+  type: requirement
+  description: GRANT_ACK_EN=1（ack 锁定）——grant 在未被 grant_ack_i 应答前保持锁定不变； ack 应答后按 RR
+    顺序移动到下一请求（或重新选择）。此模式要求消费方应答， 否则授权不轮转（防活锁由消费方保证）。
+  properties:
+  - PROP-RRA_ACK-007
+  tests:
+  - tc_ack_lock
+  configs: []
+  evidence: []
+- id: ASM-001
+  type: requirement
+  description: 输入 X/Z 不承诺（2-state 仿真语义；X 传播视为未定义）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-002
+  type: requirement
+  description: REQ_TYPE=1 或 GRANT_ACK_EN=1 时，grant_ack_i 必须在 grant_o 有效后的 下一拍内拉高（或在授权保持期间），否则授权保持（防活锁由消费方保证）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-003
+  type: requirement
+  description: PC_IMPL / REQ_TYPE / FAST_GRANT / GRANT_ACK_EN 为编译期参数， 不运行时切换（生成/参数化语义）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-004
+  type: requirement
+  description: FAST_GRANT=1 或 REQ_TYPE=1 需要 clk/rst_n；纯组合配置 （FAST_GRANT=0 且 REQ_TYPE=0
+    且 GRANT_ACK_EN=0）可不接时钟（RTL 仍保留端口，接 clk 亦可）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-005
+  type: requirement
+  description: 轮转顺序语义为"本周期授权位之后的下一位开始扫描"（从被授权索引 +1 起）。 RR 窗口在一个完整周期（N 次授权）内无重复选择（有请求时）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []

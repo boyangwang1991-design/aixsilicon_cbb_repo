@@ -1,0 +1,18 @@
+# Owners — round_robin_arbiter
+# CBB 资产 Owner（artifact-contract §5 写权限）
+
+owner: aixsilicon:cbb
+
+approvers:
+  - rtl-owner        # RTL/参数/行为契约
+  - dv-owner         # 验证计划/测试/RTM
+  - ppa-owner        # 表征/PPA 报告
+
+reviewers:
+  - cbb-owner        # 生命周期 Gate / Release
+
+# 变更规则：
+# - cbb.yaml/behavior.yaml/profiles.yaml 语义变更需 rtl-owner 审批
+# - verification/** 变更需 dv-owner 审批
+# - characterization/** 变更需 ppa-owner 审批
+# - 未经 Change Plan 的批量重写禁止（artifact-contract §5）

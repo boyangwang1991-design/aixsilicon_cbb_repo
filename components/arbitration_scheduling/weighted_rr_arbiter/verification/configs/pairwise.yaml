@@ -1,0 +1,210 @@
+set: pairwise
+configs:
+- config_id: cfg_num_req2_weight_width2_wmode0_fast_grant0_grant_ack_en0_pc_impl0
+  parameters:
+    NUM_REQ: 2
+    WEIGHT_WIDTH: 2
+    WMODE: 0
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req2_weight_width8_wmode0_fast_grant0_grant_ack_en0_pc_impl0
+  parameters:
+    NUM_REQ: 2
+    WEIGHT_WIDTH: 8
+    WMODE: 0
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req4_weight_width2_wmode0_fast_grant0_grant_ack_en0_pc_impl0
+  parameters:
+    NUM_REQ: 4
+    WEIGHT_WIDTH: 2
+    WMODE: 0
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req4_weight_width8_wmode0_fast_grant0_grant_ack_en0_pc_impl0
+  parameters:
+    NUM_REQ: 4
+    WEIGHT_WIDTH: 8
+    WMODE: 0
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req2_weight_width4_wmode1_fast_grant0_grant_ack_en0_pc_impl0
+  parameters:
+    NUM_REQ: 2
+    WEIGHT_WIDTH: 4
+    WMODE: 1
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req4_weight_width4_wmode1_fast_grant0_grant_ack_en0_pc_impl0
+  parameters:
+    NUM_REQ: 4
+    WEIGHT_WIDTH: 4
+    WMODE: 1
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req2_weight_width4_wmode0_fast_grant1_grant_ack_en0_pc_impl0
+  parameters:
+    NUM_REQ: 2
+    WEIGHT_WIDTH: 4
+    WMODE: 0
+    FAST_GRANT: 1
+    GRANT_ACK_EN: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req4_weight_width4_wmode0_fast_grant1_grant_ack_en0_pc_impl0
+  parameters:
+    NUM_REQ: 4
+    WEIGHT_WIDTH: 4
+    WMODE: 0
+    FAST_GRANT: 1
+    GRANT_ACK_EN: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req2_weight_width4_wmode0_fast_grant0_grant_ack_en1_pc_impl0
+  parameters:
+    NUM_REQ: 2
+    WEIGHT_WIDTH: 4
+    WMODE: 0
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 1
+    PC_IMPL: 0
+- config_id: cfg_num_req4_weight_width4_wmode0_fast_grant0_grant_ack_en1_pc_impl0
+  parameters:
+    NUM_REQ: 4
+    WEIGHT_WIDTH: 4
+    WMODE: 0
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 1
+    PC_IMPL: 0
+- config_id: cfg_num_req2_weight_width4_wmode0_fast_grant0_grant_ack_en0_pc_impl1
+  parameters:
+    NUM_REQ: 2
+    WEIGHT_WIDTH: 4
+    WMODE: 0
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 0
+    PC_IMPL: 1
+- config_id: cfg_num_req4_weight_width4_wmode0_fast_grant0_grant_ack_en0_pc_impl1
+  parameters:
+    NUM_REQ: 4
+    WEIGHT_WIDTH: 4
+    WMODE: 0
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 0
+    PC_IMPL: 1
+- config_id: cfg_num_req8_weight_width2_wmode1_fast_grant0_grant_ack_en0_pc_impl0
+  parameters:
+    NUM_REQ: 8
+    WEIGHT_WIDTH: 2
+    WMODE: 1
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req8_weight_width8_wmode1_fast_grant0_grant_ack_en0_pc_impl0
+  parameters:
+    NUM_REQ: 8
+    WEIGHT_WIDTH: 8
+    WMODE: 1
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req8_weight_width2_wmode0_fast_grant1_grant_ack_en0_pc_impl0
+  parameters:
+    NUM_REQ: 8
+    WEIGHT_WIDTH: 2
+    WMODE: 0
+    FAST_GRANT: 1
+    GRANT_ACK_EN: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req8_weight_width8_wmode0_fast_grant1_grant_ack_en0_pc_impl0
+  parameters:
+    NUM_REQ: 8
+    WEIGHT_WIDTH: 8
+    WMODE: 0
+    FAST_GRANT: 1
+    GRANT_ACK_EN: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req8_weight_width2_wmode0_fast_grant0_grant_ack_en1_pc_impl0
+  parameters:
+    NUM_REQ: 8
+    WEIGHT_WIDTH: 2
+    WMODE: 0
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 1
+    PC_IMPL: 0
+- config_id: cfg_num_req8_weight_width8_wmode0_fast_grant0_grant_ack_en1_pc_impl0
+  parameters:
+    NUM_REQ: 8
+    WEIGHT_WIDTH: 8
+    WMODE: 0
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 1
+    PC_IMPL: 0
+- config_id: cfg_num_req8_weight_width2_wmode0_fast_grant0_grant_ack_en0_pc_impl1
+  parameters:
+    NUM_REQ: 8
+    WEIGHT_WIDTH: 2
+    WMODE: 0
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 0
+    PC_IMPL: 1
+- config_id: cfg_num_req8_weight_width8_wmode0_fast_grant0_grant_ack_en0_pc_impl1
+  parameters:
+    NUM_REQ: 8
+    WEIGHT_WIDTH: 8
+    WMODE: 0
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 0
+    PC_IMPL: 1
+- config_id: cfg_num_req8_weight_width4_wmode1_fast_grant1_grant_ack_en0_pc_impl0
+  parameters:
+    NUM_REQ: 8
+    WEIGHT_WIDTH: 4
+    WMODE: 1
+    FAST_GRANT: 1
+    GRANT_ACK_EN: 0
+    PC_IMPL: 0
+- config_id: cfg_num_req8_weight_width4_wmode1_fast_grant0_grant_ack_en1_pc_impl0
+  parameters:
+    NUM_REQ: 8
+    WEIGHT_WIDTH: 4
+    WMODE: 1
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 1
+    PC_IMPL: 0
+- config_id: cfg_num_req8_weight_width4_wmode1_fast_grant0_grant_ack_en0_pc_impl1
+  parameters:
+    NUM_REQ: 8
+    WEIGHT_WIDTH: 4
+    WMODE: 1
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 0
+    PC_IMPL: 1
+- config_id: cfg_num_req8_weight_width4_wmode0_fast_grant1_grant_ack_en1_pc_impl0
+  parameters:
+    NUM_REQ: 8
+    WEIGHT_WIDTH: 4
+    WMODE: 0
+    FAST_GRANT: 1
+    GRANT_ACK_EN: 1
+    PC_IMPL: 0
+- config_id: cfg_num_req8_weight_width4_wmode0_fast_grant1_grant_ack_en0_pc_impl1
+  parameters:
+    NUM_REQ: 8
+    WEIGHT_WIDTH: 4
+    WMODE: 0
+    FAST_GRANT: 1
+    GRANT_ACK_EN: 0
+    PC_IMPL: 1
+- config_id: cfg_num_req8_weight_width4_wmode0_fast_grant0_grant_ack_en1_pc_impl1
+  parameters:
+    NUM_REQ: 8
+    WEIGHT_WIDTH: 4
+    WMODE: 0
+    FAST_GRANT: 0
+    GRANT_ACK_EN: 1
+    PC_IMPL: 1

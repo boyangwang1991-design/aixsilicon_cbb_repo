@@ -1,0 +1,14 @@
+# Release Manifest（G8 候选）— round_robin_arbiter
+# 状态：candidate（只有 Workflow Gate G8 可确认 released）
+schema_version: 1.0
+release:
+  cbb: aixsilicon:cbb:round_robin_arbiter
+  version: 0.1.0
+  status: candidate
+  maturity: E0
+artifacts: []
+sbom:
+  license: Apache-2.0
+  dependencies: []
+known_limits: []
+release_notes: []

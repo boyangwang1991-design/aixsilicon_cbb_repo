@@ -1,0 +1,6 @@
+# Owner（aixsilicon:cbb）
+- rtl-owner: aixsilicon:cbb
+- verification-owner: aixsilicon:cbb
+- Approvers: aixsilicon:cbb-release
+
+# 变更需批准：接口/参数语义变更、合法配置集变更、发布（G8）

@@ -1,0 +1,71 @@
+# profiles.yaml —— 多实现 Profile（round_robin_arbiter）
+# 共享同一可观察契约（授权互斥 + 轮转公平），差异仅在轮转选择结构（面积↔时序 trade-off）
+# PC_IMPL: 0=mask(轮转掩码链) 1=rotate+priority(旋转+优先级) 2=pointer(二进制指针)
+# REQ_TYPE/FAST_GRANT/GRANT_ACK_EN 为功能参数，与微架构正交
+
+schema_version: "1.0"
+cbb: aixsilicon:cbb:round_robin_arbiter
+
+profiles:
+  - id: mask_area
+    implementation: impl_mask
+    parameters:
+      NUM_REQ: default
+      REQ_TYPE: 0
+      FAST_GRANT: 0
+      GRANT_ACK_EN: 0
+    optimization_target: area_small_n
+    use_case: 少量请求端（N≤8）、面积极敏感、无时序压力；经典 RR mask 法（两段优先链 + MUX）
+    support_status: supported        # G6 Pareto 判定后确认
+    notes: 显式轮转掩码优先链（O(N) 逻辑深度）；最小面积实现
+
+  - id: mask_area_reg
+    implementation: impl_mask
+    parameters:
+      NUM_REQ: default
+      REQ_TYPE: 0
+      FAST_GRANT: 1
+      GRANT_ACK_EN: 0
+    optimization_target: timing_small_n
+    use_case: 小请求数 + 需要寄存授权（关键路径 reg→grant 更短、避免大扇出组合）
+    support_status: experimental     # 与 rotate 时序对比实证中
+    notes: mask 链 + 输出寄存授权（1 拍延迟），降低组合关键路径
+
+  - id: rotate_timing
+    implementation: impl_rotate_prio
+    parameters:
+      NUM_REQ: default
+      REQ_TYPE: 0
+      FAST_GRANT: 0
+      GRANT_ACK_EN: 0
+    optimization_target: timing
+    use_case: 中大规模请求（N≥16）、fmax 优先；旋转 + LSB 优先编码（O(log N) 深度）
+    support_status: supported        # G6 实证：N≥16 时序优于 mask
+    notes: 按 rr_ptr 旋转向量后 LSB 优先编码；barrel 移位 + 优先级编码
+
+  - id: pointer_balanced
+    implementation: impl_pointer
+    parameters:
+      NUM_REQ: default
+      REQ_TYPE: 0
+      FAST_GRANT: 0
+      GRANT_ACK_EN: 0
+    optimization_target: balanced
+    use_case: 中规模（N=8~32）、面积与时序均衡、显式二进制指针 + 循环移位选择
+    support_status: experimental     # G6 实证：与 rotate 综合收敛趋势对比
+    notes: 二进制指针 + 循环移位选择；可读性好，N 大时 LUT 映射友好
+
+  - id: ack_lock
+    implementation: impl_mask
+    parameters:
+      NUM_REQ: default
+      REQ_TYPE: 0
+      FAST_GRANT: 0
+      GRANT_ACK_EN: 1
+    optimization_target: stable_grant
+    use_case: 慢速/需稳定授权场景；grant 锁定到 ack 应答后才轮转（消费方背压感知）
+    support_status: experimental     # 功能型 Profile（非 PPA 驱动），G4 tc_ack_lock 已验
+    notes: ack 锁定（GRANT_ACK_EN=1），grant 保持至 grant_ack_i；消费方必须应答（ASM-002）
+
+# 依赖 DAG：零运行时依赖（各 impl dependencies=[]），自动无环；
+# PC_IMPL 编译期分派见 rtl/round_robin_arbiter.sv；REQ_TYPE/FAST_GRANT/GRANT_ACK_EN 正交（generate 分支）。

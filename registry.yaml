@@ -26,8 +26,8 @@ cbbs:
     abstraction: A2
     priority: P0
     implementation: mask、rotate+priority、pointer
-    description: 规模扩展、翻转
-    status: planned
+    description: 授权互斥 + 等权轮转公平（mask/rotate+priority/pointer 三实现 + G3/G4/G5 证据）
+    status: implemented          # 2026-08-29 首次物化（mask/rotate+priority/pointer 三实现 + G3/G4/G5 证据）
     version: "0.1.0"
     path: components/arbitration_scheduling/round_robin_arbiter
   - id: ARB-003
@@ -37,8 +37,8 @@ cbbs:
     abstraction: A2
     priority: P2
     implementation: quota、smooth WRR
-    description: 权重状态与公平性
-    status: planned
+    description: 权重状态与公平性（quota_counter/deficit_rotate 双实现 + G3/G4/G5 证据）
+    status: implemented      # 2026-08-29 首次物化（quota/smooth + G3/G4/G5 证据）
     version: "0.1.0"
     path: components/arbitration_scheduling/weighted_rr_arbiter
   - id: ARB-004
