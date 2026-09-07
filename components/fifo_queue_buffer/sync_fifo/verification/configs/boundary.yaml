@@ -1,0 +1,116 @@
+set: boundary
+configs:
+- config_id: cfg_data_w1_depth16_output_reg0_impl0
+  parameters:
+    DATA_W: 1
+    DEPTH: 16
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w1024_depth16_output_reg0_impl0
+  parameters:
+    DATA_W: 1024
+    DEPTH: 16
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w512_depth16_output_reg0_impl0
+  parameters:
+    DATA_W: 512
+    DEPTH: 16
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w2_depth16_output_reg0_impl0
+  parameters:
+    DATA_W: 2
+    DEPTH: 16
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w8_depth16_output_reg0_impl0
+  parameters:
+    DATA_W: 8
+    DEPTH: 16
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w32_depth16_output_reg0_impl0
+  parameters:
+    DATA_W: 32
+    DEPTH: 16
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w64_depth16_output_reg0_impl0
+  parameters:
+    DATA_W: 64
+    DEPTH: 16
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w128_depth16_output_reg0_impl0
+  parameters:
+    DATA_W: 128
+    DEPTH: 16
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w32_depth2_output_reg0_impl0
+  parameters:
+    DATA_W: 32
+    DEPTH: 2
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w32_depth256_output_reg0_impl0
+  parameters:
+    DATA_W: 32
+    DEPTH: 256
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w32_depth129_output_reg0_impl0
+  parameters:
+    DATA_W: 32
+    DEPTH: 129
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w32_depth3_output_reg0_impl0
+  parameters:
+    DATA_W: 32
+    DEPTH: 3
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w32_depth4_output_reg0_impl0
+  parameters:
+    DATA_W: 32
+    DEPTH: 4
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w32_depth8_output_reg0_impl0
+  parameters:
+    DATA_W: 32
+    DEPTH: 8
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w32_depth32_output_reg0_impl0
+  parameters:
+    DATA_W: 32
+    DEPTH: 32
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w32_depth64_output_reg0_impl0
+  parameters:
+    DATA_W: 32
+    DEPTH: 64
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w32_depth128_output_reg0_impl0
+  parameters:
+    DATA_W: 32
+    DEPTH: 128
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w32_depth16_output_reg1_impl0
+  parameters:
+    DATA_W: 32
+    DEPTH: 16
+    OUTPUT_REG: 1
+    IMPL: 0
+- config_id: cfg_data_w32_depth16_output_reg0_impl1
+  parameters:
+    DATA_W: 32
+    DEPTH: 16
+    OUTPUT_REG: 0
+    IMPL: 1

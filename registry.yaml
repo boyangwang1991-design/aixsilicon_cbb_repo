@@ -2908,9 +2908,9 @@ cbbs:
     group: components/fifo_queue_buffer
     abstraction: A2
     priority: P0
-    implementation: register、shift、SRAM
-    description: 深宽自动映射
-    status: planned
+    implementation: register、shift
+    description: 深宽自动映射（register/shift 已物化；SRAM 依赖 A0 wrapper 未实现，登记 non_goals）
+    status: implemented          # 2026-09-03 首次物化（register/shift + comb/reg 输出级 + G3/G4 证据）
     version: "0.1.0"
     path: components/fifo_queue_buffer/sync_fifo
   - id: QUE-002

@@ -1,0 +1,80 @@
+set: pairwise
+configs:
+- config_id: cfg_data_w1_depth2_output_reg0_impl0
+  parameters:
+    DATA_W: 1
+    DEPTH: 2
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w1_depth4_output_reg0_impl0
+  parameters:
+    DATA_W: 1
+    DEPTH: 4
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w8_depth2_output_reg0_impl0
+  parameters:
+    DATA_W: 8
+    DEPTH: 2
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w8_depth4_output_reg0_impl0
+  parameters:
+    DATA_W: 8
+    DEPTH: 4
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w1_depth16_output_reg1_impl0
+  parameters:
+    DATA_W: 1
+    DEPTH: 16
+    OUTPUT_REG: 1
+    IMPL: 0
+- config_id: cfg_data_w8_depth16_output_reg1_impl0
+  parameters:
+    DATA_W: 8
+    DEPTH: 16
+    OUTPUT_REG: 1
+    IMPL: 0
+- config_id: cfg_data_w1_depth16_output_reg0_impl1
+  parameters:
+    DATA_W: 1
+    DEPTH: 16
+    OUTPUT_REG: 0
+    IMPL: 1
+- config_id: cfg_data_w8_depth16_output_reg0_impl1
+  parameters:
+    DATA_W: 8
+    DEPTH: 16
+    OUTPUT_REG: 0
+    IMPL: 1
+- config_id: cfg_data_w32_depth2_output_reg1_impl0
+  parameters:
+    DATA_W: 32
+    DEPTH: 2
+    OUTPUT_REG: 1
+    IMPL: 0
+- config_id: cfg_data_w32_depth4_output_reg1_impl0
+  parameters:
+    DATA_W: 32
+    DEPTH: 4
+    OUTPUT_REG: 1
+    IMPL: 0
+- config_id: cfg_data_w32_depth2_output_reg0_impl1
+  parameters:
+    DATA_W: 32
+    DEPTH: 2
+    OUTPUT_REG: 0
+    IMPL: 1
+- config_id: cfg_data_w32_depth4_output_reg0_impl1
+  parameters:
+    DATA_W: 32
+    DEPTH: 4
+    OUTPUT_REG: 0
+    IMPL: 1
+- config_id: cfg_data_w32_depth16_output_reg1_impl1
+  parameters:
+    DATA_W: 32
+    DEPTH: 16
+    OUTPUT_REG: 1
+    IMPL: 1

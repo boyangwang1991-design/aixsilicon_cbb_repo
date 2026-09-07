@@ -1,0 +1,14 @@
+# Release Manifest（G8 候选）— sync_fifo
+# 状态：candidate（只有 Workflow Gate G8 可确认 released）
+schema_version: 1.0
+release:
+  cbb: aixsilicon:cbb:sync_fifo
+  version: 0.1.0
+  status: candidate
+  maturity: E0
+artifacts: []
+sbom:
+  license: Apache-2.0
+  dependencies: []
+known_limits: []
+release_notes: []

@@ -1,0 +1,36 @@
+# 表征计划（Characterization Plan）— sync_fifo
+# G6 PPA：cbb_tool.py pdk-scan 已生成 characterization/pdk.yaml（工艺上下文，唯一事实源）。
+# pdk-scan 判定 PDK_READY → 本 CBB 已做真实综合表征（run-20260903-01，E2），不降级。
+benchmark_profiles:
+  - id: default_register          # register×comb（面积+时序最优，Pareto 支配点）
+    parameters: {DATA_W: 32, DEPTH: [8, 32], OUTPUT_REG: 0, IMPL: 0}
+    optimization_goal: [area, fmax]
+    support: supported
+  - id: register_registered_out   # register×reg（输出级寄存）
+    parameters: {DATA_W: 32, DEPTH: [8, 32], OUTPUT_REG: 1, IMPL: 0}
+    optimization_goal: fmax
+    support: supported
+  - id: shift_shallow             # shift×comb（实测 PPA 不占优，待架构复核支持状态）
+    parameters: {DATA_W: 32, DEPTH: [8, 32], OUTPUT_REG: 0, IMPL: 1}
+    optimization_goal: area
+    support: experimental        # 2026-09-03 实测：d8/d32 面积/功耗劣于 register（见 reports/ppa-report.md §2.1/2.3）
+  - id: shift_registered_out      # shift×reg
+    parameters: {DATA_W: 32, DEPTH: [8, 32], OUTPUT_REG: 1, IMPL: 1}
+    optimization_goal: fmax
+    support: experimental
+measured_region:
+  DATA_W: [32]                    # 已表征（固定 32 位数据宽；其它宽未测，属外推域）
+  DEPTH: [8, 32]
+  IMPL: [0, 1]
+  OUTPUT_REG: [0, 1]
+runs:
+  - run_id: run-20260903-01
+    tool: dc_shell
+    tool_version: V-2023.12-SP3
+    library: sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c
+    freq_mhz: 400
+    points: 8                      # register/shift × comb/reg × DEPTH{8,32}
+    evidence: build/eda/ppa/run-20260903-01/ppa_summary.md
+    report: reports/ppa-report.md
+    plot: reports/ppa_run-20260903-01.png
+status: CHARACTERIZED_E2          # PDK_READY + 真实综合；证据等级 E2（固定内部库+工具基线）

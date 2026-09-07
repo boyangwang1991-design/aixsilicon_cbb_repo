@@ -1,0 +1,26 @@
+set: negative
+configs:
+- config_id: cfg_data_w0_depth16_output_reg0_impl0
+  parameters:
+    DATA_W: 0
+    DEPTH: 16
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w1025_depth16_output_reg0_impl0
+  parameters:
+    DATA_W: 1025
+    DEPTH: 16
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w32_depth1_output_reg0_impl0
+  parameters:
+    DATA_W: 32
+    DEPTH: 1
+    OUTPUT_REG: 0
+    IMPL: 0
+- config_id: cfg_data_w32_depth257_output_reg0_impl0
+  parameters:
+    DATA_W: 32
+    DEPTH: 257
+    OUTPUT_REG: 0
+    IMPL: 0

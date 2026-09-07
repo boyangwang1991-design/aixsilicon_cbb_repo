@@ -1,0 +1,199 @@
+# ============================================================
+# cbb.yaml — sync_fifo SSOT 元数据（QUE-001, A2/P0）
+# 同步 FIFO（单时钟域深度存储队列，push/pop 原生接口）
+# 多实现（深宽映射，IMPL）：
+#   - IMPL=0 register：读写指针 + 寄存器堆存储（通用深度，读侧 mux 随深度增长）
+#   - IMPL=1 shift   ：移位寄存器存储（浅深低功耗、无地址译码；建议 DEPTH<=32）
+# 输出级（OUTPUT_REG）：
+#   - OUTPUT_REG=0 comb：rd_valid=~empty 同拍组合读出（head 直读，0 读延迟）
+#   - OUTPUT_REG=1 reg ：输出级寄存（1 拍读延迟；弹空拍可消费缓存，空态稳定后
+#                        rd_valid 才拉低 —— domain-rules §3.1.1 专项语义）
+# 无嵌套运行时子 CBB（implementations[].dependencies[] 为空）；sram 宏存储方向
+# 依赖未实现的 A0 wrapper（TEC-015），登记 non_goals（intake §3）
+# ============================================================
+
+schema_version: 1.0
+
+cbb:
+  id: aixsilicon:cbb:sync_fifo
+  name: sync_fifo
+  version: 0.1.0
+  owner: aixsilicon:cbb
+  maturity: E0
+  license: Apache-2.0
+
+classification:
+  abstraction: A2                    # 通用复合：存储队列机制（非协议绑定）
+  primary_domain: fifo_queue_buffer
+  secondary_domains: [storage_queue]
+
+contract:
+  interface: native_push_pop         # wr_en/rd_en + full/empty/count 原生存储接口（非总线协议）
+  clock_domains: 1
+  ordering: in_order                 # FIFO 保序（push 顺序 = pop 顺序）
+  throughput: 1_per_cycle            # 非满可每拍 push、非空可每拍 pop（comb/reg 输出模式）
+
+# ---------------- 可配置参数 ----------------
+parameters:
+  DATA_W:
+    type: int
+    default: 32
+    legal: {min: 1, max: 1024}
+    partitions: [1, 8, 32, 64, 128]
+    affects: [interface_width, area, timing]
+    semantics: 数据通路位宽（push/pop 共享）
+  DEPTH:
+    type: int
+    default: 16
+    legal: {min: 2, max: 256}
+    partitions: [2, 4, 8, 16, 32, 64, 128]
+    affects: [area, state_space, latency]
+    semantics: >-
+      队列条目深度（存储单元数）。IMPL=register 支持全合法域；IMPL=shift
+      建议 DEPTH<=32（面积随深度线性且无译码，过深不合算，见 profiles 限制）
+  OUTPUT_REG:
+    type: int
+    default: 0
+    legal: [0, 1]
+    partitions: [0, 1]
+    affects: [latency, timing, area]
+    semantics: >-
+      输出级模式：0=组合读出（rd_valid=~empty 同拍，rd_data 头部直读，0 读延迟）；
+      1=寄存输出级（输出 FF，1 拍读延迟、切输出时序路径；弹空拍可消费缓存，
+      空态稳定后 rd_valid 才拉低）
+  IMPL:
+    type: int
+    default: 0
+    legal: [0, 1]
+    partitions: [0, 1]
+    affects: [area, timing]
+    semantics: >-
+      存储微架构（挂实现/Profile）：0=register（读写指针 + 寄存器堆，通用深度，
+      默认）；1=shift（移位寄存器存储，浅深低功耗、无地址译码，建议 DEPTH<=32）
+
+constraints:
+  - id: PC-001
+    expression: "DATA_W >= 1"
+    severity: error                   # 非零位宽
+  - id: PC-002
+    expression: "DATA_W <= 1024"
+    severity: error                   # RTL 位宽上界（面积/时序）
+  - id: PC-003
+    expression: "DEPTH >= 2"
+    severity: error                   # 最小队列深度（≥2，单条目语义归 skid_buffer/A3）
+  - id: PC-004
+    expression: "DEPTH <= 256"
+    severity: error                   # register 实现综合/仿真上界
+  - id: PC-005
+    expression: "OUTPUT_REG >= 0 and OUTPUT_REG <= 1"
+    severity: error
+  - id: PC-006
+    expression: "IMPL >= 0 and IMPL <= 1"
+    severity: error
+
+# ---------------- 需求（REQ→PROP/tests/configs 映射）----------------
+# configs 由 cbb_tool.py config-gen 确定性生成后回填（specify-cbb step 7 纪律）：
+# 先 config-gen → 核对实际 config_id → 回填本段 → check --strict。
+requirements:
+  - id: REQ-001
+    description: >-
+      保序与无丢无重（register, IMPL=0）——随机 push/pop（含背压）流下所有被接受
+      写入按序 pop 输出一次且仅一次，参考模型队列整体比对。
+    properties: [PROP-SYNC_ORDER-001, PROP-SYNC_CNT-002]
+    tests: [tc_random, tc_backpressure]
+    configs: [cfg_data_w32_depth16_output_reg0_impl0, cfg_data_w32_depth16_output_reg1_impl0]
+  - id: REQ-002
+    description: >-
+      满/空/占用计数一致性（register）——full_o==(count==DEPTH)、empty_o==(count==0)；
+      count_o 守恒（push +1、pop -1、同拍 push+pop 不变，边界不越 [0,DEPTH]）；
+      满时不接受写、空时不产生读（无溢出/下溢）。
+    properties: [PROP-SYNC_CNT-002, PROP-SYNC_FULL-003, PROP-SYNC_EMPTY-004]
+    tests: [tc_random, tc_backpressure, tc_edge]
+    configs: [cfg_data_w32_depth2_output_reg0_impl0, cfg_data_w32_depth256_output_reg0_impl0,
+              cfg_data_w32_depth16_output_reg0_impl0]
+  - id: REQ-003
+    description: >-
+      同拍 push+pop 与满写/空读并发边界——count 守恒、无上溢/下溢回绕；
+      满时 push 无效、空时 pop 无效。
+    properties: [PROP-SYNC_CNT-002]
+    tests: [tc_edge]
+    configs: [cfg_data_w32_depth2_output_reg0_impl0, cfg_data_w32_depth129_output_reg0_impl0]
+  - id: REQ-004
+    description: >-
+      OUTPUT_REG=0（组合读出）——empty_o 拉低同拍 rd_data_o 有效（头部数据）；
+      pop 有效条件 ~empty_o && rd_en_o 的语义（数据当拍可消费、次拍指针推进）。
+    properties: [PROP-SYNC_COMB-005]
+    tests: [tc_out_comb, tc_random]
+    configs: [cfg_data_w32_depth16_output_reg0_impl0, cfg_data_w1_depth16_output_reg0_impl0,
+              cfg_data_w32_depth16_output_reg0_impl1]
+  - id: REQ-005
+    description: >-
+      OUTPUT_REG=1（寄存输出级）——rd_valid/rd_data 由输出 FF 驱动（1 拍读延迟）；
+      弹空拍允许消费缓存最后数据，空态稳定后 rd_valid 才拉低
+      （`empty_o |-> ##1 ~rd_valid_o`，domain-rules §3.1.1 语义）；pop 判定
+      基于沿前非空，防空下溢。
+    properties: [PROP-SYNC_OUTREG-006]
+    tests: [tc_outreg, tc_edge]
+    configs: [cfg_data_w32_depth16_output_reg1_impl0, cfg_data_w32_depth2_output_reg1_impl0,
+              cfg_data_w32_depth16_output_reg1_impl1]
+  - id: REQ-006
+    description: >-
+      shift 实现（IMPL=1）与 register 共享同一可观察契约——保序/满空/占用计数/
+      输出语义一致（参考模型整体比对，含随机与背压场景）。
+    properties: [PROP-SYNC_ORDER-001, PROP-SYNC_CNT-002]
+    tests: [tc_random, tc_backpressure]
+    configs: [cfg_data_w32_depth16_output_reg0_impl1, cfg_data_w8_depth16_output_reg0_impl1,
+              cfg_data_w32_depth16_output_reg1_impl1]
+  - id: REQ-007
+    description: >-
+      边界——DATA_W=1 / DEPTH=2（最小）/ 大深度 / 空流 / 满写连发 / 空读连发
+      场景行为正确（register 与 shift 各代表点）。
+    properties: [PROP-SYNC_EMPTY-004, PROP-SYNC_FULL-003]
+    tests: [tc_edge]
+    configs: [cfg_data_w1_depth16_output_reg0_impl0, cfg_data_w32_depth2_output_reg0_impl0,
+              cfg_data_w32_depth256_output_reg0_impl0, cfg_data_w8_depth16_output_reg0_impl1]
+  - id: REQ-008
+    description: 非法参数在 Elaboration 期被拦截（DATA_W/DEPTH/OUTPUT_REG/IMPL 越界 → generate $error）。
+    properties: []                    # 负向编译证据（非 SVA）
+    tests: [tc_negative_elab]
+    configs: [cfg_data_w0_depth16_output_reg0_impl0, cfg_data_w1025_depth16_output_reg0_impl0,
+              cfg_data_w32_depth1_output_reg0_impl0, cfg_data_w32_depth257_output_reg0_impl0]
+  - id: REQ-009
+    description: >-
+      复位后状态清零——empty_o=1、count_o=0、full_o=0；OUTPUT_REG=1 时
+      rd_valid_o=0；可立即接受 push（逐拍写入恢复计数）。
+    properties: []
+    tests: [tc_reset]
+    configs: [cfg_data_w32_depth16_output_reg0_impl0]
+
+# ---------------- 实现变体（多实现：存储微架构 trade-off）----------------
+implementations:
+  - id: impl_register                 # IMPL=0：读写指针 + 寄存器堆（通用深度，默认）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []                  # 无嵌套运行时子 CBB
+    files:
+      - rtl/sync_fifo.sv
+  - id: impl_shift                    # IMPL=1：移位寄存器存储（浅深低功耗）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/sync_fifo.sv
+
+# ---------------- 质量门禁（G0~G8）----------------
+quality:
+  required_gates: [G0, G1, G2, G3, G4, G5, G6, G7, G8]
+
+# ---------------- PPA 表征 ----------------
+characterization:
+  benchmark_profiles: []
+  measured_region:                   # run-20260903-01 实测（E2，sc9_cmos28lp_base_hvt tt 1.00V 25C @400MHz）
+    DATA_W: [32]
+    DEPTH: [8, 32]
+    IMPL: [0, 1]
+    OUTPUT_REG: [0, 1]
+  pdk_context: characterization/pdk.yaml   # PDK_READY（sc9_cmos28lp_base_hvt tt_1p00v_25c，DC 综合 E2）
+
+release:
+  fusesoc_core: aixsilicon:cbb:sync_fifo:0.1.0

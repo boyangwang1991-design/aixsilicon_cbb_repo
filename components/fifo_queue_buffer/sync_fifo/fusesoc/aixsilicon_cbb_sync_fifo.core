@@ -1,0 +1,56 @@
+CAPI=2:
+
+# FuseSoC Core — sync_fifo (QUE-001, v0.1.0)
+# VLNV: aixsilicon:cbb:sync_fifo:0.1.0
+# 同步 FIFO：IMPL∈{register,shift} × OUTPUT_REG∈{comb,reg}（四 generate 分支单文件）
+# 极简单文件：rtl/sync_fifo.sv（无 package/interface）
+name: aixsilicon:cbb:sync_fifo:0.1.0
+description: "Synchronous FIFO CBB, A2: register/shift storage microarchitectures x comb/registered output, single-file parametrized"
+provider:
+  name: aixsilicon
+  library: cbb
+
+filesets:
+  rtl_src:
+    files:
+      - ../rtl/sync_fifo.sv
+    file_type: systemVerilogSource
+
+  tb_src:
+    files:
+      - ../verification/simulation/sync_fifo_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets: [rtl_src]
+  sim:
+    default_tool: vcs
+    filesets: [rtl_src, tb_src]
+    toplevel: [sync_fifo_tb]
+  synth:
+    default_tool: dc
+    filesets: [rtl_src]
+    toplevel: [sync_fifo]
+  lint:
+    default_tool: spyglass
+    filesets: [rtl_src]
+    toplevel: [sync_fifo]
+
+parameters:
+  DATA_W:
+    datatype: int
+    default: 32
+    description: "Data width [1..1024] (PC-001/002)"
+  DEPTH:
+    datatype: int
+    default: 16
+    description: "Queue depth [2..256] (PC-003/004)"
+  OUTPUT_REG:
+    datatype: int
+    default: 0
+    description: "Output stage {0=comb,1=reg} (PC-005)"
+  IMPL:
+    datatype: int
+    default: 0
+    description: "Storage microarchitecture {0=register,1=shift} (PC-006)"

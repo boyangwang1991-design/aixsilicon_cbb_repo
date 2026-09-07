@@ -1,0 +1,85 @@
+# ============================================================================
+# 验证计划（Verification Plan）— sync_fifo (QUE-001, A2, 多实现 register/shift)
+# 形态：SVA（RTL 就近）+ Simulation（VCS 参考模型队列比对）+ Negative（elaboration $error）
+# 配置矩阵由 cbb_tool.py config-gen 确定性生成（verification/configs/）
+# REQ→tc 映射见 docs/cbb_spec.md 与 trace/rtm.yaml
+# ============================================================================
+
+target: sync_fifo
+
+verification_forms:
+  - sva               # RTL 内 PROP-SYNC_*（count/full/empty/comb/outreg 语义）
+  - simulation        # VCS：随机/背压/边界/复位 + 输出级场景（参考模型队列整体比对）
+  - negative          # DATA_W/DEPTH/OUTPUT_REG/IMPL 越界 elaboration 拦截（run_static_checks.sh）
+
+configs:
+  mandatory: [cfg_data_w32_depth16_output_reg0_impl0]
+  boundary: [cfg_data_w1_depth16_output_reg0_impl0, cfg_data_w8_depth16_output_reg0_impl0,
+             cfg_data_w32_depth16_output_reg0_impl0, cfg_data_w64_depth16_output_reg0_impl0,
+             cfg_data_w128_depth16_output_reg0_impl0, cfg_data_w512_depth16_output_reg0_impl0,
+             cfg_data_w1024_depth16_output_reg0_impl0,
+             cfg_data_w32_depth2_output_reg0_impl0, cfg_data_w32_depth3_output_reg0_impl0,
+             cfg_data_w32_depth4_output_reg0_impl0, cfg_data_w32_depth8_output_reg0_impl0,
+             cfg_data_w32_depth32_output_reg0_impl0, cfg_data_w32_depth64_output_reg0_impl0,
+             cfg_data_w32_depth128_output_reg0_impl0, cfg_data_w32_depth129_output_reg0_impl0,
+             cfg_data_w32_depth256_output_reg0_impl0,
+             cfg_data_w32_depth16_output_reg1_impl0, cfg_data_w32_depth16_output_reg0_impl1]
+  pairwise: [cfg_data_w1_depth2_output_reg0_impl0, cfg_data_w8_depth2_output_reg0_impl0,
+             cfg_data_w1_depth16_output_reg1_impl0, cfg_data_w8_depth16_output_reg1_impl0,
+             cfg_data_w1_depth16_output_reg0_impl1, cfg_data_w8_depth16_output_reg0_impl1,
+             cfg_data_w32_depth2_output_reg1_impl0, cfg_data_w32_depth4_output_reg1_impl0,
+             cfg_data_w32_depth2_output_reg0_impl1, cfg_data_w32_depth4_output_reg0_impl1,
+             cfg_data_w32_depth16_output_reg1_impl1]
+  negative: [cfg_data_w0_depth16_output_reg0_impl0, cfg_data_w1025_depth16_output_reg0_impl0,
+             cfg_data_w32_depth1_output_reg0_impl0, cfg_data_w32_depth257_output_reg0_impl0]
+
+testcases:
+  - id: tc_random
+    description: 随机 push/pop 流（固定 seed；寄存器/移位实现 + comb/reg 输出模式代表性配置），参考模型队列整体比对保序无丢无重
+    configs: [cfg_data_w32_depth16_output_reg0_impl0, cfg_data_w32_depth16_output_reg0_impl1]
+    reqs: [REQ-001, REQ-006]
+    invariants: [INV-001, INV-002]
+    properties: [PROP-SYNC_ORDER-001, PROP-SYNC_CNT-002]
+  - id: tc_backpressure
+    description: 高背压/连续满写（push 保持、pop 稀疏），验证反压不丢数据、count 守恒
+    configs: [cfg_data_w32_depth16_output_reg0_impl0, cfg_data_w32_depth16_output_reg0_impl1]
+    reqs: [REQ-001, REQ-006]
+    invariants: [INV-001, INV-002]
+    properties: [PROP-SYNC_CNT-002]
+  - id: tc_edge
+    description: 空流/单条目/满写连发/空读连发/同拍 push+pop 边界（深 2/3 及大深度代表点）
+    configs: [cfg_data_w32_depth2_output_reg0_impl0, cfg_data_w32_depth129_output_reg0_impl0,
+              cfg_data_w32_depth256_output_reg0_impl0, cfg_data_w32_depth16_output_reg1_impl0]
+    reqs: [REQ-002, REQ-003, REQ-005, REQ-007]
+    invariants: [INV-002, INV-004]
+    properties: [PROP-SYNC_CNT-002, PROP-SYNC_OUTREG-006]
+  - id: tc_out_comb
+    description: OUTPUT_REG=0 组合读出——empty 拉低当拍 rd_data 有效（组合头），pop 推进后下一数据可见
+    configs: [cfg_data_w32_depth16_output_reg0_impl0, cfg_data_w1_depth16_output_reg0_impl0,
+              cfg_data_w32_depth16_output_reg0_impl1]
+    reqs: [REQ-004]
+    invariants: [INV-003]
+    properties: [PROP-SYNC_COMB-005]
+  - id: tc_outreg
+    description: OUTPUT_REG=1 寄存输出级——1 拍读延迟、弹空拍可消费缓存、empty_o |-> ##1 ~rd_valid_o
+    configs: [cfg_data_w32_depth16_output_reg1_impl0, cfg_data_w32_depth2_output_reg1_impl0,
+              cfg_data_w32_depth16_output_reg1_impl1]
+    reqs: [REQ-005]
+    invariants: [INV-004]
+    properties: [PROP-SYNC_OUTREG-006]
+  - id: tc_reset
+    description: 复位后状态清零（empty=1/count=0/full=0；reg 输出 rd_valid=0），随后可正常 push/pop
+    configs: [cfg_data_w32_depth16_output_reg0_impl0]
+    reqs: [REQ-009]
+    invariants: []
+    properties: []
+  - id: tc_negative_elab
+    description: DATA_W/DEPTH 越界在 elaboration 期被 generate $error 拦截（负向编译证据）
+    configs: [cfg_data_w0_depth16_output_reg0_impl0, cfg_data_w1025_depth16_output_reg0_impl0,
+              cfg_data_w32_depth1_output_reg0_impl0, cfg_data_w32_depth257_output_reg0_impl0]
+    reqs: [REQ-008]
+    invariants: []
+
+evidence:
+  g3_static: build/eda/evidence/g3_static/{param_matrix.txt, negative_*.txt}
+  g4_functional: build/eda/evidence/g4_functional/functional_sim.txt

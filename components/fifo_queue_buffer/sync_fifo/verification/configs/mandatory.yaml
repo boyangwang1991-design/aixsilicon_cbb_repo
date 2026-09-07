@@ -1,0 +1,8 @@
+set: mandatory
+configs:
+- config_id: cfg_data_w32_depth16_output_reg0_impl0
+  parameters:
+    DATA_W: 32
+    DEPTH: 16
+    OUTPUT_REG: 0
+    IMPL: 0

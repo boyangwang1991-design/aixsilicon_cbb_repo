@@ -122,3 +122,19 @@
 - `2026-08-29 08:13:33` | **qualify** | G7 | ARI-001 G7: 支持矩阵+资格报告, waiver(ss/ff corner+toggle), G8 release manifest candidate | 结果(PASS)
 - `2026-08-29 08:14:05` | **release** | G8 | ARI-001 G8: release/manifest.yaml+SBOM(无依赖), registry implemented, README 状态总览同步 | 结果(PASS)
 - `2026-08-29 08:44:25` | **characterize** | G6 | CG PPA 优化: CG_EN 参数, DC功耗对比(run-02) ripple leak-30%/dyn-6%, segmented leak-9%/dyn-2.5%, 无需ICG | 结果(PASS)
+- `2026-09-03 11:00:06` | **intake** | G0 | sync_fifo (QUE-001, A2/P0) G0 Intake：查重命中已登记条目，边界判定 CBB，SRAM 存储方向登记 non_goal（依赖未实现 A0 wrapper TEC-015） | 结果(PASS)
+    无运行时子 CBB 依赖；本次物化 register/shift 双实现，IMPL=sram 待委派 A0 wrapper 后扩展
+- `2026-09-03 11:00:06` | **specify** | G1 | sync_fifo G1 规格：cbb.yaml(参数/约束/REQ)+behavior.yaml(INV/ASM)+docs/cbb_spec.md；config-gen 生成 1/19/13/4 配置 | 结果(PASS)
+    check 非 strict 通过；check --strict 待 TB 落地后消解（G3）；rtm 19 条已生成
+- `2026-09-03 11:01:27` | **specify** | G1 | sync_fifo 规格确认门通过（用户确认 register+shift 双实现方案，SRAM 非目标） | 结果(PASS)
+    确认要点：参数合法域/行为契约(comb/reg 输出语义)/多实现方向/验证路径
+- `2026-09-03 11:02:31` | **design** | G2 | sync_fifo G2 设计：profiles.yaml(4 profile)+design.md(模块/时钟复位/数据路径/可验证性/PPA 预筛)+detail-design/register.md+shift.md | 结果(PASS)
+    register=读写指针+寄存器堆(comb/reg 输出)；shift=push右移/pop左移、head=shift_mem[DEPTH-1] 无读 mux；SV 手写生成方式
+- `2026-09-03 11:06:40` | **design** | G2 | sync_fifo 详设确认门通过（用户确认单文件 generate 分派实现方案） | 结果(PASS)
+    确认要点：register=读写指针+寄存器堆 / shift=push右移pop左移头固定 DEPTH-1；共享 count/输出级；comb/reg 输出语义
+- `2026-09-03 11:26:48` | **implement** | G3 | sync_fifo G3 实现完成：rtl/sync_fifo.sv 四分支(IMPL×OUTPUT_REG)+SVA，静态基线 PASS(正向矩阵 18 点+负向 PC-001..006) | 结果(PASS)
+    VCS W-2024.09；证据 build/eda/evidence/g3_static/{param_matrix.txt,negative_*.txt}；check --strict 通过
+- `2026-09-03 11:26:48` | **verify** | G4 | sync_fifo G4 功能仿真 PASS 9/9 配置（register/shift × comb/reg × 边界深度） | 结果(PASS)
+    VCS 参考模型队列整体比对；场景 tc_reset/random/backpressure/edge/out_comb/outreg；固定 seed 32'hCBB_2026_0903；无 SVA 断言失败
+- `2026-09-03 11:43:16` | **characterize** | G6 | sync_fifo G6 PPA：pdk-scan PDK_READY；DC V-2023.12 综合 8 点(IMPL×OUTPUT_REG×DEPTH{8,32}) E2；全 MET@400MHz | 结果(PASS)
+    run-20260903-01: register×comb d8=957.6um2/slack0.55/dyn437.6uW 为 Pareto 支配；shift 面积/功耗反超 register(组合 mux>省读mux)；报告 reports/ppa-report.md+图 reports/ppa_run-20260903-01.png

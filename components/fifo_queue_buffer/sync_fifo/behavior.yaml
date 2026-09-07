@@ -1,0 +1,80 @@
+# ============================================================
+# sync_fifo 行为契约 (behavior.yaml) —— SSOT
+# 同步 FIFO（单时钟域，push/pop 原生接口；多实现 register/shift 共享契约；
+# 输出级 OUTPUT_REG=0 组合读出 / =1 寄存输出级）
+# 时序/异常/不变量以本文件为唯一事实源；SVA/TB/参考模型为其校验表达。
+# ============================================================
+
+invariants:
+  - id: INV-001
+    description: >-
+      保序与无丢无重（FIFO 语义）——所有被接受写入（push 有效且非满）按写入顺序
+      pop 输出一次且仅一次；参考模型队列整体比对（无丢、无重、无乱序）。适用
+      register 与 shift 全模式。
+    properties: [PROP-SYNC_ORDER-001]
+    tests: [tc_random, tc_backpressure, tc_edge]
+    severity: error
+  - id: INV-002
+    description: >-
+      占用计数守恒与满/空一致性——count 反映当前占用 ∈ [0,DEPTH]；count==DEPTH ⇔ full_o、
+      count==0 ⇔ empty_o；push（非满）+1、pop（非空）-1、同拍 push+pop 净 0；
+      无上溢（满时 push 无效不写入）无下溢（空时 pop 无效）。
+    properties: [PROP-SYNC_CNT-002, PROP-SYNC_FULL-003, PROP-SYNC_EMPTY-004]
+    tests: [tc_random, tc_backpressure, tc_edge]
+    severity: error
+  - id: INV-003
+    description: >-
+      OUTPUT_REG=0（组合读出）——empty_o 拉低当拍 rd_data_o 即有效（组合头读出，
+      0 读延迟）；pop 事件 = rd_en 且非空，下一拍指针推进、后续数据可见。
+    properties: [PROP-SYNC_COMB-005]
+    tests: [tc_out_comb, tc_random]
+    severity: error
+  - id: INV-004
+    description: >-
+      OUTPUT_REG=1（寄存输出级）——rd_valid_o/rd_data_o 由输出 FF 驱动（1 拍读延迟）；
+      物理 pop 由沿前非空判定（~empty 且 rd_en），防空下溢；弹空拍允许消费最后缓存，
+      空态稳定后 rd_valid_o 才拉低（`empty_o |-> ##1 ~rd_valid_o`）。
+    properties: [PROP-SYNC_OUTREG-006]
+    tests: [tc_outreg, tc_edge]
+    severity: error
+  - id: INV-005
+    description: >-
+      输出方向不引入组合环/锁存——comb 模式 rd_data 仅依赖存储与读指针（寄存），
+      reg 模式全部输出由 FF 驱动；full/empty/count 由寄存 count 派生（组合深度 ≤1 级）。
+    properties: []
+    tests: []
+    severity: info
+
+assumptions:
+  - id: ASM-001
+    description: push 数据在 push_i 有效周期内保持稳定；pop 方在 rd_en 有效且输出有效时取数。
+  - id: ASM-002
+    description: 复位 `rst_n` 低有效异步拉低；释放后 count/指针/输出级清零，同步释放语义由集成层保证。
+  - id: ASM-003
+    description: 输入 X/Z 不承诺（2-state 仿真语义）；数据路径 X 传播视为未定义。
+  - id: ASM-004
+    description: OUTPUT_REG 与 IMPL 相互独立可组合（comb/reg × register/shift 均合法）；
+      IMPL=shift 建议 DEPTH<=32（见 profiles 限制，非 error 约束，超限仅面积/时序劣化）。
+  - id: ASM-005
+    description: 不支持满时强制写入或空时强制读取（无 override/flush 语义；flush 类归
+      A3 包装或消费者侧控制，非本 A2 存储契约）。
+
+# 时序语义
+timing:
+  first_beat_latency: 0                # comb（OUTPUT_REG=0）：empty 拉低同拍数据有效；reg=1 拍读延迟
+  full_throughput: true                # 非满每拍 push、非空每拍 pop（背压由 full/empty 传导）
+  backpressure_propagation: 1          # 满→push 侧停止 1 拍内生效（count 寄存派生）
+
+# 异常行为
+exceptions:
+  - id: EXC-001
+    description: 复位释放后 count/读写指针/输出级清零；empty_o=1、count_o=0、rd_valid_o=0（reg）。
+    handling: async_reset_low
+
+# 非目标
+non_goals:
+  - 跨时钟域 / 异步复位释放同步（属 cdc_rdc 套件 QUE-002 async_fifo）
+  - 首拍零延迟直读透传/FWFT（QUE-003 fall_through_fifo；comb 输出仅是"非空即有头数据"，非事务透传）
+  - SRAM 宏存储（IMPL=sram 依赖未实现 A0 wrapper TEC-015 sram_macro_wrapper，待委派实现后扩展）
+  - flush/override/peek（按需由消费者侧或 A3 包装控制）
+  - 可配置阈值 almost_full/almost_empty 中断/水位（留 Profile 层或后续版本）

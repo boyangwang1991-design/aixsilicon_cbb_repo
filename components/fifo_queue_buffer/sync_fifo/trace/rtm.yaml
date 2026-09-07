@@ -1,0 +1,215 @@
+cbb: sync_fifo
+requirements:
+- id: REQ-001
+  type: requirement
+  description: 保序与无丢无重（register, IMPL=0）——随机 push/pop（含背压）流下所有被接受 写入按序 pop 输出一次且仅一次，参考模型队列整体比对。
+  properties:
+  - PROP-SYNC_ORDER-001
+  - PROP-SYNC_CNT-002
+  tests:
+  - tc_random
+  - tc_backpressure
+  configs:
+  - cfg_data_w32_depth16_output_reg0_impl0
+  - cfg_data_w32_depth16_output_reg1_impl0
+  evidence: []
+- id: REQ-002
+  type: requirement
+  description: 满/空/占用计数一致性（register）——full_o==(count==DEPTH)、empty_o==(count==0)；
+    count_o 守恒（push +1、pop -1、同拍 push+pop 不变，边界不越 [0,DEPTH]）； 满时不接受写、空时不产生读（无溢出/下溢）。
+  properties:
+  - PROP-SYNC_CNT-002
+  - PROP-SYNC_FULL-003
+  - PROP-SYNC_EMPTY-004
+  tests:
+  - tc_random
+  - tc_backpressure
+  - tc_edge
+  configs:
+  - cfg_data_w32_depth2_output_reg0_impl0
+  - cfg_data_w32_depth256_output_reg0_impl0
+  - cfg_data_w32_depth16_output_reg0_impl0
+  evidence: []
+- id: REQ-003
+  type: requirement
+  description: 同拍 push+pop 与满写/空读并发边界——count 守恒、无上溢/下溢回绕； 满时 push 无效、空时 pop 无效。
+  properties:
+  - PROP-SYNC_CNT-002
+  tests:
+  - tc_edge
+  configs:
+  - cfg_data_w32_depth2_output_reg0_impl0
+  - cfg_data_w32_depth129_output_reg0_impl0
+  evidence: []
+- id: REQ-004
+  type: requirement
+  description: OUTPUT_REG=0（组合读出）——empty_o 拉低同拍 rd_data_o 有效（头部数据）； pop 有效条件 ~empty_o
+    && rd_en_o 的语义（数据当拍可消费、次拍指针推进）。
+  properties:
+  - PROP-SYNC_COMB-005
+  tests:
+  - tc_out_comb
+  - tc_random
+  configs:
+  - cfg_data_w32_depth16_output_reg0_impl0
+  - cfg_data_w1_depth16_output_reg0_impl0
+  - cfg_data_w32_depth16_output_reg0_impl1
+  evidence: []
+- id: REQ-005
+  type: requirement
+  description: 'OUTPUT_REG=1（寄存输出级）——rd_valid/rd_data 由输出 FF 驱动（1 拍读延迟）； 弹空拍允许消费缓存最后数据，空态稳定后
+    rd_valid 才拉低 （`empty_o |-> ##1 ~rd_valid_o`，domain-rules §3.1.1 语义）；pop 判定 基于沿前非空，防空下溢。'
+  properties:
+  - PROP-SYNC_OUTREG-006
+  tests:
+  - tc_outreg
+  - tc_edge
+  configs:
+  - cfg_data_w32_depth16_output_reg1_impl0
+  - cfg_data_w32_depth2_output_reg1_impl0
+  - cfg_data_w32_depth16_output_reg1_impl1
+  evidence: []
+- id: REQ-006
+  type: requirement
+  description: shift 实现（IMPL=1）与 register 共享同一可观察契约——保序/满空/占用计数/ 输出语义一致（参考模型整体比对，含随机与背压场景）。
+  properties:
+  - PROP-SYNC_ORDER-001
+  - PROP-SYNC_CNT-002
+  tests:
+  - tc_random
+  - tc_backpressure
+  configs:
+  - cfg_data_w32_depth16_output_reg0_impl1
+  - cfg_data_w8_depth16_output_reg0_impl1
+  - cfg_data_w32_depth16_output_reg1_impl1
+  evidence: []
+- id: REQ-007
+  type: requirement
+  description: 边界——DATA_W=1 / DEPTH=2（最小）/ 大深度 / 空流 / 满写连发 / 空读连发 场景行为正确（register
+    与 shift 各代表点）。
+  properties:
+  - PROP-SYNC_EMPTY-004
+  - PROP-SYNC_FULL-003
+  tests:
+  - tc_edge
+  configs:
+  - cfg_data_w1_depth16_output_reg0_impl0
+  - cfg_data_w32_depth2_output_reg0_impl0
+  - cfg_data_w32_depth256_output_reg0_impl0
+  - cfg_data_w8_depth16_output_reg0_impl1
+  evidence: []
+- id: REQ-008
+  type: requirement
+  description: 非法参数在 Elaboration 期被拦截（DATA_W/DEPTH/OUTPUT_REG/IMPL 越界 → generate $error）。
+  properties: []
+  tests:
+  - tc_negative_elab
+  configs:
+  - cfg_data_w0_depth16_output_reg0_impl0
+  - cfg_data_w1025_depth16_output_reg0_impl0
+  - cfg_data_w32_depth1_output_reg0_impl0
+  - cfg_data_w32_depth257_output_reg0_impl0
+  evidence: []
+- id: REQ-009
+  type: requirement
+  description: 复位后状态清零——empty_o=1、count_o=0、full_o=0；OUTPUT_REG=1 时 rd_valid_o=0；可立即接受
+    push（逐拍写入恢复计数）。
+  properties: []
+  tests:
+  - tc_reset
+  configs:
+  - cfg_data_w32_depth16_output_reg0_impl0
+  evidence: []
+- id: INV-001
+  type: requirement
+  description: 保序与无丢无重（FIFO 语义）——所有被接受写入（push 有效且非满）按写入顺序 pop 输出一次且仅一次；参考模型队列整体比对（无丢、无重、无乱序）。适用
+    register 与 shift 全模式。
+  properties:
+  - PROP-SYNC_ORDER-001
+  tests:
+  - tc_random
+  - tc_backpressure
+  - tc_edge
+  configs: []
+  evidence: []
+- id: INV-002
+  type: requirement
+  description: 占用计数守恒与满/空一致性——count 反映当前占用 ∈ [0,DEPTH]；count==DEPTH ⇔ full_o、 count==0
+    ⇔ empty_o；push（非满）+1、pop（非空）-1、同拍 push+pop 净 0； 无上溢（满时 push 无效不写入）无下溢（空时 pop 无效）。
+  properties:
+  - PROP-SYNC_CNT-002
+  - PROP-SYNC_FULL-003
+  - PROP-SYNC_EMPTY-004
+  tests:
+  - tc_random
+  - tc_backpressure
+  - tc_edge
+  configs: []
+  evidence: []
+- id: INV-003
+  type: requirement
+  description: OUTPUT_REG=0（组合读出）——empty_o 拉低当拍 rd_data_o 即有效（组合头读出， 0 读延迟）；pop 事件
+    = rd_en 且非空，下一拍指针推进、后续数据可见。
+  properties:
+  - PROP-SYNC_COMB-005
+  tests:
+  - tc_out_comb
+  - tc_random
+  configs: []
+  evidence: []
+- id: INV-004
+  type: requirement
+  description: 'OUTPUT_REG=1（寄存输出级）——rd_valid_o/rd_data_o 由输出 FF 驱动（1 拍读延迟）； 物理 pop
+    由沿前非空判定（~empty 且 rd_en），防空下溢；弹空拍允许消费最后缓存， 空态稳定后 rd_valid_o 才拉低（`empty_o |-> ##1
+    ~rd_valid_o`）。'
+  properties:
+  - PROP-SYNC_OUTREG-006
+  tests:
+  - tc_outreg
+  - tc_edge
+  configs: []
+  evidence: []
+- id: INV-005
+  type: requirement
+  description: 输出方向不引入组合环/锁存——comb 模式 rd_data 仅依赖存储与读指针（寄存）， reg 模式全部输出由 FF 驱动；full/empty/count
+    由寄存 count 派生（组合深度 ≤1 级）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-001
+  type: requirement
+  description: push 数据在 push_i 有效周期内保持稳定；pop 方在 rd_en 有效且输出有效时取数。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-002
+  type: requirement
+  description: 复位 `rst_n` 低有效异步拉低；释放后 count/指针/输出级清零，同步释放语义由集成层保证。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-003
+  type: requirement
+  description: 输入 X/Z 不承诺（2-state 仿真语义）；数据路径 X 传播视为未定义。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-004
+  type: requirement
+  description: OUTPUT_REG 与 IMPL 相互独立可组合（comb/reg × register/shift 均合法）； IMPL=shift
+    建议 DEPTH<=32（见 profiles 限制，非 error 约束，超限仅面积/时序劣化）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-005
+  type: requirement
+  description: 不支持满时强制写入或空时强制读取（无 override/flush 语义；flush 类归 A3 包装或消费者侧控制，非本 A2 存储契约）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []

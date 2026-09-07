@@ -1,0 +1,28 @@
+cbb: sync_fifo
+updated: '2026-09-03T11:43:16Z'
+gates:
+  G0:
+    status: pass
+    evidence: docs/intake.md
+    note: 'Intake: CBB A2, 查重 QUE-001 已登记, register/shift 物化, SRAM non_goal'
+  G1:
+    status: pass
+    evidence: cbb.yaml behavior.yaml docs/cbb_spec.md trace/rtm.yaml
+    note: 契约+config-gen(1/19/13/4)+check 通过+规格确认门 2026-09-03
+  G2:
+    status: pass
+    evidence: profiles.yaml docs/design.md docs/detail-design/*.md
+    note: 多实现 register/shift × comb/reg; 详设确认门 2026-09-03
+  G3:
+    status: pass
+    evidence: build/eda/evidence/g3_static/param_matrix.txt
+    note: VCS 编译矩阵 18 点 + 负向 PC-001..006; check --strict 通过
+  G4:
+    status: pass
+    evidence: build/eda/evidence/g4_functional/functional_sim.txt
+    note: VCS 仿真 9/9 配置 PASS; 参考模型比对 + SVA 无断言失败
+  G6:
+    status: pass
+    evidence: build/eda/ppa/run-20260903-01/ppa_summary.md reports/ppa-report.md
+    note: pdk-scan PDK_READY; DC 8 点 E2 全 MET@400MHz; register×comb Pareto; shift
+      降 experimental

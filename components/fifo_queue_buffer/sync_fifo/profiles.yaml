@@ -1,0 +1,48 @@
+# ============================================================
+# sync_fifo 多实现 Profile（profiles.yaml）—— SSOT
+# 与 cbb.yaml implementations 关联；共享同一可观察契约（保序/满空/计数/输出语义），
+# 差异仅在面积/频率/功耗/延迟 trade-off（domain-rules §4）。
+# 支持状态：supported（已按代表点验证）/ experimental（证据不足允许试用）。
+# ============================================================
+
+profiles:
+  default_register:
+    implementation: impl_register
+    parameters: {DATA_W: 32, DEPTH: 16, OUTPUT_REG: 0, IMPL: 0}
+    optimization_goal: latency          # comb 读出 0 延迟 + 通用深度
+    support: supported
+    use_case: 通用模块间深度缓冲（默认：读写指针+寄存器堆，组合读出，任意 DEPTH）
+  register_registered_out:
+    implementation: impl_register
+    parameters: {DATA_W: 32, DEPTH: 16, OUTPUT_REG: 1, IMPL: 0}
+    optimization_goal: fmax             # 输出 FF 切时序路径、1 拍读延迟
+    support: supported
+    use_case: 高频/反压路径时序瓶颈场景（输出级寄存切断 read→ready 组合链）
+  shift_shallow:
+    implementation: impl_shift
+    parameters: {DATA_W: 32, DEPTH: 8, OUTPUT_REG: 0, IMPL: 1}
+    optimization_goal: area             # 浅深移位存储（候选低面积 profile）
+    support: experimental               # run-20260903-01 实测：d8/d32 面积/功耗劣于 register（见 reports/ppa-report.md）
+    use_case: 浅深（≤32）队列候选；仅在 DEPTH≤4 / 多读口等未表征区可能反转（需补测）
+  shift_registered_out:
+    implementation: impl_shift
+    parameters: {DATA_W: 32, DEPTH: 8, OUTPUT_REG: 1, IMPL: 1}
+    optimization_goal: fmax
+    support: experimental               # 移位链 + 输出级组合证据待补充
+    use_case: 浅深 + 寄存输出的组合尝试（证据不足，允许试用）
+
+implementation_notes:
+  impl_register:
+    max_recommended_scale: {DATA_W: 128, DEPTH: 64}
+    dependencies: []
+    characterized_region: {}
+    known_limits:
+      - 读侧输出为深度相关多路选择（DATA_W×DEPTH mux），大 DEPTH 读路径时序下降
+      - DEPTH=256+ 寄存器堆面积随 DEPTH 线性（全 FF），深度大时建议 SRAM 方向（非目标）
+  impl_shift:
+    max_recommended_scale: {DATA_W: 64, DEPTH: 32}
+    dependencies: []
+    characterized_region: {}
+    known_limits:
+      - 存储为移位链，面积/功耗随 DEPTH×DATA_W 线性且每 push 全链使能，过深不合算
+      - 建议 DEPTH<=32（非 error 约束，超限仅 PPA 劣化，行为仍正确）

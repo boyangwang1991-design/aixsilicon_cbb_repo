@@ -69,11 +69,11 @@ VLNV 命名：`aixsilicon:cbb:<cbb_name>:<version>`。
 | 指标                         | 数量 |
 |------------------------------|------|
 | 总条目（cbbs）               | 410  |
-| implemented（已实现/已交付） | 7    |
-| planned（规划候选）          | 403  |
-| 实现率                       | 1.7% |
+| implemented（已实现/已交付） | 8    |
+| planned（规划候选）          | 402  |
+| 实现率                       | 2.0% |
 
-### 已实现 / 已交付构件（7）
+### 已实现 / 已交付构件（8）
 
 | ID      | 构件                                                                                         | 构件族                   | 抽象 | 优先级 | 版本  | 类别                              |
 |---------|----------------------------------------------------------------------------------------------|--------------------------|------|--------|-------|-----------------------------------|
@@ -82,6 +82,7 @@ VLNV 命名：`aixsilicon:cbb:<cbb_name>:<version>`。
 | ARB-003 | [weighted_rr_arbiter](components/arbitration_scheduling/weighted_rr_arbiter/README.md)       | Weighted RR Arbiter      | A2   | P2     | 0.1.0 | components/arbitration_scheduling |
 | ARI-001 | [incrementer_decrementer](components/arithmetic_datapath/incrementer_decrementer/README.md)  | Incrementer/Decrementer  | A1   | P0     | 0.1.0 | components/arithmetic_datapath    |
 | COD-001 | [parity_gen_check](components/coding_integrity/parity_gen_check/README.md)                   | Parity Generator/Checker | A1   | P0     | 0.1.0 | components/coding_integrity       |
+| QUE-001 | [sync_fifo](components/fifo_queue_buffer/sync_fifo/README.md)                                | Synchronous FIFO         | A2   | P0     | 0.1.0 | components/fifo_queue_buffer      |
 | QUE-007 | [skid_buffer](components/fifo_queue_buffer/skid_buffer/README.md)                            | Skid Buffer              | A3   | P0     | 0.3.0 | components/fifo_queue_buffer      |
 | SEL-014 | [popcount](components/selection_decode/popcount/README.md)                                   | Population Count         | A1   | P1     | 0.1.0 | components/selection_decode       |
 
@@ -100,7 +101,7 @@ VLNV 命名：`aixsilicon:cbb:<cbb_name>:<version>`。
 | components/control_event_status   | 0           | 24      | 24   |
 | components/dft_test               | 0           | 10      | 10   |
 | components/dsp_ai_datapath        | 0           | 15      | 15   |
-| components/fifo_queue_buffer      | 1           | 19      | 20   |
+| components/fifo_queue_buffer      | 2           | 18      | 20   |
 | components/interrupt_safety       | 0           | 30      | 30   |
 | components/monitor_debug          | 0           | 16      | 16   |
 | components/noc_interconnect       | 0           | 17      | 17   |
@@ -129,7 +130,7 @@ VLNV 命名：`aixsilicon:cbb:<cbb_name>:<version>`。
 
 | 优先级 | implemented | planned | 合计 |
 |--------|-------------|---------|------|
-| P0     | 5           | 73      | 78   |
+| P0     | 6           | 72      | 78   |
 | P1     | 1           | 139     | 140  |
 | P2     | 1           | 123     | 124  |
 | P3     | 0           | 68      | 68   |
@@ -424,11 +425,11 @@ VLNV 命名：`aixsilicon:cbb:<cbb_name>:<version>`。
 | DSP-014 | [double_buffer_ctrl](components/dsp_ai_datapath/double_buffer_ctrl/README.md)                   | Double-buffer Controller          | planned | A2    | P2     | 0.1.0 | 计算搬运重叠          |
 | DSP-015 | [loop_nested_counter_gen](components/dsp_ai_datapath/loop_nested_counter_gen/README.md)         | Loop/Nested-counter Generator     | planned | A2    | P2     | 0.1.0 | 控制复用              |
 
-#### components/fifo_queue_buffer（20，implemented=1）
+#### components/fifo_queue_buffer（20，implemented=2）
 
 | ID      | 名称                                                                                                | 构件族                       | 状态        | 抽象  | 优先级 | 版本  | 功能/描述                                                                                      |
 |---------|-----------------------------------------------------------------------------------------------------|------------------------------|-------------|-------|--------|-------|------------------------------------------------------------------------------------------------|
-| QUE-001 | [sync_fifo](components/fifo_queue_buffer/sync_fifo/README.md)                                       | Synchronous FIFO             | planned     | A2    | P0     | 0.1.0 | 深宽自动映射                                                                                   |
+| QUE-001 | [sync_fifo](components/fifo_queue_buffer/sync_fifo/README.md)                                       | Synchronous FIFO             | implemented | A2    | P0     | 0.1.0 | 深宽自动映射（register/shift 已物化；SRAM 依赖 A0 wrapper 未实现，登记 non_goals）             |
 | QUE-002 | [async_fifo](components/fifo_queue_buffer/async_fifo/README.md)                                     | Asynchronous FIFO            | planned     | A2    | P0     | 0.1.0 | CDC正确性、深度限制                                                                            |
 | QUE-003 | [fall_through_fifo](components/fifo_queue_buffer/fall_through_fifo/README.md)                       | Fall-through FIFO            | planned     | A2    | P0     | 0.1.0 | 首拍延迟与Ready路径                                                                            |
 | QUE-004 | [shift_reg_fifo](components/fifo_queue_buffer/shift_reg_fifo/README.md)                             | Shift-register FIFO          | planned     | A2    | P1     | 0.1.0 | 小深度面积与翻转                                                                               |
