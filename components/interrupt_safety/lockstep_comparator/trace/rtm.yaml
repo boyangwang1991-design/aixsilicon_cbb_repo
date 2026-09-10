@@ -1,0 +1,125 @@
+cbb: lockstep_comparator
+requirements:
+- id: REQ-001
+  type: requirement
+  description: Delay fill, zero-delay bypass, guard and reset restart; CC-005/006
+  properties: []
+  tests:
+  - tc_alignment
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  evidence: []
+- id: REQ-002
+  type: requirement
+  description: Qualified masked comparison, fail-safe OR and separate internal XOR;
+    CC-001/002/007/008
+  properties: []
+  tests:
+  - tc_compare
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  evidence: []
+- id: REQ-003
+  type: requirement
+  description: Independent A/B comparator and delay corruption; CC-003/004/009/010
+  properties: []
+  tests:
+  - tc_injection
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  evidence: []
+- id: REQ-004
+  type: requirement
+  description: Sticky classes/vector, event pulse, clear and set priority; CC-011/012
+  properties: []
+  tests:
+  - tc_sticky
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  evidence: []
+- id: REQ-005
+  type: requirement
+  description: Comparator stage latency and immediate reset suppression
+  properties: []
+  tests:
+  - tc_pipeline
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  evidence: []
+- id: REQ-006
+  type: requirement
+  description: Cycle-accurate seeded stream, masks, controls, resets and injections
+  properties: []
+  tests:
+  - tc_random
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  evidence: []
+- id: REQ-007
+  type: requirement
+  description: Single comparator stuck low cannot suppress divergence
+  properties: []
+  tests:
+  - tc_stuck
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  evidence: []
+- id: REQ-008
+  type: requirement
+  description: Enabled X/Z data raises assertion, masked X/Z ignored
+  properties: []
+  tests:
+  - tc_unknown
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  evidence: []
+- id: REQ-009
+  type: requirement
+  description: Illegal configuration rejected during elaboration
+  properties: []
+  tests:
+  - tc_negative
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  evidence: []
+- id: REQ-010
+  type: requirement
+  description: Inverted safety assertion and broken fault OR are detected
+  properties: []
+  tests:
+  - tc_mutation
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  evidence: []
+- id: INV-001
+  type: requirement
+  description: Safety output includes every live detected fault.
+  properties:
+  - PROP-LCL_SAFE-001
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-002
+  type: requirement
+  description: Reset immediately suppresses live mismatch and alignment.
+  properties:
+  - PROP-LCL_RESET-002
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-001
+  type: requirement
+  description: Inputs synchronous to clk_i; rst_ni asynchronous assertion, synchronous
+    deassertion supplied by integration.
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-002
+  type: requirement
+  description: Current masks qualify the aligned comparison epoch; upstream aligns
+    masks if necessary.
+  properties: []
+  tests: []
+  configs: []
+  evidence: []

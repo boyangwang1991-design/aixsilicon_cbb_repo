@@ -1,0 +1,1169 @@
+{
+  "status": "pass",
+  "rtl_sha256": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+  "dependency_sha256": "b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd",
+  "phase": "sim",
+  "matrix": [
+    {
+      "config_id": "cfg_num_req4_lock_mode0_len_w8",
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "kind": "mandatory",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2577,
+          "beats": 1628,
+          "packets": 454,
+          "stalls": 532,
+          "bubbles": 417,
+          "resets": 9
+        },
+        {
+          "seed": 2027,
+          "cycles": 2583,
+          "beats": 1655,
+          "packets": 449,
+          "stalls": 522,
+          "bubbles": 406,
+          "resets": 9
+        },
+        {
+          "seed": 65537,
+          "cycles": 2580,
+          "beats": 1643,
+          "packets": 459,
+          "stalls": 551,
+          "bubbles": 386,
+          "resets": 9
+        }
+      ],
+      "compile_sha256": "7adbee3506e47562601b3004def2d264a6ba11f3b4bad8433c41eacbb7ba8e4e"
+    },
+    {
+      "config_id": "cfg_num_req1_lock_mode0_len_w8",
+      "parameters": {
+        "NUM_REQ": 1,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "kind": "boundary",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2535,
+          "beats": 1518,
+          "packets": 379,
+          "stalls": 522,
+          "bubbles": 383,
+          "resets": 9
+        },
+        {
+          "seed": 2027,
+          "cycles": 2532,
+          "beats": 1542,
+          "packets": 390,
+          "stalls": 491,
+          "bubbles": 367,
+          "resets": 9
+        },
+        {
+          "seed": 65537,
+          "cycles": 2532,
+          "beats": 1512,
+          "packets": 384,
+          "stalls": 519,
+          "bubbles": 386,
+          "resets": 9
+        }
+      ],
+      "compile_sha256": "0edec37fec7f6ef0a91b9d2384d43296d0c6f1f1d0953a7126cc02d39147aa63"
+    },
+    {
+      "config_id": "cfg_num_req64_lock_mode0_len_w8",
+      "parameters": {
+        "NUM_REQ": 64,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "kind": "boundary",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 3478,
+          "beats": 2544,
+          "packets": 1352,
+          "stalls": 545,
+          "bubbles": 389,
+          "resets": 9
+        },
+        {
+          "seed": 2027,
+          "cycles": 3480,
+          "beats": 2556,
+          "packets": 1362,
+          "stalls": 510,
+          "bubbles": 414,
+          "resets": 9
+        },
+        {
+          "seed": 65537,
+          "cycles": 3481,
+          "beats": 2517,
+          "packets": 1349,
+          "stalls": 536,
+          "bubbles": 428,
+          "resets": 9
+        }
+      ],
+      "compile_sha256": "87713f6e597744a14711b26062324b060b5aa62b980232bf1a1dde4e6c3a0fe9"
+    },
+    {
+      "config_id": "cfg_num_req32_lock_mode0_len_w8",
+      "parameters": {
+        "NUM_REQ": 32,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "kind": "boundary",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2999,
+          "beats": 2061,
+          "packets": 880,
+          "stalls": 520,
+          "bubbles": 418,
+          "resets": 9
+        },
+        {
+          "seed": 2027,
+          "cycles": 3001,
+          "beats": 2090,
+          "packets": 885,
+          "stalls": 520,
+          "bubbles": 391,
+          "resets": 9
+        },
+        {
+          "seed": 65537,
+          "cycles": 3002,
+          "beats": 2058,
+          "packets": 865,
+          "stalls": 531,
+          "bubbles": 413,
+          "resets": 9
+        }
+      ],
+      "compile_sha256": "ef5ebd43224526b097c5fd5437896706100713e43e08729610fc7ecf53938cb4"
+    },
+    {
+      "config_id": "cfg_num_req2_lock_mode0_len_w8",
+      "parameters": {
+        "NUM_REQ": 2,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "kind": "boundary",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2548,
+          "beats": 1640,
+          "packets": 424,
+          "stalls": 514,
+          "bubbles": 391,
+          "resets": 9
+        },
+        {
+          "seed": 2027,
+          "cycles": 2548,
+          "beats": 1620,
+          "packets": 419,
+          "stalls": 551,
+          "bubbles": 377,
+          "resets": 9
+        },
+        {
+          "seed": 65537,
+          "cycles": 2547,
+          "beats": 1605,
+          "packets": 422,
+          "stalls": 541,
+          "bubbles": 400,
+          "resets": 9
+        }
+      ],
+      "compile_sha256": "a264ce1b82b06918e55c485236b49bea0552aa32ce7eeaf8cbf069df3f8f22cd"
+    },
+    {
+      "config_id": "cfg_num_req3_lock_mode0_len_w8",
+      "parameters": {
+        "NUM_REQ": 3,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "kind": "boundary",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2568,
+          "beats": 1630,
+          "packets": 437,
+          "stalls": 544,
+          "bubbles": 394,
+          "resets": 9
+        },
+        {
+          "seed": 2027,
+          "cycles": 2563,
+          "beats": 1659,
+          "packets": 453,
+          "stalls": 523,
+          "bubbles": 381,
+          "resets": 9
+        },
+        {
+          "seed": 65537,
+          "cycles": 2568,
+          "beats": 1608,
+          "packets": 429,
+          "stalls": 551,
+          "bubbles": 409,
+          "resets": 9
+        }
+      ],
+      "compile_sha256": "43e4fc5956a6d3ca82e22251110cbf4c8fb3033b297126aae95950ca85065432"
+    },
+    {
+      "config_id": "cfg_num_req8_lock_mode0_len_w8",
+      "parameters": {
+        "NUM_REQ": 8,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "kind": "boundary",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2640,
+          "beats": 1702,
+          "packets": 524,
+          "stalls": 548,
+          "bubbles": 390,
+          "resets": 9
+        },
+        {
+          "seed": 2027,
+          "cycles": 2640,
+          "beats": 1721,
+          "packets": 520,
+          "stalls": 493,
+          "bubbles": 426,
+          "resets": 9
+        },
+        {
+          "seed": 65537,
+          "cycles": 2638,
+          "beats": 1694,
+          "packets": 516,
+          "stalls": 521,
+          "bubbles": 423,
+          "resets": 9
+        }
+      ],
+      "compile_sha256": "685b60ea6c1d222514abf83f14650d8daeb2a3200cb7c2d8bd6919896b4b57c2"
+    },
+    {
+      "config_id": "cfg_num_req17_lock_mode0_len_w8",
+      "parameters": {
+        "NUM_REQ": 17,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "kind": "boundary",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2778,
+          "beats": 1855,
+          "packets": 668,
+          "stalls": 526,
+          "bubbles": 397,
+          "resets": 9
+        },
+        {
+          "seed": 2027,
+          "cycles": 2775,
+          "beats": 1864,
+          "packets": 651,
+          "stalls": 549,
+          "bubbles": 362,
+          "resets": 9
+        },
+        {
+          "seed": 65537,
+          "cycles": 2772,
+          "beats": 1826,
+          "packets": 651,
+          "stalls": 562,
+          "bubbles": 384,
+          "resets": 9
+        }
+      ],
+      "compile_sha256": "64c9b85c1bb600fde4879d1e555227d444df1f41579580055ebd4093094a6c05"
+    },
+    {
+      "config_id": "cfg_num_req4_lock_mode1_len_w8",
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 1,
+        "LEN_W": 8
+      },
+      "kind": "boundary",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2837,
+          "beats": 1882,
+          "packets": 456,
+          "stalls": 535,
+          "bubbles": 417,
+          "resets": 11
+        },
+        {
+          "seed": 2027,
+          "cycles": 2843,
+          "beats": 1909,
+          "packets": 451,
+          "stalls": 525,
+          "bubbles": 406,
+          "resets": 11
+        },
+        {
+          "seed": 65537,
+          "cycles": 2840,
+          "beats": 1897,
+          "packets": 461,
+          "stalls": 554,
+          "bubbles": 386,
+          "resets": 11
+        }
+      ],
+      "compile_sha256": "45f517640b45ad42c721996ec5b0d0d0bc05daa3f0b2df35324c4922539be91a"
+    },
+    {
+      "config_id": "cfg_num_req4_lock_mode0_len_w1",
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 0,
+        "LEN_W": 1
+      },
+      "kind": "boundary",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2577,
+          "beats": 1954,
+          "packets": 1949,
+          "stalls": 620,
+          "bubbles": 3,
+          "resets": 9
+        },
+        {
+          "seed": 2027,
+          "cycles": 2577,
+          "beats": 1958,
+          "packets": 1953,
+          "stalls": 616,
+          "bubbles": 3,
+          "resets": 9
+        },
+        {
+          "seed": 65537,
+          "cycles": 2577,
+          "beats": 1947,
+          "packets": 1942,
+          "stalls": 627,
+          "bubbles": 3,
+          "resets": 9
+        }
+      ],
+      "compile_sha256": "dfeeee8fa7a6bbfaf52ee73b04c4d2ecd6f9dceb42667f289a066638a0e1100f"
+    },
+    {
+      "config_id": "cfg_num_req4_lock_mode0_len_w16",
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 0,
+        "LEN_W": 16
+      },
+      "kind": "boundary",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2577,
+          "beats": 1628,
+          "packets": 454,
+          "stalls": 532,
+          "bubbles": 417,
+          "resets": 9
+        },
+        {
+          "seed": 2027,
+          "cycles": 2583,
+          "beats": 1655,
+          "packets": 449,
+          "stalls": 522,
+          "bubbles": 406,
+          "resets": 9
+        },
+        {
+          "seed": 65537,
+          "cycles": 2580,
+          "beats": 1643,
+          "packets": 459,
+          "stalls": 551,
+          "bubbles": 386,
+          "resets": 9
+        }
+      ],
+      "compile_sha256": "d01dae366a2dbea5118b6305027a22f976854883a487d3e461e824c2440801a4"
+    },
+    {
+      "config_id": "cfg_num_req4_lock_mode0_len_w2",
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 0,
+        "LEN_W": 2
+      },
+      "kind": "boundary",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2578,
+          "beats": 1744,
+          "packets": 923,
+          "stalls": 554,
+          "bubbles": 280,
+          "resets": 9
+        },
+        {
+          "seed": 2027,
+          "cycles": 2578,
+          "beats": 1742,
+          "packets": 905,
+          "stalls": 531,
+          "bubbles": 305,
+          "resets": 9
+        },
+        {
+          "seed": 65537,
+          "cycles": 2579,
+          "beats": 1714,
+          "packets": 897,
+          "stalls": 577,
+          "bubbles": 288,
+          "resets": 9
+        }
+      ],
+      "compile_sha256": "f39a186b65467a581c03703971997e92939b8a85752982c775f1c060207039ac"
+    },
+    {
+      "config_id": "cfg_num_req1_lock_mode1_len_w8",
+      "parameters": {
+        "NUM_REQ": 1,
+        "LOCK_MODE": 1,
+        "LEN_W": 8
+      },
+      "kind": "pairwise",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2795,
+          "beats": 1772,
+          "packets": 381,
+          "stalls": 525,
+          "bubbles": 383,
+          "resets": 11
+        },
+        {
+          "seed": 2027,
+          "cycles": 2792,
+          "beats": 1796,
+          "packets": 392,
+          "stalls": 494,
+          "bubbles": 367,
+          "resets": 11
+        },
+        {
+          "seed": 65537,
+          "cycles": 2792,
+          "beats": 1766,
+          "packets": 386,
+          "stalls": 522,
+          "bubbles": 386,
+          "resets": 11
+        }
+      ],
+      "compile_sha256": "73f905fef375441b03beebee73eae03552f904527f940fa545ae98587c75e658"
+    },
+    {
+      "config_id": "cfg_num_req2_lock_mode1_len_w8",
+      "parameters": {
+        "NUM_REQ": 2,
+        "LOCK_MODE": 1,
+        "LEN_W": 8
+      },
+      "kind": "pairwise",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2808,
+          "beats": 1894,
+          "packets": 426,
+          "stalls": 517,
+          "bubbles": 391,
+          "resets": 11
+        },
+        {
+          "seed": 2027,
+          "cycles": 2808,
+          "beats": 1874,
+          "packets": 421,
+          "stalls": 554,
+          "bubbles": 377,
+          "resets": 11
+        },
+        {
+          "seed": 65537,
+          "cycles": 2807,
+          "beats": 1859,
+          "packets": 424,
+          "stalls": 544,
+          "bubbles": 400,
+          "resets": 11
+        }
+      ],
+      "compile_sha256": "7c8d32d9d14b8ccf6f97da6aee5eb3bf6de31d049549901ab169225fd6874023"
+    },
+    {
+      "config_id": "cfg_num_req1_lock_mode0_len_w1",
+      "parameters": {
+        "NUM_REQ": 1,
+        "LOCK_MODE": 0,
+        "LEN_W": 1
+      },
+      "kind": "pairwise",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2532,
+          "beats": 1510,
+          "packets": 1505,
+          "stalls": 514,
+          "bubbles": 3,
+          "resets": 9
+        },
+        {
+          "seed": 2027,
+          "cycles": 2532,
+          "beats": 1531,
+          "packets": 1526,
+          "stalls": 512,
+          "bubbles": 3,
+          "resets": 9
+        },
+        {
+          "seed": 65537,
+          "cycles": 2532,
+          "beats": 1506,
+          "packets": 1501,
+          "stalls": 490,
+          "bubbles": 3,
+          "resets": 9
+        }
+      ],
+      "compile_sha256": "9782a9a5d643e32a64da85f78b405b5e267b8eb28301f0bf70b3d8bfa63fc423"
+    },
+    {
+      "config_id": "cfg_num_req1_lock_mode0_len_w16",
+      "parameters": {
+        "NUM_REQ": 1,
+        "LOCK_MODE": 0,
+        "LEN_W": 16
+      },
+      "kind": "pairwise",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2535,
+          "beats": 1518,
+          "packets": 379,
+          "stalls": 522,
+          "bubbles": 383,
+          "resets": 9
+        },
+        {
+          "seed": 2027,
+          "cycles": 2532,
+          "beats": 1542,
+          "packets": 390,
+          "stalls": 491,
+          "bubbles": 367,
+          "resets": 9
+        },
+        {
+          "seed": 65537,
+          "cycles": 2532,
+          "beats": 1512,
+          "packets": 384,
+          "stalls": 519,
+          "bubbles": 386,
+          "resets": 9
+        }
+      ],
+      "compile_sha256": "01f527b1e768f7d266af850538163642167667bf3b7e5d5acf638b47306edc86"
+    },
+    {
+      "config_id": "cfg_num_req2_lock_mode0_len_w1",
+      "parameters": {
+        "NUM_REQ": 2,
+        "LOCK_MODE": 0,
+        "LEN_W": 1
+      },
+      "kind": "pairwise",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2547,
+          "beats": 1898,
+          "packets": 1893,
+          "stalls": 627,
+          "bubbles": 3,
+          "resets": 9
+        },
+        {
+          "seed": 2027,
+          "cycles": 2548,
+          "beats": 1916,
+          "packets": 1911,
+          "stalls": 610,
+          "bubbles": 3,
+          "resets": 9
+        },
+        {
+          "seed": 65537,
+          "cycles": 2547,
+          "beats": 1868,
+          "packets": 1863,
+          "stalls": 646,
+          "bubbles": 3,
+          "resets": 9
+        }
+      ],
+      "compile_sha256": "c43ff8c3623b785d810c8bd9a1c8855aeb1c285a6eef7ee8f9d11b804fbc88cc"
+    },
+    {
+      "config_id": "cfg_num_req2_lock_mode0_len_w16",
+      "parameters": {
+        "NUM_REQ": 2,
+        "LOCK_MODE": 0,
+        "LEN_W": 16
+      },
+      "kind": "pairwise",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2548,
+          "beats": 1640,
+          "packets": 424,
+          "stalls": 514,
+          "bubbles": 391,
+          "resets": 9
+        },
+        {
+          "seed": 2027,
+          "cycles": 2548,
+          "beats": 1620,
+          "packets": 419,
+          "stalls": 551,
+          "bubbles": 377,
+          "resets": 9
+        },
+        {
+          "seed": 65537,
+          "cycles": 2547,
+          "beats": 1605,
+          "packets": 422,
+          "stalls": 541,
+          "bubbles": 400,
+          "resets": 9
+        }
+      ],
+      "compile_sha256": "f87d4aa8ffff08019473c86b56a1b3ccf670e1f0a788123c2374fbf7f992f431"
+    },
+    {
+      "config_id": "cfg_num_req4_lock_mode1_len_w1",
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 1,
+        "LEN_W": 1
+      },
+      "kind": "pairwise",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2581,
+          "beats": 1952,
+          "packets": 1952,
+          "stalls": 623,
+          "bubbles": 3,
+          "resets": 11
+        },
+        {
+          "seed": 2027,
+          "cycles": 2581,
+          "beats": 1956,
+          "packets": 1956,
+          "stalls": 619,
+          "bubbles": 3,
+          "resets": 11
+        },
+        {
+          "seed": 65537,
+          "cycles": 2581,
+          "beats": 1945,
+          "packets": 1945,
+          "stalls": 630,
+          "bubbles": 3,
+          "resets": 11
+        }
+      ],
+      "compile_sha256": "758f647adbf22b059cbfab9558de437e81c836f8a7560425b7c49ff910e5ddc8"
+    },
+    {
+      "config_id": "cfg_num_req4_lock_mode1_len_w16",
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 1,
+        "LEN_W": 16
+      },
+      "kind": "pairwise",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 68117,
+          "beats": 67162,
+          "packets": 456,
+          "stalls": 535,
+          "bubbles": 417,
+          "resets": 11
+        },
+        {
+          "seed": 2027,
+          "cycles": 68123,
+          "beats": 67189,
+          "packets": 451,
+          "stalls": 525,
+          "bubbles": 406,
+          "resets": 11
+        },
+        {
+          "seed": 65537,
+          "cycles": 68120,
+          "beats": 67177,
+          "packets": 461,
+          "stalls": 554,
+          "bubbles": 386,
+          "resets": 11
+        }
+      ],
+      "compile_sha256": "40fcee17e76f26d905c4072c200b82182a39c75140c61dd1a92e43378eff8366"
+    },
+    {
+      "config_id": "cfg_num_req3_lock_mode1_len_w1",
+      "parameters": {
+        "NUM_REQ": 3,
+        "LOCK_MODE": 1,
+        "LEN_W": 1
+      },
+      "kind": "risk",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2566,
+          "beats": 1935,
+          "packets": 1935,
+          "stalls": 625,
+          "bubbles": 3,
+          "resets": 11
+        },
+        {
+          "seed": 2027,
+          "cycles": 2566,
+          "beats": 1942,
+          "packets": 1942,
+          "stalls": 618,
+          "bubbles": 3,
+          "resets": 11
+        },
+        {
+          "seed": 65537,
+          "cycles": 2566,
+          "beats": 1899,
+          "packets": 1899,
+          "stalls": 660,
+          "bubbles": 3,
+          "resets": 11
+        }
+      ],
+      "compile_sha256": "b437724bf252b63ebe1e1178676f961f6d7ee45b7915ed79fb45945b42da0541"
+    },
+    {
+      "config_id": "cfg_num_req3_lock_mode1_len_w8",
+      "parameters": {
+        "NUM_REQ": 3,
+        "LOCK_MODE": 1,
+        "LEN_W": 8
+      },
+      "kind": "risk",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2828,
+          "beats": 1884,
+          "packets": 439,
+          "stalls": 547,
+          "bubbles": 394,
+          "resets": 11
+        },
+        {
+          "seed": 2027,
+          "cycles": 2823,
+          "beats": 1913,
+          "packets": 455,
+          "stalls": 526,
+          "bubbles": 381,
+          "resets": 11
+        },
+        {
+          "seed": 65537,
+          "cycles": 2828,
+          "beats": 1862,
+          "packets": 431,
+          "stalls": 554,
+          "bubbles": 409,
+          "resets": 11
+        }
+      ],
+      "compile_sha256": "0fc25dad813512141cc63c63c22f2214b163324312994936f569ea25eff3dac0"
+    },
+    {
+      "config_id": "cfg_num_req3_lock_mode1_len_w16",
+      "parameters": {
+        "NUM_REQ": 3,
+        "LOCK_MODE": 1,
+        "LEN_W": 16
+      },
+      "kind": "risk",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 68108,
+          "beats": 67164,
+          "packets": 439,
+          "stalls": 547,
+          "bubbles": 394,
+          "resets": 11
+        },
+        {
+          "seed": 2027,
+          "cycles": 68103,
+          "beats": 67193,
+          "packets": 455,
+          "stalls": 526,
+          "bubbles": 381,
+          "resets": 11
+        },
+        {
+          "seed": 65537,
+          "cycles": 68108,
+          "beats": 67142,
+          "packets": 431,
+          "stalls": 554,
+          "bubbles": 409,
+          "resets": 11
+        }
+      ],
+      "compile_sha256": "ff29cfeda91195f4cd958cfbbf8f10588d3988b82b1a904e573bc7b9b167e7b2"
+    },
+    {
+      "config_id": "cfg_num_req17_lock_mode1_len_w1",
+      "parameters": {
+        "NUM_REQ": 17,
+        "LOCK_MODE": 1,
+        "LEN_W": 1
+      },
+      "kind": "risk",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 2777,
+          "beats": 2148,
+          "packets": 2148,
+          "stalls": 623,
+          "bubbles": 3,
+          "resets": 11
+        },
+        {
+          "seed": 2027,
+          "cycles": 2777,
+          "beats": 2151,
+          "packets": 2151,
+          "stalls": 620,
+          "bubbles": 3,
+          "resets": 11
+        },
+        {
+          "seed": 65537,
+          "cycles": 2776,
+          "beats": 2115,
+          "packets": 2115,
+          "stalls": 655,
+          "bubbles": 3,
+          "resets": 11
+        }
+      ],
+      "compile_sha256": "d7020df43f7f28001bb0bd96daa4aed58910351142603e6fc6d1f4d13c802508"
+    },
+    {
+      "config_id": "cfg_num_req17_lock_mode1_len_w8",
+      "parameters": {
+        "NUM_REQ": 17,
+        "LOCK_MODE": 1,
+        "LEN_W": 8
+      },
+      "kind": "risk",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 3038,
+          "beats": 2109,
+          "packets": 670,
+          "stalls": 529,
+          "bubbles": 397,
+          "resets": 11
+        },
+        {
+          "seed": 2027,
+          "cycles": 3035,
+          "beats": 2118,
+          "packets": 653,
+          "stalls": 552,
+          "bubbles": 362,
+          "resets": 11
+        },
+        {
+          "seed": 65537,
+          "cycles": 3032,
+          "beats": 2080,
+          "packets": 653,
+          "stalls": 565,
+          "bubbles": 384,
+          "resets": 11
+        }
+      ],
+      "compile_sha256": "fe098dfabb15f5c5fbf80393c801496fe73c12647ed61b312cb581c5e201b45e"
+    },
+    {
+      "config_id": "cfg_num_req17_lock_mode1_len_w16",
+      "parameters": {
+        "NUM_REQ": 17,
+        "LOCK_MODE": 1,
+        "LEN_W": 16
+      },
+      "kind": "risk",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 68318,
+          "beats": 67389,
+          "packets": 670,
+          "stalls": 529,
+          "bubbles": 397,
+          "resets": 11
+        },
+        {
+          "seed": 2027,
+          "cycles": 68315,
+          "beats": 67398,
+          "packets": 653,
+          "stalls": 552,
+          "bubbles": 362,
+          "resets": 11
+        },
+        {
+          "seed": 65537,
+          "cycles": 68312,
+          "beats": 67360,
+          "packets": 653,
+          "stalls": 565,
+          "bubbles": 384,
+          "resets": 11
+        }
+      ],
+      "compile_sha256": "9061f6794e853047eb543fc80bbe81746b5e4d982ae673f008a1ea305166c023"
+    },
+    {
+      "config_id": "cfg_num_req64_lock_mode1_len_w1",
+      "parameters": {
+        "NUM_REQ": 64,
+        "LOCK_MODE": 1,
+        "LEN_W": 1
+      },
+      "kind": "risk",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 3482,
+          "beats": 2848,
+          "packets": 2848,
+          "stalls": 628,
+          "bubbles": 3,
+          "resets": 11
+        },
+        {
+          "seed": 2027,
+          "cycles": 3482,
+          "beats": 2853,
+          "packets": 2853,
+          "stalls": 623,
+          "bubbles": 3,
+          "resets": 11
+        },
+        {
+          "seed": 65537,
+          "cycles": 3481,
+          "beats": 2844,
+          "packets": 2844,
+          "stalls": 631,
+          "bubbles": 3,
+          "resets": 11
+        }
+      ],
+      "compile_sha256": "09935ad758a68182145cd32060c1ba74878b014ef5a6cf794f4aad409b9cc0eb"
+    },
+    {
+      "config_id": "cfg_num_req64_lock_mode1_len_w8",
+      "parameters": {
+        "NUM_REQ": 64,
+        "LOCK_MODE": 1,
+        "LEN_W": 8
+      },
+      "kind": "risk",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 3738,
+          "beats": 2798,
+          "packets": 1354,
+          "stalls": 548,
+          "bubbles": 389,
+          "resets": 11
+        },
+        {
+          "seed": 2027,
+          "cycles": 3740,
+          "beats": 2810,
+          "packets": 1364,
+          "stalls": 513,
+          "bubbles": 414,
+          "resets": 11
+        },
+        {
+          "seed": 65537,
+          "cycles": 3741,
+          "beats": 2771,
+          "packets": 1351,
+          "stalls": 539,
+          "bubbles": 428,
+          "resets": 11
+        }
+      ],
+      "compile_sha256": "c0d484fac60946d9c1b71a2e2d223f8da514c8ac7c8bb6c34306a7bd40faedce"
+    },
+    {
+      "config_id": "cfg_num_req64_lock_mode1_len_w16",
+      "parameters": {
+        "NUM_REQ": 64,
+        "LOCK_MODE": 1,
+        "LEN_W": 16
+      },
+      "kind": "risk",
+      "status": "pass",
+      "runs": [
+        {
+          "seed": 101,
+          "cycles": 69018,
+          "beats": 68078,
+          "packets": 1354,
+          "stalls": 548,
+          "bubbles": 389,
+          "resets": 11
+        },
+        {
+          "seed": 2027,
+          "cycles": 69020,
+          "beats": 68090,
+          "packets": 1364,
+          "stalls": 513,
+          "bubbles": 414,
+          "resets": 11
+        },
+        {
+          "seed": 65537,
+          "cycles": 69021,
+          "beats": 68051,
+          "packets": 1351,
+          "stalls": 539,
+          "bubbles": 428,
+          "resets": 11
+        }
+      ],
+      "compile_sha256": "cdcea1def627b74fe41a1102ba69b5e0972d7d5b995fbc8ad26d9073cd30b52b"
+    }
+  ],
+  "seconds": 514.22
+}

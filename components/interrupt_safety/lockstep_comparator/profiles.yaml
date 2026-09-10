@@ -1,0 +1,19 @@
+profiles:
+  safety_default:
+    implementation: impl_redundant
+    parameters: {WIDTH: 32, LOCKSTEP_DELAY: 2, LCL_REDUNDANCY_LEVEL: 2, CMP_PIPE_STAGES: 0}
+    optimization_goal: fault_detection
+    support: experimental
+    use_case: CPU or safety FSM Main/Shadow observation
+  debug_single:
+    implementation: impl_redundant
+    parameters: {LCL_REDUNDANCY_LEVEL: 0, LOCKSTEP_DELAY: 0}
+    optimization_goal: area
+    support: experimental
+    use_case: Non-safety same-cycle debug comparison
+  wide_pipeline:
+    implementation: impl_redundant
+    parameters: {WIDTH: 128, CMP_PIPE_STAGES: 1}
+    optimization_goal: timing
+    support: experimental
+    use_case: Wide NPU or DMA observation channel

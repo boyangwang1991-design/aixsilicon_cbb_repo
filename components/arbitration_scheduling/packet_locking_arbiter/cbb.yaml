@@ -1,0 +1,66 @@
+schema_version: '1.0'
+cbb:
+  id: aixsilicon:cbb:packet_locking_arbiter
+  name: packet_locking_arbiter
+  version: 0.1.0
+  owner: aixsilicon:cbb
+  maturity: E0
+  license: Apache-2.0
+classification:
+  abstraction: A2/A3
+  primary_domain: arbitration_scheduling
+  secondary_domains: [streaming_pipeline]
+purpose:
+  summary: Packet-granular round-robin arbitration with EOP or accepted-beat length release.
+  consumers: [axis_mux, stream_interconnect]
+  consumer_status: Planned integration use cases; no consumer validation claimed.
+contract:
+  interface: request_grant_packet_control
+  hwif_binding: none
+  hwif_rationale: Control-only arbiter, no payload or AXI/Stream interface; consumer binds protocol valid/ready/last.
+  clock_domains: 1
+  ordering: packet_atomic_round_robin
+  throughput: 1_accepted_beat_per_cycle
+  reset: asynchronous_active_low_assert_synchronous_external_release
+parameters:
+  NUM_REQ:
+    type: int
+    default: 4
+    legal: {min: 1, max: 64}
+    partitions: [1, 2, 3, 4, 8, 17, 32, 64]
+    description: Number of requesters; arbitrary non-power-of-two counts supported.
+    affects: [interface_width, area, timing, state_space]
+  LOCK_MODE:
+    type: int
+    default: 0
+    legal: [0, 1]
+    partitions: [0, 1]
+    description: 0 releases on accepted EOP; 1 releases after sampled packet length accepted beats.
+    affects: [area, state_space]
+  LEN_W:
+    type: int
+    default: 8
+    legal: {min: 1, max: 16}
+    partitions: [1, 8, 16]
+    description: Packet length width; legal runtime length is 1 through 2**LEN_W-1; ignored in EOP mode.
+    affects: [interface_width, area, state_space]
+constraints:
+  - {id: PC-001, expression: 'NUM_REQ >= 1 and NUM_REQ <= 64', severity: error}
+  - {id: PC-002, expression: 'LOCK_MODE == 0 or LOCK_MODE == 1', severity: error}
+  - {id: PC-003, expression: 'LEN_W >= 1 and LEN_W <= 16', severity: error}
+implementations:
+  - id: impl_mask_lock
+    source: rtl/
+    constraints: constraints/
+    dependencies: [aixsilicon:cbb:fixed_priority_arbiter:0.1.0]
+    files: [rtl/packet_locking_arbiter.sv]
+quality:
+  required_gates: [G0, G1, G2, G3, G4, G5, G6, G7, G8]
+characterization:
+  benchmark_profiles: []
+  measured_region:
+    reference: reports/ppa-summary.json
+    run_id: run-20260910-02
+    note: Ten explicit parameter tuples; not a Cartesian support claim.
+release:
+  fusesoc_core: aixsilicon:cbb:packet_locking_arbiter:0.1.0

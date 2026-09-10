@@ -1,0 +1,6 @@
+cbb: packet_locking_arbiter
+sets:
+  mandatory: 1
+  boundary: 11
+  pairwise: 8
+  negative: 5

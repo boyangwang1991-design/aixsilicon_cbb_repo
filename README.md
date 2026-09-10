@@ -95,22 +95,23 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | 指标                         | 数量 |
 |------------------------------|------|
 | 总条目（cbbs）               | 410  |
-| implemented（已实现/已交付） | 8    |
-| planned（规划候选）          | 402  |
-| 实现率                       | 2.0% |
+| implemented（已实现/已交付） | 9    |
+| planned（规划候选）          | 401  |
+| 实现率                       | 2.2% |
 
-### 已实现 / 已交付构件（8）
+### 已实现 / 已交付构件（9）
 
-| ID      | 构件                                                                                         | 构件族                   | 抽象 | 优先级 | 版本  | 类别                              |
-|---------|----------------------------------------------------------------------------------------------|--------------------------|------|--------|-------|-----------------------------------|
-| ARB-001 | [fixed_priority_arbiter](components/arbitration_scheduling/fixed_priority_arbiter/README.md) | Fixed-priority Arbiter   | A2   | P0     | 0.1.0 | components/arbitration_scheduling |
-| ARB-002 | [round_robin_arbiter](components/arbitration_scheduling/round_robin_arbiter/README.md)       | Round-robin Arbiter      | A2   | P0     | 0.1.0 | components/arbitration_scheduling |
-| ARB-003 | [weighted_rr_arbiter](components/arbitration_scheduling/weighted_rr_arbiter/README.md)       | Weighted RR Arbiter      | A2   | P2     | 0.1.0 | components/arbitration_scheduling |
-| ARI-001 | [incrementer_decrementer](components/arithmetic_datapath/incrementer_decrementer/README.md)  | Incrementer/Decrementer  | A1   | P0     | 0.1.0 | components/arithmetic_datapath    |
-| COD-001 | [parity_gen_check](components/coding_integrity/parity_gen_check/README.md)                   | Parity Generator/Checker | A1   | P0     | 0.1.0 | components/coding_integrity       |
-| QUE-001 | [sync_fifo](components/fifo_queue_buffer/sync_fifo/README.md)                                | Synchronous FIFO         | A2   | P0     | 0.1.0 | components/fifo_queue_buffer      |
-| QUE-007 | [skid_buffer](components/fifo_queue_buffer/skid_buffer/README.md)                            | Skid Buffer              | A3   | P0     | 0.3.0 | components/fifo_queue_buffer      |
-| SEL-014 | [popcount](components/selection_decode/popcount/README.md)                                   | Population Count         | A1   | P1     | 0.1.0 | components/selection_decode       |
+| ID      | 构件                                                                                         | 构件族                   | 抽象  | 优先级 | 版本  | 类别                              |
+|---------|----------------------------------------------------------------------------------------------|--------------------------|-------|--------|-------|-----------------------------------|
+| ARB-001 | [fixed_priority_arbiter](components/arbitration_scheduling/fixed_priority_arbiter/README.md) | Fixed-priority Arbiter   | A2    | P0     | 0.1.0 | components/arbitration_scheduling |
+| ARB-002 | [round_robin_arbiter](components/arbitration_scheduling/round_robin_arbiter/README.md)       | Round-robin Arbiter      | A2    | P0     | 0.1.0 | components/arbitration_scheduling |
+| ARB-003 | [weighted_rr_arbiter](components/arbitration_scheduling/weighted_rr_arbiter/README.md)       | Weighted RR Arbiter      | A2    | P2     | 0.1.0 | components/arbitration_scheduling |
+| ARB-010 | [packet_locking_arbiter](components/arbitration_scheduling/packet_locking_arbiter/README.md) | Packet-locking Arbiter   | A2/A3 | P1     | 0.1.0 | components/arbitration_scheduling |
+| ARI-001 | [incrementer_decrementer](components/arithmetic_datapath/incrementer_decrementer/README.md)  | Incrementer/Decrementer  | A1    | P0     | 0.1.0 | components/arithmetic_datapath    |
+| COD-001 | [parity_gen_check](components/coding_integrity/parity_gen_check/README.md)                   | Parity Generator/Checker | A1    | P0     | 0.1.0 | components/coding_integrity       |
+| QUE-001 | [sync_fifo](components/fifo_queue_buffer/sync_fifo/README.md)                                | Synchronous FIFO         | A2    | P0     | 0.1.0 | components/fifo_queue_buffer      |
+| QUE-007 | [skid_buffer](components/fifo_queue_buffer/skid_buffer/README.md)                            | Skid Buffer              | A3    | P0     | 0.3.0 | components/fifo_queue_buffer      |
+| SEL-014 | [popcount](components/selection_decode/popcount/README.md)                                   | Population Count         | A1    | P1     | 0.1.0 | components/selection_decode       |
 
 ### 按类别分布（implemented / planned）
 
@@ -118,7 +119,7 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 |-----------------------------------|-------------|---------|------|
 | adapters                          | 0           | 22      | 22   |
 | components/apb_ahb_register       | 0           | 16      | 16   |
-| components/arbitration_scheduling | 3           | 17      | 20   |
+| components/arbitration_scheduling | 4           | 16      | 20   |
 | components/arithmetic_datapath    | 1           | 34      | 35   |
 | components/axi_axi_stream         | 0           | 38      | 38   |
 | components/cdc_rdc                | 0           | 19      | 19   |
@@ -157,7 +158,7 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | 优先级 | implemented | planned | 合计 |
 |--------|-------------|---------|------|
 | P0     | 6           | 72      | 78   |
-| P1     | 1           | 139     | 140  |
+| P1     | 2           | 138     | 140  |
 | P2     | 1           | 123     | 124  |
 | P3     | 0           | 68      | 68   |
 
@@ -211,7 +212,7 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | BUS-015 | [csr_access_policy_filter](components/apb_ahb_register/csr_access_policy_filter/README.md)     | CSR Access Policy Filter   | planned | A3    | P1     | 0.1.0 | 译码与安全策略       |
 | BUS-016 | [register_broadcast_adapter](components/apb_ahb_register/register_broadcast_adapter/README.md) | Register Broadcast Adapter | planned | A3    | P2     | 0.1.0 | 高扇出优化           |
 
-#### components/arbitration_scheduling（20，implemented=3）
+#### components/arbitration_scheduling（20，implemented=4）
 
 | ID      | 名称                                                                                               | 构件族                    | 状态        | 抽象  | 优先级 | 版本  | 功能/描述                                                                      |
 |---------|----------------------------------------------------------------------------------------------------|---------------------------|-------------|-------|--------|-------|--------------------------------------------------------------------------------|
@@ -224,7 +225,7 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | ARB-007 | [multi_grant_arbiter](components/arbitration_scheduling/multi_grant_arbiter/README.md)             | Multi-grant Arbiter       | planned     | A2    | P2     | 0.1.0 | 多授权组合复杂度                                                               |
 | ARB-008 | [hierarchical_arbiter](components/arbitration_scheduling/hierarchical_arbiter/README.md)           | Hierarchical Arbiter      | planned     | A2    | P1     | 0.1.0 | 大规模请求时序                                                                 |
 | ARB-009 | [pipelined_arbiter](components/arbitration_scheduling/pipelined_arbiter/README.md)                 | Pipelined Arbiter         | planned     | A2    | P1     | 0.1.0 | 延迟与满吞吐                                                                   |
-| ARB-010 | [packet_locking_arbiter](components/arbitration_scheduling/packet_locking_arbiter/README.md)       | Packet-locking Arbiter    | planned     | A2/A3 | P1     | 0.1.0 | 锁定状态与公平性                                                               |
+| ARB-010 | [packet_locking_arbiter](components/arbitration_scheduling/packet_locking_arbiter/README.md)       | Packet-locking Arbiter    | implemented | A2/A3 | P1     | 0.1.0 | 锁定状态与公平性                                                               |
 | ARB-011 | [credit_manager](components/arbitration_scheduling/credit_manager/README.md)                       | Credit Manager            | planned     | A2    | P0     | 0.1.0 | 计数一致性和位宽                                                               |
 | ARB-012 | [token_allocator](components/arbitration_scheduling/token_allocator/README.md)                     | Token Allocator           | planned     | A2    | P1     | 0.1.0 | 分配/回收时序                                                                  |
 | ARB-013 | [resource_pool_manager](components/arbitration_scheduling/resource_pool_manager/README.md)         | Resource Pool Manager     | planned     | A2    | P2     | 0.1.0 | 容量、并行分配                                                                 |

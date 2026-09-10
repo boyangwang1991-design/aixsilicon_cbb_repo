@@ -1,0 +1,64 @@
+{
+  "status": "pass",
+  "rtl_sha256": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+  "dependency_sha256": "b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd",
+  "phase": "negative",
+  "negative": [
+    {
+      "config_id": "cfg_num_req0_lock_mode0_len_w8",
+      "parameters": {
+        "NUM_REQ": 0,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "kind": "negative",
+      "status": "rejected_at_elaboration",
+      "diagnostic": "PC-001"
+    },
+    {
+      "config_id": "cfg_num_req65_lock_mode0_len_w8",
+      "parameters": {
+        "NUM_REQ": 65,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "kind": "negative",
+      "status": "rejected_at_elaboration",
+      "diagnostic": "PC-001"
+    },
+    {
+      "config_id": "cfg_num_req4_lock_mode2_len_w8",
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 2,
+        "LEN_W": 8
+      },
+      "kind": "negative",
+      "status": "rejected_at_elaboration",
+      "diagnostic": "PC-002"
+    },
+    {
+      "config_id": "cfg_num_req4_lock_mode0_len_w0",
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 0,
+        "LEN_W": 0
+      },
+      "kind": "negative",
+      "status": "rejected_at_elaboration",
+      "diagnostic": "PC-003"
+    },
+    {
+      "config_id": "cfg_num_req4_lock_mode0_len_w17",
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 0,
+        "LEN_W": 17
+      },
+      "kind": "negative",
+      "status": "rejected_at_elaboration",
+      "diagnostic": "PC-003"
+    }
+  ],
+  "seconds": 40.93
+}

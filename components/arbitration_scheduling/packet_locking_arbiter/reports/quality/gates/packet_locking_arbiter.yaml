@@ -1,0 +1,39 @@
+cbb: packet_locking_arbiter
+updated: '2026-09-10T09:39:57Z'
+gates:
+  G1:
+    status: pass
+    evidence: reports/verification-sim.json
+    note: 本地候选：87次VCS/SVA回归、5负向、4变异、strict通过；G3 warning范围见verification/lint_waivers.md；不自动提升正式发布状态
+  G0:
+    status: pass
+    evidence: reports/verification-sim.json
+    note: 本地候选：87次VCS/SVA回归、5负向、4变异、strict通过；G3 warning范围见verification/lint_waivers.md；不自动提升正式发布状态
+  G2:
+    status: pass
+    evidence: reports/verification-sim.json
+    note: 本地候选：87次VCS/SVA回归、5负向、4变异、strict通过；G3 warning范围见verification/lint_waivers.md；不自动提升正式发布状态
+  G3:
+    status: pass_with_waiver
+    evidence: reports/verification-sim.json
+    note: 本地候选：87次VCS/SVA回归、5负向、4变异、strict通过；G3 warning范围见verification/lint_waivers.md；不自动提升正式发布状态
+  G4:
+    status: pass
+    evidence: reports/verification-sim.json
+    note: 本地候选：87次VCS/SVA回归、5负向、4变异、strict通过；G3 warning范围见verification/lint_waivers.md；不自动提升正式发布状态
+  G5:
+    status: pass
+    evidence: reports/verification-sim.json
+    note: 本地候选：87次VCS/SVA回归、5负向、4变异、strict通过；G3 warning范围见verification/lint_waivers.md；不自动提升正式发布状态
+  G6:
+    status: pass
+    evidence: reports/qualification-report.md
+    note: 10点DC+Formality通过；G7范围为本地候选和example mux，生产消费者签核及无界性质证明未宣称；G8只打包候选，不发布Catalog
+  G7:
+    status: pass_with_waiver
+    evidence: reports/qualification-report.md
+    note: 10点DC+Formality通过；G7范围为本地候选和example mux，生产消费者签核及无界性质证明未宣称；G8只打包候选，不发布Catalog
+  G8:
+    status: not_applicable
+    evidence: reports/qualification-report.md
+    note: 10点DC+Formality通过；G7范围为本地候选和example mux，生产消费者签核及无界性质证明未宣称；G8只打包候选，不发布Catalog

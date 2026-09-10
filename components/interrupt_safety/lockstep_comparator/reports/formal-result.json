@@ -1,0 +1,74 @@
+{
+  "run_id": "run-20260910-134005-278453",
+  "synthesis_run": "run-20260910-133744-259546",
+  "scope": "RTL-to-mapped equivalence, not temporal safety property proof",
+  "status": "pass",
+  "points": [
+    {
+      "point": "point_0",
+      "parameters": {
+        "WIDTH": 32,
+        "LOCKSTEP_DELAY": 2,
+        "LCL_REDUNDANCY_LEVEL": 2,
+        "CMP_PIPE_STAGES": 0
+      },
+      "status": "pass",
+      "log_sha256": "a6cc6f4ab7c80600d76de24e8c5e0493d6c97274f22e77fee93a8bc39f453b94"
+    },
+    {
+      "point": "point_1",
+      "parameters": {
+        "WIDTH": 8,
+        "LOCKSTEP_DELAY": 0,
+        "LCL_REDUNDANCY_LEVEL": 0,
+        "CMP_PIPE_STAGES": 0
+      },
+      "status": "pass",
+      "log_sha256": "6f1532454a9c19ed2b36bf2833f6775bf25a23ef5789b39b53730b06f28903c6"
+    },
+    {
+      "point": "point_2",
+      "parameters": {
+        "WIDTH": 32,
+        "LOCKSTEP_DELAY": 2,
+        "LCL_REDUNDANCY_LEVEL": 1,
+        "CMP_PIPE_STAGES": 0
+      },
+      "status": "pass",
+      "log_sha256": "acda2d0d97f77bb4ae05d625dcb9a232264a2cb8647c25972ad9f4548004048d"
+    },
+    {
+      "point": "point_3",
+      "parameters": {
+        "WIDTH": 128,
+        "LOCKSTEP_DELAY": 2,
+        "LCL_REDUNDANCY_LEVEL": 2,
+        "CMP_PIPE_STAGES": 0
+      },
+      "status": "pass",
+      "log_sha256": "2f9a41b32453ca72ae906c0b34576630397fbfbce93044c8cdba480f81138e4c"
+    },
+    {
+      "point": "point_4",
+      "parameters": {
+        "WIDTH": 128,
+        "LOCKSTEP_DELAY": 2,
+        "LCL_REDUNDANCY_LEVEL": 2,
+        "CMP_PIPE_STAGES": 1
+      },
+      "status": "pass",
+      "log_sha256": "970613ade30a2f006aeff3b025c9f8e90312a13cdc055f06441deb57a82534b8"
+    },
+    {
+      "point": "point_5",
+      "parameters": {
+        "WIDTH": 32,
+        "LOCKSTEP_DELAY": 0,
+        "LCL_REDUNDANCY_LEVEL": 2,
+        "CMP_PIPE_STAGES": 0
+      },
+      "status": "pass",
+      "log_sha256": "b7ec736db85487748c9644b204420830c2ffe256e36c45543a9ecd07139b0c2f"
+    }
+  ]
+}

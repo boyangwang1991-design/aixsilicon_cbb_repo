@@ -1,0 +1,42 @@
+set: pairwise
+configs:
+- config_id: cfg_num_req1_lock_mode1_len_w8
+  parameters:
+    NUM_REQ: 1
+    LOCK_MODE: 1
+    LEN_W: 8
+- config_id: cfg_num_req2_lock_mode1_len_w8
+  parameters:
+    NUM_REQ: 2
+    LOCK_MODE: 1
+    LEN_W: 8
+- config_id: cfg_num_req1_lock_mode0_len_w1
+  parameters:
+    NUM_REQ: 1
+    LOCK_MODE: 0
+    LEN_W: 1
+- config_id: cfg_num_req1_lock_mode0_len_w16
+  parameters:
+    NUM_REQ: 1
+    LOCK_MODE: 0
+    LEN_W: 16
+- config_id: cfg_num_req2_lock_mode0_len_w1
+  parameters:
+    NUM_REQ: 2
+    LOCK_MODE: 0
+    LEN_W: 1
+- config_id: cfg_num_req2_lock_mode0_len_w16
+  parameters:
+    NUM_REQ: 2
+    LOCK_MODE: 0
+    LEN_W: 16
+- config_id: cfg_num_req4_lock_mode1_len_w1
+  parameters:
+    NUM_REQ: 4
+    LOCK_MODE: 1
+    LEN_W: 1
+- config_id: cfg_num_req4_lock_mode1_len_w16
+  parameters:
+    NUM_REQ: 4
+    LOCK_MODE: 1
+    LEN_W: 16

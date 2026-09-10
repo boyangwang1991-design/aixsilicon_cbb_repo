@@ -1,0 +1,62 @@
+CAPI=2:
+# Place the rendered core at package root. Replace every <...> token.
+name: aixsilicon:cbb:lockstep_comparator:1.0.0
+filesets:
+  rtl:
+    files: [rtl/lockstep_comparator_logic.sv]
+    file_type: systemVerilogSource
+  tb:
+    files: [verification/simulation/lcl_tester.sv, verification/simulation/lcl_smoke_top.sv]
+    file_type: systemVerilogSource
+parameters:
+  WIDTH:
+    datatype: int
+    paramtype: vlogparam
+    default: 32
+  LOCKSTEP_DELAY:
+    datatype: int
+    paramtype: vlogparam
+    default: 2
+  STARTUP_GUARD_CYCLES:
+    datatype: int
+    paramtype: vlogparam
+    default: 0
+  CMP_PIPE_STAGES:
+    datatype: int
+    paramtype: vlogparam
+    default: 0
+  LCL_REDUNDANCY_LEVEL:
+    datatype: int
+    paramtype: vlogparam
+    default: 2
+  STATIC_COMPARE_MASK:
+    datatype: int
+    paramtype: vlogparam
+    default: -1
+  SUPPORT_RUNTIME_MASK:
+    datatype: int
+    paramtype: vlogparam
+    default: 1
+  SUPPORT_VALID_MASK:
+    datatype: int
+    paramtype: vlogparam
+    default: 1
+  SUPPORT_FAULT_INJECTION:
+    datatype: int
+    paramtype: vlogparam
+    default: 1
+targets:
+  default:
+    filesets: [rtl]
+    parameters: [WIDTH, LOCKSTEP_DELAY, STARTUP_GUARD_CYCLES, CMP_PIPE_STAGES, LCL_REDUNDANCY_LEVEL, STATIC_COMPARE_MASK, SUPPORT_RUNTIME_MASK, SUPPORT_VALID_MASK, SUPPORT_FAULT_INJECTION]
+    toplevel: lockstep_comparator_logic
+  sim:
+    default_tool: vcs
+    filesets: [rtl, tb]
+    # Fixed-instance TB: no DUT parameters here. Add only actual TB parameters.
+    toplevel: lcl_smoke_top
+    tools:
+      vcs:
+        vcs_options: [-full64, '-timescale=1ns/1ps', '-assert', svaext, '+lint=all']
+# Add synth/formal targets for the actual registered backend and constraints;
+# do not claim support for an unconfigured target.

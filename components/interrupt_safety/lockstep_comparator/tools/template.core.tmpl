@@ -1,0 +1,30 @@
+CAPI=2:
+# Place the rendered core at package root. Replace every <...> token.
+name: aixsilicon:cbb:<CBB_NAME>:<VERSION>
+filesets:
+  rtl:
+    files: [rtl/<CBB_NAME>.sv]
+    file_type: systemVerilogSource
+  tb:
+    files: [verification/simulation/<TB_TOP>.sv]
+    file_type: systemVerilogSource
+parameters:
+  <PARAMETER>:
+    datatype: int
+    paramtype: vlogparam
+    default: <DEFAULT>
+targets:
+  default:
+    filesets: [rtl]
+    parameters: [<PARAMETER>]
+    toplevel: <CBB_NAME>
+  sim:
+    default_tool: vcs
+    filesets: [rtl, tb]
+    # Fixed-instance TB: no DUT parameters here. Add only actual TB parameters.
+    toplevel: <TB_TOP>
+    tools:
+      vcs:
+        vcs_options: [-full64, '-timescale=1ns/1ps']
+# Add synth/formal targets for the actual registered backend and constraints;
+# do not claim support for an unconfigured target.

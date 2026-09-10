@@ -140,3 +140,31 @@
     run-20260903-01: register×comb d8=957.6um2/slack0.55/dyn437.6uW 为 Pareto 支配；shift 面积/功耗反超 register(组合 mux>省读mux)；报告 reports/ppa-report.md+图 reports/ppa_run-20260903-01.png
 - `2026-09-10 08:28:17` | **observe** | 仓库与套件交接工具修复：候选导入保留元数据/规划、冲突预检、scaffold 与共用 registry 校验；18 项工具测试通过 | 结果(PASS)
     改进清单见 cbb-development-suite/docs/repo-suite-integration-improvements.md；8 个存量工程包基础检查通过但仍有属性/配置/计划/发布元数据/PDK 快照 warnings，本轮未重跑 EDA 或提升发布状态。
+- `2026-09-10 08:58:54` | **specify** | ARB-010 intake及规格候选完成；scaffold仅dry-run，优化点S01-S09已记录 | 结果(PASS)
+    Standard Loop；消费者为规划的axis_mux/stream_interconnect；无功能证据；等待契约校验后确认规格。
+- `2026-09-10 08:59:16` | **specify** | ARB-010 config-gen生成20个合法配置及5个负向配置，尚未运行RTL验证 | 结果(PASS)
+- `2026-09-10 09:00:01` | **specify** | G1 | ARB-010契约基础check通过，RTM已生成；等待用户规格确认 | 结果(BLOCKED)
+    18项属性/测试尚未实现及缺验证计划告警均保留；strict不通过，不宣称G1完整闭合。主SKILL执行流程7和specify步骤10要求确认后才能进入设计；下一步用户确认参数、锁定与释放语义。
+- `2026-09-10 09:16:06` | **design** | ARB-010用户continue确认规格，开始详设 | 结果(PASS)
+    2026-09-10用户回应规格确认问题；设计范围为单实现、原有端口及参数合法域，不扩展功能。属性和测试待实现的告警继续保留。
+- `2026-09-10 09:18:17` | **design** | ARB-010详设与验证计划完成；用户授权免后续确认门；PDK_READY | 结果(PASS)
+    复用两路fixed_priority_arbiter PC_IMPL=1，N=1直通；done优先于capture；长度按接受拍递减；后续原生EDA验收。
+- `2026-09-10 09:27:47` | **verify** | 首批VCS/SVA通过；5个非法参数均在elaboration按PC诊断拒绝；SpyGlass两模式0Fatal/0Error | 结果(PASS)
+    13个warning逐项审查；变异判定器出现待诊断失败，保留原始证据；不提升功能Gate。
+- `2026-09-10 09:29:06` | **characterize** | 首次DC脚本错误UID-109已定位；原始run-01保留，修复后新建run-02 | 结果(FAIL)
+    elaborate后top带参数后缀，额外current_design原始名无效；删去冗余选择命令，使用elaborate当前设计。变异判定修复为解析VCS跨行Fatal消息。依赖core缺paramtype已由生成脚本修复，FuseSoC依赖setup通过。
+- `2026-09-10 09:33:08` | **verify** | ARB-010全29配置×3seed=87次VCS/SVA回归通过，合计1029075周期；4类变异全部被杀死 | 结果(PASS)
+    20生成合法点+9派生风险点，5负向均按预期elaboration失败；消费者数据mux示例与独立顺序/累计拍模型联调；strict契约与RTM校验通过。
+- `2026-09-10 09:39:57` | **qualify** | 10点真实DC PPA及Formality等价通过；全部报告路径MET，完成本地候选验收 | 结果(PASS)
+    G7带生产消费者范围限制；G8正式发布不适用。已完成make check（124 tests）和pre-commit全部通过。候选包正在独立提取校验哈希并重放FuseSoC构建。
+- `2026-09-10 09:44:30` | **observe** | registry implemented及README已同步；保留工作区既有环境变更，未执行提交/发布 | 结果(PASS)
+    通过aix repo status/diff检查范围；父仓diff仅给stat，临时git diff -- pyproject.toml用于核对ip-dev环境改动来源，未由本任务显式编辑，不还原。CBB源码、回归和PPA报告完整，SKILL源未修改，改进建议23项。
+- `2026-09-10 09:45:16` | **qualify** | 最终候选包47项hash核对及独立解包FuseSoC构建/仿真PASS | 结果(PASS)
+    archive SHA256=be4ae0366b2341dcfcf9b17a106ba9720e130f5177000fd0f576ee92d6895cfb；证据build/releases/replay-summary.json；本地验收完成，G7生产消费者范围限制和G8非发布状态保留。
+- `2026-09-10 13:29:05` | **specify** | SAF-005 parameter/behavior contract and readable specification written before RTL; timing/FI/clear decisions recorded | 结果(PASS)
+- `2026-09-10 13:30:16` | **specify** | G1 | SAF-005 strict specify check PASS; generated mandatory/boundary/pairwise/negative config sets; specification reviewed under user implementation authorization | 结果(PASS)
+- `2026-09-10 13:30:29` | **design** | G2 | SAF-005 architecture and impl_redundant detailed design reviewed before RTL; separate A/B state, PPA risks, timing and reset semantics specified | 结果(PASS)
+- `2026-09-10 13:35:37` | **verify** | SAF-005 VCS 完整生成配置回归通过：103/103 配置，154110 次沿前/沿后检查；seed=5005；证据 run-20260910-133401-474376 | 结果(PASS)
+    沙箱内首次 VCS 因许可证连接失败；获自动审查允许后访问本机许可证，默认冒烟与全量回归通过。中文 Markdown skill 约束已校验并重新物化。
+- `2026-09-10 13:41:06` | **characterize** | SAF-005 六个 DC 代表点完成综合；同文件私有通道边界保留 A/B 独立层次，默认配置 166 个寄存器；等价验证进行中 | 结果(PASS)
+    原始证据：build/eda/ppa/run-20260910-133744-259546；PPA 指标提取及质量判定仍需完成，不将命令成功等同于 G6 PASS。

@@ -1,0 +1,27 @@
+set: negative
+configs:
+- config_id: cfg_num_req0_lock_mode0_len_w8
+  parameters:
+    NUM_REQ: 0
+    LOCK_MODE: 0
+    LEN_W: 8
+- config_id: cfg_num_req65_lock_mode0_len_w8
+  parameters:
+    NUM_REQ: 65
+    LOCK_MODE: 0
+    LEN_W: 8
+- config_id: cfg_num_req4_lock_mode2_len_w8
+  parameters:
+    NUM_REQ: 4
+    LOCK_MODE: 2
+    LEN_W: 8
+- config_id: cfg_num_req4_lock_mode0_len_w0
+  parameters:
+    NUM_REQ: 4
+    LOCK_MODE: 0
+    LEN_W: 0
+- config_id: cfg_num_req4_lock_mode0_len_w17
+  parameters:
+    NUM_REQ: 4
+    LOCK_MODE: 0
+    LEN_W: 17

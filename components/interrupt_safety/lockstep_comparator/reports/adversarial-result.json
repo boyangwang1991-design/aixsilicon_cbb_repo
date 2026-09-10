@@ -1,0 +1,151 @@
+{
+  "run_id": "run-20260910-134024-256340",
+  "status": "pass",
+  "results": [
+    {
+      "test": "tc_negative_width",
+      "status": "pass",
+      "expected_phase": "compile",
+      "expected_token": "LCL_PARAM_WIDTH",
+      "inputs": {
+        "dut.sv": "8b6f6c562f92706eeb491a3fd3348369b81c807e90e4a0a4af5b92317aa02838",
+        "top.sv": "15c2c93f37582c238437ec2ac3154665ed3a3ab22dd587cf0250689ff2c17544",
+        "command.json": "d51a337146dd07f1e7cf51609294ad4a8847f0f3e282023e81f7bbc0df90b09f"
+      },
+      "logs": {
+        "compile.log": "14a0ced1fbbcc8cce3132ebcecc4d5a7a3ccf9b6d04b4a4bfc7032c83b652454"
+      }
+    },
+    {
+      "test": "tc_negative_pipe",
+      "status": "pass",
+      "expected_phase": "compile",
+      "expected_token": "LCL_PARAM_PIPE",
+      "inputs": {
+        "dut.sv": "8b6f6c562f92706eeb491a3fd3348369b81c807e90e4a0a4af5b92317aa02838",
+        "top.sv": "2e40408f7cd05b3f754084d57c670a1dc41276f899e0a02a4a1021fea65bda99",
+        "command.json": "d51a337146dd07f1e7cf51609294ad4a8847f0f3e282023e81f7bbc0df90b09f"
+      },
+      "logs": {
+        "compile.log": "400173160d69ee503e9628b770a0f08290e4682115ffe0184c5a85978a290fda"
+      }
+    },
+    {
+      "test": "tc_negative_level",
+      "status": "pass",
+      "expected_phase": "compile",
+      "expected_token": "LCL_PARAM_LEVEL",
+      "inputs": {
+        "dut.sv": "8b6f6c562f92706eeb491a3fd3348369b81c807e90e4a0a4af5b92317aa02838",
+        "top.sv": "8d578299de9aea100e6a2c85133ac8c23a7f55f73a23e3f31eb38f933e02b79d",
+        "command.json": "d51a337146dd07f1e7cf51609294ad4a8847f0f3e282023e81f7bbc0df90b09f"
+      },
+      "logs": {
+        "compile.log": "c66e7f99ad91aa6da5aad9fcf29d75700db4476b6bc1e0f6ae3994ef8a05037d"
+      }
+    },
+    {
+      "test": "tc_negative_pipe_signed",
+      "status": "pass",
+      "expected_phase": "compile",
+      "expected_token": "LCL_PARAM_PIPE",
+      "inputs": {
+        "dut.sv": "8b6f6c562f92706eeb491a3fd3348369b81c807e90e4a0a4af5b92317aa02838",
+        "top.sv": "0c69bdc9eeb039ea2658736bcc9410eab77b0b633ed5f45c005774f09af7a281",
+        "command.json": "d51a337146dd07f1e7cf51609294ad4a8847f0f3e282023e81f7bbc0df90b09f"
+      },
+      "logs": {
+        "compile.log": "f16c22dcdadfa34a472cf45a55029e2fbf0d949390a72f612c709c5c48b2ca72"
+      }
+    },
+    {
+      "test": "tc_negative_level_signed",
+      "status": "pass",
+      "expected_phase": "compile",
+      "expected_token": "LCL_PARAM_LEVEL",
+      "inputs": {
+        "dut.sv": "8b6f6c562f92706eeb491a3fd3348369b81c807e90e4a0a4af5b92317aa02838",
+        "top.sv": "fd5c4d2f5b9d44fe2566c4d4a3043e0f7cbe9478e881a58a08e9c728e62af109",
+        "command.json": "d51a337146dd07f1e7cf51609294ad4a8847f0f3e282023e81f7bbc0df90b09f"
+      },
+      "logs": {
+        "compile.log": "5047866c8e4fe5ceed925b6faac526276e2560798a7f2826ca170e4bfc1c8c2e"
+      }
+    },
+    {
+      "test": "tc_unknown_x",
+      "status": "pass",
+      "expected_phase": "fail",
+      "expected_token": "PROP-LCL_KNOWN-003",
+      "inputs": {
+        "dut.sv": "8b6f6c562f92706eeb491a3fd3348369b81c807e90e4a0a4af5b92317aa02838",
+        "top.sv": "e3ca3dd8d1b6c405c4d889bdcc51b6619a4b068f5fa2de91c8ddb9d17e5e9e13",
+        "command.json": "d51a337146dd07f1e7cf51609294ad4a8847f0f3e282023e81f7bbc0df90b09f"
+      },
+      "logs": {
+        "compile.log": "6299172d9f97055b2046751208c40fe1f996872428115740ab8c1888fc5b1278",
+        "simulation.log": "7000907fd4a80b76467e35fb45b1b223a08e4885034bdbe82b0a983c893da929"
+      }
+    },
+    {
+      "test": "tc_unknown_z",
+      "status": "pass",
+      "expected_phase": "fail",
+      "expected_token": "PROP-LCL_KNOWN-003",
+      "inputs": {
+        "dut.sv": "8b6f6c562f92706eeb491a3fd3348369b81c807e90e4a0a4af5b92317aa02838",
+        "top.sv": "b3c2032af893026b14e4781fc225f6ecfdb5680ed56a4e11903df05239ef7022",
+        "command.json": "d51a337146dd07f1e7cf51609294ad4a8847f0f3e282023e81f7bbc0df90b09f"
+      },
+      "logs": {
+        "compile.log": "ced9d7d9ee847ae6364495dcd9c6a7a04a7662cd8cddb7cd72e51d19923a4cd9",
+        "simulation.log": "7000907fd4a80b76467e35fb45b1b223a08e4885034bdbe82b0a983c893da929"
+      }
+    },
+    {
+      "test": "tc_unknown_masked",
+      "status": "pass",
+      "expected_phase": "pass",
+      "expected_token": "TEST_PASS",
+      "inputs": {
+        "dut.sv": "8b6f6c562f92706eeb491a3fd3348369b81c807e90e4a0a4af5b92317aa02838",
+        "top.sv": "8c4fbb90ea6f31eaa71d641f25108bfbb67d14dbf7d4426098e432e0e30316d0",
+        "command.json": "d51a337146dd07f1e7cf51609294ad4a8847f0f3e282023e81f7bbc0df90b09f"
+      },
+      "logs": {
+        "compile.log": "6b25861a8af723ef86673679a0ae48cde1d2d8ffe315aeecf25613effd6066fa",
+        "simulation.log": "12dc1e162a20eed30cc98ece11a56a4a23ebf22744402b52e78dcaa5e1e101eb"
+      }
+    },
+    {
+      "test": "tc_mutation_or",
+      "status": "pass",
+      "expected_phase": "fail",
+      "expected_token": "PROP-LCL_SAFE-001",
+      "inputs": {
+        "dut.sv": "63b4adf623c181ce740eb5962de569015f2ae6bf5c60bc0cd1c68e67a4957045",
+        "top.sv": "96bb7fca555843cf2f5cc8e7f23342a559c690ae192ebdb5436e96b23998e166",
+        "command.json": "d51a337146dd07f1e7cf51609294ad4a8847f0f3e282023e81f7bbc0df90b09f"
+      },
+      "logs": {
+        "compile.log": "23f9c8aa8738bdd354a7748ef285ae2e1b363546f87145e5402348deea293989",
+        "simulation.log": "1a79021816f2b75726475e438459191f349abf640dc8b5248ab48d27b2e1b867"
+      }
+    },
+    {
+      "test": "tc_mutation_assertion",
+      "status": "pass",
+      "expected_phase": "fail",
+      "expected_token": "PROP-LCL_SAFE-001",
+      "inputs": {
+        "dut.sv": "b54a3b43f2fadfc789650f67eb355e178fa4257fabe94a4de019058f7aedd4db",
+        "top.sv": "96bb7fca555843cf2f5cc8e7f23342a559c690ae192ebdb5436e96b23998e166",
+        "command.json": "d51a337146dd07f1e7cf51609294ad4a8847f0f3e282023e81f7bbc0df90b09f"
+      },
+      "logs": {
+        "compile.log": "dc11d7f10a7a4c90d14600f04a8556e528d2a50a938fea4a1b395a58bc19fe76",
+        "simulation.log": "531709aea1798c68ff5fad8aa92cc290d45e3a918cdab044840e55adc2da4443"
+      }
+    }
+  ]
+}

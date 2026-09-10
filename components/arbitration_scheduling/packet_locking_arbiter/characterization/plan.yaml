@@ -1,0 +1,21 @@
+status: characterized
+implementation: impl_mask_lock
+run_id: run-20260910-02
+previous_failed_run: run-20260910-01
+context: pdk.yaml
+library: sc9_cmos28lp_base_hvt
+corner: tt_nominal_max_1p00v_25c
+clock_ns: 2.5
+uncertainty_ns: 0.1
+input_delay_ns: 0.5
+output_delay_ns: 0.5
+output_load_pf: 0.01
+activity: {static_probability: 0.5, toggle_rate: 0.1, source: vectorless_estimate}
+implementation_policy: compile_ultra -no_autoungroup; no retiming; no clock gating
+sweep:
+  - {NUM_REQ: [1, 4, 17, 64], LOCK_MODE: [0, 1], LEN_W: [8]}
+  - {NUM_REQ: [4], LOCK_MODE: [1], LEN_W: [1, 16]}
+metrics: [area_um2, worst_slack_ns, reg_to_reg_slack_ns, dyn_power_uW, leak_power_nW, registers]
+hierarchy: Raw report_area/report_power preserve parent versus reused child contributions.
+comparison: Different request counts implement different capacities; no cross-capacity Pareto dominance claim.
+replay: uv run --no-sync --with matplotlib python characterization/run_ppa.py --run-id NEW_RUN_ID

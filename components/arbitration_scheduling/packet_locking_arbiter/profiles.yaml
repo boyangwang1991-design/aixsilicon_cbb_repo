@@ -1,0 +1,18 @@
+profiles:
+  packet_stream:
+    implementation: impl_mask_lock
+    parameters: {NUM_REQ: 4, LOCK_MODE: 0, LEN_W: 8}
+    optimization_goal: latency
+    support: supported
+    use_case: Planned axis_mux packet selection with last/EOP.
+  descriptor_stream:
+    implementation: impl_mask_lock
+    parameters: {NUM_REQ: 4, LOCK_MODE: 1, LEN_W: 8}
+    optimization_goal: throughput
+    support: supported
+    use_case: Planned stream_interconnect descriptor-length packet selection.
+implementation_notes:
+  impl_mask_lock:
+    dependencies: [aixsilicon:cbb:fixed_priority_arbiter:0.1.0]
+    characterized_region: {reference: reports/ppa-summary.json}
+    known_limits: [No timeout or abort, No cycle-bounded fairness, No registered output]

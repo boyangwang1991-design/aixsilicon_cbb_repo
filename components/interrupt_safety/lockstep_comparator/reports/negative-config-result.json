@@ -1,0 +1,47 @@
+{
+  "status": "pass",
+  "phase": "host_preflight_before_SV_cast",
+  "negative_cases": [
+    {
+      "config_id": "cfg_width0_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue",
+      "diagnostic": "LCL_CONFIG_RANGE: WIDTH",
+      "status": "pass"
+    },
+    {
+      "config_id": "cfg_width32_lockstep_delayu8_2d31_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue",
+      "diagnostic": "LCL_CONFIG_RANGE: LOCKSTEP_DELAY",
+      "status": "pass"
+    },
+    {
+      "config_id": "cfg_width32_lockstep_delay2_startup_guard_cyclesu8_2d31_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue",
+      "diagnostic": "LCL_CONFIG_RANGE: STARTUP_GUARD_CYCLES",
+      "status": "pass"
+    },
+    {
+      "config_id": "cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stagesu8_2d31_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue",
+      "diagnostic": "LCL_CONFIG_RANGE: CMP_PIPE_STAGES",
+      "status": "pass"
+    },
+    {
+      "config_id": "cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages2_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue",
+      "diagnostic": "LCL_CONFIG_RANGE: CMP_PIPE_STAGES",
+      "status": "pass"
+    },
+    {
+      "config_id": "cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_levelu8_2d31_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue",
+      "diagnostic": "LCL_CONFIG_RANGE: LCL_REDUNDANCY_LEVEL",
+      "status": "pass"
+    },
+    {
+      "config_id": "cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level3_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue",
+      "diagnostic": "LCL_CONFIG_RANGE: LCL_REDUNDANCY_LEVEL",
+      "status": "pass"
+    },
+    {
+      "config_id": "cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d32_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue",
+      "diagnostic": "LCL_CONFIG_RANGE: STATIC_COMPARE_MASK",
+      "status": "pass"
+    }
+  ],
+  "validator_sha256": "99e7846564815ca905e62bf59d5e6ae73012a514055762d23b95d95530bc8e83"
+}

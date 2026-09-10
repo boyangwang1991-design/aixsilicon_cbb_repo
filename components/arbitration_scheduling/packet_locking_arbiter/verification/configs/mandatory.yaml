@@ -1,0 +1,7 @@
+set: mandatory
+configs:
+- config_id: cfg_num_req4_lock_mode0_len_w8
+  parameters:
+    NUM_REQ: 4
+    LOCK_MODE: 0
+    LEN_W: 8

@@ -1,0 +1,178 @@
+{
+  "status": "pass",
+  "method": "RTL-to-mapped-netlist equivalence",
+  "rtl_sha256": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+  "dependency_sha256": "b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd",
+  "rows": [
+    {
+      "parameters": {
+        "NUM_REQ": 17,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "status": "pass",
+      "inputs": {
+        "rtl": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+        "dependency": "b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd",
+        "netlist": "d9ef763e534f260f6dce264ac8f44c4cea76982e30a974de63ea17bc9f30853a",
+        "runner": "747421e3b0ca3031c567b1308cce4ece32ca2b22dad8f50737d5ffd44d632235"
+      },
+      "reference_sha256": "77452c0daf9eae4ec22c24e565a6dd82c0368e86fb62f579b0f821dd76adf5f8",
+      "netlist_sha256": "d9ef763e534f260f6dce264ac8f44c4cea76982e30a974de63ea17bc9f30853a",
+      "log_sha256": "4632ce888fe46bd9c7a305380def81492253f1af473d08697110d9e45127ff98"
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 17,
+        "LOCK_MODE": 1,
+        "LEN_W": 8
+      },
+      "status": "pass",
+      "inputs": {
+        "rtl": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+        "dependency": "b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd",
+        "netlist": "61384692b2d2166809caaf584d6275958c75e2d28b45467d30684e36de504e67",
+        "runner": "747421e3b0ca3031c567b1308cce4ece32ca2b22dad8f50737d5ffd44d632235"
+      },
+      "reference_sha256": "16cb5f2ca0b8d8c35857ecf5af63169cef2b69351302e7c2dd61d88ebfde3c17",
+      "netlist_sha256": "61384692b2d2166809caaf584d6275958c75e2d28b45467d30684e36de504e67",
+      "log_sha256": "78a7c833093faae0a939fe6af2383bdb672d962c5ff3bddb7b282ef9ccf33d23"
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 1,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "status": "pass",
+      "inputs": {
+        "rtl": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+        "dependency": "b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd",
+        "netlist": "ddf7906fc8061cd62a3a52b775543dc16d4608b2f79a08e39a3420bdf895f4e5",
+        "runner": "747421e3b0ca3031c567b1308cce4ece32ca2b22dad8f50737d5ffd44d632235"
+      },
+      "reference_sha256": "1275b8659172321ab0c40cc9d8c39526186c404e97c65505b6b8e4f2ad22aa65",
+      "netlist_sha256": "ddf7906fc8061cd62a3a52b775543dc16d4608b2f79a08e39a3420bdf895f4e5",
+      "log_sha256": "1311205152b88af743f87046d5945657cad23db51baf9eeff434e988fb1cca69"
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 1,
+        "LOCK_MODE": 1,
+        "LEN_W": 8
+      },
+      "status": "pass",
+      "inputs": {
+        "rtl": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+        "dependency": "b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd",
+        "netlist": "22acab5b2e6a3d9e9a191b6e0c64731da2561a1b5f1c4e0614118f453c7753d3",
+        "runner": "747421e3b0ca3031c567b1308cce4ece32ca2b22dad8f50737d5ffd44d632235"
+      },
+      "reference_sha256": "4a9b85d23007373cec10d21996c1d7da6f3a62b991e47bb061ce678fb7047e02",
+      "netlist_sha256": "22acab5b2e6a3d9e9a191b6e0c64731da2561a1b5f1c4e0614118f453c7753d3",
+      "log_sha256": "4180f8f94792139ec426e5d9657222b2797af035d10833b2de632b2b509028f3"
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "status": "pass",
+      "inputs": {
+        "rtl": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+        "dependency": "b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd",
+        "netlist": "1ae2ac44ec701d930f0303725cca3f5cfbbe0fa5b3ad61eae8fba466879a0193",
+        "runner": "747421e3b0ca3031c567b1308cce4ece32ca2b22dad8f50737d5ffd44d632235"
+      },
+      "reference_sha256": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+      "netlist_sha256": "1ae2ac44ec701d930f0303725cca3f5cfbbe0fa5b3ad61eae8fba466879a0193",
+      "log_sha256": "4438a24b922ae1e59c1aab7ca3d886ad8297d4164e916a3c9c6f1408e49d2993"
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 1,
+        "LEN_W": 1
+      },
+      "status": "pass",
+      "inputs": {
+        "rtl": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+        "dependency": "b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd",
+        "netlist": "5f5680b2341deccd715f9fdd319970b5a0693ef8eb3c26d510f43cb2bac3a6de",
+        "runner": "747421e3b0ca3031c567b1308cce4ece32ca2b22dad8f50737d5ffd44d632235"
+      },
+      "reference_sha256": "8fa6becf80181b01e5dcf814648b7ec8015c9de100614e87a86c22a0c9c91147",
+      "netlist_sha256": "5f5680b2341deccd715f9fdd319970b5a0693ef8eb3c26d510f43cb2bac3a6de",
+      "log_sha256": "bb4d68fb19199764868aa3753138b22edbf2641ae49081198dd9d9fe83fe0133"
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 1,
+        "LEN_W": 16
+      },
+      "status": "pass",
+      "inputs": {
+        "rtl": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+        "dependency": "b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd",
+        "netlist": "92d8adbf046cc9c31646485a159b0b2e6631331cd2ee0406368379a67f471d48",
+        "runner": "747421e3b0ca3031c567b1308cce4ece32ca2b22dad8f50737d5ffd44d632235"
+      },
+      "reference_sha256": "c530c091fc7c0ab7fa8d04e1ed111300bec681b3d8bb13c9b2eea737865f1ee9",
+      "netlist_sha256": "92d8adbf046cc9c31646485a159b0b2e6631331cd2ee0406368379a67f471d48",
+      "log_sha256": "f23b0c75255ada92a3d1d95479d3b1cf2a54d911fffdd299d56d19d7efd9312e"
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 1,
+        "LEN_W": 8
+      },
+      "status": "pass",
+      "inputs": {
+        "rtl": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+        "dependency": "b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd",
+        "netlist": "5c12eb909687037371c005f5dbec24d832a485b9595525466233deaae477e5ff",
+        "runner": "747421e3b0ca3031c567b1308cce4ece32ca2b22dad8f50737d5ffd44d632235"
+      },
+      "reference_sha256": "77949cb72ae5611c6d0ed11475883ddf457fe3e5abe86b4a8966b7be9e21e919",
+      "netlist_sha256": "5c12eb909687037371c005f5dbec24d832a485b9595525466233deaae477e5ff",
+      "log_sha256": "b61f7771a8f3e7d0d78acc99cc40bae2aff24eeea194c8fd60f948ed50d08889"
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 64,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "status": "pass",
+      "inputs": {
+        "rtl": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+        "dependency": "b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd",
+        "netlist": "d8d1c736ecf8d1e5af60819d8e350bbaf2faa2867240a02dacd3f5c42f12b128",
+        "runner": "747421e3b0ca3031c567b1308cce4ece32ca2b22dad8f50737d5ffd44d632235"
+      },
+      "reference_sha256": "57f4d945946326d5a6e5b886721f2dfac0ac279e48c75350ff5b81a9f0914066",
+      "netlist_sha256": "d8d1c736ecf8d1e5af60819d8e350bbaf2faa2867240a02dacd3f5c42f12b128",
+      "log_sha256": "437cad64b8afdfa77ca9eb5e1b28d83a63df6f9fd1f198a295892b8fefc29e58"
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 64,
+        "LOCK_MODE": 1,
+        "LEN_W": 8
+      },
+      "status": "pass",
+      "inputs": {
+        "rtl": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+        "dependency": "b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd",
+        "netlist": "b8ebe0e0de8702d88d630ba3919a6fe0492c2d83cc80516788e1b4e0b755a6cd",
+        "runner": "747421e3b0ca3031c567b1308cce4ece32ca2b22dad8f50737d5ffd44d632235"
+      },
+      "reference_sha256": "10cc89ecd7fec5d9380a1ac8e5381f4548092a02e3ddb7f48c0e5da607cbf6b7",
+      "netlist_sha256": "b8ebe0e0de8702d88d630ba3919a6fe0492c2d83cc80516788e1b4e0b755a6cd",
+      "log_sha256": "0f33d00746b8666908a0879fc18ebe9bf4f81985ad226d634b2d9bcbc3cfebff"
+    }
+  ]
+}

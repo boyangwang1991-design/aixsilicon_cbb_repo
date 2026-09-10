@@ -1,0 +1,21 @@
+status: measured_exploratory
+benchmark_profiles:
+- tt_400mhz_observation
+measured_region:
+  WIDTH:
+  - 8
+  - 32
+  - 128
+  LOCKSTEP_DELAY:
+  - 0
+  - 2
+  LCL_REDUNDANCY_LEVEL:
+  - 0
+  - 1
+  - 2
+  CMP_PIPE_STAGES:
+  - 0
+  - 1
+evidence: reports/ppa-summary.json
+synthesis: 保留通道边界，无跨边界优化或寄存器合并
+activity: 概率传播估计，无 SAIF

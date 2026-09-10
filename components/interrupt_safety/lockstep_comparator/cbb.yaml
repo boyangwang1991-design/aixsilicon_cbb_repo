@@ -1,0 +1,178 @@
+schema_version: 1.0
+cbb:
+  id: aixsilicon:cbb:lockstep_comparator
+  name: lockstep_comparator
+  version: 1.0.0
+  owner: aixsilicon:cbb
+  maturity: E0
+  license: Apache-2.0
+classification:
+  abstraction: A2
+  primary_domain: interrupt_safety
+  secondary_domains: []
+contract:
+  interface: synchronous_observation
+  clock_domains: 1
+  throughput: 1_per_cycle
+  top_module: lockstep_comparator_logic
+  source_contract: ../SAF-005-CONTRACT.MD
+  hwif_rationale: Scalar/vector observation ports, no bus or shared protocol interface.
+parameters:
+  WIDTH:
+    type: int
+    default: 32
+    legal:
+      min: 1
+    partitions:
+    - 1
+    - 8
+    - 32
+    - 128
+    description: Comparison bit width; no architectural upper bound.
+    affects:
+    - area
+    - timing
+    - state_space
+  LOCKSTEP_DELAY:
+    type: int
+    default: 2
+    legal:
+      min: 0
+    partitions:
+    - 0
+    - 1
+    - 2
+    - 3
+    description: Main input delay in complete rising-edge samples.
+    affects:
+    - area
+    - timing
+    - state_space
+  STARTUP_GUARD_CYCLES:
+    type: int
+    default: 0
+    legal:
+      min: 0
+    partitions:
+    - 0
+    - 1
+    - 3
+    description: Extra rising edges after delay fill.
+    affects:
+    - area
+    - timing
+    - state_space
+  CMP_PIPE_STAGES:
+    type: int
+    default: 0
+    legal:
+      min: 0
+      max: 1
+    partitions:
+    - 0
+    - 1
+    description: Zero or one registered comparator result stage.
+    affects:
+    - area
+    - timing
+    - state_space
+  LCL_REDUNDANCY_LEVEL:
+    type: int
+    default: 2
+    legal:
+      min: 0
+      max: 2
+    partitions:
+    - 0
+    - 1
+    - 2
+    description: Single/shared-delay dual/full dual paths.
+    affects:
+    - area
+    - timing
+    - state_space
+  STATIC_COMPARE_MASK:
+    type: int
+    default: -1
+    legal:
+      min: -1
+    partitions:
+    - -1
+    - 0
+    - 1
+    description: WIDTH-bit mask; -1 denotes all bits, nonnegative masks must fit WIDTH.
+    affects:
+    - area
+    - timing
+    - state_space
+  SUPPORT_RUNTIME_MASK:
+    type: bool
+    default: true
+    description: SUPPORT_RUNTIME_MASK compile-time enable
+    affects:
+    - area
+    - timing
+    partitions:
+    - false
+    - true
+  SUPPORT_VALID_MASK:
+    type: bool
+    default: true
+    description: SUPPORT_VALID_MASK compile-time enable
+    affects:
+    - area
+    - timing
+    partitions:
+    - false
+    - true
+  SUPPORT_FAULT_INJECTION:
+    type: bool
+    default: true
+    description: SUPPORT_FAULT_INJECTION compile-time enable
+    affects:
+    - area
+    - timing
+    partitions:
+    - false
+    - true
+constraints:
+- id: PC-001
+  expression: WIDTH >= 1
+  severity: error
+- id: PC-002
+  expression: LOCKSTEP_DELAY >= 0
+  severity: error
+- id: PC-003
+  expression: STARTUP_GUARD_CYCLES >= 0
+  severity: error
+- id: PC-004
+  expression: CMP_PIPE_STAGES >= 0 and CMP_PIPE_STAGES <= 1
+  severity: error
+- id: PC-005
+  expression: LCL_REDUNDANCY_LEVEL >= 0 and LCL_REDUNDANCY_LEVEL <= 2
+  severity: error
+- id: PC-006
+  expression: STATIC_COMPARE_MASK == -1 or (STATIC_COMPARE_MASK >= 0 and STATIC_COMPARE_MASK
+    < (1 << WIDTH))
+  severity: error
+implementations:
+- id: impl_redundant
+  source: rtl/
+  files:
+  - rtl/lockstep_comparator_logic.sv
+  constraints: constraints/
+  dependencies: []
+quality:
+  required_gates:
+  - G0
+  - G1
+  - G2
+  - G3
+  - G4
+  - G5
+  - G6
+characterization:
+  benchmark_profiles: []
+  measured_region: {}
+release:
+  fusesoc_core: aixsilicon:cbb:lockstep_comparator:1.0.0

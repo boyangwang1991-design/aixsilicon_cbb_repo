@@ -1,0 +1,310 @@
+{
+  "context": {
+    "run_id": "run-20260910-02",
+    "rtl_sha256": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+    "dependency": {
+      "vlnv": "aixsilicon:cbb:fixed_priority_arbiter:0.1.0",
+      "sha256": "b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd"
+    },
+    "library": "sc9_cmos28lp_base_hvt_tt_nominal_max_1p00v_25c.db",
+    "library_sha256": "543bea70be344b3bc9d7d4c81e45aa23b7eb59c267cf5969015caf3f01b6609a",
+    "corner": "TT 1.00V 25C",
+    "clock_ns": 2.5,
+    "uncertainty_ns": 0.1,
+    "input_delay_ns": 0.5,
+    "output_delay_ns": 0.5,
+    "output_load_pf": 0.01,
+    "compile": "compile_ultra -no_autoungroup; no retiming or clock gating",
+    "scripts": {
+      "run_ppa.py": "f2578d0b0677711ee1b4f466079e6c852c4bf9d2727eca87e546f9734f1a361a",
+      "synth.tcl": "70ee4f4570cce0e6c509a1c9b03c969f75a52084d3ac51a8e17d583c589fbd12",
+      "packet_locking_arbiter.sdc": "c100f7840a6c5dc6a73e58e08bfba686cc68009b8230c1e43375c8a612db009e"
+    }
+  },
+  "rows": [
+    {
+      "parameters": {
+        "NUM_REQ": 17,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "area_um2": 186.146998,
+      "worst_slack_ns": 0.0,
+      "reg_to_reg_slack_ns": 0.0,
+      "dyn_power_uW": 40.1684,
+      "leak_power_nW": 26.9264,
+      "registers": 11,
+      "reports_sha256": {
+        "dc.txt": "c98cc825aced6ddbcd9abe9e833d019be6d0994306482beadd043dfc2262a203",
+        "area.txt": "223db22259cc9dd2264ac7437a9e501a89da81f68346f0f87ecc90ebba901b20",
+        "timing.txt": "0eb89e9c82d077967d5a716c0546803094eef215e1315b2f80e070f9bc478fe4",
+        "reg_timing.txt": "7d9960c44a913828969dd94ceb57ddce605b0a0876ce534e590ece7dd4e5eba1",
+        "output_timing.txt": "58702b52ad667fd99a79da1676f96e8f1c7ebfba22de8c2bb3a1e8a252c032e1",
+        "power.txt": "7819e1bb5ecbd0e472bc25018907d0d9772079a02effcd7e33d19682803bfdfd",
+        "clock.txt": "200663b68f8145ae25add70fb2baf6ee6322f892b77d9d6f0912e67ae17e4b2e",
+        "check.txt": "4048468d0ae3d8c73c65d8792e8c68c691c744524c2d96029e27550d1328e5d9",
+        "constraints.txt": "74bf3aa1ef062208fa3fb4645f323fb644b8e832f1f73950f90ce24049edd957",
+        "registers.txt": "25d4f2a86deb5e2574bb3210b67bb24fcc4afb19f93a7b65a057daa874a9d18e",
+        "power-total.txt": "695edb9137503e6a0e5dc3c4c481097ff7ec0a29d34684b7bc31c0d69d374c86"
+      },
+      "child_area_um2": 37.908,
+      "parent_local_area_um2": 148.238998
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 17,
+        "LOCK_MODE": 1,
+        "LEN_W": 8
+      },
+      "area_um2": 493.739997,
+      "worst_slack_ns": 0.0,
+      "reg_to_reg_slack_ns": 0.05,
+      "dyn_power_uW": 104.6115,
+      "leak_power_nW": 87.6993,
+      "registers": 19,
+      "reports_sha256": {
+        "dc.txt": "b819909bc4e362e5d6ef5d902d02297075768f1dca243f9e8d1e46fc3a534c26",
+        "area.txt": "4b2a860efd34dc37b52972b21d8b17f94eb082c203f045b0b24c04c6dbc6bdaf",
+        "timing.txt": "6d0a426de2a83b4578a45c63ed4536322bf3cc9a0b4350c2d94733061686739b",
+        "reg_timing.txt": "bef5cd5fe7b1fed04a882d2bf637b6c0927c441d3fadc01b414442c826c1d874",
+        "output_timing.txt": "34344c6dbc46d6ed729ec430e20ce6f79f9516af599272c17f9af5d99d7d23f5",
+        "power.txt": "eee881628c284394719fc3c02adc42c9dc52a03591bba1d8231cd93e87929bb9",
+        "clock.txt": "fe841658fc0113480593fd31dc5a9e10513e5a355748dcf7ff516d65211e6fd5",
+        "check.txt": "76cbb2e5b19003b84784fe18c5c8b77954ab49d2a576bf7bcc631c97d1c47f4d",
+        "constraints.txt": "1ad937071d6c76b643b7fc2bf525d5261adef35c42cbb1c88ded7ded2470bcf9",
+        "registers.txt": "a9742eb8ee320e006666aef25ae9aeed948247f3125c9cafa7cf97b7e7467dd5",
+        "power-total.txt": "14ed8eb1bc6b35bffc45baf8c9f8e8e6456b4b4d5b170ee041e828d8a1ab7dd6"
+      },
+      "child_area_um2": 40.95,
+      "parent_local_area_um2": 452.789997
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 1,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "area_um2": 4.563,
+      "worst_slack_ns": 1.2,
+      "reg_to_reg_slack_ns": 2.13,
+      "dyn_power_uW": 2.4409,
+      "leak_power_nW": 0.5516041999999999,
+      "registers": 1,
+      "reports_sha256": {
+        "dc.txt": "b3da140e9c3681ac2f54b950955a25a4f0618fcd117fe1ff3353231e78926a83",
+        "area.txt": "fdeb1196b3aab12265d8e4a70ab1a68721b025c3d4b99d75ff6e934d06e8eec2",
+        "timing.txt": "a24c2e9eebd8370e8eefb92c7588388e1d394711164ff1b802f65574a2a44a51",
+        "reg_timing.txt": "e9772e9713d1146fa1fa3143cd35cd4a8cad9b21732b5436eb134b1824c0f5b4",
+        "output_timing.txt": "03ad89a55d52830a8e231b90aba30be6f131c3331d6f44c1555805b83485803e",
+        "power.txt": "62517a65bf3a3c8df298b5684f8d8753e21c8ec71b0333b77d04457fa28321e3",
+        "clock.txt": "d5d2ca30e71577d5f068d25b1719726fc63918d39563de6629f11992233b45f9",
+        "check.txt": "7fcab65cea886ece08b1cc1b766aa286f947d0527bfba7e4821fa18301970e50",
+        "constraints.txt": "b458ecc1c950c7ce5a6a75ea131d4df9b2fefe814023361ab3b67649153ac081",
+        "registers.txt": "4355a46b19d348dc2f57c046f8ef63d4538ebb936000f3c9ee954a27460dd865",
+        "power-total.txt": "af7bbba3d7bd673f245ea1e70fbce475541cf6b5ce2e2cf37fa1c1ab6de1c0a4"
+      },
+      "child_area_um2": 0,
+      "parent_local_area_um2": 4.563
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 1,
+        "LOCK_MODE": 1,
+        "LEN_W": 8
+      },
+      "area_um2": 59.201999,
+      "worst_slack_ns": 0.02,
+      "reg_to_reg_slack_ns": 0.49,
+      "dyn_power_uW": 23.9836,
+      "leak_power_nW": 7.8115,
+      "registers": 9,
+      "reports_sha256": {
+        "dc.txt": "4d2e61f905b17899ac5fdc0b24dfe5289dcf61df7e854cd9614ba3baf4a6ab4b",
+        "area.txt": "a9006367189d68a551be64624d55cd19f4a454927e6182cad919c311ac662d81",
+        "timing.txt": "31b37cc4a46fc33dd501a4206c8aad0249ddc18b353b984e119c68c13f3dff68",
+        "reg_timing.txt": "9a042498b647cb983e54a6598ab68b2efd869c9691b4430b28d4bfb87044b378",
+        "output_timing.txt": "c35a9f4b1e5331ea470f1c2129f44625bec60c64fd6f517b7f675de6544d6e36",
+        "power.txt": "f0ac7fa401a1b3a206cd059557761399aeb3cf900b0b99f19dcbed5a49b193d8",
+        "clock.txt": "37fa606552fa594ae1a1dbf83a425d3fed967a68e49794d9ea882394ba97b0d6",
+        "check.txt": "4457540a00107f926d9947ce35f346d55090d8ddd20bf45d902a3b767cdcebd3",
+        "constraints.txt": "e8ace3eafd28ad0c5df468fc0b9dea2fe86bc22077efc6464f7d6e6c5d1fbc77",
+        "registers.txt": "2e6d31a5983a91251bfae5aefa1c0a19d8ba3cf601d0e8a706b4cfa9661a6b8a",
+        "power-total.txt": "54a56bb6650ca7172cebec4faa051bdfe8221db56f128a6b0917e090bfda5450"
+      },
+      "child_area_um2": 0,
+      "parent_local_area_um2": 59.201999
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "area_um2": 45.161999,
+      "worst_slack_ns": 0.29,
+      "reg_to_reg_slack_ns": 0.64,
+      "dyn_power_uW": 17.3452,
+      "leak_power_nW": 5.996,
+      "registers": 5,
+      "reports_sha256": {
+        "dc.txt": "a81ae46b5137e54e521dcca5ff0acf40643c889ecd713895af706d0485533ac4",
+        "area.txt": "1515ad4a0a8541ce6cfef2ebc753020236ca28b419c9773034725c92d409a6ea",
+        "timing.txt": "02bb862e3ba43a23276cb3668eb365876a73c98b934188945d6accfef3439d4b",
+        "reg_timing.txt": "d4c4891b01de3e58c586278cfff7e4a2dad5193ca6ce6d93fb61aab8546b1b0b",
+        "output_timing.txt": "a53f5a06276a745c0af22528a53eea0b487945f9b2670d224081886ff53f8637",
+        "power.txt": "f1e7e150d99c63606480d41b134baee75df4b4bf60635b54e35d0103a823b351",
+        "clock.txt": "df4150e8d43f448d83ee6ff09d7056c898b1844f33ef2f71ffa9fe9c28917db8",
+        "check.txt": "c763421d48114bca6762be3d7721faba0133a8db7057a0f2899662e5a2e7e41d",
+        "constraints.txt": "79de92971d036e69473bf2cefe747b134fddb3096afea3e7d40b5d2bac5291c2",
+        "registers.txt": "f0b5c2c2211c8d67ed15e75e656c7862d086e9245420892a7de62cd9ec582a06",
+        "power-total.txt": "4cd567100ba5ee08685d189e88ba9cb46344b96a91aee648054c08bd7abc6b9b"
+      },
+      "child_area_um2": 4.68,
+      "parent_local_area_um2": 40.481999
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 1,
+        "LEN_W": 1
+      },
+      "area_um2": 49.023,
+      "worst_slack_ns": 0.26,
+      "reg_to_reg_slack_ns": 0.64,
+      "dyn_power_uW": 22.6156,
+      "leak_power_nW": 6.8332,
+      "registers": 6,
+      "reports_sha256": {
+        "dc.txt": "418160c3a26e33efa18564d4e0b38305a43bc3f8da23aaaed935a39c072cef84",
+        "area.txt": "7a759b514309e14a25ce39900da846871aa7f54c47c55d9cb3cf76dbe9c39a12",
+        "timing.txt": "6eac9dac58bf364baa773ac9671a9d132981beafd83fa45d6a19d91df02590bd",
+        "reg_timing.txt": "96f3d80f61c6b97c15936a507ec9e69f64921409fae3fbcf1d028a09ce30c124",
+        "output_timing.txt": "dddd4c323d27064120a54a97ccf30cfcad9f93486e66cb846af3fc05234852be",
+        "power.txt": "b69e7fbf542f64c66d4c41488519f0b14cf5fed16ebba2b140e928a3763fa523",
+        "clock.txt": "f3b317e7abec3585103cd1e5836cdf4a21d31f97cf231b95d00f1f9f288faff4",
+        "check.txt": "2ab5271c2def9d6ce9eed482e28838e1bb9e3bb737c22a6519ab7b43b69bcc7c",
+        "constraints.txt": "90ca3a6907ef7b4b08ec02bf6d8f8f70694e019200df77ca37f290eeefc60c07",
+        "registers.txt": "06e9d52c1720fca412803e3b07c4b228ff113e303f4c7ab94665319d832bbfb7",
+        "power-total.txt": "1c135909e4b931f9d1d18c0165e8f902f1cabe96dd3f827600e766b813ad4812"
+      },
+      "child_area_um2": 4.68,
+      "parent_local_area_um2": 44.343
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 1,
+        "LEN_W": 16
+      },
+      "area_um2": 269.801997,
+      "worst_slack_ns": 0.0,
+      "reg_to_reg_slack_ns": 0.33,
+      "dyn_power_uW": 71.8938,
+      "leak_power_nW": 49.5507,
+      "registers": 21,
+      "reports_sha256": {
+        "dc.txt": "37e1d2d1f53c909b1473c18eb2d30de2ce47ac31c4c3153caa7201e4c80624b9",
+        "area.txt": "5a8017089724ef1ded13c7ef11ad3915c79020093b7fe229bf336fbe92bd50c7",
+        "timing.txt": "79dc10d62ec790923459289c82d533109e9733144748861fa183ef519fc0c3d0",
+        "reg_timing.txt": "c48a7c53808df122a02af5499cfafc95274916627d3ac2329aa080849b27ebc6",
+        "output_timing.txt": "58e305d65b8bb1065ecd7f7ffc8d4fc0762a5b71cc8e48a62f0474a5ee3d1f60",
+        "power.txt": "bfb57421164dd48e288f73ff32f9f62f805adc0f37e5d4289563e0cba98a514e",
+        "clock.txt": "bedd59ee14ea264c9d5fefa78b8e947f3c00d33338f1660f5723ffece6151030",
+        "check.txt": "15174ab52a9d94d1361c50691aa1ec69570326b6021c4883eb234a8faf04d26e",
+        "constraints.txt": "e449810576ffa93c28d08d91caf2566612d085d6426790bfab4edde07a90f335",
+        "registers.txt": "6e2ae11dad0616f66bbb2b6e6556f580bb987fd911d7132aa6bee2bfc7cc7b52",
+        "power-total.txt": "dfc19168f6d86670f2a921fe71d999a242a2d3560be34aa785c3f5cd9627ef81"
+      },
+      "child_area_um2": 6.084,
+      "parent_local_area_um2": 263.717997
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 4,
+        "LOCK_MODE": 1,
+        "LEN_W": 8
+      },
+      "area_um2": 137.825999,
+      "worst_slack_ns": 0.0,
+      "reg_to_reg_slack_ns": 0.45,
+      "dyn_power_uW": 44.3383,
+      "leak_power_nW": 20.3711,
+      "registers": 13,
+      "reports_sha256": {
+        "dc.txt": "2a09f39b31176b82b2af002e6919a29ab4974ce962b102715894b5b3648d6ffa",
+        "area.txt": "4cec62a7d81b0ea955fd880c43508ba8032f73100e53af18be0e8c356dfa1795",
+        "timing.txt": "1af7d1bf936d1eab8bac1a55d45112181ec2de6d6a65d915da8256590a646a64",
+        "reg_timing.txt": "f4cfa5540e6f8da6dec65b01f406de9fd7085e863965be7cf2ac1fa12bad1c61",
+        "output_timing.txt": "d8ba72844621fee8c8e74ae069d0d97f02e252bbf83cf6e3cc5bd78bb1dd9082",
+        "power.txt": "06adcf49998494872eff0a1cbb3e386a977fc66658e8d67df6a12e5de308b1c9",
+        "clock.txt": "c22f713c85c9d7638ccdabe03272ccea3df1d4c6d934a266a9098e4257fe5b77",
+        "check.txt": "5bf90ef54f8f8792abf59cd82c1bc90cdb06978ca4926fbe3d272d4951666276",
+        "constraints.txt": "21076481b56af925b0e0f5553fffbaa9fa95c8d6713be157c5fe07a439b8838c",
+        "registers.txt": "1a252402972f6057fa53cc172b52b9ffca698e18311facd0f3b06ecaaef79e17",
+        "power-total.txt": "26377f7267ccb2707e1667e4b4d78f74049496b5beec6156bd1b7e8a412a38a7"
+      },
+      "child_area_um2": 4.68,
+      "parent_local_area_um2": 133.145999
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 64,
+        "LOCK_MODE": 0,
+        "LEN_W": 8
+      },
+      "area_um2": 691.352999,
+      "worst_slack_ns": 0.0,
+      "reg_to_reg_slack_ns": 0.0,
+      "dyn_power_uW": 94.5397,
+      "leak_power_nW": 115.2089,
+      "registers": 13,
+      "reports_sha256": {
+        "dc.txt": "d44801591c0f33c41fdbafd3d94b9b7ee3cdf2e14a98d8c7b442b4afbf0b64fc",
+        "area.txt": "0db98dc63debd797740ca55972a23bf6954e1d5244ad3663ec15bf227bdc3e14",
+        "timing.txt": "238d435a85da0f53d55b266b386d0e182feb2b7501c4d7efdcef49523ddddf54",
+        "reg_timing.txt": "e1ba4bb67c3ec963d839d6525932e6eb005dcc4f5445252ffb8dc94dcf7ff192",
+        "output_timing.txt": "a231c48e32f1aa5a6c5b8f82deafafe7667dbf30a314f86a6f100564a9a427bd",
+        "power.txt": "50174817f51a0f9d987b02f26467e2ce96f2406dd882df8fe44b323925c6d38e",
+        "clock.txt": "6f85c47c62b80f12cbbd8e4727136d5cf31d2f32fe7322273fa0af5c081c3dfa",
+        "check.txt": "c164c45febb5d8ba1ac58a49119aa93e03f485689b1501834c93c45ad4620e71",
+        "constraints.txt": "d33f52a19162cc97a3ac6be64c7c83cc2e9ceaecd52c3e0424da978a107fb0da",
+        "registers.txt": "1a252402972f6057fa53cc172b52b9ffca698e18311facd0f3b06ecaaef79e17",
+        "power-total.txt": "016ab610f85f9613f90d64f0ad8d89d68e20f8d03cd6c7ebf30a0f3d01ac9408"
+      },
+      "child_area_um2": 183.339,
+      "parent_local_area_um2": 508.013999
+    },
+    {
+      "parameters": {
+        "NUM_REQ": 64,
+        "LOCK_MODE": 1,
+        "LEN_W": 8
+      },
+      "area_um2": 1609.217995,
+      "worst_slack_ns": 0.0,
+      "reg_to_reg_slack_ns": 0.0,
+      "dyn_power_uW": 237.4982,
+      "leak_power_nW": 314.0759,
+      "registers": 21,
+      "reports_sha256": {
+        "dc.txt": "650996f1578a96462dec0556c58bd17e0add11cc7929ce8670c418efee5bf1d4",
+        "area.txt": "a73e8ba3b5ddd6bb48b8d2aceff7720779be8ba7804d639f449e04a5ae0e21f8",
+        "timing.txt": "4aa5888547a9427a408759cb8bbb1a561764dfce95e5df330fc3bca75e157cd6",
+        "reg_timing.txt": "191a628e1ea1ec34309d208fa4de560bf96f05fd0e96e701f68fd5fa4e5e0341",
+        "output_timing.txt": "d294db5e78486c4a441ed90c92a12ba3e110f1e030fe46742d351934dd7ff033",
+        "power.txt": "ca0151ff64832b87395ff47d5ab91b1f1aa7c40b3280132bb4ee508195a1638e",
+        "clock.txt": "f5859e8f4f7ac5c95380245cc36cc7d5fb78102e458d223d2a3242c860b05eb2",
+        "check.txt": "1544ca34dd0df9d564835f6cf1ca9241b02c360e60f70da4e7cbf2b1bea14569",
+        "constraints.txt": "4ffab8aafd30f46644cf8d55674ef112b81f42477eace1740d5fa1845ce6edab",
+        "registers.txt": "6e2ae11dad0616f66bbb2b6e6556f580bb987fd911d7132aa6bee2bfc7cc7b52",
+        "power-total.txt": "049499de6edfded42236cfbef830e69f8eca6e186127637f224d1ab73518d675"
+      },
+      "child_area_um2": 204.28199999999998,
+      "parent_local_area_um2": 1404.935995
+    }
+  ],
+  "evidence_level": "PPA-E2",
+  "activity": "Vectorless input probability 0.5, toggle rate 0.1; not workload-measured power.",
+  "extraction_sha256": "b02c6ff52bd81040caaee7d23d7cc22d4fe3bf48814698b81abf1f6358d98b6f",
+  "tool_version": "V-2023.12-SP3"
+}

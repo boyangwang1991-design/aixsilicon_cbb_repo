@@ -117,7 +117,7 @@ cbbs:
     priority: P1
     implementation: lock until EOP/length
     description: 锁定状态与公平性
-    status: planned
+    status: implemented
     version: "0.1.0"
     path: components/arbitration_scheduling/packet_locking_arbiter
   - id: ARB-011
@@ -3241,8 +3241,8 @@ cbbs:
     priority: P2
     implementation: configurable compare masks
     description: 比较宽度与错误延迟
-    status: planned
-    version: "0.1.0"
+    status: implemented
+    version: "1.0.0"
     path: components/interrupt_safety/lockstep_comparator
   - id: SAF-006
     name: temporal_redundancy_ctrl

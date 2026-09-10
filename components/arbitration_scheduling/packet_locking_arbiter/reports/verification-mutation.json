@@ -1,0 +1,29 @@
+{
+  "status": "pass",
+  "rtl_sha256": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+  "dependency_sha256": "b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd",
+  "phase": "mutation",
+  "mutations": [
+    {
+      "name": "release_without_fire",
+      "status": "killed",
+      "log_sha256": "43271a899b6dc516843871b5b5eb0823f1d6b3d98b784a1e793f140a77ec20d6"
+    },
+    {
+      "name": "wrong_rotation",
+      "status": "killed",
+      "log_sha256": "cb692ce6b0c93895717984e6d58634b42bd678717f73bcbb60a4ce7075dc42ec"
+    },
+    {
+      "name": "early_length",
+      "status": "killed",
+      "log_sha256": "43f1be49cb965a5c9e158950b2328ccffbb3e67cc20c5c9cf3c50b9f3bf87f3a"
+    },
+    {
+      "name": "inverted_mutex",
+      "status": "killed",
+      "log_sha256": "1d3f0a4e0d22092f7c0275fd0ae3a1102661489a0f1fcff6d091c86df80a2eb7"
+    }
+  ],
+  "seconds": 83.94
+}

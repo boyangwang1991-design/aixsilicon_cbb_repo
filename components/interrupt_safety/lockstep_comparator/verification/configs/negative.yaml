@@ -1,0 +1,90 @@
+set: negative
+configs:
+- config_id: cfg_width0_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  parameters:
+    WIDTH: 0
+    LOCKSTEP_DELAY: 2
+    STARTUP_GUARD_CYCLES: 0
+    CMP_PIPE_STAGES: 0
+    LCL_REDUNDANCY_LEVEL: 2
+    STATIC_COMPARE_MASK: -1
+    SUPPORT_RUNTIME_MASK: true
+    SUPPORT_VALID_MASK: true
+    SUPPORT_FAULT_INJECTION: true
+- config_id: cfg_width32_lockstep_delayu8_2d31_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  parameters:
+    WIDTH: 32
+    LOCKSTEP_DELAY: -1
+    STARTUP_GUARD_CYCLES: 0
+    CMP_PIPE_STAGES: 0
+    LCL_REDUNDANCY_LEVEL: 2
+    STATIC_COMPARE_MASK: -1
+    SUPPORT_RUNTIME_MASK: true
+    SUPPORT_VALID_MASK: true
+    SUPPORT_FAULT_INJECTION: true
+- config_id: cfg_width32_lockstep_delay2_startup_guard_cyclesu8_2d31_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  parameters:
+    WIDTH: 32
+    LOCKSTEP_DELAY: 2
+    STARTUP_GUARD_CYCLES: -1
+    CMP_PIPE_STAGES: 0
+    LCL_REDUNDANCY_LEVEL: 2
+    STATIC_COMPARE_MASK: -1
+    SUPPORT_RUNTIME_MASK: true
+    SUPPORT_VALID_MASK: true
+    SUPPORT_FAULT_INJECTION: true
+- config_id: cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stagesu8_2d31_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  parameters:
+    WIDTH: 32
+    LOCKSTEP_DELAY: 2
+    STARTUP_GUARD_CYCLES: 0
+    CMP_PIPE_STAGES: -1
+    LCL_REDUNDANCY_LEVEL: 2
+    STATIC_COMPARE_MASK: -1
+    SUPPORT_RUNTIME_MASK: true
+    SUPPORT_VALID_MASK: true
+    SUPPORT_FAULT_INJECTION: true
+- config_id: cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages2_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  parameters:
+    WIDTH: 32
+    LOCKSTEP_DELAY: 2
+    STARTUP_GUARD_CYCLES: 0
+    CMP_PIPE_STAGES: 2
+    LCL_REDUNDANCY_LEVEL: 2
+    STATIC_COMPARE_MASK: -1
+    SUPPORT_RUNTIME_MASK: true
+    SUPPORT_VALID_MASK: true
+    SUPPORT_FAULT_INJECTION: true
+- config_id: cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_levelu8_2d31_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  parameters:
+    WIDTH: 32
+    LOCKSTEP_DELAY: 2
+    STARTUP_GUARD_CYCLES: 0
+    CMP_PIPE_STAGES: 0
+    LCL_REDUNDANCY_LEVEL: -1
+    STATIC_COMPARE_MASK: -1
+    SUPPORT_RUNTIME_MASK: true
+    SUPPORT_VALID_MASK: true
+    SUPPORT_FAULT_INJECTION: true
+- config_id: cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level3_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  parameters:
+    WIDTH: 32
+    LOCKSTEP_DELAY: 2
+    STARTUP_GUARD_CYCLES: 0
+    CMP_PIPE_STAGES: 0
+    LCL_REDUNDANCY_LEVEL: 3
+    STATIC_COMPARE_MASK: -1
+    SUPPORT_RUNTIME_MASK: true
+    SUPPORT_VALID_MASK: true
+    SUPPORT_FAULT_INJECTION: true
+- config_id: cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d32_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  parameters:
+    WIDTH: 32
+    LOCKSTEP_DELAY: 2
+    STARTUP_GUARD_CYCLES: 0
+    CMP_PIPE_STAGES: 0
+    LCL_REDUNDANCY_LEVEL: 2
+    STATIC_COMPARE_MASK: -2
+    SUPPORT_RUNTIME_MASK: true
+    SUPPORT_VALID_MASK: true
+    SUPPORT_FAULT_INJECTION: true

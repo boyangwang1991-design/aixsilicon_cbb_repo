@@ -1,0 +1,32 @@
+{
+  "run_id": "run-20260910-134532-693566",
+  "synthesis_run": "run-20260910-134152-503471",
+  "scope": "RTL-to-mapped equivalence, not temporal safety property proof",
+  "status": "pass",
+  "points": [
+    {
+      "point": "point_0",
+      "parameters": {
+        "WIDTH": 32,
+        "LOCKSTEP_DELAY": 2,
+        "LCL_REDUNDANCY_LEVEL": 2,
+        "CMP_PIPE_STAGES": 0,
+        "STATIC_COMPARE_MASK": 0
+      },
+      "status": "pass",
+      "log_sha256": "8e9c6fb42f1c91b38f1c8d07cc65e4f39cb835a6e07f799ffeeb57ab8856b3ff"
+    },
+    {
+      "point": "point_1",
+      "parameters": {
+        "WIDTH": 32,
+        "LOCKSTEP_DELAY": 2,
+        "LCL_REDUNDANCY_LEVEL": 2,
+        "CMP_PIPE_STAGES": 0,
+        "SUPPORT_FAULT_INJECTION": 0
+      },
+      "status": "pass",
+      "log_sha256": "5db1a1294d7d222abcbbe413617e7fd7a421430d687cc45e37845abf3550498e"
+    }
+  ]
+}

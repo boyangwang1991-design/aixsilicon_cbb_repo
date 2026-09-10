@@ -1,0 +1,6 @@
+cbb: lockstep_comparator
+sets:
+  mandatory: 1
+  boundary: 16
+  pairwise: 86
+  negative: 8

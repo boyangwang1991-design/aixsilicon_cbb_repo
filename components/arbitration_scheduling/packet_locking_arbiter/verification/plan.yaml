@@ -1,0 +1,22 @@
+target: packet_locking_arbiter
+verification_forms: [VCS_SVA_simulation, directed, seeded_random, negative_elaboration, mutation, consumer_smoke, formal_equivalence]
+config_sets: [mandatory, boundary, pairwise, negative]
+configs: [cfg_num_req4_lock_mode0_len_w8, cfg_num_req4_lock_mode1_len_w8]
+risk_policy: Supplement non-power-of-two and maximum-count length-mode combinations in runner; retain generated matrix unchanged.
+seeds: [101, 2027, 65537]
+testcases:
+  - {id: tc_reset_mutex, requirements: [REQ-001], intent: Reset during packet and onehot selection.}
+  - {id: tc_stall_bubble, requirements: [REQ-002], intent: First and last beat stalls and owner bubbles.}
+  - {id: tc_eop, requirements: [REQ-003], intent: Only accepted selected EOP releases.}
+  - {id: tc_single_beat, requirements: [REQ-003], intent: Immediate single-beat completion.}
+  - {id: tc_length, requirements: [REQ-004], intent: Length one and full maximum length.}
+  - {id: tc_length_stall, requirements: [REQ-004], intent: Metadata sampling and accepted-beat counting.}
+  - {id: tc_rr_order, requirements: [REQ-005], intent: Round-robin completion order and wrap.}
+  - {id: tc_back_to_back, requirements: [REQ-005], intent: Full throughput single-beat packets.}
+  - {id: tc_random, requirements: [REQ-005], intent: Legal source traffic and random backpressure against independent model.}
+  - {id: tc_fairness, requirements: [REQ-006], intent: No more than N-1 overtaking completed packets under persistent eligibility.}
+  - {id: tc_zero_length, requirements: [REQ-007], intent: Zero length ineligible while other sources progress.}
+  - {id: tc_negative_params, requirements: [REQ-007], intent: Generated illegal parameters fail elaboration with specific PC diagnostic.}
+formal_scope: Attempt RTL-to-netlist equivalence with native Formality; simulation SVA is not unbounded property proof.
+dependency: aixsilicon:cbb:fixed_priority_arbiter:0.1.0
+consumer_scope: Synthesizable example mux and tagged payload scoreboard; production IPs remain planned.

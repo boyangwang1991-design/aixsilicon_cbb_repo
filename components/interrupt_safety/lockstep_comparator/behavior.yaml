@@ -1,0 +1,184 @@
+requirements:
+- id: REQ-001
+  description: Delay fill, zero-delay bypass, guard and reset restart; CC-005/006
+  properties: []
+  tests:
+  - tc_alignment
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  source_ids:
+  - LCL-ALIGN-001
+  - LCL-ALIGN-002
+  - LCL-ALIGN-003
+  - LCL-RST-001
+  - LCL-RST-002
+  - LCL-RST-003
+  - LCL-RST-004
+  - LCL-RST-005
+  - LCL-RST-006
+- id: REQ-002
+  description: Qualified masked comparison, fail-safe OR and separate internal XOR;
+    CC-001/002/007/008
+  properties: []
+  tests:
+  - tc_compare
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  source_ids:
+  - LCL-CMP-001
+  - LCL-CMP-002
+  - LCL-CMP-003
+  - LCL-CMP-004
+  - LCL-DIAG-001
+  - LCL-DIAG-002
+  - LCL-ERR-001
+  - LCL-ERR-002
+  - LCL-ERR-003
+  - LCL-MASK-001
+  - LCL-MASK-002
+  - LCL-MASK-003
+  - LCL-MASK-004
+  - LCL-MASK-005
+  - LCL-SAFE-001
+  - LCL-SAFE-002
+  - LCL-SAFE-003
+  - LCL-SAFE-004
+  - LCL-SAFE-005
+  - LCL-SELF-001
+  - LCL-SELF-002
+  - LCL-SELF-003
+  - LCL-VALID-001
+  - LCL-VALID-002
+  - LCL-VALID-003
+- id: REQ-003
+  description: Independent A/B comparator and delay corruption; CC-003/004/009/010
+  properties: []
+  tests:
+  - tc_injection
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  source_ids:
+  - LCL-FI-001
+  - LCL-FI-002
+  - LCL-FI-003
+  - LCL-FI-004
+  - LCL-FI-005
+- id: REQ-004
+  description: Sticky classes/vector, event pulse, clear and set priority; CC-011/012
+  properties: []
+  tests:
+  - tc_sticky
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  source_ids:
+  - LCL-CTRL-001
+  - LCL-CTRL-002
+  - LCL-EVENT-001
+  - LCL-STICKY-001
+  - LCL-STICKY-002
+  - LCL-STICKY-003
+  - LCL-STICKY-004
+- id: REQ-005
+  description: Comparator stage latency and immediate reset suppression
+  properties: []
+  tests:
+  - tc_pipeline
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  source_ids:
+  - LCL-PPA-001
+  - LCL-PPA-002
+  - LCL-PPA-003
+  - LCL-PPA-004
+  - LCL-PPA-005
+  - LCL-PPA-006
+- id: REQ-006
+  description: Cycle-accurate seeded stream, masks, controls, resets and injections
+  properties: []
+  tests:
+  - tc_random
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  source_ids: []
+- id: REQ-007
+  description: Single comparator stuck low cannot suppress divergence
+  properties: []
+  tests:
+  - tc_stuck
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  source_ids: []
+- id: REQ-008
+  description: Enabled X/Z data raises assertion, masked X/Z ignored
+  properties: []
+  tests:
+  - tc_unknown
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  source_ids:
+  - LCL-SIM-001
+  - LCL-SIM-002
+  - LCL-SIM-003
+- id: REQ-009
+  description: Illegal configuration rejected during elaboration
+  properties: []
+  tests:
+  - tc_negative
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  source_ids:
+  - LCL-PARAM-001
+  - LCL-PARAM-002
+  - LCL-PARAM-003
+  - LCL-PARAM-004
+  - LCL-PARAM-005
+  - LCL-PARAM-006
+- id: REQ-010
+  description: Inverted safety assertion and broken fault OR are detected
+  properties: []
+  tests:
+  - tc_mutation
+  configs:
+  - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  source_ids: []
+invariants:
+- id: INV-001
+  description: Safety output includes every live detected fault.
+  properties:
+  - PROP-LCL_SAFE-001
+- id: INV-002
+  description: Reset immediately suppresses live mismatch and alignment.
+  properties:
+  - PROP-LCL_RESET-002
+assumptions:
+- id: ASM-001
+  description: Inputs synchronous to clk_i; rst_ni asynchronous assertion, synchronous
+    deassertion supplied by integration.
+- id: ASM-002
+  description: Current masks qualify the aligned comparison epoch; upstream aligns
+    masks if necessary.
+timing:
+  alignment: After D+G rising edges following reset release (immediate if both zero).
+  pipeline: P=1 samples qualified diff at rising edge; status remains until next edge.
+    Reset suppresses immediately.
+  sticky: Capture live result on rising edge. New result OR preserved status; clear
+    discards history but never a current fault.
+fault_injection:
+  encoding:
+    '0': compare A
+    '1': compare B
+    '2': delay A
+    '3': delay B
+  none: fi_enable_i=0
+  compare: XOR fi_mask into aligned operand before comparison; effective mask applies.
+  delay: XOR into first delay register input; corruption propagates through D samples.
+    D=0 inject at bypass.
+  unsupported: B targets ignored at level 0; delay B ignored at level 1. Delay A at
+    level 1 affects shared path.
+reset: rst_ni clears all local state, including sticky. Warm-reset retention requires
+  external safety-domain capture.
+non_goals:
+- Control consistency checker
+- Voting or reset generation
+- Autonomous self-test
+- Physical functional-safety certification

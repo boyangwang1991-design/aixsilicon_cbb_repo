@@ -1,0 +1,113 @@
+schema_version: '1.0'
+release:
+  cbb: aixsilicon:cbb:packet_locking_arbiter
+  version: 0.1.0
+  status: candidate
+  maturity: E0
+  candidate_maturity: E2
+artifacts:
+- path: CHANGELOG.md
+  sha256: e431252d5c665ff40512c96df58ee245cdae28573db6d3921e67a5dd53393868
+- path: LICENSE
+  sha256: 88b03303bb762cf2989b23a7e967c1a7becb72c45191d8e56146aaf6e70ac2d4
+- path: OWNERS
+  sha256: aee7b7e5c26edc2d21a703dc6a9394a167f936834d19a50bc22e99123b81e758
+- path: README.md
+  sha256: 497b4786da1c7e824ea9d6a40de44aeabd08623e9814745aef43e6cf1b07db7e
+- path: behavior.yaml
+  sha256: 74504d874b2d003264c2f521b8bb99829b2905246504f1c396ecfdd4ba46ebea
+- path: cbb.yaml
+  sha256: 6eed77edc75a8d44ab93e19001a5d444c68863bc1653aa07bad51f648d7a9e9a
+- path: characterization/pdk.yaml
+  sha256: f50ab9d6b7a2d8f0e36212e6f01f97632366aec151e553b276882f75a88d4065
+- path: characterization/plan.yaml
+  sha256: 9d346d88d9106940bb068e099a411ecc80c3bd03cca7df45d7554c86ab8933f3
+- path: characterization/report_power.tcl
+  sha256: 6dc0477f06971d8326432e4c408d7c683e23ba02780c725bc4268078934d1af2
+- path: characterization/run_ppa.py
+  sha256: b02c6ff52bd81040caaee7d23d7cc22d4fe3bf48814698b81abf1f6358d98b6f
+- path: characterization/synth.tcl
+  sha256: 70ee4f4570cce0e6c509a1c9b03c969f75a52084d3ac51a8e17d583c589fbd12
+- path: constraints/packet_locking_arbiter.sdc
+  sha256: c100f7840a6c5dc6a73e58e08bfba686cc68009b8230c1e43375c8a612db009e
+- path: docs/cbb_spec.md
+  sha256: 4a3ec9ea1c3e3d00e1594261f9ecb9477e576815bb70c0b340303f13a7b5f587
+- path: docs/design.md
+  sha256: 7bac4bd2302552f60556a834cb1275d489703e07ba71a0b95e8e1c5e786c260a
+- path: docs/detail-design/impl_mask_lock.md
+  sha256: 513d12c7171ee27870c82daf10201f53e9e1aa64df6b33342a8c1f0398042247
+- path: examples/packet_mux.sv
+  sha256: 7108a84c7228e302ff99ba4dfaec44f7c618c583782747acfbcf243812ae5dd4
+- path: fusesoc/aixsilicon_cbb_packet_locking_arbiter.core
+  sha256: a010a217d5aab3400a5932422798cd8df087d02f6351800c9bdf8d688bebf24a
+- path: profiles.yaml
+  sha256: 9abcc1aa420c09ebe657bcca895a61eacac2706a8a0f36b45112ebfde7d9cf99
+- path: reports/acceptance.json
+  sha256: 8a6f5d75ce16e8c0b0e616ecd5586b1c83353c972b79c9bb486aa0880dc49109
+- path: reports/contract-summary.json
+  sha256: 0acb35354048d8c2b36be1ddebde026f3bfaaabac0d8a6b979e2e6c0b020d58d
+- path: reports/formal-summary.json
+  sha256: 27670a2be5bbcb8f0470c1f7daed2c8c70ba3950977eb2a463cf96a2c54c3b39
+- path: reports/ppa-report.md
+  sha256: 60a9414d9f0a32cc49d34c8a80f1cccba493055bd3742c6d4e2698b637279e0b
+- path: reports/ppa-summary.json
+  sha256: a9a7896c44d4ee7a1eda088f1b61eadc33a4695a245e0a467a30c09261e19c33
+- path: reports/ppa-sweep.png
+  sha256: a5fd5f70a8c0ed32a0d509edbd4ba898c230402e77fa334083fcd7121b2dad11
+- path: reports/qualification-report.md
+  sha256: fcdf57d507096528d5d953e67ea7c38e827a35462d7da30d327c81816c29dd44
+- path: reports/quality/gates/packet_locking_arbiter.yaml
+  sha256: 24825d072399f72a6330cd54fbcf9da8cdba8d6b097aa240e4e3e0d9f6a02a49
+- path: reports/verification-lint.json
+  sha256: 552ce67e36a8753317eb641995125b2444c8452ad1dbe44333eba9d37217e000
+- path: reports/verification-mutation.json
+  sha256: 3677bcfd98ebc5daf7c19cb3aacc003772fdfcaca87ce6ba46428412c4090327
+- path: reports/verification-negative.json
+  sha256: 282a9e2672593d5292d11e4d45e25e8d97f19d9867240d93e3457935cb7363ba
+- path: reports/verification-sim.json
+  sha256: fda05fc0e8b061c019c28964b2a5e216a85059409926de47303bd41c92eb9b4d
+- path: rtl/packet_locking_arbiter.sv
+  sha256: c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a
+- path: trace/rtm.yaml
+  sha256: 6e223e306bd4b4645c0722d4fe56d3c8c5d8ed98694409dd342e2cb63ca241e7
+- path: verification/configs/boundary.yaml
+  sha256: 1d04ba219c08333f8b49acfbaa944409c0a16a0061e20d08bfebcadd4e11849b
+- path: verification/configs/mandatory.yaml
+  sha256: e25b666503c8ed0c690dd196c039b86f5f2d9d13129791cdb2c277a1d8b116e4
+- path: verification/configs/manifest.yaml
+  sha256: c4aca87c0d4b15ad425b83470d2945a0dc4c6206c9fb1d7b4c591e781b88ea83
+- path: verification/configs/negative.yaml
+  sha256: 6c49cfcfb4be437656b6c042fab6bf74b3ec7f4c2e8eff3e69c44b570c016519
+- path: verification/configs/pairwise.yaml
+  sha256: 0731ee3ae439f81d3a3d8e65fdd3ceda6b85a86d29a9635cbf1decbd51dd039c
+- path: verification/lint_waivers.md
+  sha256: a50b2befe5fa7168a4293d4d3f94602181cb3cd2b6ba2a4056b4af867df1159c
+- path: verification/plan.yaml
+  sha256: 1896b05ca4d575d224fb123e5f3981575b6fd7f1f1b349edbdd9829730ebfd64
+- path: verification/scripts/finalize.py
+  sha256: 623fcfeb5788d34f570ccf043cadb4049c2e35afff1dfa86092d405773c8d43a
+- path: verification/scripts/generate_core.py
+  sha256: 9a3dff9080309c34e18977e91c887273074ba63e28951b29921b6b16c3c3dda3
+- path: verification/scripts/run_formal.py
+  sha256: 747421e3b0ca3031c567b1308cce4ece32ca2b22dad8f50737d5ffd44d632235
+- path: verification/scripts/run_functional_sim.sh
+  sha256: 21af91f9682007d83fcd76207cc6129056f41e6f05b14f29970ad9648ddeee0b
+- path: verification/scripts/run_static_checks.sh
+  sha256: 0bb65cd012d47386651fecc335c9bdd69f4b48bba70b152e3202784a4ab6ef2c
+- path: verification/scripts/run_verification.py
+  sha256: ef14aa0474e3739f1dd7cf402d328d464b4752b1950852e86e4a5574c1eae1b2
+- path: verification/scripts/verify_candidate.py
+  sha256: 3943578c66c516be85764636fc18b6cd21d6f5b2927825b8f95fe25ac6b983cc
+- path: verification/simulation/pla_tb.sv
+  sha256: c82f6b48b7a213732c95c936cf084d0f61b148b0f7767d42921a5047b0ea5094
+sbom:
+  license: Apache-2.0
+  dependencies:
+  - vlnv: aixsilicon:cbb:fixed_priority_arbiter:0.1.0
+    rtl_sha256: b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd
+    core_sha256: 25749f9ad273d1583b1c94fa497ff774f838738f1b77720f662669c909d81edc
+known_limits:
+- Simulation SVA does not constitute unbounded liveness proof
+- No production consumer signoff
+- Vectorless power estimates
+- No formal publication

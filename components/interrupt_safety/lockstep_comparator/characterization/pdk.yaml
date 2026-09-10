@@ -1,0 +1,157 @@
+schema: cbb-pdk-context-public/0.1
+status: PDK_READY
+path_policy: redacted; exact paths are local-only
+local_snapshot: build/eda/pdk.local.yaml
+nodes:
+- node: CMOS28NM
+  description: CMOS28NM (GF 28nm LP) PDK 环境说明
+  status: OK
+  num_libraries: 5
+  num_timing_views: 70
+  libraries:
+  - library: sc9_cmos28lp_base_hvt
+    process: cmos28lp
+    family: sc9_base_hvt
+    version: r5p0
+    vt: hvt
+    views:
+    - cdl
+    - db
+    - gds2
+    - lef
+    - lib
+    - milkyway
+    - verilog
+    corners:
+    - ff_nominal_min_1p10v_125c
+    - ff_nominal_min_1p10v_m40c
+    - ss_nominal_max_0p90v_125c
+    - ss_nominal_max_0p90v_m40c
+    - tt_nominal_max_1p00v_25c
+  - library: sc9_cmos28lp_base_hvt_c38
+    process: cmos28lp
+    family: sc9_base_hvt_c38
+    version: r0p0
+    vt: hvt
+    views:
+    - cdl
+    - db
+    - gds2
+    - lef
+    - lib
+    - milkyway
+    - verilog
+    corners:
+    - ff_nominal_min_1p10v_125c
+    - ff_nominal_min_1p10v_m40c
+    - ss_nominal_max_0p90v_125c
+    - ss_nominal_max_0p90v_m40c
+    - tt_nominal_max_1p00v_25c
+  - library: sc9_cmos28lp_eco_rvt
+    process: cmos28lp
+    family: sc9_eco_rvt
+    version: r5p0
+    vt: rvt
+    views:
+    - cdl
+    - db
+    - gds2
+    - lef
+    - lib
+    - milkyway
+    - verilog
+    corners:
+    - ff_nominal_min_1p10v_125c
+    - ff_nominal_min_1p10v_m40c
+    - ss_nominal_max_0p90v_125c
+    - ss_nominal_max_0p90v_m40c
+    - tt_nominal_max_1p00v_25c
+  - library: sc9_cmos28lp_pmk_hvt
+    process: cmos28lp
+    family: sc9_pmk_hvt
+    version: r5p0
+    vt: hvt
+    views:
+    - cdl
+    - db
+    - gds2
+    - lef
+    - lib
+    - milkyway
+    - verilog
+    corners:
+    - ff_nominal_min_1p10v_125c
+    - ff_nominal_min_1p10v_1p10v_125c
+    - ff_nominal_min_1p10v_1p10v_m40c
+    - ff_nominal_min_1p10v_m40c
+    - ss_nominal_max_0p90v_0p90v_125c
+    - ss_nominal_max_0p90v_0p90v_m40c
+    - ss_nominal_max_0p90v_125c
+    - ss_nominal_max_0p90v_m40c
+    - tt_nominal_max_1p00v_1p00v_25c
+    - tt_nominal_max_1p00v_25c
+  - library: sc9_cmos28lp_pmk_lvt
+    process: cmos28lp
+    family: sc9_pmk_lvt
+    version: r5p0
+    vt: lvt
+    views:
+    - cdl
+    - db
+    - gds2
+    - lef
+    - lib
+    - milkyway
+    - verilog
+    corners:
+    - ff_nominal_min_1p10v_125c
+    - ff_nominal_min_1p10v_1p10v_125c
+    - ff_nominal_min_1p10v_1p10v_m40c
+    - ff_nominal_min_1p10v_m40c
+    - ss_nominal_max_0p90v_0p90v_125c
+    - ss_nominal_max_0p90v_0p90v_m40c
+    - ss_nominal_max_0p90v_125c
+    - ss_nominal_max_0p90v_m40c
+    - tt_nominal_max_1p00v_1p00v_25c
+    - tt_nominal_max_1p00v_25c
+eda_tools:
+- tool: dc_shell
+  available: true
+- tool: dc_shell-t
+  available: true
+- tool: pt_shell
+  available: false
+- tool: primetime
+  available: false
+- tool: lc_shell
+  available: true
+- tool: formality
+  available: true
+- tool: fm_shell
+  available: true
+- tool: vcs
+  available: true
+- tool: verdi
+  available: true
+- tool: spyglass
+  available: true
+- tool: genus
+  available: false
+- tool: innovus
+  available: false
+- tool: xrun
+  available: false
+- tool: yosys
+  available: false
+- tool: verilator
+  available: false
+- tool: iverilog
+  available: false
+- tool: sta
+  available: false
+synthesis_capable: true
+usage_discipline:
+- 权威视图只在 extracted/*-FB-* bundle；勿重复解压 archive/
+- DC/VCS 避坑见 PDK 根 README 第 7 节（-full64/-timescale/set_driving_cell 等）
+- operating_conditions 名随 corner 变化，set_operating_conditions 必须同步
+- 本文件是工艺上下文快照，不是 PPA 表征结果；正式结论绑定 run_id 证据

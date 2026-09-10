@@ -1,0 +1,331 @@
+{
+  "status": "pass",
+  "evidence_level": "exploratory_fixed_library",
+  "corner": "tt_nominal_max_1p00v_25c",
+  "clock_period_ns": 2.5,
+  "tool": "DC V-2023.12-SP3",
+  "activity": "primary inputs p=0.5 toggle_rate=0.1; clock-derived sequential activity, no SAIF",
+  "rows": [
+    {
+      "run_id": "run-20260910-133744-259546",
+      "point": "point_0",
+      "parameters": {
+        "WIDTH": 32,
+        "LOCKSTEP_DELAY": 2,
+        "LCL_REDUNDANCY_LEVEL": 2,
+        "CMP_PIPE_STAGES": 0
+      },
+      "area_library_units": 829.529981,
+      "registers": 166,
+      "delay_registers_a_b": [
+        64,
+        64
+      ],
+      "all_setup_slack_ns": 0.66,
+      "reg_reg_setup_slack_ns": 1.21,
+      "dynamic_power_uW": 418.5217,
+      "leakage_power_nW": 154.696,
+      "timing_status": "pass",
+      "lint_codes": [
+        "LINT-28",
+        "LINT-31",
+        "LINT-33"
+      ],
+      "report_sha256": {
+        "elaborated_cells.rpt": "24e31739a9bfdc119efae53a6bcfec2cf53d22d185b9b69dbf9f9741f370b8d6",
+        "check_design.rpt": "5b30f34684004a56afaef4d73083d51d70146b20b40a998787b7cb2aaef1c03d",
+        "area.rpt": "1644cf8c11aa5e5cebe2919fd5395e14b1d13eac5a17417384cb63cb0b853831",
+        "timing.rpt": "8e9379d8bfcba5deb4d7688bf818dbaa20d7d054a60793860c56dd2ba231b153",
+        "reg_reg.rpt": "81d3ff129b15dc42fb217450faea4dd3ae0e5a33149066278e3f6480b764ca04",
+        "power.rpt": "bf7a191eef846759690f873c7deea31c9046fc40b91ad383f648cf175f2d4004",
+        "power_hierarchy.rpt": "20d94ceeb9103eeacf3ea0c19a4d8dfb535a6ec2be09d593aa84f3d3382440f1",
+        "clocks.rpt": "e9515734b3c06c7145e6d6bd36bc0f4ed306e3b138fde613e1fe9debf030381f",
+        "constraints.rpt": "fd7629a7343ed1d636377a496a6af8a14ea853b0fe8f00de9931e4e6b4ae7b99",
+        "registers.rpt": "b5a8f7bfbb2217eb5dd0785a5327dd50d7e7473fea00402cf042c04bf03a39f2"
+      },
+      "label": "W32/D2/R2/P0"
+    },
+    {
+      "run_id": "run-20260910-133744-259546",
+      "point": "point_1",
+      "parameters": {
+        "WIDTH": 8,
+        "LOCKSTEP_DELAY": 0,
+        "LCL_REDUNDANCY_LEVEL": 0,
+        "CMP_PIPE_STAGES": 0
+      },
+      "area_library_units": 81.197999,
+      "registers": 9,
+      "delay_registers_a_b": [
+        0,
+        0
+      ],
+      "all_setup_slack_ns": 0.67,
+      "reg_reg_setup_slack_ns": 2.07,
+      "dynamic_power_uW": 30.9477,
+      "leakage_power_nW": 14.772300000000001,
+      "timing_status": "pass",
+      "lint_codes": [
+        "LINT-28",
+        "LINT-29",
+        "LINT-31",
+        "LINT-33",
+        "LINT-52"
+      ],
+      "report_sha256": {
+        "elaborated_cells.rpt": "77ae139d6a8ecdf2103a4e56e9b8173a53da31001c38b68ff36c58ee22437b07",
+        "check_design.rpt": "2bbdcbc051cbabe8ac4d77794df7903e9d811448a217a2d949ed9ea53b671f34",
+        "area.rpt": "0419ddc7bf759bbda70f3366152fb60a375a68e1933b0b1aaabee17ba7228b82",
+        "timing.rpt": "319253551ae7be831360c47f372e39d59bab1e117163f42cf1503338df10c0ed",
+        "reg_reg.rpt": "d84571a5e177df6858d34b0f05bd08cebebf2f1dd27442d01e096e9bfb16ead3",
+        "power.rpt": "588faab2f0a6dcfb3ec19c5b38969436dcdeb5868c114479893b2a03164a02dd",
+        "power_hierarchy.rpt": "c3495ce84c6c7a93e2e71f1e4e1774e267d63bec63b2d3c88d3162b24094a1a6",
+        "clocks.rpt": "6363fa1e9a122529bec719d0e24cce0b0028dbc9f2d8f653453b4c0dfbc188a9",
+        "constraints.rpt": "3c1321372c469724f39c6dc3bcbfbaf674d0056eec55091b1ef8b4d6b1afaa66",
+        "registers.rpt": "2b09cd629a1a27b3f1506501fce7144dcdb4ce8834c62790aca3342ac5c4bd1a"
+      },
+      "label": "W8/D0/R0/P0"
+    },
+    {
+      "run_id": "run-20260910-133744-259546",
+      "point": "point_2",
+      "parameters": {
+        "WIDTH": 32,
+        "LOCKSTEP_DELAY": 2,
+        "LCL_REDUNDANCY_LEVEL": 1,
+        "CMP_PIPE_STAGES": 0
+      },
+      "area_library_units": 610.037989,
+      "registers": 100,
+      "delay_registers_a_b": [
+        64,
+        0
+      ],
+      "all_setup_slack_ns": 0.66,
+      "reg_reg_setup_slack_ns": 1.05,
+      "dynamic_power_uW": 269.0725,
+      "leakage_power_nW": 115.50810000000001,
+      "timing_status": "pass",
+      "lint_codes": [
+        "LINT-28",
+        "LINT-29",
+        "LINT-31",
+        "LINT-33"
+      ],
+      "report_sha256": {
+        "elaborated_cells.rpt": "94143155abfb2a4f01f2fb8a8fb015d64a2a1d4bd14b9a25064fbef6f1697e4b",
+        "check_design.rpt": "fc940789e5a6f258a5272e0565d64aa0e7c1f6d4cac4ac74bc0fa107de6bf76d",
+        "area.rpt": "015dd8438bfea7a54a1b0dd0fb0262a5dda6a6b5a9bcd8602186498c649919ae",
+        "timing.rpt": "199b89b5f43a6569bc05a33a16a9ec2d8464ef9678847295ce709ccfae66d819",
+        "reg_reg.rpt": "cd7cbba7880244d5af92b85491a1456e623c60dfa6c67c190404c6f570ef2b70",
+        "power.rpt": "1183a8f1cd7e51d4e3a8cea3b7c654922e74a04cb4a511ca401200ee4ad36ecc",
+        "power_hierarchy.rpt": "7117165e41f6e92171f86314ab728ba9ce17cc6260ae50fc7ac38d130bec44a3",
+        "clocks.rpt": "60a5334e4277352bc1109f7f52995fa5b2a8fd43bcf1df868a340537f685590a",
+        "constraints.rpt": "7925f98be58141a4a43cb4f9c9deafbd175a6217aca69185eb116beeec18d118",
+        "registers.rpt": "e72295e54f3a3a6ecd1c5a5b839e508b904f4d02bc8f8b6f0e1797b2e2278d77"
+      },
+      "label": "W32/D2/R1/P0"
+    },
+    {
+      "run_id": "run-20260910-133744-259546",
+      "point": "point_3",
+      "parameters": {
+        "WIDTH": 128,
+        "LOCKSTEP_DELAY": 2,
+        "LCL_REDUNDANCY_LEVEL": 2,
+        "CMP_PIPE_STAGES": 0
+      },
+      "area_library_units": 3227.795924,
+      "registers": 646,
+      "delay_registers_a_b": [
+        256,
+        256
+      ],
+      "all_setup_slack_ns": 0.39,
+      "reg_reg_setup_slack_ns": 0.98,
+      "dynamic_power_uW": 1636.7,
+      "leakage_power_nW": 604.3138,
+      "timing_status": "pass",
+      "lint_codes": [
+        "LINT-28",
+        "LINT-31",
+        "LINT-33"
+      ],
+      "report_sha256": {
+        "elaborated_cells.rpt": "b3eee9fa8c174f6f08bbb9a7a1a49591131f952d4a8ff44bd94cc3c1b865a2eb",
+        "check_design.rpt": "ed31646c56d2ad7f9628b2a8e390d1167059ed0f54f20c59914845ed3bbdcc56",
+        "area.rpt": "189fb22d8f2bba9b160866bab66f90b165e8b4d68d04c02b6c101ac6f1246149",
+        "timing.rpt": "ff6b0153f7a6f261fd09c1e3eb0d075cc87e6194d07a0e54d7520694a708584b",
+        "reg_reg.rpt": "7921fbeab1afd27bec2c39bfdab5dcf1dae63b5ce44cb4aa2dd5582ad98fdbd9",
+        "power.rpt": "2952aa3708e696e24dd22c7973e9b498e376911adfeb2fdb58360abe90526932",
+        "power_hierarchy.rpt": "7b4e3e753420832d859435a859c8f2bba0c481c00b0f071bb46bbaca7f4adb4b",
+        "clocks.rpt": "8782b058c39ebb5fdcda7f72ff801896477417adaf34b388bda79af8072235c3",
+        "constraints.rpt": "6d6539cc16a353f20fc0733ac969102e1f205bbd24edf091bbae51519a7550e4",
+        "registers.rpt": "238bf089419743b479baf9596068f5a0f4e12c10d79448a46afe20eaa311fd5d"
+      },
+      "label": "W128/D2/R2/P0"
+    },
+    {
+      "run_id": "run-20260910-133744-259546",
+      "point": "point_4",
+      "parameters": {
+        "WIDTH": 128,
+        "LOCKSTEP_DELAY": 2,
+        "LCL_REDUNDANCY_LEVEL": 2,
+        "CMP_PIPE_STAGES": 1
+      },
+      "area_library_units": 4097.807888,
+      "registers": 902,
+      "delay_registers_a_b": [
+        256,
+        256
+      ],
+      "all_setup_slack_ns": 1.25,
+      "reg_reg_setup_slack_ns": 1.56,
+      "dynamic_power_uW": 2100.6000000000004,
+      "leakage_power_nW": 747.7609,
+      "timing_status": "pass",
+      "lint_codes": [
+        "LINT-28",
+        "LINT-31",
+        "LINT-33"
+      ],
+      "report_sha256": {
+        "elaborated_cells.rpt": "8db757aaa74c7729436feacf95b5a1cae14498419a5bc630c4a9c68785e9f057",
+        "check_design.rpt": "a5bd8eaa62bc7b1f7c4621693bad9ee170a579e4c95e1540afd27aa7a1849646",
+        "area.rpt": "aa95948ae9aeca1ac9ddcb17271ebfe7cb457494262b817bee8099317a964461",
+        "timing.rpt": "464e0ec4d50038abf45904178fe327d70556c5db0bb70cf4ee837f0e71b90edb",
+        "reg_reg.rpt": "a43db9e141d37cd783cd2d1aa750fdad5935cf0f8ce518050b931a1a3752545c",
+        "power.rpt": "4e571aa4caee397579a916bb3430fb55f28152f1ae06d67886ba397102e69925",
+        "power_hierarchy.rpt": "2124b86c8de78f628b92ab7107bad0d5dfc19ccb50e717caa189e3dcf76f01f2",
+        "clocks.rpt": "ae4b028e4e7bcf56958ff9105a8e5c0894e4993339fd3719320f67e0e519c9ca",
+        "constraints.rpt": "17104c47053459d7b3ddfc5dc5387b3b9af50770c5e05980496e89a103f4b755",
+        "registers.rpt": "ecf4e71ccb8371bf7c19811f6df3439b0674d249cf087ccce3aeed5b3bb255f9"
+      },
+      "label": "W128/D2/R2/P1"
+    },
+    {
+      "run_id": "run-20260910-133744-259546",
+      "point": "point_5",
+      "parameters": {
+        "WIDTH": 32,
+        "LOCKSTEP_DELAY": 0,
+        "LCL_REDUNDANCY_LEVEL": 2,
+        "CMP_PIPE_STAGES": 0
+      },
+      "area_library_units": 523.106998,
+      "registers": 34,
+      "delay_registers_a_b": [
+        0,
+        0
+      ],
+      "all_setup_slack_ns": 0.67,
+      "reg_reg_setup_slack_ns": 2.07,
+      "dynamic_power_uW": 167.7447,
+      "leakage_power_nW": 103.31200000000001,
+      "timing_status": "pass",
+      "lint_codes": [
+        "LINT-28",
+        "LINT-29",
+        "LINT-31",
+        "LINT-33"
+      ],
+      "report_sha256": {
+        "elaborated_cells.rpt": "3fdb1929c1337afb6ab08e8ff22992a2c1aba9bb757ca3842863f63531fd250a",
+        "check_design.rpt": "9d3a7989696e2ac58907034085a81a1e62c93792182a5752e57614974475ee0c",
+        "area.rpt": "426fef4e27cd31d7bddd5c0648ce7f723a267f3c68e02b5f269b0f54113f5e20",
+        "timing.rpt": "309f813848a4509834d0359d85e295fb4dca20b116c0ca366c5f55c09f132fdb",
+        "reg_reg.rpt": "f1f87fb230c875737ca334344cd47a91f82e11011e40d792a851f177f77a7784",
+        "power.rpt": "1dfe86cfce4ef29fb159c473cf543f3f897a03a206407bfb6aa062097190cb40",
+        "power_hierarchy.rpt": "a085e44c4f40dc3684cc8d71bd3a2c5dddd509975917bdbfe35233b47bcc8a7f",
+        "clocks.rpt": "751850eba74fa8d010947d4b310b053e8dcdfd35cf66c6a985e3daf6092128b5",
+        "constraints.rpt": "27172f6df46a2896d638f0eefc54df6a20e1fda9d6ecf2bc4343746526da53b2",
+        "registers.rpt": "ae95b2e591b75fc7a55878748997cd4601d8cfe1e3df935f63d2ef1fff04e576"
+      },
+      "label": "W32/D0/R2/P0"
+    },
+    {
+      "run_id": "run-20260910-134152-503471",
+      "point": "point_0",
+      "parameters": {
+        "WIDTH": 32,
+        "LOCKSTEP_DELAY": 2,
+        "LCL_REDUNDANCY_LEVEL": 2,
+        "CMP_PIPE_STAGES": 0,
+        "STATIC_COMPARE_MASK": 0
+      },
+      "area_library_units": 444.716984,
+      "registers": 132,
+      "delay_registers_a_b": [
+        64,
+        64
+      ],
+      "all_setup_slack_ns": 1.61,
+      "reg_reg_setup_slack_ns": 2.13,
+      "dynamic_power_uW": 299.6595,
+      "leakage_power_nW": 78.22510000000001,
+      "timing_status": "pass",
+      "lint_codes": [
+        "LINT-2",
+        "LINT-28",
+        "LINT-31",
+        "LINT-33",
+        "LINT-52",
+        "LINT-8"
+      ],
+      "report_sha256": {
+        "elaborated_cells.rpt": "ed74f754461a6c9432b3decd55df43811c98c35165f4e320a2073177c91d5524",
+        "check_design.rpt": "219494b258b65bade60c16e9a3b4e4fb5e2a7c939850d71b7491a5db13767461",
+        "area.rpt": "515c21eeba2072aebb705d79e1fda588dd5774613c1b90bba8cb8fb040015edf",
+        "timing.rpt": "a66f0c9473e5659132a1bac9071213669ab411a7de81a4286afc146542336091",
+        "reg_reg.rpt": "779be0ea8a91e44b0226941ff19b9f075127f2dd6c886a0426bf2ee4c5899733",
+        "power.rpt": "6dd1ce87f8f3d027fd1796db529ad89f31a8c84bded5c6f25c526f0a9d36ad64",
+        "power_hierarchy.rpt": "0249c59df1201c08d080d9bdbf877797e70073095a431ad2d6d09254b99df41a",
+        "clocks.rpt": "b9caf28d0f7b93ab5af10b459ae0b84a7d36b70300bb95950b2be60addecaa00",
+        "constraints.rpt": "c947b26de235cd6da9ba5c152644deda4816fdee1174b676bfa26067d1f4f85b",
+        "registers.rpt": "11ea01cd3fc50b97a0a60bdcb951149c8f5d9d48dbf20c343bc3b0046566a676"
+      },
+      "label": "W32/D2/R2/P0/MASK0"
+    },
+    {
+      "run_id": "run-20260910-134152-503471",
+      "point": "point_1",
+      "parameters": {
+        "WIDTH": 32,
+        "LOCKSTEP_DELAY": 2,
+        "LCL_REDUNDANCY_LEVEL": 2,
+        "CMP_PIPE_STAGES": 0,
+        "SUPPORT_FAULT_INJECTION": 0
+      },
+      "area_library_units": 646.307982,
+      "registers": 166,
+      "delay_registers_a_b": [
+        64,
+        64
+      ],
+      "all_setup_slack_ns": 0.91,
+      "reg_reg_setup_slack_ns": 1.22,
+      "dynamic_power_uW": 365.81769999999995,
+      "leakage_power_nW": 113.1039,
+      "timing_status": "pass",
+      "lint_codes": [
+        "LINT-28",
+        "LINT-31",
+        "LINT-33"
+      ],
+      "report_sha256": {
+        "elaborated_cells.rpt": "6e55f15bcd9f60ab6e190bfd7b3f3e91789fa6d3aad978bd5e2adaadb5a4b91a",
+        "check_design.rpt": "5f42c10a8f04f7a533182d25650ccaa8d01ea30bdf3b9afd960cd1c2cafe2e49",
+        "area.rpt": "6c799e614196a670ba354d16231b0f7e8a1a5b8aafd21145a49a2778d17fb9ee",
+        "timing.rpt": "8b9e7a5b9dc7dce615485605faa0f44a2a0f84be8067c3305b2c3f569ad7f92b",
+        "reg_reg.rpt": "b30a1ac8e0901ebf9d21967dfbe7d3d2a7efbeb43f3f385f4fb0b0617227ddce",
+        "power.rpt": "5f8b446fa43c06a0877edc296485143bceced63dbb22564fef64e34ea17729a6",
+        "power_hierarchy.rpt": "680a533ecc58eccd99aa721470a11658a3eacbcad59b2d4bb483583560dc26b3",
+        "clocks.rpt": "c55ad52834b97d7bca60c1009a019142d461a30e1cfd92f79d9038f83c90b3c5",
+        "constraints.rpt": "2476e730e4d3ad7a910d6a4528e81fb5bac82cf31735e2cd6cd1716360311d02",
+        "registers.rpt": "654fda1c95b3831344c47a2e0fb62864949232f9ced4f0ed531d352f7fff861d"
+      },
+      "label": "W32/D2/R2/P0/FI0"
+    }
+  ]
+}

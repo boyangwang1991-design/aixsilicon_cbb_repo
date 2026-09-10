@@ -1,0 +1,152 @@
+cbb: packet_locking_arbiter
+requirements:
+- id: REQ-001
+  type: requirement
+  description: Grant is one-hot-or-zero; reset forces grant zero; initially requester
+    zero has highest priority.
+  properties:
+  - PROP-PLA_MUTEX-001
+  tests:
+  - tc_reset_mutex
+  configs:
+  - cfg_num_req4_lock_mode0_len_w8
+  - cfg_num_req1_lock_mode0_len_w8
+  evidence: []
+- id: REQ-002
+  type: requirement
+  description: First visible grant reserves owner across sampled backpressure and
+    request bubbles; no competing source may interleave.
+  properties:
+  - PROP-PLA_HOLD-002
+  tests:
+  - tc_stall_bubble
+  configs:
+  - cfg_num_req4_lock_mode0_len_w8
+  - cfg_num_req4_lock_mode1_len_w8
+  evidence: []
+- id: REQ-003
+  type: requirement
+  description: EOP mode releases only on ready_i and selected req_i and selected eop_i;
+    single-beat packets release immediately.
+  properties:
+  - PROP-PLA_EOP-003
+  tests:
+  - tc_eop
+  - tc_single_beat
+  configs:
+  - cfg_num_req4_lock_mode0_len_w8
+  - cfg_num_req3_lock_mode0_len_w8
+  evidence: []
+- id: REQ-004
+  type: requirement
+  description: Length mode samples selected length on reservation, counts accepted
+    beats including first beat, ignores EOP, and releases exactly at sampled length.
+  properties:
+  - PROP-PLA_LENGTH-004
+  tests:
+  - tc_length
+  - tc_length_stall
+  configs:
+  - cfg_num_req4_lock_mode1_len_w8
+  evidence: []
+- id: REQ-005
+  type: requirement
+  description: Priority rotates only after packet completion to successor of owner
+    modulo NUM_REQ; consecutive packets have no required bubble.
+  properties:
+  - PROP-PLA_RR-005
+  tests:
+  - tc_rr_order
+  - tc_back_to_back
+  - tc_random
+  configs:
+  - cfg_num_req3_lock_mode0_len_w8
+  - cfg_num_req64_lock_mode0_len_w8
+  evidence: []
+- id: REQ-006
+  type: requirement
+  description: With eventual owner progress and completion, a continuously eligible
+    requester waits at most NUM_REQ-1 other completed packets.
+  properties:
+  - PROP-PLA_FAIR-006
+  tests:
+  - tc_fairness
+  configs:
+  - cfg_num_req4_lock_mode0_len_w8
+  - cfg_num_req4_lock_mode1_len_w8
+  evidence: []
+- id: REQ-007
+  type: requirement
+  description: Length zero is ineligible before reservation in length mode; legal
+    contenders continue; invalid elaboration parameters are rejected.
+  properties: []
+  tests:
+  - tc_zero_length
+  - tc_negative_params
+  configs:
+  - cfg_num_req4_lock_mode1_len_w8
+  - cfg_num_req0_lock_mode0_len_w8
+  - cfg_num_req65_lock_mode0_len_w8
+  - cfg_num_req4_lock_mode2_len_w8
+  - cfg_num_req4_lock_mode0_len_w0
+  - cfg_num_req4_lock_mode0_len_w17
+  evidence: []
+- id: INV-001
+  type: requirement
+  description: fire = ready_i and OR(grant_o and req_i); grant denotes ownership,
+    not accepted data.
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-002
+  type: requirement
+  description: Locked owner is unchanged until packet completion or reset, including
+    cycles with its req_i low.
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-003
+  type: requirement
+  description: Idle request eligibility is req_i and (LOCK_MODE equals zero or packet
+    length is nonzero).
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-001
+  type: requirement
+  description: All inputs are synchronous 2-state values; reset deassertion is synchronized
+    externally.
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-002
+  type: requirement
+  description: Unaccepted valid beat and its EOP metadata remain stable; packet length
+    is stable until reservation. After a beat is accepted, owner may insert arbitrary
+    valid bubbles.
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-003
+  type: requirement
+  description: Consumer muxes payload using grant_o and gates outgoing valid with
+    OR(grant_o and req_i); ready_i reflects downstream acceptance capacity without
+    a combinational loop.
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-004
+  type: requirement
+  description: Fairness requires eventual downstream acceptance, resumed owner valid,
+    and EOP or sufficient declared-length beats; no cycle-bound or byte-weight fairness
+    is promised.
+  properties: []
+  tests: []
+  configs: []
+  evidence: []

@@ -1,0 +1,304 @@
+scope: sampled_candidate_domains
+domains:
+  CMP_PIPE_STAGES:
+  - 0
+  - 1
+  LCL_REDUNDANCY_LEVEL:
+  - 2
+  - 0
+  - 1
+  LOCKSTEP_DELAY:
+  - 2
+  - 0
+  - 1
+  - 3
+  STARTUP_GUARD_CYCLES:
+  - 0
+  - 1
+  - 3
+  STATIC_COMPARE_MASK:
+  - -1
+  - 0
+  - 1
+  SUPPORT_FAULT_INJECTION:
+  - true
+  - false
+  SUPPORT_RUNTIME_MASK:
+  - true
+  - false
+  SUPPORT_VALID_MASK:
+  - true
+  - false
+  WIDTH:
+  - 32
+  - 1
+  - 8
+  - 128
+missing_pair_feasibility: unknown
+pairs:
+- parameters:
+  - CMP_PIPE_STAGES
+  - LCL_REDUNDANCY_LEVEL
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - CMP_PIPE_STAGES
+  - LOCKSTEP_DELAY
+  candidate_pairs: 8
+  covered_pairs: 7
+  missing_pairs:
+  - CMP_PIPE_STAGES: 1
+    LOCKSTEP_DELAY: 3
+- parameters:
+  - CMP_PIPE_STAGES
+  - STARTUP_GUARD_CYCLES
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - CMP_PIPE_STAGES
+  - STATIC_COMPARE_MASK
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - CMP_PIPE_STAGES
+  - SUPPORT_FAULT_INJECTION
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - CMP_PIPE_STAGES
+  - SUPPORT_RUNTIME_MASK
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - CMP_PIPE_STAGES
+  - SUPPORT_VALID_MASK
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - CMP_PIPE_STAGES
+  - WIDTH
+  candidate_pairs: 8
+  covered_pairs: 7
+  missing_pairs:
+  - CMP_PIPE_STAGES: 1
+    WIDTH: 128
+- parameters:
+  - LCL_REDUNDANCY_LEVEL
+  - LOCKSTEP_DELAY
+  candidate_pairs: 12
+  covered_pairs: 10
+  missing_pairs:
+  - LCL_REDUNDANCY_LEVEL: 0
+    LOCKSTEP_DELAY: 3
+  - LCL_REDUNDANCY_LEVEL: 1
+    LOCKSTEP_DELAY: 3
+- parameters:
+  - LCL_REDUNDANCY_LEVEL
+  - STARTUP_GUARD_CYCLES
+  candidate_pairs: 9
+  covered_pairs: 9
+  missing_pairs: []
+- parameters:
+  - LCL_REDUNDANCY_LEVEL
+  - STATIC_COMPARE_MASK
+  candidate_pairs: 9
+  covered_pairs: 9
+  missing_pairs: []
+- parameters:
+  - LCL_REDUNDANCY_LEVEL
+  - SUPPORT_FAULT_INJECTION
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - LCL_REDUNDANCY_LEVEL
+  - SUPPORT_RUNTIME_MASK
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - LCL_REDUNDANCY_LEVEL
+  - SUPPORT_VALID_MASK
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - LCL_REDUNDANCY_LEVEL
+  - WIDTH
+  candidate_pairs: 12
+  covered_pairs: 10
+  missing_pairs:
+  - LCL_REDUNDANCY_LEVEL: 0
+    WIDTH: 128
+  - LCL_REDUNDANCY_LEVEL: 1
+    WIDTH: 128
+- parameters:
+  - LOCKSTEP_DELAY
+  - STARTUP_GUARD_CYCLES
+  candidate_pairs: 12
+  covered_pairs: 10
+  missing_pairs:
+  - LOCKSTEP_DELAY: 3
+    STARTUP_GUARD_CYCLES: 1
+  - LOCKSTEP_DELAY: 3
+    STARTUP_GUARD_CYCLES: 3
+- parameters:
+  - LOCKSTEP_DELAY
+  - STATIC_COMPARE_MASK
+  candidate_pairs: 12
+  covered_pairs: 10
+  missing_pairs:
+  - LOCKSTEP_DELAY: 3
+    STATIC_COMPARE_MASK: 0
+  - LOCKSTEP_DELAY: 3
+    STATIC_COMPARE_MASK: 1
+- parameters:
+  - LOCKSTEP_DELAY
+  - SUPPORT_FAULT_INJECTION
+  candidate_pairs: 8
+  covered_pairs: 7
+  missing_pairs:
+  - LOCKSTEP_DELAY: 3
+    SUPPORT_FAULT_INJECTION: false
+- parameters:
+  - LOCKSTEP_DELAY
+  - SUPPORT_RUNTIME_MASK
+  candidate_pairs: 8
+  covered_pairs: 7
+  missing_pairs:
+  - LOCKSTEP_DELAY: 3
+    SUPPORT_RUNTIME_MASK: false
+- parameters:
+  - LOCKSTEP_DELAY
+  - SUPPORT_VALID_MASK
+  candidate_pairs: 8
+  covered_pairs: 7
+  missing_pairs:
+  - LOCKSTEP_DELAY: 3
+    SUPPORT_VALID_MASK: false
+- parameters:
+  - LOCKSTEP_DELAY
+  - WIDTH
+  candidate_pairs: 16
+  covered_pairs: 11
+  missing_pairs:
+  - LOCKSTEP_DELAY: 0
+    WIDTH: 128
+  - LOCKSTEP_DELAY: 1
+    WIDTH: 128
+  - LOCKSTEP_DELAY: 3
+    WIDTH: 1
+  - LOCKSTEP_DELAY: 3
+    WIDTH: 8
+  - LOCKSTEP_DELAY: 3
+    WIDTH: 128
+- parameters:
+  - STARTUP_GUARD_CYCLES
+  - STATIC_COMPARE_MASK
+  candidate_pairs: 9
+  covered_pairs: 9
+  missing_pairs: []
+- parameters:
+  - STARTUP_GUARD_CYCLES
+  - SUPPORT_FAULT_INJECTION
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - STARTUP_GUARD_CYCLES
+  - SUPPORT_RUNTIME_MASK
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - STARTUP_GUARD_CYCLES
+  - SUPPORT_VALID_MASK
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - STARTUP_GUARD_CYCLES
+  - WIDTH
+  candidate_pairs: 12
+  covered_pairs: 10
+  missing_pairs:
+  - STARTUP_GUARD_CYCLES: 1
+    WIDTH: 128
+  - STARTUP_GUARD_CYCLES: 3
+    WIDTH: 128
+- parameters:
+  - STATIC_COMPARE_MASK
+  - SUPPORT_FAULT_INJECTION
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - STATIC_COMPARE_MASK
+  - SUPPORT_RUNTIME_MASK
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - STATIC_COMPARE_MASK
+  - SUPPORT_VALID_MASK
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - STATIC_COMPARE_MASK
+  - WIDTH
+  candidate_pairs: 12
+  covered_pairs: 10
+  missing_pairs:
+  - STATIC_COMPARE_MASK: 0
+    WIDTH: 128
+  - STATIC_COMPARE_MASK: 1
+    WIDTH: 128
+- parameters:
+  - SUPPORT_FAULT_INJECTION
+  - SUPPORT_RUNTIME_MASK
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - SUPPORT_FAULT_INJECTION
+  - SUPPORT_VALID_MASK
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - SUPPORT_FAULT_INJECTION
+  - WIDTH
+  candidate_pairs: 8
+  covered_pairs: 7
+  missing_pairs:
+  - SUPPORT_FAULT_INJECTION: false
+    WIDTH: 128
+- parameters:
+  - SUPPORT_RUNTIME_MASK
+  - SUPPORT_VALID_MASK
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - SUPPORT_RUNTIME_MASK
+  - WIDTH
+  candidate_pairs: 8
+  covered_pairs: 7
+  missing_pairs:
+  - SUPPORT_RUNTIME_MASK: false
+    WIDTH: 128
+- parameters:
+  - SUPPORT_VALID_MASK
+  - WIDTH
+  candidate_pairs: 8
+  covered_pairs: 7
+  missing_pairs:
+  - SUPPORT_VALID_MASK: false
+    WIDTH: 128

@@ -1,0 +1,13 @@
+set: mandatory
+configs:
+- config_id: cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
+  parameters:
+    WIDTH: 32
+    LOCKSTEP_DELAY: 2
+    STARTUP_GUARD_CYCLES: 0
+    CMP_PIPE_STAGES: 0
+    LCL_REDUNDANCY_LEVEL: 2
+    STATIC_COMPARE_MASK: -1
+    SUPPORT_RUNTIME_MASK: true
+    SUPPORT_VALID_MASK: true
+    SUPPORT_FAULT_INJECTION: true

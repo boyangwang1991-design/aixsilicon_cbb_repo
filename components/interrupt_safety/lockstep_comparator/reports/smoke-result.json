@@ -1,0 +1,16 @@
+{
+  "run_id": "run-20260910-133310-314907",
+  "status": "pass",
+  "cases": 1,
+  "passed": 1,
+  "checks": 1484,
+  "input_sha256": {
+    "lockstep_comparator_logic.sv": "faa056fa9f67c407a9130fe8b4ebfc724ad2aa3f18d64a48b6f7db7e5968eb08",
+    "lcl_tester.sv": "c917c3d8a354174658ac40b0969a8e4618cdcbc58a5f78baa0f5630cac70219b",
+    "run_checks.py": "c4eeec2d1178ae63c8fc545f0d2a89a9b9970bb0adbbd6036f1f4681ddaa01fc"
+  },
+  "logs": {
+    "compile": "6f4446b710901c66ae46f0cafed8437be243681281e9f3b4d89fbb0381bb67af",
+    "simulation": "3dbac17f17272e2b35dc6902960cecab30524c3662af942b9aad1f203a0e23bc"
+  }
+}

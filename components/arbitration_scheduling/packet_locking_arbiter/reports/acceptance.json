@@ -1,0 +1,22 @@
+{
+  "status": "accepted_local_candidate",
+  "rtl_sha256": "c764bfe13fe83f360abe3b811acac45bd7c5ab6f5ae416b32794bd2c79e0855a",
+  "dependency_sha256": "b7094f27735c6e6c5bf83cbd95b6e01df81ceae56f5fe06655a36fab48d941cd",
+  "configurations": 29,
+  "seeds_per_configuration": 3,
+  "cycles": 1029075,
+  "negative_rejected": 5,
+  "mutations_killed": 4,
+  "formal_equivalence_points": 10,
+  "synthesis_points": 10,
+  "all_points_meet_400mhz_constraints": true,
+  "consumer": "Real synthesizable example mux, not production axis_mux or stream_interconnect",
+  "limitations": [
+    "Simulation SVA does not constitute unbounded liveness proof",
+    "No production consumer signoff",
+    "Vectorless power estimates",
+    "No formal publication"
+  ],
+  "fusesoc_log_sha256": "86e7b65192866705e7e70da67dfad4f0b5fb290ef46255fdbdbea2ee84b41e7a",
+  "dependency_regression_log_sha256": "b97e03e4a4984000dca54d554e41a79c0db2b958893bc321a068f23a3b56e937"
+}
