@@ -48,6 +48,12 @@ def main():
     for row in rows:
         p=row['parameters'];row['label']=f"W{p['WIDTH']}/D{p['LOCKSTEP_DELAY']}/R{p['LCL_REDUNDANCY_LEVEL']}/P{p['CMP_PIPE_STAGES']}"+('/MASK0' if p.get('STATIC_COMPARE_MASK')==0 else '')+('/FI0' if p.get('SUPPORT_FAULT_INJECTION')==0 else '')
     result={'status':'pass' if all(r['timing_status']=='pass' for r in rows) else 'fail','evidence_level':'exploratory_fixed_library','corner':'tt_nominal_max_1p00v_25c','clock_period_ns':2.5,'tool':'DC V-2023.12-SP3','activity':'primary inputs p=0.5 toggle_rate=0.1; clock-derived sequential activity, no SAIF','rows':rows}
+    comparable=[r for r in rows if r['parameters']['WIDTH']==128]
+    def objectives(r):
+        return (r['area_library_units'],r['dynamic_power_uW'],r['leakage_power_nW'],r['parameters']['CMP_PIPE_STAGES'],-r['reg_reg_setup_slack_ns'])
+    result['wide_128_pareto']=[r['label'] for r in comparable if not any(
+        all(a<=b for a,b in zip(objectives(other),objectives(r))) and any(a<b for a,b in zip(objectives(other),objectives(r)))
+        for other in comparable if other is not r)]
     (ROOT/'reports/ppa-summary.json').write_text(json.dumps(result,indent=2)+'\n')
     os.environ.setdefault('MPLCONFIGDIR','/tmp/saf005-matplotlib')
     import matplotlib;matplotlib.use('Agg')
@@ -74,6 +80,7 @@ def main():
       'LINT-28 为参数裁剪后的未用端口；LINT-29 为零延迟直通；LINT-31 为 fail-safe 公式优化后的同值输出；LINT-33 为多个未用端口接同一常量。详见 lint 说明。',
       '不同冗余级别和掩码配置具有不同安全覆盖，不能在单一 Pareto 集中互相替代。',
       'W128/R2/D2 的 P0/P1 可比较面积、功耗与时序，但 P1 额外增加一个周期检测延迟，选择需满足系统故障反应时间。',
+      '该组以面积、动态/漏电功耗、检测延迟和寄存器间裕量形成多目标比较，P0/P1 均未被另一配置支配，均在本次两点 Pareto 前沿。',
       '默认安全配置保留 R2/D2/P0；R0 仅用于非安全调试。静态全 mask 用于证明裁剪，不可作为安全检测配置。',
       '', '## 可复现性','','运行目录 ID、每点参数与全部报告 SHA-256 见 [ppa-summary.json](ppa-summary.json)。原始库路径和商业工具日志仅保留在本地 build/eda。']
     (ROOT/'reports/ppa-report.md').write_text('\n'.join(lines)+'\n')

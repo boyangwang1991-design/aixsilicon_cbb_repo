@@ -1,0 +1,27 @@
+skill_result:
+  task_id: AIX-CBB-0005
+  cbb_id: aixsilicon:cbb:lockstep_comparator
+  skill: cbb-development-suite
+  status: needs_verification
+  execution_mode: full-flow
+  delivery_scope: local_implementation_candidate
+  rtl_sha256: 8b6f6c562f92706eeb491a3fd3348369b81c807e90e4a0a4af5b92317aa02838
+  authorization: 本会话用户要求实现 SAF-005，并记录 skill 改进点；随后要求中文 Markdown 文档。
+  completed:
+    - 规格与详设先行、严格契约/RTM 检查
+    - 参数化 RTL、SVA、独立通道综合边界与 FuseSoC Core
+    - 147 个配置、220794 次功能检查
+    - 10 项 VCS 负向/XZ/变异测试、8 个宿主负向配置
+    - 8 点 DC 表征及 Formality 等价、映射结构核验
+    - 独立 Core setup/build/run
+    - 工作区 make check 124 项与 pre-commit、skill 工具 12 项回归
+  evidence_refs:
+    - reports/verification-report.md
+    - reports/ppa-report.md
+    - reports/structure-result.json
+    - reports/quality/gates/lockstep_comparator.yaml
+  limitations:
+    - 配置覆盖为已声明采样域，并非全整数域穷尽证明。
+    - PPA 为固定库概率活动率探索性结果，无项目 SAIF。
+    - 未执行物理独立性、系统安全资格或 Catalog 发布。
+  next_action: Workflow 按实际证据审查候选；真实消费者与物理安全签核另行开展。

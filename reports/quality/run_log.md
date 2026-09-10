@@ -170,3 +170,5 @@
     原始证据：build/eda/ppa/run-20260910-133744-259546；PPA 指标提取及质量判定仍需完成，不将命令成功等同于 G6 PASS。
 - `2026-09-10 13:48:00` | **verify** | G4 | SAF-005 最终回归 147/147 配置、220794 次检查，10 项 VCS 对抗性测试、8 个宿主负向点、8 点 Formality 等价和独立 FuseSoC 构建通过 | 结果(PASS)
     所有结果绑定 run_id/hash；采样域值对补齐，非全整数域穷尽证明。make check 124 项测试及 pre-commit 全通过。
+- `2026-09-10 13:50:27` | **observe** | SAF-005 本地候选交付完成；中文 Markdown 规格/设计/报告、15 项 skill 复盘、147 配置回归、8 点综合等价与 Core 独立构建均已归档 | 结果(PASS)
+    严格 check/rtm/gate、registry 校验及 README 刷新通过。make check 124 项、pre-commit 与 suite 工具 12 项回归通过。G3/G6 限定解释已记录；G7/G8 未发布。最终 RTL SHA-256=8b6f6c562f92706eeb491a3fd3348369b81c807e90e4a0a4af5b92317aa02838。
