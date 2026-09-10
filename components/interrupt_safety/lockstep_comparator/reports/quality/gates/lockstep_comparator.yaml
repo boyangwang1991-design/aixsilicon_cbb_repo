@@ -1,0 +1,39 @@
+cbb: lockstep_comparator
+updated: '2026-09-10T13:48:39Z'
+gates:
+  G0:
+    status: pass
+    evidence: docs/intake.md,docs/cbb_spec.md,docs/detail-design/impl_redundant.md
+    note: 规格严格检查及详设完成；沿用用户本地实现授权。
+  G1:
+    status: pass
+    evidence: docs/intake.md,docs/cbb_spec.md,docs/detail-design/impl_redundant.md
+    note: 规格严格检查及详设完成；沿用用户本地实现授权。
+  G2:
+    status: pass
+    evidence: docs/intake.md,docs/cbb_spec.md,docs/detail-design/impl_redundant.md
+    note: 规格严格检查及详设完成；沿用用户本地实现授权。
+  G3:
+    status: pass_with_waiver
+    evidence: reports/verification-report.md,reports/verification-result.json,reports/adversarial-result.json,reports/negative-config-result.json,reports/core-result.json,reports/structure-result.json,verification/lint_waivers.md
+    note: 本地验证候选；静态限定解释见 lint 表。147 配置采样域覆盖，不宣称全整数域证明。
+  G4:
+    status: pass
+    evidence: reports/verification-report.md,reports/verification-result.json,reports/adversarial-result.json,reports/negative-config-result.json,reports/core-result.json,reports/structure-result.json,verification/lint_waivers.md
+    note: 本地验证候选；静态限定解释见 lint 表。147 配置采样域覆盖，不宣称全整数域证明。
+  G5:
+    status: pass
+    evidence: reports/verification-report.md,reports/verification-result.json,reports/adversarial-result.json,reports/negative-config-result.json,reports/core-result.json,reports/structure-result.json,verification/lint_waivers.md
+    note: 本地验证候选；静态限定解释见 lint 表。147 配置采样域覆盖，不宣称全整数域证明。
+  G6:
+    status: pass_with_waiver
+    evidence: reports/ppa-report.md,reports/ppa-summary.json,reports/formal-result.json,reports/formal-extra-result.json
+    note: 8 点探索性综合及等价通过；未锁定发布基线，无物理安全签核，G7/G8 不在本轮发布范围。
+  G7:
+    status: not_applicable
+    evidence: reports/ppa-report.md,reports/ppa-summary.json,reports/formal-result.json,reports/formal-extra-result.json
+    note: 8 点探索性综合及等价通过；未锁定发布基线，无物理安全签核，G7/G8 不在本轮发布范围。
+  G8:
+    status: not_applicable
+    evidence: reports/ppa-report.md,reports/ppa-summary.json,reports/formal-result.json,reports/formal-extra-result.json
+    note: 8 点探索性综合及等价通过；未锁定发布基线，无物理安全签核，G7/G8 不在本轮发布范围。

@@ -12,46 +12,49 @@ configs:
 - negative
 properties:
 - id: PROP-LCL_SAFE-001
-  status: planned
+  status: implemented
   acceptance: Safety output equals OR of both fault classes.
 - id: PROP-LCL_RESET-002
-  status: planned
+  status: implemented
   acceptance: Live status is zero during reset.
 - id: PROP-LCL_KNOWN-003
-  status: planned
+  status: implemented
   acceptance: Qualified unmasked operands have no unknown bits.
 testcases:
 - id: tc_alignment
-  status: planned
+  status: implemented
   acceptance: Delay fill, zero-delay bypass, guard and reset restart; CC-005/006
 - id: tc_compare
-  status: planned
+  status: implemented
   acceptance: Qualified masked comparison, fail-safe OR and separate internal XOR;
     CC-001/002/007/008
 - id: tc_injection
-  status: planned
+  status: implemented
   acceptance: Independent A/B comparator and delay corruption; CC-003/004/009/010
 - id: tc_sticky
-  status: planned
+  status: implemented
   acceptance: Sticky classes/vector, event pulse, clear and set priority; CC-011/012
 - id: tc_pipeline
-  status: planned
+  status: implemented
   acceptance: Comparator stage latency and immediate reset suppression
 - id: tc_random
-  status: planned
+  status: implemented
   acceptance: Cycle-accurate seeded stream, masks, controls, resets and injections
 - id: tc_stuck
-  status: planned
+  status: implemented
   acceptance: Single comparator stuck low cannot suppress divergence
 - id: tc_unknown
-  status: planned
+  status: implemented
   acceptance: Enabled X/Z data raises assertion, masked X/Z ignored
 - id: tc_negative
-  status: planned
+  status: implemented
   acceptance: Illegal configuration rejected during elaboration
 - id: tc_mutation
-  status: planned
+  status: implemented
   acceptance: Inverted safety assertion and broken fault OR are detected
+- id: tc_synthesis_structure
+  status: implemented
+  acceptance: 核验映射报告 hash、当前 RTL、独立延迟寄存数及全掩码时比较输出为零。
 seed: 5005
 evidence: build/eda/ with input snapshots and result hashes
 scope: Generated sample points are not exhaustive legal integer-domain coverage; untested

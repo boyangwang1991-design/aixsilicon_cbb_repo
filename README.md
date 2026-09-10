@@ -95,11 +95,11 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | 指标                         | 数量 |
 |------------------------------|------|
 | 总条目（cbbs）               | 410  |
-| implemented（已实现/已交付） | 9    |
-| planned（规划候选）          | 401  |
-| 实现率                       | 2.2% |
+| implemented（已实现/已交付） | 10   |
+| planned（规划候选）          | 400  |
+| 实现率                       | 2.4% |
 
-### 已实现 / 已交付构件（9）
+### 已实现 / 已交付构件（10）
 
 | ID      | 构件                                                                                         | 构件族                   | 抽象  | 优先级 | 版本  | 类别                              |
 |---------|----------------------------------------------------------------------------------------------|--------------------------|-------|--------|-------|-----------------------------------|
@@ -111,6 +111,7 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | COD-001 | [parity_gen_check](components/coding_integrity/parity_gen_check/README.md)                   | Parity Generator/Checker | A1    | P0     | 0.1.0 | components/coding_integrity       |
 | QUE-001 | [sync_fifo](components/fifo_queue_buffer/sync_fifo/README.md)                                | Synchronous FIFO         | A2    | P0     | 0.1.0 | components/fifo_queue_buffer      |
 | QUE-007 | [skid_buffer](components/fifo_queue_buffer/skid_buffer/README.md)                            | Skid Buffer              | A3    | P0     | 0.3.0 | components/fifo_queue_buffer      |
+| SAF-005 | [lockstep_comparator](components/interrupt_safety/lockstep_comparator/README.md)             | Lockstep Comparator      | A2    | P2     | 1.0.0 | components/interrupt_safety       |
 | SEL-014 | [popcount](components/selection_decode/popcount/README.md)                                   | Population Count         | A1    | P1     | 0.1.0 | components/selection_decode       |
 
 ### 按类别分布（implemented / planned）
@@ -129,7 +130,7 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | components/dft_test               | 0           | 10      | 10   |
 | components/dsp_ai_datapath        | 0           | 15      | 15   |
 | components/fifo_queue_buffer      | 2           | 18      | 20   |
-| components/interrupt_safety       | 0           | 30      | 30   |
+| components/interrupt_safety       | 1           | 29      | 30   |
 | components/monitor_debug          | 0           | 16      | 16   |
 | components/noc_interconnect       | 0           | 17      | 17   |
 | components/register_memory        | 0           | 25      | 25   |
@@ -159,7 +160,7 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 |--------|-------------|---------|------|
 | P0     | 6           | 72      | 78   |
 | P1     | 2           | 138     | 140  |
-| P2     | 1           | 123     | 124  |
+| P2     | 2           | 122     | 124  |
 | P3     | 0           | 68      | 68   |
 
 ### 全部 CBB 明细（410，按类别拆分）
@@ -477,40 +478,40 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | QUE-019 | [replay_retry_buffer](components/fifo_queue_buffer/replay_retry_buffer/README.md)                   | Replay/Retry Buffer          | planned     | A2    | P3     | 0.1.0 | 状态容量和恢复延迟                                                                             |
 | QUE-020 | [broadcast_replication_buffer](components/fifo_queue_buffer/broadcast_replication_buffer/README.md) | Broadcast/Replication Buffer | planned     | A2/A3 | P2     | 0.1.0 | 数据复制与背压                                                                                 |
 
-#### components/interrupt_safety（30，implemented=0）
+#### components/interrupt_safety（30，implemented=1）
 
-| ID      | 名称                                                                                               | 构件族                              | 状态    | 抽象  | 优先级 | 版本  | 功能/描述                                             |
-|---------|----------------------------------------------------------------------------------------------------|-------------------------------------|---------|-------|--------|-------|-------------------------------------------------------|
-| SAF-001 | [parity_protected_register](components/interrupt_safety/parity_protected_register/README.md)       | Parity-protected Register           | planned | A2    | P1     | 0.1.0 | 面积与读写延迟                                        |
-| SAF-002 | [ecc_protected_memory_shell](components/interrupt_safety/ecc_protected_memory_shell/README.md)     | ECC-protected Memory Shell          | planned | A2    | P1     | 0.1.0 | 纠错路径和带宽                                        |
-| SAF-003 | [dual_modular_comparator](components/interrupt_safety/dual_modular_comparator/README.md)           | Dual Modular Comparator             | planned | A2    | P2     | 0.1.0 | 比较覆盖与延迟                                        |
-| SAF-004 | [lockstep_alignment_buffer](components/interrupt_safety/lockstep_alignment_buffer/README.md)       | Lockstep Alignment Buffer           | planned | A2    | P2     | 0.1.0 | 双核对齐与状态                                        |
-| SAF-005 | [lockstep_comparator](components/interrupt_safety/lockstep_comparator/README.md)                   | Lockstep Comparator                 | planned | A2    | P2     | 0.1.0 | 比较宽度与错误延迟                                    |
-| SAF-006 | [temporal_redundancy_ctrl](components/interrupt_safety/temporal_redundancy_ctrl/README.md)         | Temporal Redundancy Controller      | planned | A2    | P3     | 0.1.0 | 性能开销                                              |
-| SAF-007 | [tmr_voter](components/interrupt_safety/tmr_voter/README.md)                                       | TMR Voter                           | planned | A1/A2 | P3     | 0.1.0 | 面积、共因失效边界                                    |
-| SAF-008 | [safety_bypass_mode](components/interrupt_safety/safety_bypass_mode/README.md)                     | Safety Mechanism Bypass/Mode        | planned | A2    | P2     | 0.1.0 | 安全状态与测试                                        |
-| SAF-009 | [fault_injection_point](components/interrupt_safety/fault_injection_point/README.md)               | Fault Injection Point               | planned | A1/A2 | P1     | 0.1.0 | 综合隔离和验证                                        |
-| SAF-010 | [error_status_latch](components/interrupt_safety/error_status_latch/README.md)                     | Error Status Latch                  | planned | A2    | P0     | 0.1.0 | 信息保留与面积                                        |
-| SAF-011 | [error_aggregator](components/interrupt_safety/error_aggregator/README.md)                         | Error Aggregator                    | planned | A2    | P0     | 0.1.0 | 扇入、延迟、去重                                      |
-| SAF-012 | [error_router](components/interrupt_safety/error_router/README.md)                                 | Error Router                        | planned | A2    | P1     | 0.1.0 | 高扇出和配置                                          |
-| SAF-013 | [error_escalation_ctrl](components/interrupt_safety/error_escalation_ctrl/README.md)               | Error Escalation Controller         | planned | A2    | P2     | 0.1.0 | 状态和响应延迟                                        |
-| SAF-014 | [alarm_handler_core](components/interrupt_safety/alarm_handler_core/README.md)                     | Alarm Handler Core                  | planned | A4    | P2     | 0.1.0 | 接近IP，需边界治理                                    |
-| SAF-015 | [bus_transaction_monitor](components/interrupt_safety/bus_transaction_monitor/README.md)           | Bus Transaction Monitor             | planned | A3    | P1     | 0.1.0 | 插入延迟与观测覆盖                                    |
-| SAF-016 | [e2e_protection_codec](components/interrupt_safety/e2e_protection_codec/README.md)                 | End-to-end Protection Codec         | planned | A3    | P2     | 0.1.0 | 带宽、延迟、标准配置                                  |
-| SAF-017 | [duplicate_sequence_checker](components/interrupt_safety/duplicate_sequence_checker/README.md)     | Duplicate/Sequence Checker          | planned | A2/A3 | P2     | 0.1.0 | 窗口容量                                              |
-| SAF-018 | [heartbeat_monitor](components/interrupt_safety/heartbeat_monitor/README.md)                       | Alive/Heartbeat Monitor             | planned | A2    | P1     | 0.1.0 | 误报和监控时钟                                        |
-| SAF-019 | [clock_monitor_shell](components/interrupt_safety/clock_monitor_shell/README.md)                   | Clock Monitor Digital Shell         | planned | A2    | P2     | 0.1.0 | 参考时钟与计数误差                                    |
-| SAF-020 | [reset_monitor_core](components/interrupt_safety/reset_monitor_core/README.md)                     | Reset Monitor                       | planned | A2    | P2     | 0.1.0 | 无系统告警/CSR策略的复位检查核，关注RDC与安全状态     |
-| SAF-021 | [vt_monitor_wrapper](components/interrupt_safety/vt_monitor_wrapper/README.md)                     | Voltage/Temperature Monitor Wrapper | planned | A0/A2 | P3     | 0.1.0 | 模拟监控器接口                                        |
-| SAF-022 | [safe_state_ctrl](components/interrupt_safety/safe_state_ctrl/README.md)                           | Safe-state Controller               | planned | A2/A4 | P2     | 0.1.0 | 失效响应时间                                          |
-| SAF-023 | [mem_addr_data_protection](components/interrupt_safety/mem_addr_data_protection/README.md)         | Memory Address/Data Protection      | planned | A2    | P2     | 0.1.0 | 存储与延迟开销                                        |
-| SAF-024 | [latent_fault_test_ctrl](components/interrupt_safety/latent_fault_test_ctrl/README.md)             | Latent Fault Test Controller        | planned | A2    | P3     | 0.1.0 | 业务中断与覆盖                                        |
-| SAF-025 | [safety_counter_checker](components/interrupt_safety/safety_counter_checker/README.md)             | Safety Counter Checker              | planned | A1/A2 | P2     | 0.1.0 | 诊断覆盖与面积                                        |
-| SAF-026 | [safety_fsm_checker](components/interrupt_safety/safety_fsm_checker/README.md)                     | Safety FSM Checker                  | planned | A1/A2 | P1     | 0.1.0 | 编码与综合保持                                        |
-| SAF-027 | [interrupt_source_conditioner](components/interrupt_safety/interrupt_source_conditioner/README.md) | Interrupt Source Conditioner        | planned | A2    | P0     | 0.1.0 | PIC前端复用重点                                       |
-| SAF-028 | [interrupt_aggregator_core](components/interrupt_safety/interrupt_aggregator_core/README.md)       | Interrupt Aggregator                | planned | A2    | P0     | 0.1.0 | 无芯片中断编号/CSR绑定的聚合核，关注大位宽扇入        |
-| SAF-029 | [interrupt_router_core](components/interrupt_safety/interrupt_router_core/README.md)               | Interrupt Router                    | planned | A2/A3 | P1     | 0.1.0 | 无芯片中断编号/CSR绑定的路由核，支持到CLIC/安全岛双送 |
-| SAF-030 | [interrupt_rate_limiter](components/interrupt_safety/interrupt_rate_limiter/README.md)             | Interrupt Rate Limiter              | planned | A2    | P2     | 0.1.0 | 中断风暴控制                                          |
+| ID      | 名称                                                                                               | 构件族                              | 状态        | 抽象  | 优先级 | 版本  | 功能/描述                                             |
+|---------|----------------------------------------------------------------------------------------------------|-------------------------------------|-------------|-------|--------|-------|-------------------------------------------------------|
+| SAF-001 | [parity_protected_register](components/interrupt_safety/parity_protected_register/README.md)       | Parity-protected Register           | planned     | A2    | P1     | 0.1.0 | 面积与读写延迟                                        |
+| SAF-002 | [ecc_protected_memory_shell](components/interrupt_safety/ecc_protected_memory_shell/README.md)     | ECC-protected Memory Shell          | planned     | A2    | P1     | 0.1.0 | 纠错路径和带宽                                        |
+| SAF-003 | [dual_modular_comparator](components/interrupt_safety/dual_modular_comparator/README.md)           | Dual Modular Comparator             | planned     | A2    | P2     | 0.1.0 | 比较覆盖与延迟                                        |
+| SAF-004 | [lockstep_alignment_buffer](components/interrupt_safety/lockstep_alignment_buffer/README.md)       | Lockstep Alignment Buffer           | planned     | A2    | P2     | 0.1.0 | 双核对齐与状态                                        |
+| SAF-005 | [lockstep_comparator](components/interrupt_safety/lockstep_comparator/README.md)                   | Lockstep Comparator                 | implemented | A2    | P2     | 1.0.0 | 比较宽度与错误延迟                                    |
+| SAF-006 | [temporal_redundancy_ctrl](components/interrupt_safety/temporal_redundancy_ctrl/README.md)         | Temporal Redundancy Controller      | planned     | A2    | P3     | 0.1.0 | 性能开销                                              |
+| SAF-007 | [tmr_voter](components/interrupt_safety/tmr_voter/README.md)                                       | TMR Voter                           | planned     | A1/A2 | P3     | 0.1.0 | 面积、共因失效边界                                    |
+| SAF-008 | [safety_bypass_mode](components/interrupt_safety/safety_bypass_mode/README.md)                     | Safety Mechanism Bypass/Mode        | planned     | A2    | P2     | 0.1.0 | 安全状态与测试                                        |
+| SAF-009 | [fault_injection_point](components/interrupt_safety/fault_injection_point/README.md)               | Fault Injection Point               | planned     | A1/A2 | P1     | 0.1.0 | 综合隔离和验证                                        |
+| SAF-010 | [error_status_latch](components/interrupt_safety/error_status_latch/README.md)                     | Error Status Latch                  | planned     | A2    | P0     | 0.1.0 | 信息保留与面积                                        |
+| SAF-011 | [error_aggregator](components/interrupt_safety/error_aggregator/README.md)                         | Error Aggregator                    | planned     | A2    | P0     | 0.1.0 | 扇入、延迟、去重                                      |
+| SAF-012 | [error_router](components/interrupt_safety/error_router/README.md)                                 | Error Router                        | planned     | A2    | P1     | 0.1.0 | 高扇出和配置                                          |
+| SAF-013 | [error_escalation_ctrl](components/interrupt_safety/error_escalation_ctrl/README.md)               | Error Escalation Controller         | planned     | A2    | P2     | 0.1.0 | 状态和响应延迟                                        |
+| SAF-014 | [alarm_handler_core](components/interrupt_safety/alarm_handler_core/README.md)                     | Alarm Handler Core                  | planned     | A4    | P2     | 0.1.0 | 接近IP，需边界治理                                    |
+| SAF-015 | [bus_transaction_monitor](components/interrupt_safety/bus_transaction_monitor/README.md)           | Bus Transaction Monitor             | planned     | A3    | P1     | 0.1.0 | 插入延迟与观测覆盖                                    |
+| SAF-016 | [e2e_protection_codec](components/interrupt_safety/e2e_protection_codec/README.md)                 | End-to-end Protection Codec         | planned     | A3    | P2     | 0.1.0 | 带宽、延迟、标准配置                                  |
+| SAF-017 | [duplicate_sequence_checker](components/interrupt_safety/duplicate_sequence_checker/README.md)     | Duplicate/Sequence Checker          | planned     | A2/A3 | P2     | 0.1.0 | 窗口容量                                              |
+| SAF-018 | [heartbeat_monitor](components/interrupt_safety/heartbeat_monitor/README.md)                       | Alive/Heartbeat Monitor             | planned     | A2    | P1     | 0.1.0 | 误报和监控时钟                                        |
+| SAF-019 | [clock_monitor_shell](components/interrupt_safety/clock_monitor_shell/README.md)                   | Clock Monitor Digital Shell         | planned     | A2    | P2     | 0.1.0 | 参考时钟与计数误差                                    |
+| SAF-020 | [reset_monitor_core](components/interrupt_safety/reset_monitor_core/README.md)                     | Reset Monitor                       | planned     | A2    | P2     | 0.1.0 | 无系统告警/CSR策略的复位检查核，关注RDC与安全状态     |
+| SAF-021 | [vt_monitor_wrapper](components/interrupt_safety/vt_monitor_wrapper/README.md)                     | Voltage/Temperature Monitor Wrapper | planned     | A0/A2 | P3     | 0.1.0 | 模拟监控器接口                                        |
+| SAF-022 | [safe_state_ctrl](components/interrupt_safety/safe_state_ctrl/README.md)                           | Safe-state Controller               | planned     | A2/A4 | P2     | 0.1.0 | 失效响应时间                                          |
+| SAF-023 | [mem_addr_data_protection](components/interrupt_safety/mem_addr_data_protection/README.md)         | Memory Address/Data Protection      | planned     | A2    | P2     | 0.1.0 | 存储与延迟开销                                        |
+| SAF-024 | [latent_fault_test_ctrl](components/interrupt_safety/latent_fault_test_ctrl/README.md)             | Latent Fault Test Controller        | planned     | A2    | P3     | 0.1.0 | 业务中断与覆盖                                        |
+| SAF-025 | [safety_counter_checker](components/interrupt_safety/safety_counter_checker/README.md)             | Safety Counter Checker              | planned     | A1/A2 | P2     | 0.1.0 | 诊断覆盖与面积                                        |
+| SAF-026 | [safety_fsm_checker](components/interrupt_safety/safety_fsm_checker/README.md)                     | Safety FSM Checker                  | planned     | A1/A2 | P1     | 0.1.0 | 编码与综合保持                                        |
+| SAF-027 | [interrupt_source_conditioner](components/interrupt_safety/interrupt_source_conditioner/README.md) | Interrupt Source Conditioner        | planned     | A2    | P0     | 0.1.0 | PIC前端复用重点                                       |
+| SAF-028 | [interrupt_aggregator_core](components/interrupt_safety/interrupt_aggregator_core/README.md)       | Interrupt Aggregator                | planned     | A2    | P0     | 0.1.0 | 无芯片中断编号/CSR绑定的聚合核，关注大位宽扇入        |
+| SAF-029 | [interrupt_router_core](components/interrupt_safety/interrupt_router_core/README.md)               | Interrupt Router                    | planned     | A2/A3 | P1     | 0.1.0 | 无芯片中断编号/CSR绑定的路由核，支持到CLIC/安全岛双送 |
+| SAF-030 | [interrupt_rate_limiter](components/interrupt_safety/interrupt_rate_limiter/README.md)             | Interrupt Rate Limiter              | planned     | A2    | P2     | 0.1.0 | 中断风暴控制                                          |
 
 #### components/monitor_debug（16，implemented=0）
 

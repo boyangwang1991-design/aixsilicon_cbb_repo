@@ -6,7 +6,7 @@ requirements:
   properties: []
   tests:
   - tc_alignment
-  configs:
+  configs: &id001
   - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
   evidence: []
 - id: REQ-002
@@ -91,6 +91,16 @@ requirements:
   configs:
   - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
   evidence: []
+- id: REQ-011
+  type: requirement
+  description: 参数关闭时逻辑裁剪、独立延迟状态与比较流水结构通过映射报告核验
+  properties: []
+  tests:
+  - tc_synthesis_structure
+  configs: *id001
+  evidence:
+  - reports/ppa-summary.json
+  - reports/structure-result.json
 - id: INV-001
   type: requirement
   description: Safety output includes every live detected fault.

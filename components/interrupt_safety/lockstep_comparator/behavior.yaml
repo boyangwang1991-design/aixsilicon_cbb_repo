@@ -4,7 +4,7 @@ requirements:
   properties: []
   tests:
   - tc_alignment
-  configs:
+  configs: &id001
   - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
   source_ids:
   - LCL-ALIGN-001
@@ -85,13 +85,7 @@ requirements:
   - tc_pipeline
   configs:
   - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
-  source_ids:
-  - LCL-PPA-001
-  - LCL-PPA-002
-  - LCL-PPA-003
-  - LCL-PPA-004
-  - LCL-PPA-005
-  - LCL-PPA-006
+  source_ids: []
 - id: REQ-006
   description: Cycle-accurate seeded stream, masks, controls, resets and injections
   properties: []
@@ -141,6 +135,22 @@ requirements:
   configs:
   - cfg_width32_lockstep_delay2_startup_guard_cycles0_cmp_pipe_stages0_lcl_redundancy_level2_static_compare_masku8_2d31_support_runtime_maskTrue_support_valid_maskTrue_support_fault_injectionTrue
   source_ids: []
+- id: REQ-011
+  description: 参数关闭时逻辑裁剪、独立延迟状态与比较流水结构通过映射报告核验
+  source_ids:
+  - LCL-PPA-001
+  - LCL-PPA-002
+  - LCL-PPA-003
+  - LCL-PPA-004
+  - LCL-PPA-005
+  - LCL-PPA-006
+  properties: []
+  tests:
+  - tc_synthesis_structure
+  configs: *id001
+  evidence:
+  - reports/ppa-summary.json
+  - reports/structure-result.json
 invariants:
 - id: INV-001
   description: Safety output includes every live detected fault.

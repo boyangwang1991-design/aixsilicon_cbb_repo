@@ -1,0 +1,78 @@
+{
+  "status": "pass",
+  "rtl_sha256": "8b6f6c562f92706eeb491a3fd3348369b81c807e90e4a0a4af5b92317aa02838",
+  "points": [
+    {
+      "run_id": "run-20260910-133744-259546",
+      "point": "point_0",
+      "status": "pass",
+      "delay_registers_a_b": [
+        64,
+        64
+      ]
+    },
+    {
+      "run_id": "run-20260910-133744-259546",
+      "point": "point_1",
+      "status": "pass",
+      "delay_registers_a_b": [
+        0,
+        0
+      ]
+    },
+    {
+      "run_id": "run-20260910-133744-259546",
+      "point": "point_2",
+      "status": "pass",
+      "delay_registers_a_b": [
+        64,
+        0
+      ]
+    },
+    {
+      "run_id": "run-20260910-133744-259546",
+      "point": "point_3",
+      "status": "pass",
+      "delay_registers_a_b": [
+        256,
+        256
+      ]
+    },
+    {
+      "run_id": "run-20260910-133744-259546",
+      "point": "point_4",
+      "status": "pass",
+      "delay_registers_a_b": [
+        256,
+        256
+      ]
+    },
+    {
+      "run_id": "run-20260910-133744-259546",
+      "point": "point_5",
+      "status": "pass",
+      "delay_registers_a_b": [
+        0,
+        0
+      ]
+    },
+    {
+      "run_id": "run-20260910-134152-503471",
+      "point": "point_0",
+      "status": "pass",
+      "delay_registers_a_b": [
+        64,
+        64
+      ]
+    },
+    {
+      "run_id": "run-20260910-134152-503471",
+      "point": "point_1",
+      "status": "pass",
+      "delay_registers_a_b": [
+        64,
+        64
+      ]
+    }
+  ]
+}
