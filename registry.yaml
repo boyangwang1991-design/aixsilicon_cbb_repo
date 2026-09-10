@@ -1,10 +1,11 @@
 schema_version: "2.0"
-updated: "2026-08-29T03:06:00Z"
+updated: "2026-09-10T08:12:59Z"
 # 本文件是 CBB 目录唯一 SSOT（由 scripts/build_cbb_structure.py 治理）。
 # 字段: id/name/family/group/abstraction/priority/implementation/description/status/version/path
 # 修改入口: 直接编辑本文件后运行 'python3 scripts/build_cbb_structure.py' 校验，
 #           再运行 'python3 scripts/update_registry_readme.py' 将状态总览同步到 README.md。
 # status=implemented 表示物理目录存在且通过验证；未实现条目无物理目录。
+# 边界: CBB 是可被多个 IP 复用的机制/数据通路/协议适配，不承载产品级 CSR/地址图或系统集成策略。
 vendor: aixsilicon
 library: cbb
 
@@ -1759,16 +1760,16 @@ cbbs:
     version: "0.1.0"
     path: components/control_event_status/timestamp_counter
   - id: CTL-004
-    name: timer
+    name: timer_core
     family: Timer
     group: components/control_event_status
     abstraction: A2
     priority: P0
     implementation: one-shot/periodic/cascade
-    description: Prescaler共享
+    description: 无总线/CSR的通用计时核，关注Prescaler共享
     status: planned
     version: "0.1.0"
-    path: components/control_event_status/timer
+    path: components/control_event_status/timer_core
   - id: CTL-005
     name: timeout_monitor
     family: Timeout Monitor
@@ -1781,16 +1782,16 @@ cbbs:
     version: "0.1.0"
     path: components/control_event_status/timeout_monitor
   - id: CTL-006
-    name: watchdog
+    name: watchdog_core
     family: Watchdog
     group: components/control_event_status
     abstraction: A2
     priority: P1
     implementation: windowed/non-windowed
-    description: 安全诊断覆盖
+    description: 无总线/CSR的通用看门狗核，关注安全诊断覆盖
     status: planned
     version: "0.1.0"
-    path: components/control_event_status/watchdog
+    path: components/control_event_status/watchdog_core
   - id: CTL-007
     name: prescaler_rate_divider
     family: Prescaler/Rate Divider
@@ -1847,16 +1848,16 @@ cbbs:
     version: "0.1.0"
     path: components/control_event_status/command_sequencer
   - id: CTL-012
-    name: retry_controller
+    name: retry_controller_core
     family: Retry Controller
     group: components/control_event_status
     abstraction: A2
     priority: P2
     implementation: bounded/backoff/selective
-    description: 活锁与计数器
+    description: 协议无关的重试机制核，关注活锁与计数器
     status: planned
     version: "0.1.0"
-    path: components/control_event_status/retry_controller
+    path: components/control_event_status/retry_controller_core
   - id: CTL-013
     name: event_edge_detector
     family: Event Edge Detector
@@ -1891,16 +1892,16 @@ cbbs:
     version: "0.1.0"
     path: components/control_event_status/event_collector
   - id: CTL-016
-    name: event_router
+    name: event_router_core
     family: Event Router
     group: components/control_event_status
     abstraction: A2
     priority: P1
     implementation: programmable/static map
-    description: Mux、扇出和配置
+    description: 无系统地址图/CSR的路由核，关注Mux、扇出和配置
     status: planned
     version: "0.1.0"
-    path: components/control_event_status/event_router
+    path: components/control_event_status/event_router_core
   - id: CTL-017
     name: event_debouncer_filter
     family: Event Debouncer/Filter
@@ -2441,16 +2442,16 @@ cbbs:
     version: "0.1.0"
     path: components/register_memory/memory_ecc_shell
   - id: MEM-017
-    name: memory_scrubber
+    name: memory_scrubber_engine
     family: Memory Scrubber
     group: components/register_memory
     abstraction: A2
     priority: P2
     implementation: periodic、on-demand、priority
-    description: 带宽占用、功耗
+    description: 无内存控制器/CSR绑定的巡检引擎，关注带宽占用、功耗
     status: planned
     version: "0.1.0"
-    path: components/register_memory/memory_scrubber
+    path: components/register_memory/memory_scrubber_engine
   - id: MEM-018
     name: memory_bist_if_adapter
     family: Memory BIST Interface Adapter
@@ -2650,16 +2651,16 @@ cbbs:
     version: "0.1.0"
     path: components/monitor_debug/trace_fifo
   - id: MON-011
-    name: trace_funnel
+    name: trace_funnel_core
     family: Trace Funnel
     group: components/monitor_debug
     abstraction: A3
     priority: P2
     implementation: priority/RR/timestamp merge
-    description: 仲裁与排序
+    description: 无调试CSR的Trace汇聚核，关注仲裁与排序
     status: planned
     version: "0.1.0"
-    path: components/monitor_debug/trace_funnel
+    path: components/monitor_debug/trace_funnel_core
   - id: MON-012
     name: trigger_qualifier
     family: Trigger/Qualifier
@@ -3398,16 +3399,16 @@ cbbs:
     version: "0.1.0"
     path: components/interrupt_safety/clock_monitor_shell
   - id: SAF-020
-    name: reset_monitor
+    name: reset_monitor_core
     family: Reset Monitor
     group: components/interrupt_safety
     abstraction: A2
     priority: P2
     implementation: cause/order/duration check
-    description: RDC与安全状态
+    description: 无系统告警/CSR策略的复位检查核，关注RDC与安全状态
     status: planned
     version: "0.1.0"
-    path: components/interrupt_safety/reset_monitor
+    path: components/interrupt_safety/reset_monitor_core
   - id: SAF-021
     name: vt_monitor_wrapper
     family: Voltage/Temperature Monitor Wrapper
@@ -3486,27 +3487,27 @@ cbbs:
     version: "0.1.0"
     path: components/interrupt_safety/interrupt_source_conditioner
   - id: SAF-028
-    name: interrupt_aggregator
+    name: interrupt_aggregator_core
     family: Interrupt Aggregator
     group: components/interrupt_safety
     abstraction: A2
     priority: P0
     implementation: vector/tree/hierarchical
-    description: 大位宽扇入
+    description: 无芯片中断编号/CSR绑定的聚合核，关注大位宽扇入
     status: planned
     version: "0.1.0"
-    path: components/interrupt_safety/interrupt_aggregator
+    path: components/interrupt_safety/interrupt_aggregator_core
   - id: SAF-029
-    name: interrupt_router
+    name: interrupt_router_core
     family: Interrupt Router
     group: components/interrupt_safety
     abstraction: A2/A3
     priority: P1
     implementation: static/configurable/multicast
-    description: 到CLIC/安全岛双送
+    description: 无芯片中断编号/CSR绑定的路由核，支持到CLIC/安全岛双送
     status: planned
     version: "0.1.0"
-    path: components/interrupt_safety/interrupt_router
+    path: components/interrupt_safety/interrupt_router_core
   - id: SAF-030
     name: interrupt_rate_limiter
     family: Interrupt Rate Limiter

@@ -38,15 +38,7 @@ README_PATH = os.path.join(ROOT, "README.md")
 BEGIN_MARKER = "<!-- REGISTRY-STATUS:BEGIN -->"
 END_MARKER = "<!-- REGISTRY-STATUS:END -->"
 
-# 合法的枚举域（与 build_cbb_structure.py / schemas 保持一致）
-VALID_ABSTRACTION = {"A0", "A1", "A2", "A3", "A4",
-                     "A1/A0", "A1/A2", "A2/A3", "A2/A4", "A3/A4", "A0/A2"}
-VALID_PRIORITY = {"P0", "P1", "P2", "P3"}
-VALID_GROUP_TOPS = {"adapters", "components", "templates"}
-VALID_STATUS = {"planned", "implemented"}
-
-REQUIRED_FIELDS = ["id", "name", "family", "group", "abstraction",
-                   "priority", "implementation", "description", "status", "version", "path"]
+from build_cbb_structure import validate
 
 
 def _disp_width(s: str) -> int:
@@ -71,52 +63,6 @@ def load_registry(path=REGISTRY_PATH):
     if not isinstance(data, dict) or not isinstance(data.get("cbbs"), list):
         raise ValueError("registry.yaml 为空或缺少 cbbs 列表（文件可能损坏或未正确加载）")
     return data
-
-
-def validate(reg):
-    """轻量一致性校验（复用 build_cbb_structure 的规则子集），返回 (errors, warnings)。"""
-    errors, warnings = [], []
-    cbbs = reg.get("cbbs", [])
-    if not isinstance(cbbs, list):
-        errors.append("cbbs 必须是列表")
-        return errors, warnings
-    ids = set()
-    for i, e in enumerate(cbbs):
-        if not isinstance(e, dict):
-            errors.append("[%d] 条目不是 object" % i)
-            continue
-        cid = e.get("id")
-        if not cid:
-            errors.append("[%d] 缺 id" % i)
-        elif cid in ids:
-            errors.append("id 重复: %s" % cid)
-        else:
-            ids.add(cid)
-        for field in REQUIRED_FIELDS:
-            v = e.get(field)
-            if v is None or (isinstance(v, str) and not v.strip()):
-                errors.append("[%s] 缺必填字段: %s" % (cid or "?", field))
-        ab = e.get("abstraction")
-        if ab and ab not in VALID_ABSTRACTION:
-            errors.append("[%s] abstraction 非法: %s" % (cid, ab))
-        pr = e.get("priority")
-        if pr and pr not in VALID_PRIORITY:
-            errors.append("[%s] priority 非法: %s" % (cid, pr))
-        st = e.get("status")
-        if st and st not in VALID_STATUS:
-            errors.append("[%s] status 非法: %s" % (cid, st))
-        gp = e.get("group", "")
-        top = gp.split("/")[0] if gp else ""
-        if top not in VALID_GROUP_TOPS:
-            errors.append("[%s] group 顶层非法: %s" % (cid, gp))
-        p = e.get("path", "")
-        if p:
-            parts = p.split("/")
-            if len(parts) < 2 or parts[0] not in VALID_GROUP_TOPS or p == gp or not p.startswith(gp + "/"):
-                errors.append("[%s] path(%s) 与 group(%s) 不一致" % (cid, p, gp))
-        if st == "implemented" and not os.path.isdir(os.path.join(ROOT, p)):
-            errors.append("[%s] status=implemented 但目录不存在: %s" % (cid, p))
-    return errors, warnings
 
 
 def _md_table(headers, rows):

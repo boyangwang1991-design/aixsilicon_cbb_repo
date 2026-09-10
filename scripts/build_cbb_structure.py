@@ -20,6 +20,7 @@ implementation/description/status）。本脚本职责：
 """
 import os
 import shutil
+from pathlib import Path
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 REGISTRY_PATH = os.path.join(ROOT, "registry.yaml")
@@ -46,20 +47,32 @@ def load_registry(path=REGISTRY_PATH):
         return yaml.safe_load(f)
 
 
-def validate(reg):
+def validate(reg, root=None):
     """返回 (errors, warnings)。errors 非空 → 校验失败。"""
     errors, warnings = [], []
+    root = Path(root or ROOT).resolve()
+    if not isinstance(reg, dict):
+        return ["registry 必须是 object"], warnings
     cbbs = reg.get("cbbs", [])
     if not isinstance(cbbs, list):
         errors.append("cbbs 必须是列表")
         return errors, warnings
 
     ids = {}
+    names, paths = set(), set()
     for i, e in enumerate(cbbs):
         if not isinstance(e, dict):
             errors.append("[%d] 条目不是 object" % i)
             continue
         cid = e.get("id")
+        for field, seen in (("name", names), ("path", paths)):
+            value = e.get(field)
+            if not isinstance(value, str) or not value.strip():
+                errors.append("[%s] %s 必须是非空字符串" % (cid, field))
+            elif value in seen:
+                errors.append("%s 重复: %s" % (field, value))
+            else:
+                seen.add(value)
         if not cid:
             errors.append("[%d] 缺 id" % i)
         elif cid in ids:
@@ -88,6 +101,12 @@ def validate(reg):
             errors.append("[%s] group 顶层非法: %s" % (cid, gp))
 
         p = e.get("path", "")
+        if not isinstance(p, str):
+            continue
+        target = (root / p).resolve()
+        if Path(p).is_absolute() or ".." in Path(p).parts or not target.is_relative_to(root):
+            errors.append("[%s] path 越出仓库: %s" % (cid, p))
+            continue
         # path 必须位于 group 顶层目录下（adapters|components|templates/<category>/<name> 或本顶层/<name>）
         if p:
             parts = p.split("/")
@@ -96,11 +115,25 @@ def validate(reg):
 
         # implemented ↔ 物理目录实态
         if st == "implemented":
-            if not os.path.isdir(os.path.join(ROOT, p)):
+            if not target.is_dir():
                 errors.append("[%s] status=implemented 但目录不存在: %s" % (cid, p))
+            elif not (target / "cbb.yaml").is_file():
+                errors.append("[%s] implemented 缺 cbb.yaml: %s" % (cid, p))
         elif st == "planned":
-            if os.path.isdir(os.path.join(ROOT, p)):
-                warnings.append("[%s] status=planned 但目录存在（可能已实现未更新状态）: %s" % (cid, p))
+            pass  # planned 可以是正在开发的工程包，目录本身不是质量证据。
+
+        if (target / "cbb.yaml").is_file():
+            try:
+                import yaml
+                doc = yaml.safe_load((target / "cbb.yaml").read_text(encoding="utf-8"))
+                meta = doc.get("cbb", {}) if isinstance(doc, dict) else {}
+                for field in ("name", "version"):
+                    if str(meta.get(field, "")) != str(e.get(field, "")):
+                        errors.append("[%s] cbb.yaml %s 与 registry 不一致" % (cid, field))
+                if meta.get("id") != "aixsilicon:cbb:%s" % e.get("name"):
+                    errors.append("[%s] cbb.yaml 资产 ID 不一致" % cid)
+            except (ValueError, AttributeError, OSError, yaml.YAMLError) as exc:
+                errors.append("[%s] 无法读取 cbb.yaml: %s" % (cid, exc))
 
     return errors, warnings
 
@@ -137,8 +170,10 @@ def write_registry(reg):
     lines.append('updated: "%s"' % reg["updated"])
     lines.append("# 本文件是 CBB 目录唯一 SSOT（由 scripts/build_cbb_structure.py 治理）。")
     lines.append("# 字段: id/name/family/group/abstraction/priority/implementation/description/status/version/path")
-    lines.append("# 修改入口: 直接编辑本文件后运行 'python3 scripts/build_cbb_structure.py' 校验。")
+    lines.append("# 修改入口: 直接编辑本文件后运行 'python3 scripts/build_cbb_structure.py' 校验，")
+    lines.append("#           再运行 'python3 scripts/update_registry_readme.py' 将状态总览同步到 README.md。")
     lines.append("# status=implemented 表示物理目录存在且通过验证；未实现条目无物理目录。")
+    lines.append("# 边界: CBB 是可被多个 IP 复用的机制/数据通路/协议适配，不承载产品级 CSR/地址图或系统集成策略。")
     lines.append("vendor: aixsilicon")
     lines.append("library: cbb")
     lines.append("")

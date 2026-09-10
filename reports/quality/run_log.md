@@ -138,3 +138,5 @@
     VCS 参考模型队列整体比对；场景 tc_reset/random/backpressure/edge/out_comb/outreg；固定 seed 32'hCBB_2026_0903；无 SVA 断言失败
 - `2026-09-03 11:43:16` | **characterize** | G6 | sync_fifo G6 PPA：pdk-scan PDK_READY；DC V-2023.12 综合 8 点(IMPL×OUTPUT_REG×DEPTH{8,32}) E2；全 MET@400MHz | 结果(PASS)
     run-20260903-01: register×comb d8=957.6um2/slack0.55/dyn437.6uW 为 Pareto 支配；shift 面积/功耗反超 register(组合 mux>省读mux)；报告 reports/ppa-report.md+图 reports/ppa_run-20260903-01.png
+- `2026-09-10 08:28:17` | **observe** | 仓库与套件交接工具修复：候选导入保留元数据/规划、冲突预检、scaffold 与共用 registry 校验；18 项工具测试通过 | 结果(PASS)
+    改进清单见 cbb-development-suite/docs/repo-suite-integration-improvements.md；8 个存量工程包基础检查通过但仍有属性/配置/计划/发布元数据/PDK 快照 warnings，本轮未重跑 EDA 或提升发布状态。
