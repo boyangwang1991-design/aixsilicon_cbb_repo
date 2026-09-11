@@ -1,0 +1,67 @@
+# ============================================================
+# behavior.yaml — apb_register_slice 行为契约 SSOT
+# APB 寄存切片：前向/反馈路径打拍，割断 PREADY 返回组合路径
+# 协议语义：AMBA APB（SETUP→ACCESS 两相位，PSEL/PENABLE）
+# ============================================================
+
+invariants:
+  - id: INV-001
+    description: >-
+      相位使能保持（SLICE_MODE=1/2）——反馈通路打拍期间，主侧 PSEL/PENABLE 相位
+      与子侧 PSEL/PENABLE 相位保持一致（SETUP 态对应 SETUP，ACCESS 态对应 ACCESS），
+      寄存不吞相位、不错相位。
+    properties: [PROP-ARS_PHASE-001]
+    tests: [tc_phase, tc_random]
+  - id: INV-002
+    description: >-
+      固定反馈延迟（SLICE_MODE=1/2）——子侧 psel_sub&penable_sub&pready_sub 有效
+      （ACCESS 相位完成）后恰 RESP_STAGES 拍，主侧 pready_main 在 ACCESS 相位拉高；
+      反馈寄存深度固定，不提前、不丢失、不因 ready 时序抖动改变。
+    properties: [PROP-ARS_RESPDLY-002]
+    tests: [tc_resp_delay, tc_random]
+  - id: INV-003
+    description: >-
+      反馈对齐（SLICE_MODE=1/2）——prdata_main/pslverr_main 与 pready_main 在同拍
+      采样生效；主侧采样（PREADY 高拍）得到的数据/错误即打拍前子侧的值（无移位错位）。
+    properties: [PROP-ARS_ALIGN-003]
+    tests: [tc_data_align, tc_random]
+  - id: INV-004
+    description: >-
+      前向打拍（SLICE_MODE=0/2）——psel_sub/penable_sub/paddr_sub/pwrite_sub/pwdata_sub/
+      pstrb_sub 为对应主侧信号延迟 1 拍；SLICE_MODE=0 时 pready_main=pready_sub 组合直通。
+    properties: [PROP-ARS_REQDLY-004]
+    tests: [tc_req_mode, tc_random]
+  - id: INV-005
+    description: >-
+      完整模式（SLICE_MODE=2）——前向与反馈延迟独立叠加：主侧 PREADY 相对子侧完成
+      延迟 1 拍（RESP_STAGES=1），前向再延迟 1 拍；两侧组合环均被寄存割断。
+    properties: [PROP-ARS_FULL-005]
+    tests: [tc_full_mode, tc_random]
+  - id: INV-006
+    description: >-
+      复位清洁——rst_n 释放后且无进行中事务时，psel_main/penable_main/pready_main
+      与子侧对应信号均为 0，无残留选中/错误完成。
+    properties: [PROP-ARS_RESET-006]
+    tests: [tc_reset, tc_equiv]
+
+assumptions:
+  - id: ASM-001
+    description: 输入 X/Z 不承诺（2-state 仿真语义；X 传播视为未定义）。
+  - id: ASM-002
+    description: >-
+      上游主设备遵守 APB 协议：SETUP 恰 1 拍后进 ACCESS，ACCESS 持续至 PREADY；
+      本构件为透传切片，不产生/终止事务，不检查协议违例（协议检查归 VIP）。
+  - id: ASM-003
+    description: SLICE_MODE/RESP_STAGES/ADDR_WIDTH/DATA_WIDTH 为编译期参数，不运行时切换。
+  - id: ASM-004
+    description: >-
+      SLICE_MODE=0（request）时反馈组合直通，主↔子 PREADY 间存在组合路径，
+      需消费方自行评估环回时序；需要完全割断请用 SLICE_MODE=1/2。
+
+non_goals:
+  - APB 协议检查/断言主（协议 VIP，见 aixsilicon_vip_repo）
+  - 地址译码与多从选择（BUS-004 apb_decoder / BUS-005 apb_mux_interconnect）
+  - 时钟域转换（BUS-006 apb_cdc_bridge）
+  - 位宽转换（BUS-007 apb_width_adapter）
+  - 超时保护/默认从（BUS-008 apb_timeout_default_slave）
+  - PPROT/AUSER 等扩展信号透传（如需可扩展，不阻塞基础契约）

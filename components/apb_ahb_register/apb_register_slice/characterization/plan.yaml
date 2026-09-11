@@ -1,0 +1,52 @@
+# 表征计划（Characterization Plan）— apb_register_slice
+# G6 PPA：pdk-scan 已判定 PDK_READY（2026-09-11，GF CMOS28LP + ARM SC9 标准单元），
+# 必须真实综合表征，禁止降级 OPTIONAL_UNAVAILABLE(E0)（ppa-evidence.md）。
+# 库上下文：characterization/pdk.yaml 为唯一事实源（sc9_cmos28lp_base_hvt @ tt_nominal_max_1p00v_25c）。
+# 约束：create_clock 2.5ns（400MHz 起步，PDK README 第 7 节建议）；
+#       输入/输出延迟 0.5ns、驱动 BUFH_X4M_A9TH、负载 0.01pF（对齐 fixed_priority_arbiter 基线可比）。
+schema_version: "1.0"
+target: apb_register_slice
+status: PDK_READY
+
+benchmark_profiles:
+  - id: ppa_mode_sweep
+    description: SLICE_MODE 三模式 × AW/DW 宽度点（面积/时序/功耗随打拍位置与通路面宽变化）
+    parameters:
+      SLICE_MODE: [0, 1, 2]
+      RESP_STAGES: 1
+      ADDR_WIDTH: [8, 16, 32]
+      DATA_WIDTH: [8, 32, 64]
+    points: 27
+    library: sc9_cmos28lp_base_hvt
+    corner: tt_nominal_max_1p00v_25c
+    clock_period_ns: 2.5
+    evidence_grade: PPA-E2        # DC 综合 sweep，单 corner，可复现脚本
+  - id: ppa_resp_stages
+    description: 反馈级数 RESP_STAGES=1/2（full 模式，延迟/面积阶梯）
+    parameters:
+      SLICE_MODE: 2
+      RESP_STAGES: [1, 2]
+      ADDR_WIDTH: 16
+      DATA_WIDTH: 32
+    points: 2
+    library: sc9_cmos28lp_base_hvt
+    corner: tt_nominal_max_1p00v_25c
+    clock_period_ns: 2.5
+    evidence_grade: PPA-E2
+
+measured_region:
+  ADDR_WIDTH: "8..32（含 8/16/32 采样点）"
+  DATA_WIDTH: "8..64（含 8/32/64 采样点）"
+  SLICE_MODE: "0/1/2 全覆盖"
+  RESP_STAGES: "1/2（full 模式）"
+
+execution:
+  tool: dc_shell
+  script: characterization/synth_sweep.tcl
+  run_dir: build/eda/ppa/<run-id>/
+  reports: reports/ppa-report.md
+
+notes:
+  - 本构面积为寄存器主导（前向组 AW+3AW/8+DW+7 或反馈组 DW+2 触发器），预期三模式
+    request≈full-反馈组、response 最小；fmax 非瓶颈（reg→reg 短路径，割断即用途）。
+  - RESP_STAGES=2 仅增加 DW+2 触发器，无组合增量。

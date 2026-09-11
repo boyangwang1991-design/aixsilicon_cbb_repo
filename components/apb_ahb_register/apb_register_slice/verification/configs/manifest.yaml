@@ -1,0 +1,6 @@
+cbb: apb_register_slice
+sets:
+  mandatory: 1
+  boundary: 11
+  pairwise: 18
+  negative: 7

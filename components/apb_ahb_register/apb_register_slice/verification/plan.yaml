@@ -1,0 +1,117 @@
+# 验证计划（Verification Plan）— apb_register_slice
+# 声明验证形态（Simulation/跨模式等价/负向 Elaboration/变异）、用例→需求映射、
+# 结果解释与证据位置（见 cbb-development-suite references/verification-strategy.md）。
+# 形态默认：轻量 SVA（模块内 @(posedge clk) 并发断言）+ 定向/随机 VCS 仿真
+#            + 三模式等价（无事务基线）+ 负向变异。
+target: apb_register_slice
+verification_forms: [simulation, cross_mode_equiv, negative_elab, mutation]
+# 关键属性计划（specify 阶段声明 planned；G4 由 RTL 就近 SVA + TB 兜底实现）
+properties:
+  - id: PROP-ARS_PHASE-001
+    status: planned
+    acceptance: 反馈打拍期间主/子 PSEL/PENABLE 相位逐拍一致（INV-001/REQ-001）
+  - id: PROP-ARS_RESPDLY-002
+    status: planned
+    acceptance: 子完成恰 RESP_STAGES 拍后主 PREADY 高（INV-002/REQ-002）
+  - id: PROP-ARS_ALIGN-003
+    status: planned
+    acceptance: PRDATA/PSLVERR 与 PREADY 同拍生效（INV-003/REQ-003）
+  - id: PROP-ARS_REQDLY-004
+    status: planned
+    acceptance: 前向信号延迟恰 1 拍且内容相等（INV-004/REQ-004）
+  - id: PROP-ARS_FULL-005
+    status: planned
+    acceptance: 前向/反馈延迟独立叠加（INV-005/REQ-005）
+  - id: PROP-ARS_RESET-006
+    status: planned
+    acceptance: 复位/空闲期主/子侧选中与完成信号全 0（INV-006/REQ-006）
+# 代表性配置点（config-gen 生成；完整集合见 verification/configs/）
+configs:
+  - cfg_addr_width16_data_width32_slice_mode2_resp_stages1
+  - cfg_addr_width16_data_width32_slice_mode1_resp_stages1
+  - cfg_addr_width16_data_width32_slice_mode0_resp_stages1
+  - cfg_addr_width16_data_width32_slice_mode2_resp_stages2
+  - cfg_addr_width8_data_width8_slice_mode2_resp_stages1
+  - cfg_addr_width32_data_width64_slice_mode2_resp_stages1
+  - cfg_addr_width16_data_width32_slice_mode3_resp_stages1
+  - cfg_addr_width16_data_width32_slice_mode2_resp_stages3
+testcases:
+  - id: tc_phase
+    requirement: REQ-001
+    invariants: [INV-001]
+    form: simulation
+    description: SLICE_MODE=1/2 相位保持——反馈打拍期间主/子 PSEL/PENABLE 相位逐拍一致（SETUP↔SETUP、ACCESS↔ACCESS）
+    execution: verification/scripts/run_functional_sim.sh
+    status: planned
+    acceptance: 随机与定向事务序列下相位错配计数为 0；SVA PROP-ARS_PHASE-001 无失败
+  - id: tc_resp_delay
+    requirement: REQ-002
+    invariants: [INV-002]
+    form: simulation
+    description: 固定反馈延迟——子侧 ACCESS 完成后恰 RESP_STAGES 拍主侧 PREADY 高（RESP_STAGES∈{1,2} 定向验证）
+    execution: verification/scripts/run_functional_sim.sh
+    status: planned
+    acceptance: 主侧 PREADY 相对子侧完成延迟恰为 RESP_STAGES 拍，无提前/丢失/抖动
+  - id: tc_data_align
+    requirement: REQ-003
+    invariants: [INV-003]
+    form: simulation
+    description: 反馈对齐——PREADY 打拍后主侧采样 PRDATA/PSLVERR 与子侧完成拍数据/错误一致
+    execution: verification/scripts/run_functional_sim.sh
+    status: planned
+    acceptance: 完成拍数据/错误比对 0 mismatch（含 pslverr=1 错误注入序列）
+  - id: tc_req_mode
+    requirement: REQ-004
+    invariants: [INV-004]
+    form: simulation
+    description: SLICE_MODE=0——前向通路 1 拍延迟逐拍比对；反馈组合直通（pready_main==pready_sub 即时）
+    execution: verification/scripts/run_functional_sim.sh
+    status: planned
+    acceptance: 前向信号延迟恰 1 拍且内容相等；PREADY 直通一致
+  - id: tc_full_mode
+    requirement: REQ-005
+    invariants: [INV-005]
+    form: simulation
+    description: SLICE_MODE=2——前向 1 拍 + 反馈 RESP_STAGES 拍独立叠加，两侧组合路径均被寄存割断
+    execution: verification/scripts/run_functional_sim.sh
+    status: planned
+    acceptance: 前向/反馈延迟独立成立；与 request/response 单侧行为一致
+  - id: tc_reset
+    requirement: REQ-006
+    invariants: [INV-006]
+    form: simulation
+    description: 复位清洁——复位释放且无事务时主/子侧 psel/penable/pready=0，无残留
+    execution: verification/scripts/run_functional_sim.sh
+    status: planned
+    acceptance: 复位释放后空闲期全 0；再次复位期间输出立即清零
+  - id: tc_random
+    requirement: REQ-001
+    invariants: [INV-001, INV-002, INV-003]
+    form: simulation
+    description: 随机事务压力（含 PREADY 随机延迟 0..7 拍、pslverr 随机、背靠背事务）× 三模式，SVA 兜底
+    execution: verification/scripts/run_functional_sim.sh
+    status: planned
+    acceptance: 固定 seed 随机 ≥2000 拍，mismatch=0，SVA 无失败
+  - id: tc_equiv
+    requirement: REQ-006
+    invariants: [INV-006]
+    form: cross_mode_equiv
+    description: 三模式（request/response/full）在无事务基线上等价——空闲/复位期间主/子侧信号全 0
+    execution: verification/scripts/run_functional_sim.sh
+    status: planned
+    acceptance: 三模式实例在相同空闲激励下可观察输出一致
+  - id: tc_negative_elab
+    requirement: REQ-007
+    form: negative_elab
+    description: 非法参数（ADDR_WIDTH=7/33、DATA_WIDTH=7/65、SLICE_MODE=3、RESP_STAGES=0/3）elaboration $error 拦截
+    execution: verification/scripts/run_static_checks.sh
+    status: planned
+    acceptance: VCS 负向编译非零退出且命中报错 ID（PC-001..006 对应参数名）
+  - id: tc_mutation
+    requirement: REQ-001
+    invariants: [INV-001]
+    form: mutation
+    description: 变异测试——破坏反馈对齐/相位保持语义，断言应能检测（验证 SVA 有效性）
+    execution: verification/scripts/run_functional_sim.sh
+    status: planned
+    acceptance: 变异实例在 tc_random 激励下 SVA 报错（证明 checker 有效）

@@ -1062,8 +1062,8 @@ cbbs:
     abstraction: A3
     priority: P1
     implementation: request/response/full
-    description: PREADY返回路径
-    status: planned
+    description: PREADY返回路径（request/response/full 三模式 + RESP_STAGES 反馈级数 + G3/G4/G5 证据）
+    status: implemented          # 2026-09-11 首次物化（request/response/full 三模式 + G0-G5 证据）
     version: "0.1.0"
     path: components/apb_ahb_register/apb_register_slice
   - id: BUS-004

@@ -1,0 +1,8 @@
+set: mandatory
+configs:
+- config_id: cfg_addr_width16_data_width32_slice_mode2_resp_stages1
+  parameters:
+    ADDR_WIDTH: 16
+    DATA_WIDTH: 32
+    SLICE_MODE: 2
+    RESP_STAGES: 1

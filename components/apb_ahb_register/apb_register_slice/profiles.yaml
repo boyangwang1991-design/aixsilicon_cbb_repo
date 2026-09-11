@@ -1,0 +1,58 @@
+# profiles.yaml —— 多实现 Profile（apb_register_slice）
+# 共享同一可观察 APB 透传契约，差异仅在前向/反馈打拍位置与级数（延迟↔时序割断 trade-off）
+# SLICE_MODE: 0=request(前向打拍) 1=response(反馈打拍) 2=full(双打拍)
+# RESP_STAGES: 反馈寄存级数（仅 SLICE_MODE!=0 有效）
+
+schema_version: "1.0"
+cbb: aixsilicon:cbb:apb_register_slice
+
+profiles:
+  - id: request_slice
+    implementation: impl_request
+    parameters:
+      SLICE_MODE: 0
+      RESP_STAGES: 1
+    optimization_target: zero_resp_latency
+    use_case: >-
+      割断地址/写数据大扇入组合路径、PREADY 反馈路径短（如寄存器块近邻）；
+      主侧无额外完成延迟
+    support_status: supported
+    notes: 前向 1 拍；PREADY/PRDATA 组合直通（ASM-004：主↔子环回组合路径由消费方评估）
+
+  - id: response_slice
+    implementation: impl_response
+    parameters:
+      SLICE_MODE: 1
+      RESP_STAGES: 1
+    optimization_target: timing
+    use_case: >-
+      经典 PREADY 返回路径割断——子从设备反馈组合深（多从 mux/慢速外设）时，
+      反馈打 1 拍提升 fmax；前向保持组合（地址到从设备当拍到达）
+    support_status: supported
+    notes: 前向组合；反馈 1 拍（PREADY 完成延迟 +1）
+
+  - id: full_slice
+    implementation: impl_full
+    parameters:
+      SLICE_MODE: 2
+      RESP_STAGES: 1
+    optimization_target: balanced
+    use_case: >-
+      前向与反馈组合路径均长（远程从设备/物理规划隔离），两侧各打 1 拍；
+      每事务固定 +2 拍完成延迟
+    support_status: supported
+    notes: 前向 1 拍 + 反馈 1 拍；两侧均寄存割断
+
+  - id: full_slice_deep
+    implementation: impl_full
+    parameters:
+      SLICE_MODE: 2
+      RESP_STAGES: 2
+    optimization_target: pipeline
+    use_case: >-
+      反馈路径两级流水（PSLVERR 跨长物理距离/多级 mux）；每事务完成延迟 +3 拍
+    support_status: experimental   # 反馈两级场景较少；G4 tc_resp_delay 已覆盖语义
+    notes: 前向 1 拍 + 反馈 2 拍；用于流水化 APB 返回路径
+
+# 依赖 DAG：零运行时依赖（各 impl dependencies=[]），自动无环；
+# SLICE_MODE 编译期分派见 rtl/apb_register_slice.sv；RESP_STAGES 为正交深度参数。

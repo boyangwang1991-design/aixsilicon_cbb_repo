@@ -95,11 +95,11 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | 指标                         | 数量 |
 |------------------------------|------|
 | 总条目（cbbs）               | 410  |
-| implemented（已实现/已交付） | 10   |
-| planned（规划候选）          | 400  |
-| 实现率                       | 2.4% |
+| implemented（已实现/已交付） | 11   |
+| planned（规划候选）          | 399  |
+| 实现率                       | 2.7% |
 
-### 已实现 / 已交付构件（10）
+### 已实现 / 已交付构件（11）
 
 | ID      | 构件                                                                                         | 构件族                   | 抽象  | 优先级 | 版本  | 类别                              |
 |---------|----------------------------------------------------------------------------------------------|--------------------------|-------|--------|-------|-----------------------------------|
@@ -108,6 +108,7 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | ARB-003 | [weighted_rr_arbiter](components/arbitration_scheduling/weighted_rr_arbiter/README.md)       | Weighted RR Arbiter      | A2    | P2     | 0.1.0 | components/arbitration_scheduling |
 | ARB-010 | [packet_locking_arbiter](components/arbitration_scheduling/packet_locking_arbiter/README.md) | Packet-locking Arbiter   | A2/A3 | P1     | 0.1.0 | components/arbitration_scheduling |
 | ARI-001 | [incrementer_decrementer](components/arithmetic_datapath/incrementer_decrementer/README.md)  | Incrementer/Decrementer  | A1    | P0     | 0.1.0 | components/arithmetic_datapath    |
+| BUS-003 | [apb_register_slice](components/apb_ahb_register/apb_register_slice/README.md)               | APB Register Slice       | A3    | P1     | 0.1.0 | components/apb_ahb_register       |
 | COD-001 | [parity_gen_check](components/coding_integrity/parity_gen_check/README.md)                   | Parity Generator/Checker | A1    | P0     | 0.1.0 | components/coding_integrity       |
 | QUE-001 | [sync_fifo](components/fifo_queue_buffer/sync_fifo/README.md)                                | Synchronous FIFO         | A2    | P0     | 0.1.0 | components/fifo_queue_buffer      |
 | QUE-007 | [skid_buffer](components/fifo_queue_buffer/skid_buffer/README.md)                            | Skid Buffer              | A3    | P0     | 0.3.0 | components/fifo_queue_buffer      |
@@ -119,7 +120,7 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | 类别                              | implemented | planned | 合计 |
 |-----------------------------------|-------------|---------|------|
 | adapters                          | 0           | 22      | 22   |
-| components/apb_ahb_register       | 0           | 16      | 16   |
+| components/apb_ahb_register       | 1           | 15      | 16   |
 | components/arbitration_scheduling | 4           | 16      | 20   |
 | components/arithmetic_datapath    | 1           | 34      | 35   |
 | components/axi_axi_stream         | 0           | 38      | 38   |
@@ -159,7 +160,7 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | 优先级 | implemented | planned | 合计 |
 |--------|-------------|---------|------|
 | P0     | 6           | 72      | 78   |
-| P1     | 2           | 138     | 140  |
+| P1     | 3           | 137     | 140  |
 | P2     | 2           | 122     | 124  |
 | P3     | 0           | 68      | 68   |
 
@@ -192,26 +193,26 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | TEC-021 | [fpga_memory_wrapper](adapters/fpga_memory_wrapper/README.md)                 | FPGA Memory Wrapper           | planned | A0   | P1     | 0.1.0 | ASIC/FPGA双实现映射             |
 | TEC-022 | [fpga_dsp_wrapper](adapters/fpga_dsp_wrapper/README.md)                       | FPGA DSP Wrapper              | planned | A0   | P2     | 0.1.0 | 推断稳定性与流水位置            |
 
-#### components/apb_ahb_register（16，implemented=0）
+#### components/apb_ahb_register（16，implemented=1）
 
-| ID      | 名称                                                                                           | 构件族                     | 状态    | 抽象  | 优先级 | 版本  | 功能/描述            |
-|---------|------------------------------------------------------------------------------------------------|----------------------------|---------|-------|--------|-------|----------------------|
-| BUS-001 | [generic_csr_adapter](components/apb_ahb_register/generic_csr_adapter/README.md)               | Generic CSR Bus Adapter    | planned | A3    | P0     | 0.1.0 | 内部统一接口         |
-| BUS-002 | [apb_slave_adapter](components/apb_ahb_register/apb_slave_adapter/README.md)                   | APB Slave Adapter          | planned | A3    | P0     | 0.1.0 | 低面积与时序         |
-| BUS-003 | [apb_register_slice](components/apb_ahb_register/apb_register_slice/README.md)                 | APB Register Slice         | planned | A3    | P1     | 0.1.0 | PREADY返回路径       |
-| BUS-004 | [apb_decoder](components/apb_ahb_register/apb_decoder/README.md)                               | APB Decoder                | planned | A3    | P0     | 0.1.0 | 地址译码与PREADY Mux |
-| BUS-005 | [apb_mux_interconnect](components/apb_ahb_register/apb_mux_interconnect/README.md)             | APB Mux/Interconnect       | planned | A3/A4 | P1     | 0.1.0 | 规模与共享路径       |
-| BUS-006 | [apb_cdc_bridge](components/apb_ahb_register/apb_cdc_bridge/README.md)                         | APB CDC Bridge             | planned | A3    | P1     | 0.1.0 | 低吞吐CDC优化        |
-| BUS-007 | [apb_width_adapter](components/apb_ahb_register/apb_width_adapter/README.md)                   | APB Width Adapter          | planned | A3    | P2     | 0.1.0 | Byte strobe与跨拍    |
-| BUS-008 | [apb_timeout_default_slave](components/apb_ahb_register/apb_timeout_default_slave/README.md)   | APB Timeout/Default Slave  | planned | A3    | P0     | 0.1.0 | 防挂死与低开销       |
-| BUS-009 | [ahb_lite_slave_adapter](components/apb_ahb_register/ahb_lite_slave_adapter/README.md)         | AHB-Lite Slave Adapter     | planned | A3    | P1     | 0.1.0 | 地址/数据相位        |
-| BUS-010 | [ahb_lite_register_slice](components/apb_ahb_register/ahb_lite_register_slice/README.md)       | AHB-Lite Register Slice    | planned | A3    | P1     | 0.1.0 | HREADY路径           |
-| BUS-011 | [ahb_lite_decoder_mux](components/apb_ahb_register/ahb_lite_decoder_mux/README.md)             | AHB-Lite Decoder/Mux       | planned | A3    | P2     | 0.1.0 | 响应Mux时序          |
-| BUS-012 | [ahb_lite_cdc_bridge](components/apb_ahb_register/ahb_lite_cdc_bridge/README.md)               | AHB-Lite CDC Bridge        | planned | A3    | P2     | 0.1.0 | 相位与响应           |
-| BUS-013 | [ahb_apb_bridge](components/apb_ahb_register/ahb_apb_bridge/README.md)                         | AHB↔APB Bridge             | planned | A3/A4 | P1     | 0.1.0 | Buffer与时钟比       |
-| BUS-014 | [csr_shadow_commit_adapter](components/apb_ahb_register/csr_shadow_commit_adapter/README.md)   | CSR Shadow/Commit Adapter  | planned | A3    | P1     | 0.1.0 | 配置一致性           |
-| BUS-015 | [csr_access_policy_filter](components/apb_ahb_register/csr_access_policy_filter/README.md)     | CSR Access Policy Filter   | planned | A3    | P1     | 0.1.0 | 译码与安全策略       |
-| BUS-016 | [register_broadcast_adapter](components/apb_ahb_register/register_broadcast_adapter/README.md) | Register Broadcast Adapter | planned | A3    | P2     | 0.1.0 | 高扇出优化           |
+| ID      | 名称                                                                                           | 构件族                     | 状态        | 抽象  | 优先级 | 版本  | 功能/描述                                                                             |
+|---------|------------------------------------------------------------------------------------------------|----------------------------|-------------|-------|--------|-------|---------------------------------------------------------------------------------------|
+| BUS-001 | [generic_csr_adapter](components/apb_ahb_register/generic_csr_adapter/README.md)               | Generic CSR Bus Adapter    | planned     | A3    | P0     | 0.1.0 | 内部统一接口                                                                          |
+| BUS-002 | [apb_slave_adapter](components/apb_ahb_register/apb_slave_adapter/README.md)                   | APB Slave Adapter          | planned     | A3    | P0     | 0.1.0 | 低面积与时序                                                                          |
+| BUS-003 | [apb_register_slice](components/apb_ahb_register/apb_register_slice/README.md)                 | APB Register Slice         | implemented | A3    | P1     | 0.1.0 | PREADY返回路径（request/response/full 三模式 + RESP_STAGES 反馈级数 + G3/G4/G5 证据） |
+| BUS-004 | [apb_decoder](components/apb_ahb_register/apb_decoder/README.md)                               | APB Decoder                | planned     | A3    | P0     | 0.1.0 | 地址译码与PREADY Mux                                                                  |
+| BUS-005 | [apb_mux_interconnect](components/apb_ahb_register/apb_mux_interconnect/README.md)             | APB Mux/Interconnect       | planned     | A3/A4 | P1     | 0.1.0 | 规模与共享路径                                                                        |
+| BUS-006 | [apb_cdc_bridge](components/apb_ahb_register/apb_cdc_bridge/README.md)                         | APB CDC Bridge             | planned     | A3    | P1     | 0.1.0 | 低吞吐CDC优化                                                                         |
+| BUS-007 | [apb_width_adapter](components/apb_ahb_register/apb_width_adapter/README.md)                   | APB Width Adapter          | planned     | A3    | P2     | 0.1.0 | Byte strobe与跨拍                                                                     |
+| BUS-008 | [apb_timeout_default_slave](components/apb_ahb_register/apb_timeout_default_slave/README.md)   | APB Timeout/Default Slave  | planned     | A3    | P0     | 0.1.0 | 防挂死与低开销                                                                        |
+| BUS-009 | [ahb_lite_slave_adapter](components/apb_ahb_register/ahb_lite_slave_adapter/README.md)         | AHB-Lite Slave Adapter     | planned     | A3    | P1     | 0.1.0 | 地址/数据相位                                                                         |
+| BUS-010 | [ahb_lite_register_slice](components/apb_ahb_register/ahb_lite_register_slice/README.md)       | AHB-Lite Register Slice    | planned     | A3    | P1     | 0.1.0 | HREADY路径                                                                            |
+| BUS-011 | [ahb_lite_decoder_mux](components/apb_ahb_register/ahb_lite_decoder_mux/README.md)             | AHB-Lite Decoder/Mux       | planned     | A3    | P2     | 0.1.0 | 响应Mux时序                                                                           |
+| BUS-012 | [ahb_lite_cdc_bridge](components/apb_ahb_register/ahb_lite_cdc_bridge/README.md)               | AHB-Lite CDC Bridge        | planned     | A3    | P2     | 0.1.0 | 相位与响应                                                                            |
+| BUS-013 | [ahb_apb_bridge](components/apb_ahb_register/ahb_apb_bridge/README.md)                         | AHB↔APB Bridge             | planned     | A3/A4 | P1     | 0.1.0 | Buffer与时钟比                                                                        |
+| BUS-014 | [csr_shadow_commit_adapter](components/apb_ahb_register/csr_shadow_commit_adapter/README.md)   | CSR Shadow/Commit Adapter  | planned     | A3    | P1     | 0.1.0 | 配置一致性                                                                            |
+| BUS-015 | [csr_access_policy_filter](components/apb_ahb_register/csr_access_policy_filter/README.md)     | CSR Access Policy Filter   | planned     | A3    | P1     | 0.1.0 | 译码与安全策略                                                                        |
+| BUS-016 | [register_broadcast_adapter](components/apb_ahb_register/register_broadcast_adapter/README.md) | Register Broadcast Adapter | planned     | A3    | P2     | 0.1.0 | 高扇出优化                                                                            |
 
 #### components/arbitration_scheduling（20，implemented=4）
 

@@ -1,0 +1,33 @@
+# Release Manifest（G8 候选）— apb_register_slice
+# 状态：candidate（只有 Workflow Gate G8 可确认 released）
+schema_version: 1.0
+release:
+  cbb: aixsilicon:cbb:apb_register_slice
+  version: 0.1.0
+  status: released                # G0–G8 全 pass（2026-09-11；Workflow Gate 消费 run_log/gates 证据）
+  maturity: E2
+  released_at: "2026-09-11"
+  fusesoc_core: aixsilicon:cbb:apb_register_slice:0.1.0
+artifacts:
+  - rtl/apb_register_slice.sv
+  - fusesoc/aixsilicon_cbb_apb_register_slice.core
+  - cbb.yaml
+  - behavior.yaml
+  - profiles.yaml
+hashes:
+  # SHA-256（可重建性核验；与 G8 发布归档一致）
+  rtl/apb_register_slice.sv: f245ecd57d5c9effcee3737abe64bc1a62d5d423e8ec25ed8abfd8fa6a40d9fc
+  verification/simulation/apb_register_slice_tb.sv: c988b1d3fc91192a2f17e63c3eb6050e8a77feb6d4056bde2db5443728181b44
+  verification/formal/negative_elab_tb.sv: "2647d97d229c9f1a45fbbc583eafe371e7dbdfd6af71ec7a2e345a40b5c5ce06"
+sbom:
+  license: Apache-2.0
+  dependencies: []        # 无运行时子 CBB 依赖（implementations[].dependencies 全空）
+  verification_deps: []   # 无外部 VIP/DV 依赖（TB 自足）
+known_limits:
+  - SLICE_MODE=0 主↔子 PREADY 环回组合直通（ASM-004），环回时序由消费方评估
+  - 多 corner STA 未做（当前单 corner tt_nominal_max_1p00v_25c，PPA-E2）
+  - RESP_STAGES=2（full_slice_deep Profile）保持 experimental
+  - PPROT/AUSER 等扩展信号透传未实现（非目标，按需扩展）
+release_notes:
+  - 首次发布 0.1.0：APB 寄存切片（A3，BUS-003），request/response/full 三模式
+  - G0–G7 pass；反馈对齐 SVA + 变异检出 610（checker 有效）；29 点 DC 综合表征

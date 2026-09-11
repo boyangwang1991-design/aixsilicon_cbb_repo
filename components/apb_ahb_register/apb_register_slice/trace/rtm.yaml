@@ -1,0 +1,190 @@
+cbb: apb_register_slice
+requirements:
+- id: REQ-001
+  type: requirement
+  description: SLICE_MODE=1/2（response/full）——反馈寄存前保持 sel/enable 相位使能；APB 事务相位语义（SETUP→ACCESS）保持
+  properties:
+  - PROP-ARS_PHASE-001
+  tests:
+  - tc_phase
+  - tc_random
+  configs:
+  - cfg_addr_width16_data_width32_slice_mode1_resp_stages1
+  - cfg_addr_width16_data_width32_slice_mode2_resp_stages1
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-002
+  type: requirement
+  description: SLICE_MODE=1/2——子 PREADY 拉高后恰 RESP_STAGES 拍，主侧 PREADY 拉高（固定反馈延迟，无提前/丢失）
+  properties:
+  - PROP-ARS_RESPDLY-002
+  tests:
+  - tc_resp_delay
+  - tc_random
+  configs:
+  - cfg_addr_width16_data_width32_slice_mode1_resp_stages1
+  - cfg_addr_width16_data_width32_slice_mode2_resp_stages1
+  - cfg_addr_width16_data_width32_slice_mode2_resp_stages2
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-003
+  type: requirement
+  description: SLICE_MODE=1/2——PREADY 打拍时 PRDATA/PSLVERR 与 PREADY 同拍到达主侧，数据/错误与完成对齐
+  properties:
+  - PROP-ARS_ALIGN-003
+  tests:
+  - tc_data_align
+  - tc_random
+  configs:
+  - cfg_addr_width16_data_width32_slice_mode1_resp_stages1
+  - cfg_addr_width16_data_width32_slice_mode2_resp_stages1
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-004
+  type: requirement
+  description: SLICE_MODE=0（request）——前向通路打拍 1 拍，反馈组合直通（PREADY 即时返回）
+  properties:
+  - PROP-ARS_REQDLY-004
+  tests:
+  - tc_req_mode
+  - tc_random
+  configs:
+  - cfg_addr_width16_data_width32_slice_mode0_resp_stages1
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-005
+  type: requirement
+  description: SLICE_MODE=2（full）——前向与反馈各 1 拍，两侧割断；前向延迟与反馈延迟独立生效
+  properties:
+  - PROP-ARS_FULL-005
+  tests:
+  - tc_full_mode
+  - tc_random
+  configs:
+  - cfg_addr_width16_data_width32_slice_mode2_resp_stages1
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-006
+  type: requirement
+  description: 复位释放后无残留——无进行中事务时 psel_main/penable_main/pready_main=0（等价三模式）
+  properties:
+  - PROP-ARS_RESET-006
+  tests:
+  - tc_reset
+  - tc_equiv
+  configs:
+  - cfg_addr_width16_data_width32_slice_mode0_resp_stages1
+  - cfg_addr_width16_data_width32_slice_mode1_resp_stages1
+  - cfg_addr_width16_data_width32_slice_mode2_resp_stages1
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-007
+  type: requirement
+  description: 非法参数组合在 Elaboration 期被拦截
+  properties: []
+  tests:
+  - tc_negative_elab
+  configs:
+  - cfg_addr_width7_data_width32_slice_mode2_resp_stages1
+  - cfg_addr_width16_data_width65_slice_mode2_resp_stages1
+  - cfg_addr_width16_data_width32_slice_mode3_resp_stages1
+  - cfg_addr_width16_data_width32_slice_mode2_resp_stages3
+  evidence:
+  - build/eda/evidence/g3_static/compile.txt
+- id: INV-001
+  type: requirement
+  description: 相位使能保持（SLICE_MODE=1/2）——反馈通路打拍期间，主侧 PSEL/PENABLE 相位 与子侧 PSEL/PENABLE
+    相位保持一致（SETUP 态对应 SETUP，ACCESS 态对应 ACCESS）， 寄存不吞相位、不错相位。
+  properties:
+  - PROP-ARS_PHASE-001
+  tests:
+  - tc_phase
+  - tc_random
+  configs: []
+  evidence: []
+- id: INV-002
+  type: requirement
+  description: 固定反馈延迟（SLICE_MODE=1/2）——子侧 psel_sub&penable_sub&pready_sub 有效 （ACCESS
+    相位完成）后恰 RESP_STAGES 拍，主侧 pready_main 在 ACCESS 相位拉高； 反馈寄存深度固定，不提前、不丢失、不因 ready
+    时序抖动改变。
+  properties:
+  - PROP-ARS_RESPDLY-002
+  tests:
+  - tc_resp_delay
+  - tc_random
+  configs: []
+  evidence: []
+- id: INV-003
+  type: requirement
+  description: 反馈对齐（SLICE_MODE=1/2）——prdata_main/pslverr_main 与 pready_main 在同拍 采样生效；主侧采样（PREADY
+    高拍）得到的数据/错误即打拍前子侧的值（无移位错位）。
+  properties:
+  - PROP-ARS_ALIGN-003
+  tests:
+  - tc_data_align
+  - tc_random
+  configs: []
+  evidence: []
+- id: INV-004
+  type: requirement
+  description: 前向打拍（SLICE_MODE=0/2）——psel_sub/penable_sub/paddr_sub/pwrite_sub/pwdata_sub/
+    pstrb_sub 为对应主侧信号延迟 1 拍；SLICE_MODE=0 时 pready_main=pready_sub 组合直通。
+  properties:
+  - PROP-ARS_REQDLY-004
+  tests:
+  - tc_req_mode
+  - tc_random
+  configs: []
+  evidence: []
+- id: INV-005
+  type: requirement
+  description: 完整模式（SLICE_MODE=2）——前向与反馈延迟独立叠加：主侧 PREADY 相对子侧完成 延迟 1 拍（RESP_STAGES=1），前向再延迟
+    1 拍；两侧组合环均被寄存割断。
+  properties:
+  - PROP-ARS_FULL-005
+  tests:
+  - tc_full_mode
+  - tc_random
+  configs: []
+  evidence: []
+- id: INV-006
+  type: requirement
+  description: 复位清洁——rst_n 释放后且无进行中事务时，psel_main/penable_main/pready_main 与子侧对应信号均为
+    0，无残留选中/错误完成。
+  properties:
+  - PROP-ARS_RESET-006
+  tests:
+  - tc_reset
+  - tc_equiv
+  configs: []
+  evidence: []
+- id: ASM-001
+  type: requirement
+  description: 输入 X/Z 不承诺（2-state 仿真语义；X 传播视为未定义）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-002
+  type: requirement
+  description: 上游主设备遵守 APB 协议：SETUP 恰 1 拍后进 ACCESS，ACCESS 持续至 PREADY； 本构件为透传切片，不产生/终止事务，不检查协议违例（协议检查归
+    VIP）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-003
+  type: requirement
+  description: SLICE_MODE/RESP_STAGES/ADDR_WIDTH/DATA_WIDTH 为编译期参数，不运行时切换。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-004
+  type: requirement
+  description: SLICE_MODE=0（request）时反馈组合直通，主↔子 PREADY 间存在组合路径， 需消费方自行评估环回时序；需要完全割断请用
+    SLICE_MODE=1/2。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []

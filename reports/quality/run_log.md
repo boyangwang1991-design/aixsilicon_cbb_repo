@@ -172,3 +172,13 @@
     所有结果绑定 run_id/hash；采样域值对补齐，非全整数域穷尽证明。make check 124 项测试及 pre-commit 全通过。
 - `2026-09-10 13:50:27` | **observe** | SAF-005 本地候选交付完成；中文 Markdown 规格/设计/报告、15 项 skill 复盘、147 配置回归、8 点综合等价与 Core 独立构建均已归档 | 结果(PASS)
     严格 check/rtm/gate、registry 校验及 README 刷新通过。make check 124 项、pre-commit 与 suite 工具 12 项回归通过。G3/G6 限定解释已记录；G7/G8 未发布。最终 RTL SHA-256=8b6f6c562f92706eeb491a3fd3348369b81c807e90e4a0a4af5b92317aa02838。
+- `2026-09-11 06:25:16` | **intake** | G0 | apb_register_slice (BUS-003) scaffold phase=full：Intake 结论=物化已登记 planned 条目，A3/P1，消费者=APB interconnect/CSR bridge | 结果(PASS)
+- `2026-09-11 06:33:20` | **specify** | G1 | apb_register_slice 规格完成：cbb.yaml(内嵌REQ/PC) + behavior.yaml + profiles.yaml + docs/{intake,cbb_spec}.md + plan.yaml(6 planned PROP + 10 tc)；config-gen 4 集合 37 配置已回填 | 结果(PASS)
+- `2026-09-11 06:36:55` | **design** | G2 | apb_register_slice 设计完成：docs/design.md（三模式共享契约）+ detail-design/{response,request_full}.md（逻辑深度/守恒论证/PPA 优化点） | 结果(PASS)
+- `2026-09-11 07:24:32` | **implement** | G3 | apb_register_slice RTL+TB 完成；G3 静态基线：54 参数点编译/elab PASS + 负向 elab 拦截 + SpyGlass lint 0F/0E(4W/3I) | 结果(PASS)
+- `2026-09-11 07:24:32` | **verify** | G4 | apb_register_slice G4 功能：复位/定向/RS2/随机300×mode1/等价全 PASS（seed=A85_2026_0911）；变异检出 610（checker 有效）；证据 build/eda/evidence/g4_functional/ | 结果(PASS)
+- `2026-09-11 07:25:19` | **qualify** | G7 | apb_register_slice (BUS-003) registry planned→implemented；build_cbb_structure.py 校验通过 + README 状态总览刷新；gate G0-G5=pass, G6=blocked(PDK 待综合) | 结果(PASS)
+- `2026-09-11 07:37:01` | **characterize** | G6 | apb_register_slice G6 PASS：pdk-scan PDK_READY→DC 真实综合 29 点（mode×width 27 + RS 2），corner tt_1p00v_25c/400MHz，response 面积最小 88.33（AW16DW32），full=前向+反馈守恒 239≈150+89；报告 reports/ppa-report.md，run_id=run-20260911-032845-01 | 结果(PASS)
+- `2026-09-11 07:52:52` | **qualify** | G7 | apb_register_slice G7 PASS：qualification-report.md 完成（支持矩阵/门禁证据/消费者Smoke G3=0 G4=0/限制/豁免无）；成熟度建议 E2 qualification candidate | 结果(PASS)
+- `2026-09-11 07:54:49` | **release** | G8 | apb_register_slice G8：release/manifest.yaml status=released（SemVer 0.1.0 + SBOM 无嵌套依赖 + SHA-256 三件套 + 已知限制4条）；gate --check 9/9 pass；PPA 图 reports/ppa_{area,timing}_sweep.png 归档 | 结果(PASS)
+    RTL SHA-256=f245ecd57d5c9effcee3737abe64bc1a62d5d423e8ec25ed8abfd8fa6a40d9fc；TB=c988b1d3fc91192a2f17e63c3eb6050e8a77feb6d4056bde2db5443728181b44；run_id=run-20260911-032845-01

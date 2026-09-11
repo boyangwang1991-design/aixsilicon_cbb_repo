@@ -1,0 +1,41 @@
+cbb: apb_register_slice
+updated: '2026-09-11T07:53:29Z'
+gates:
+  G0:
+    status: pass
+    note: BUS-003 物化：A3/P1 边界+查重+依赖解析明确
+    evidence: docs/intake.md
+  G1:
+    status: pass
+    note: check --phase specify --strict PASS；config-gen 4集合37配置回填
+    evidence: docs/cbb_spec.md
+  G2:
+    status: pass
+    note: 三模式共享契约；detail-design 齐备
+    evidence: docs/design.md
+  G3:
+    status: pass
+    evidence: build/eda/evidence/g3_static/compile.txt
+    note: 54参数点编译/elab PASS + 负向elab拦截 + spyglass lint 0F/0E
+  G4:
+    status: pass
+    evidence: build/eda/evidence/g4_functional/functional_sim.txt
+    note: 复位/定向/RS2/随机300/等价 PASS + 变异检出610
+  G5:
+    status: pass
+    evidence: verification/configs/manifest.yaml
+    note: config-gen mandatory/boundary/pairwise/negative 37配置（去重+约束过滤+RTM引用闭环）
+  G6:
+    status: pass
+    note: PDK_READY 真实综合：DC compile_ultra 29点 @tt_1p00v_25c/2.5ns，PPA-E2；面积26.1-459.2，reg2reg
+      slack+1.48ns 全收敛；run-20260911-032845-01
+    evidence: reports/ppa-report.md
+  G7:
+    status: pass
+    evidence: reports/qualification-report.md
+    note: 支持矩阵+消费者Smoke复跑G3/G4全PASS+限制声明；成熟度建议E2(qualification candidate)；G8另走Release
+  G8:
+    status: pass
+    evidence: release/manifest.yaml
+    note: candidate：SemVer 0.1.0 + SBOM(无嵌套依赖) + SHA-256 哈希 + 限制声明；released 状态由 Workflow
+      确认

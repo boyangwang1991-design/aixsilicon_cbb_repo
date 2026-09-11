@@ -1,0 +1,110 @@
+set: pairwise
+configs:
+- config_id: cfg_addr_width8_data_width8_slice_mode2_resp_stages1
+  parameters:
+    ADDR_WIDTH: 8
+    DATA_WIDTH: 8
+    SLICE_MODE: 2
+    RESP_STAGES: 1
+- config_id: cfg_addr_width8_data_width64_slice_mode2_resp_stages1
+  parameters:
+    ADDR_WIDTH: 8
+    DATA_WIDTH: 64
+    SLICE_MODE: 2
+    RESP_STAGES: 1
+- config_id: cfg_addr_width32_data_width8_slice_mode2_resp_stages1
+  parameters:
+    ADDR_WIDTH: 32
+    DATA_WIDTH: 8
+    SLICE_MODE: 2
+    RESP_STAGES: 1
+- config_id: cfg_addr_width32_data_width64_slice_mode2_resp_stages1
+  parameters:
+    ADDR_WIDTH: 32
+    DATA_WIDTH: 64
+    SLICE_MODE: 2
+    RESP_STAGES: 1
+- config_id: cfg_addr_width8_data_width32_slice_mode0_resp_stages1
+  parameters:
+    ADDR_WIDTH: 8
+    DATA_WIDTH: 32
+    SLICE_MODE: 0
+    RESP_STAGES: 1
+- config_id: cfg_addr_width8_data_width32_slice_mode1_resp_stages1
+  parameters:
+    ADDR_WIDTH: 8
+    DATA_WIDTH: 32
+    SLICE_MODE: 1
+    RESP_STAGES: 1
+- config_id: cfg_addr_width32_data_width32_slice_mode0_resp_stages1
+  parameters:
+    ADDR_WIDTH: 32
+    DATA_WIDTH: 32
+    SLICE_MODE: 0
+    RESP_STAGES: 1
+- config_id: cfg_addr_width32_data_width32_slice_mode1_resp_stages1
+  parameters:
+    ADDR_WIDTH: 32
+    DATA_WIDTH: 32
+    SLICE_MODE: 1
+    RESP_STAGES: 1
+- config_id: cfg_addr_width8_data_width32_slice_mode2_resp_stages2
+  parameters:
+    ADDR_WIDTH: 8
+    DATA_WIDTH: 32
+    SLICE_MODE: 2
+    RESP_STAGES: 2
+- config_id: cfg_addr_width32_data_width32_slice_mode2_resp_stages2
+  parameters:
+    ADDR_WIDTH: 32
+    DATA_WIDTH: 32
+    SLICE_MODE: 2
+    RESP_STAGES: 2
+- config_id: cfg_addr_width16_data_width8_slice_mode0_resp_stages1
+  parameters:
+    ADDR_WIDTH: 16
+    DATA_WIDTH: 8
+    SLICE_MODE: 0
+    RESP_STAGES: 1
+- config_id: cfg_addr_width16_data_width8_slice_mode1_resp_stages1
+  parameters:
+    ADDR_WIDTH: 16
+    DATA_WIDTH: 8
+    SLICE_MODE: 1
+    RESP_STAGES: 1
+- config_id: cfg_addr_width16_data_width64_slice_mode0_resp_stages1
+  parameters:
+    ADDR_WIDTH: 16
+    DATA_WIDTH: 64
+    SLICE_MODE: 0
+    RESP_STAGES: 1
+- config_id: cfg_addr_width16_data_width64_slice_mode1_resp_stages1
+  parameters:
+    ADDR_WIDTH: 16
+    DATA_WIDTH: 64
+    SLICE_MODE: 1
+    RESP_STAGES: 1
+- config_id: cfg_addr_width16_data_width8_slice_mode2_resp_stages2
+  parameters:
+    ADDR_WIDTH: 16
+    DATA_WIDTH: 8
+    SLICE_MODE: 2
+    RESP_STAGES: 2
+- config_id: cfg_addr_width16_data_width64_slice_mode2_resp_stages2
+  parameters:
+    ADDR_WIDTH: 16
+    DATA_WIDTH: 64
+    SLICE_MODE: 2
+    RESP_STAGES: 2
+- config_id: cfg_addr_width16_data_width32_slice_mode0_resp_stages2
+  parameters:
+    ADDR_WIDTH: 16
+    DATA_WIDTH: 32
+    SLICE_MODE: 0
+    RESP_STAGES: 2
+- config_id: cfg_addr_width16_data_width32_slice_mode1_resp_stages2
+  parameters:
+    ADDR_WIDTH: 16
+    DATA_WIDTH: 32
+    SLICE_MODE: 1
+    RESP_STAGES: 2

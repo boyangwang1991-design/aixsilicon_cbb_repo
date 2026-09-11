@@ -1,0 +1,187 @@
+# ============================================================
+# cbb.yaml — apb_register_slice SSOT 元数据（BUS-003, A3/P1）
+# APB Register Slice：PSLVERQ/PREADY 返回路径打拍（割断组合返回路径）
+# 嵌套依赖：无（dependencies 为空）；验证资产随包自足
+# ============================================================
+
+schema_version: 1.0
+
+cbb:
+  id: aixsilicon:cbb:apb_register_slice
+  name: apb_register_slice
+  version: 0.1.0
+  owner: aixsilicon:cbb
+  maturity: E2                      # G7 qualification candidate（2026-09-11）
+  license: Apache-2.0
+
+classification:
+  abstraction: A3                    # 协议构件：APB 握手/时序语义（协议绑定）
+  primary_domain: apb_ahb_register
+  secondary_domains: []
+
+contract:
+  interface: apb_passthrough         # APB 从侧→主侧透传（信号级绑定，非 SV interface）
+  clock_domains: 1
+  ordering: preserved                # APB 单事务总线，寄存不改变事务顺序
+  throughput: 1_setup_per_xfer       # 每事务 SETUP+ACCESS 两相位语义保持；反馈打拍引入 1 拍 PREADY 延迟
+
+# ---------------- 可配置参数 ----------------
+parameters:
+  ADDR_WIDTH:
+    type: int
+    default: 16
+    legal: {min: 8, max: 32}
+    partitions: [8, 16, 32]
+    affects: [interface_width, area]
+    semantics: PADDR/PWRITE 通路位宽（APB 地址位宽）
+  DATA_WIDTH:
+    type: int
+    default: 32
+    legal: {min: 8, max: 64}
+    partitions: [8, 32, 64]
+    affects: [interface_width, area]
+    semantics: PWDATA/PRDATA 数据通路位宽
+  SLICE_MODE:
+    type: int
+    default: 2
+    legal: [0, 1, 2]
+    partitions: [0, 1, 2]
+    affects: [latency, area, timing, state_space]
+    semantics: >-
+      0=request（地址/写数据/控制前向打拍 1 拍，PREADY 组合返回）；
+      1=response（前向组合直通，PREADY/PRDATA/PSLVERR 反馈打拍 1 拍）；
+      2=full（前向、反馈各打拍 1 拍，两侧均割断组合路径，complete register slice）
+  RESP_STAGES:
+    type: int
+    default: 1
+    legal: {min: 1, max: 2}
+    partitions: [1, 2]
+    affects: [latency, area, state_space]
+    semantics: >-
+      反馈路径（PREADY/PRDATA/PSLVERR）寄存级数：1=单级打拍（默认）；
+      2=两级打拍（PSLVERR 慢速外设/远距物理规划场景）；仅 SLICE_MODE!=0 时有意义
+
+constraints:
+  - id: PC-001
+    expression: "ADDR_WIDTH >= 8"
+    severity: error                   # APB 最小地址位宽
+  - id: PC-002
+    expression: "ADDR_WIDTH <= 32"
+    severity: error                   # RTL 平面/时序上界
+  - id: PC-003
+    expression: "DATA_WIDTH >= 8"
+    severity: error
+  - id: PC-004
+    expression: "DATA_WIDTH <= 64"
+    severity: error
+  - id: PC-005
+    expression: "SLICE_MODE >= 0 and SLICE_MODE <= 2"
+    severity: error                   # 枚举合法域
+  - id: PC-006
+    expression: "RESP_STAGES >= 1 and RESP_STAGES <= 2"
+    severity: error                   # 反馈级数合法域
+
+# ---------------- 需求（REQ→PROP/tests/configs 映射）----------------
+requirements:
+  - id: REQ-001
+    description: SLICE_MODE=1/2（response/full）——反馈寄存前保持 sel/enable 相位使能；APB 事务相位语义（SETUP→ACCESS）保持
+    properties: [PROP-ARS_PHASE-001]
+    tests: [tc_phase, tc_random]
+    configs:
+      - cfg_addr_width16_data_width32_slice_mode1_resp_stages1
+      - cfg_addr_width16_data_width32_slice_mode2_resp_stages1
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-002
+    description: SLICE_MODE=1/2——子 PREADY 拉高后恰 RESP_STAGES 拍，主侧 PREADY 拉高（固定反馈延迟，无提前/丢失）
+    properties: [PROP-ARS_RESPDLY-002]
+    tests: [tc_resp_delay, tc_random]
+    configs:
+      - cfg_addr_width16_data_width32_slice_mode1_resp_stages1
+      - cfg_addr_width16_data_width32_slice_mode2_resp_stages1
+      - cfg_addr_width16_data_width32_slice_mode2_resp_stages2
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-003
+    description: SLICE_MODE=1/2——PREADY 打拍时 PRDATA/PSLVERR 与 PREADY 同拍到达主侧，数据/错误与完成对齐
+    properties: [PROP-ARS_ALIGN-003]
+    tests: [tc_data_align, tc_random]
+    configs:
+      - cfg_addr_width16_data_width32_slice_mode1_resp_stages1
+      - cfg_addr_width16_data_width32_slice_mode2_resp_stages1
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-004
+    description: SLICE_MODE=0（request）——前向通路打拍 1 拍，反馈组合直通（PREADY 即时返回）
+    properties: [PROP-ARS_REQDLY-004]
+    tests: [tc_req_mode, tc_random]
+    configs:
+      - cfg_addr_width16_data_width32_slice_mode0_resp_stages1
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-005
+    description: SLICE_MODE=2（full）——前向与反馈各 1 拍，两侧割断；前向延迟与反馈延迟独立生效
+    properties: [PROP-ARS_FULL-005]
+    tests: [tc_full_mode, tc_random]
+    configs:
+      - cfg_addr_width16_data_width32_slice_mode2_resp_stages1
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-006
+    description: 复位释放后无残留——无进行中事务时 psel_main/penable_main/pready_main=0（等价三模式）
+    properties: [PROP-ARS_RESET-006]
+    tests: [tc_reset, tc_equiv]
+    configs:
+      - cfg_addr_width16_data_width32_slice_mode0_resp_stages1
+      - cfg_addr_width16_data_width32_slice_mode1_resp_stages1
+      - cfg_addr_width16_data_width32_slice_mode2_resp_stages1
+    evidence: [build/eda/evidence/g4_functional/functional_sim.txt]
+  - id: REQ-007
+    description: 非法参数组合在 Elaboration 期被拦截
+    properties: []                    # 负向编译证据（非 SVA）
+    tests: [tc_negative_elab]
+    configs:
+      - cfg_addr_width7_data_width32_slice_mode2_resp_stages1
+      - cfg_addr_width16_data_width65_slice_mode2_resp_stages1
+      - cfg_addr_width16_data_width32_slice_mode3_resp_stages1
+      - cfg_addr_width16_data_width32_slice_mode2_resp_stages3
+    evidence: [build/eda/evidence/g3_static/compile.txt]
+
+# ---------------- 实现变体（SLICE_MODE 编译期分派，单文件）----------------
+implementations:
+  - id: impl_request                  # SLICE_MODE=0 前向打拍（割断地址/写数据扇入）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/apb_register_slice.sv
+  - id: impl_response                 # SLICE_MODE=1 反馈打拍（割断 PREADY 返回路径）
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/apb_register_slice.sv
+  - id: impl_full                     # SLICE_MODE=2 前向+反馈双打拍
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/apb_register_slice.sv
+
+# ---------------- 质量门禁（G0~G8）----------------
+quality:
+  required_gates: [G0, G1, G2, G3, G4, G5, G6, G7, G8]
+
+# ---------------- PPA 表征 ----------------
+characterization:
+  benchmark_profiles:
+    - ppa_mode_sweep                  # 27 点：SLICE_MODE×AW×DW（RESP_STAGES=1）
+    - ppa_resp_stages                 # 2 点：full 模式 RESP_STAGES=1/2
+  measured_region:
+    library: sc9_cmos28lp_base_hvt
+    corner: tt_nominal_max_1p00v_25c
+    clock_period_ns: 2.5
+    evidence_grade: PPA-E2
+    run_id: run-20260911-032845-01
+    points: 29
+    area_range: "26.1..459.2"
+    timing: "reg->reg slack +1.48ns @2.5ns 全收敛"
+    report: reports/ppa-report.md
+
+release:
+  fusesoc_core: aixsilicon:cbb:apb_register_slice:0.1.0

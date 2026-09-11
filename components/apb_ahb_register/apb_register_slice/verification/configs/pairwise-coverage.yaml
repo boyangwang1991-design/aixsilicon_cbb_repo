@@ -1,0 +1,107 @@
+scope: sampled_candidate_domains
+domains:
+  ADDR_WIDTH:
+  - 16
+  - 8
+  - 32
+  - 20
+  - 9
+  DATA_WIDTH:
+  - 32
+  - 8
+  - 64
+  - 36
+  - 9
+  RESP_STAGES:
+  - 1
+  - 2
+  SLICE_MODE:
+  - 2
+  - 0
+  - 1
+missing_pair_feasibility: unknown
+pairs:
+- parameters:
+  - ADDR_WIDTH
+  - DATA_WIDTH
+  candidate_pairs: 25
+  covered_pairs: 13
+  missing_pairs:
+  - ADDR_WIDTH: 8
+    DATA_WIDTH: 36
+  - ADDR_WIDTH: 8
+    DATA_WIDTH: 9
+  - ADDR_WIDTH: 32
+    DATA_WIDTH: 36
+  - ADDR_WIDTH: 32
+    DATA_WIDTH: 9
+  - ADDR_WIDTH: 20
+    DATA_WIDTH: 8
+  - ADDR_WIDTH: 20
+    DATA_WIDTH: 64
+  - ADDR_WIDTH: 20
+    DATA_WIDTH: 36
+  - ADDR_WIDTH: 20
+    DATA_WIDTH: 9
+  - ADDR_WIDTH: 9
+    DATA_WIDTH: 8
+  - ADDR_WIDTH: 9
+    DATA_WIDTH: 64
+  - ADDR_WIDTH: 9
+    DATA_WIDTH: 36
+  - ADDR_WIDTH: 9
+    DATA_WIDTH: 9
+- parameters:
+  - ADDR_WIDTH
+  - RESP_STAGES
+  candidate_pairs: 10
+  covered_pairs: 8
+  missing_pairs:
+  - ADDR_WIDTH: 20
+    RESP_STAGES: 2
+  - ADDR_WIDTH: 9
+    RESP_STAGES: 2
+- parameters:
+  - ADDR_WIDTH
+  - SLICE_MODE
+  candidate_pairs: 15
+  covered_pairs: 11
+  missing_pairs:
+  - ADDR_WIDTH: 20
+    SLICE_MODE: 0
+  - ADDR_WIDTH: 20
+    SLICE_MODE: 1
+  - ADDR_WIDTH: 9
+    SLICE_MODE: 0
+  - ADDR_WIDTH: 9
+    SLICE_MODE: 1
+- parameters:
+  - DATA_WIDTH
+  - RESP_STAGES
+  candidate_pairs: 10
+  covered_pairs: 8
+  missing_pairs:
+  - DATA_WIDTH: 36
+    RESP_STAGES: 2
+  - DATA_WIDTH: 9
+    RESP_STAGES: 2
+- parameters:
+  - DATA_WIDTH
+  - SLICE_MODE
+  candidate_pairs: 15
+  covered_pairs: 11
+  missing_pairs:
+  - DATA_WIDTH: 36
+    SLICE_MODE: 0
+  - DATA_WIDTH: 36
+    SLICE_MODE: 1
+  - DATA_WIDTH: 9
+    SLICE_MODE: 0
+  - DATA_WIDTH: 9
+    SLICE_MODE: 1
+- parameters:
+  - RESP_STAGES
+  - SLICE_MODE
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []

@@ -1,0 +1,70 @@
+CAPI=2:
+# FuseSoC Core — apb_register_slice (BUS-003, A3/P1)
+# VLNV: aixsilicon:cbb:apb_register_slice:0.1.0
+# 极简单文件：RTL/TB 只引单一 .sv；target 只声明本机实际配置的 backend（vcs/spyglass），
+# 不宣称未配置的 synth/formal 工具。
+name: aixsilicon:cbb:apb_register_slice:0.1.0
+description: APB register slice CBB, A3 — request/response/full slice modes with
+  configurable response stages (PREADY return path pipelining)
+filesets:
+  rtl_src:
+    files:
+    - ../rtl/apb_register_slice.sv
+    file_type: systemVerilogSource
+  tb_src:
+    files:
+    - ../verification/simulation/apb_register_slice_tb.sv
+    file_type: systemVerilogSource
+targets:
+  default:
+    filesets:
+    - rtl_src
+    parameters:
+    - ADDR_WIDTH
+    - DATA_WIDTH
+    - SLICE_MODE
+    - RESP_STAGES
+  sim:
+    default_tool: vcs
+    filesets:
+    - rtl_src
+    - tb_src
+    toplevel:
+    - apb_register_slice_tb
+    tools:
+      vcs:
+        vcs_options:
+        - -full64
+        - -timescale=1ns/1ps
+  lint:
+    default_tool: spyglass
+    filesets:
+    - rtl_src
+    toplevel:
+    - apb_register_slice
+    parameters:
+    - ADDR_WIDTH
+    - DATA_WIDTH
+    - SLICE_MODE
+    - RESP_STAGES
+parameters:
+  ADDR_WIDTH:
+    datatype: int
+    default: 16
+    description: APB address width [8..32] (PC-001/002)
+    paramtype: vlogparam
+  DATA_WIDTH:
+    datatype: int
+    default: 32
+    description: APB data width [8..64] (PC-003/004)
+    paramtype: vlogparam
+  SLICE_MODE:
+    datatype: int
+    default: 2
+    description: Slice position {0=request fwd reg,1=response reg,2=full both reg}
+    paramtype: vlogparam
+  RESP_STAGES:
+    datatype: int
+    default: 1
+    description: Response register stages {1..2} (PC-006)
+    paramtype: vlogparam
