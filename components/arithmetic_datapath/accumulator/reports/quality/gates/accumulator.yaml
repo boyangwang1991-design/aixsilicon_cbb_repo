@@ -1,5 +1,5 @@
 cbb: accumulator
-updated: '2026-09-14T09:33:50Z'
+updated: '2026-09-14T09:52:47Z'
 gates:
   G0:
     status: pass
@@ -31,9 +31,8 @@ gates:
     evidence: run-20260914-02,reports/verification-report.md,reports/qualification-report.md,reports/ppa-report.md
   G6:
     status: pass
-    note: 'G5: config matrix sim 12/12 (run-20260914-02); G6: dc_shell PPA 12pts (run-20260914-01).
-      Full per-config run matrix pending CI runner; see qualification-report limitations'
-    evidence: run-20260914-02,reports/verification-report.md,reports/qualification-report.md,reports/ppa-report.md
+    note: 'G6: dc_shell PPA 12pts (run-20260914-01, PPA-E1 tt corner); see reports/ppa-report.md'
+    evidence: run-20260914-01,reports/verification-report.md,reports/qualification-report.md,reports/ppa-report.md
   G7:
     status: not_applicable
     note: 'G7/G8 (Qualification/Release): 完整 per-config run matrix / formal / ss-ff
