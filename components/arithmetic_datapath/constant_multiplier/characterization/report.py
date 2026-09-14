@@ -108,27 +108,11 @@ def main():
                 "降低 datapath 优化等级的隔离重试通过了算术映射阶段，但随后优化阶段仍耗尽内存；"
                 "该重试设置单进程 7 GiB 虚拟内存上限，工具明确报告 Out of memory。",
             ]
-    retry_path = ROOT / "reports/ppa-retry-classic.json"
-    if retry_path.exists():
-        retry = json.loads(retry_path.read_text())
-        directory = ROOT / "build/eda/ppa_diagnosis/classic"
-        for name, expected in retry["raw_hashes"].items():
-            if hashlib.sha256((directory / name).read_bytes()).hexdigest() != expected:
-                raise SystemExit("stale retry report: " + name)
-        d["separate_recovery_experiment"] = retry
+    if diagnosis and diagnosis.get("classic_retry"):
         lines += [
             "",
-            "独立恢复试验：同一 W128/L0 BINARY RTL、库和约束，改用 `compile -map_effort medium`。"
-            "此综合设置不同于主表，不用于与主表实现排名。",
-            "",
-            "| 恢复试验 | 单元面积 | 到达时间 ns | 最差 slack ns |",
-            "|---|---:|---:|---:|",
-            f"| BINARY / compile medium | {retry['area']:.6g} | {retry['arrival_ns']:.6g} | {retry['wns_ns']:.6g} |",
-            "",
-            "负 slack 表示未达到该时序预算；综合完成不等于时序收敛。RTL 未修改，"
-            "沿用已有功能仿真证据；该映射网表的形式等价尚未运行。"
-            "结果和全部原始产物指纹见 [恢复试验](ppa-retry-classic.json)。"
-            "可在保留旧试验目录后运行 `uv run python characterization/retry_ppa.py --strategy classic` 重放。",
+            "传统 `compile -map_effort medium` 重试在映射优化阶段按用户收尾要求终止，"
+            "状态为 cancelled，未产生可用 PPA 结果；不能据此判定该流程成功或失败。",
         ]
     lines += [
         "",

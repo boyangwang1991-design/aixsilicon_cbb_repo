@@ -15,9 +15,15 @@
 | W16/L2 | CSD | 261.261 | 2.05 | 0.35 | 0.00013907 | 4.14204e-08 |
 | W16/L2 | ADDER_GRAPH | 201.708 | 2.06 | 0.34 | 0.000104209 | 3.39545e-08 |
 | W128/L0 | NATIVE | 295.659 | 2.2 | 0 | 4.68907e-05 | 5.37167e-08 |
-| W128/L0 | BINARY (tool_internal_error) | unavailable | unavailable | unavailable | unavailable | unavailable |
+| W128/L0 | BINARY (tool_internal_error; system_out_of_memory) | unavailable | unavailable | unavailable | unavailable | unavailable |
 | W128/L0 | CSD | 293.787 | 2.19 | 0.01 | 4.63797e-05 | 5.1286e-08 |
 | W128/L0 | ADDER_GRAPH | 293.787 | 2.19 | 0.01 | 4.63797e-05 | 5.1286e-08 |
+
+失败原因已核实：内核 OOM 日志与 DC 异常退出子进程 PID 156845 一致，被杀进程匿名驻留内存为 10430936 KiB。系统内存耗尽后 DC 报告 tool_internal_error；该点未生成 PPA 指标。证据指纹见 [诊断记录](ppa-failure-diagnosis.json)。
+
+降低 datapath 优化等级的隔离重试通过了算术映射阶段，但随后优化阶段仍耗尽内存；该重试设置单进程 7 GiB 虚拟内存上限，工具明确报告 Out of memory。
+
+传统 `compile -map_effort medium` 重试在映射优化阶段按用户收尾要求终止，状态为 cancelled，未产生可用 PPA 结果；不能据此判定该流程成功或失败。
 
 TNS、最大扇出及物理布线指标当前 unavailable；触发器与 buffer 数从所选库的单元类型抽取到 JSON，不以 0 代替。到达时间包含 I/O 条件；流水配置报告保留全部适用路径，不能把不同延迟跨组比较为收益。
 

@@ -7,6 +7,9 @@
 - `model/reference.py`：独立 Python 任意精度参考模型。
 - `verification/run.py`：VCS 数值、周期、负向及故障注入回归；`verification/formal/run_equivalence.py`：限定配置的 Formality 证明。
 - `characterization/run_ppa.py`：固定库代表点综合；`characterization/report.py`：抽取报告和比较图。
+- `characterization/diagnose_failure.py`：关联 DC 子进程与内核 OOM 证据；`characterization/retry_ppa.py`：有内存与时间上限的隔离重试。
+
+当前固定库综合完成 11/12 点。W128/L0、`COEFF=-(2^127-1)`、BINARY 在算术映射阶段因系统内存不足被 OOM killer 杀死，随后 DC 报告内部错误；该点 PPA 保持 unavailable。降低 datapath 优化等级的重试也耗尽内存，传统 compile 重试按本次收尾要求终止。该配置已有 RTL 功能仿真通过记录，不能将其等同于综合或时序通过。详见 [PPA 报告](reports/ppa-report.md) 与 [失败诊断](reports/ppa-failure-diagnosis.json)。
 
 从组件目录执行（工作区使用根 uv 环境；独立环境需 Python 3.11+、PyYAML，画图另需 matplotlib）：
 

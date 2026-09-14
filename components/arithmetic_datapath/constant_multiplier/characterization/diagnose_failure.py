@@ -52,6 +52,18 @@ def main():
             "path": str(low_path.relative_to(ROOT)),
             "sha256": hashlib.sha256(low_path.read_bytes()).hexdigest(),
         }
+    classic_path = ROOT / "build/eda/ppa_diagnosis/classic/dc.txt"
+    if classic_path.exists():
+        if "CM-PPA-DONE" in classic_path.read_text(errors="replace"):
+            raise SystemExit("Classic experiment completed; re-evaluate its status")
+        result["classic_retry"] = {
+            "status": "cancelled",
+            "reason": "Stopped at the user's request to wrap up; no PPA conclusion",
+        }
+        result["evidence"]["classic_dc"] = {
+            "path": str(classic_path.relative_to(ROOT)),
+            "sha256": hashlib.sha256(classic_path.read_bytes()).hexdigest(),
+        }
     (ROOT / "reports/ppa-failure-diagnosis.json").write_text(json.dumps(result, indent=2) + "\n")
     print("CM-OOM-CONFIRMED")
 

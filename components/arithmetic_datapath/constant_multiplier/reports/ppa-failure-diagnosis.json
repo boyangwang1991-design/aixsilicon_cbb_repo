@@ -16,6 +16,10 @@
     "low_effort_dc": {
       "path": "build/eda/ppa_diagnosis/low_effort/dc.txt",
       "sha256": "eedbe1a82938b3ea23fa8417dd46f6bdcdd3a69493bb05d39eabab8524aba1f0"
+    },
+    "classic_dc": {
+      "path": "build/eda/ppa_diagnosis/classic/dc.txt",
+      "sha256": "6e445b1bbd4e6fc7b94e762f8f9b22b0ccd6d17a03a30e6675ab3513c5270cc5"
     }
   },
   "note": "Kernel OOM kill and DC child failure match by PID; no PPA metrics inferred.",
@@ -24,5 +28,9 @@
     "virtual_memory_limit_mib": 7168,
     "path": "build/eda/ppa_diagnosis/low_effort/dc.txt",
     "sha256": "eedbe1a82938b3ea23fa8417dd46f6bdcdd3a69493bb05d39eabab8524aba1f0"
+  },
+  "classic_retry": {
+    "status": "cancelled",
+    "reason": "Stopped at the user's request to wrap up; no PPA conclusion"
   }
 }
