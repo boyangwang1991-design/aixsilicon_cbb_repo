@@ -1,7 +1,8 @@
 # ============================================================
 # profiles.yaml — accumulator 使用画像（ARI-006, A2/P0）
 # 描述不同使用场景下的推荐参数组合（单实现 impl_single_entry，V1.0 基线）。
-# Profile 支持状态与 PPA 结论在表征（G6）后回填；当前为 planning 意图。
+# PPA 结论已按 G6 实测回填（PPA-E1，tt 单 corner，见 reports/ppa-report.md）。
+# support：supported=有 PPA 证据 + 功能验证；experimental=待扩展验证。
 # ============================================================
 
 profiles:
@@ -17,8 +18,9 @@ profiles:
       STATUS_EN: true
       OPERAND_ISOLATION: 0
     optimization_goal: balanced
-    support: experimental
+    support: supported
     use_case: 默认通用累加（部分和累加、事件求和）
+    rationale: G6 实测 area=260μm²，A→A 2.0ns 达 400MHz；功能最全、配置最均衡（reports/ppa-report.md §2）。
   prof_area_opt:
     implementation: impl_single_entry
     parameters:
@@ -31,8 +33,9 @@ profiles:
       STATUS_EN: true
       OPERAND_ISOLATION: 0
     optimization_goal: area
-    support: experimental
+    support: supported
     use_case: 面积优先的窄位宽累加（大量实例化）
+    rationale: G6 实测 8/16 area=123μm² 最小（reports/ppa-report.md §2）。
   prof_power_opt:
     implementation: impl_single_entry
     parameters:
@@ -45,8 +48,9 @@ profiles:
       STATUS_EN: true
       OPERAND_ISOLATION: 1
     optimization_goal: power
-    support: experimental
+    support: supported
     use_case: 功耗优先（低活动率场景，操作数隔离降低无效翻转）
+    rationale: G6 实测 ISO=1 动态功耗 24.86μW 比 ISO=0（33.30μW）低 25%，面积仅 +2%（reports/ppa-report.md §3）。
   prof_saturating:
     implementation: impl_single_entry
     parameters:
@@ -59,8 +63,9 @@ profiles:
       STATUS_EN: true
       OPERAND_ISOLATION: 0
     optimization_goal: correctness_bound
-    support: experimental
+    support: supported
     use_case: 有符号积分/误差累计（需饱和保护防溢出）
+    rationale: G6 实测 SATURATE 面积 306μm²（+2% vs WRAP），换取无回绕溢出保护（reports/ppa-report.md §2）。
   prof_nco:
     implementation: impl_single_entry
     parameters:
@@ -73,16 +78,18 @@ profiles:
       STATUS_EN: false
       OPERAND_ISOLATION: 0
     optimization_goal: balanced
-    support: experimental
+    support: supported
     use_case: NCO 相位累加（模 2^W 回绕、无符号、无需溢出状态）
+    rationale: G6 实测 unsigned+no-ST area=204μm² 最小全功能；无符号回绕合同（reports/ppa-report.md §2）。
 
 # 每个实现声明（V1.0 单实现基线）
 implementation_notes:
   impl_single_entry:
     max_recommended_scale: {INPUT_WIDTH: 64, ACC_WIDTH: 128}
     dependencies: []
-    characterized_region: {}
+    characterized_region: {INPUT_WIDTH: [8, 32], ACC_WIDTH: [16, 128]}
     known_limits:
       - 状态反馈更新就是一个时钟周期（无任意 LATENCY 参数）；输出额外寄存器由独立包装处理
-      - A→A 反馈路径含进位传播、饱和判定与选择逻辑，宽位宽时序由综合器优化，未实测前不承诺频率
+      - A→A 反馈路径为关键路径（2.0ns @ 400MHz tt corner）；宽位宽时序由综合器优化，未测 ss/ff corner
+      - 功耗为静态估计（无 SAIF/toggle 约束）；门级活动率毛刺评估未做
       - 多上下文交织/偏斜流水/carry-save 冗余反馈为独立增强探索，不在 V1.0 支持范围

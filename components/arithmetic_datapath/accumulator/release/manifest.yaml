@@ -1,14 +1,53 @@
-# Release Manifest（G8 候选）— accumulator
+# ============================================================
+# release/manifest.yaml — accumulator (ARI-006) 发布清单
+# 与 registry.yaml / fusesoc core 保持同源（SSOT 仍为 cbb.yaml）
 # 状态：candidate（只有 Workflow Gate G8 可确认 released）
-schema_version: 1.0
+# ============================================================
 release:
-  cbb: aixsilicon:cbb:accumulator
+  id: aixsilicon:cbb:accumulator:0.1.0
   version: 0.1.0
-  status: candidate
   maturity: E0
-artifacts: []
-sbom:
   license: Apache-2.0
-  dependencies: []
-known_limits: []
-release_notes: []
+  date: 2026-09-14
+  scope:
+    - 参数化整数/定点累加器 A_next=A±X：清零/装载/有效使能/回绕饱和/溢出状态（stateful 单时钟 II=1）
+    - 单实现基线 impl_single_entry（极简单文件 rtl/accumulator.sv）
+    - 参数 INPUT_WIDTH/ACC_WIDTH/SIGNED/OP_MODE/OVERFLOW_MODE/LOAD_EN/STATUS_EN/OPERAND_ISOLATION（PC-001..008）
+    - OPERAND_ISOLATION 低功耗选项：无效算术输入隔离（实测动态功耗 -25%，面积 +2%）
+  artifacts:
+    rtl:
+      - rtl/accumulator.sv
+    verification:
+      - verification/simulation/accumulator_tb.sv
+      - verification/simulation/config_matrix_tb.sv
+      - verification/formal/negative_elab_tb.sv
+      - verification/scripts/run_static_checks.sh
+      - verification/scripts/run_functional_sim.sh
+      - verification/scripts/run_config_matrix_sim.sh
+      - verification/scripts/run_negative_elab.sh
+      - verification/configs/mandatory.yaml
+      - verification/configs/boundary.yaml
+      - verification/configs/pairwise.yaml
+      - verification/configs/negative.yaml
+    characterization:
+      - characterization/synth_sweep.tcl
+      - characterization/plot_ppa_comparison.py
+      - characterization/pdk.yaml
+      - characterization/plan.yaml
+    metadata:
+      - cbb.yaml
+      - behavior.yaml
+      - profiles.yaml
+      - fusesoc/aixsilicon_cbb_accumulator.core
+      - constraints/accumulator.sdc
+  fusesoc_core: aixsilicon:cbb:accumulator:0.1.0
+  sbom:
+    license: Apache-2.0
+    dependencies: []
+  known_limits:
+    - A→A 反馈路径为关键路径（400MHz tt corner）；未测 ss/ff corner
+    - 功耗为静态估计（无 SAIF）；完整 per-config run matrix 待 CI runner 补充
+    - 多上下文交织/偏斜流水/carry-save 冗余反馈为独立增强探索，不在 V1.0
+  release_notes:
+    - C0-C6 完成：契约/架构/实现/验证（G4 4393/0、G5 配置矩阵 12/12、G6 PPA 12 点）
+    - 数值语义（WRAP/SAT、上下溢、sticky）经独立参考模型 + 实测综合验证

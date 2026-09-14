@@ -6,6 +6,10 @@
 target: accumulator
 family: stateful
 status: planned
+matrix:
+  methods: [simulation, static]
+  # 配置矩阵验证方法：simulation（默认配置 G4 功能仿真 + G5 配置矩阵 smoke），
+  # static（非法参数 elaboration $error 拦截）。formal 未运行（属性已定义，留待后续）。
 reset_contract: >-
   低有效同步复位 rst_ni=0 清状态 A 及所有状态/事件输出（acc_o=0、update_o=0、
   overflow_event_o=0、overflow_sticky_o=0）；clear_i 同步清零并清 sticky（优先级高于

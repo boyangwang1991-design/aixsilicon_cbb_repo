@@ -1,8 +1,34 @@
 # 表征计划（Characterization Plan）— accumulator
-# G6 PPA：先用 cbb_tool.py pdk-scan 生成 characterization/pdk.yaml（工艺上下文）。
-# pdk-scan 判定 PDK_READY 时必须真实综合表征，禁止降级 OPTIONAL_UNAVAILABLE(E0)；
-# 仅当判定 PDK_UNAVAILABLE 时才标注 OPTIONAL_UNAVAILABLE(E0)，不伪造门级数据（ppa-evidence.md）。
-points: []
-benchmark_profiles: []
-measured_region: {}
-status: PENDING_PDK_SCAN
+# G6 PPA：pdk-scan 判定 PDK_READY（CMOS28NM），已做真实综合（12 点，run-20260914-01）。
+# 证据：reports/ppa-report.md + reports/ppa_run-20260914-01.png + build/eda/ppa/run-20260914-01/
+# 等级：PPA-E1（tt 单 corner，固定内部库 sc9_cmos28lp_base_hvt tt_1p00v_25c）
+benchmark_profiles:
+  - prof_default
+  - prof_area_opt
+  - prof_power_opt
+  - prof_saturating
+  - prof_nco
+measured_region:
+  INPUT_WIDTH: [8, 32]
+  ACC_WIDTH: [16, 128]
+status: COMPLETE_TT_SINGLE_CORNER
+comparison_plot: reports/ppa_run-20260914-01.png
+
+points:
+  - {implementation: impl_single_entry, parameters: {INPUT_WIDTH: 8, ACC_WIDTH: 16, SIGNED: true, OP_MODE: 0, OVERFLOW_MODE: 0, LOAD_EN: true, STATUS_EN: true, OPERAND_ISOLATION: 0}}
+  - {implementation: impl_single_entry, parameters: {INPUT_WIDTH: 16, ACC_WIDTH: 32, SIGNED: true, OP_MODE: 0, OVERFLOW_MODE: 0, LOAD_EN: true, STATUS_EN: true, OPERAND_ISOLATION: 0}}
+  - {implementation: impl_single_entry, parameters: {INPUT_WIDTH: 16, ACC_WIDTH: 32, SIGNED: true, OP_MODE: 2, OVERFLOW_MODE: 0, LOAD_EN: true, STATUS_EN: true, OPERAND_ISOLATION: 0}}
+  - {implementation: impl_single_entry, parameters: {INPUT_WIDTH: 16, ACC_WIDTH: 32, SIGNED: true, OP_MODE: 2, OVERFLOW_MODE: 1, LOAD_EN: true, STATUS_EN: true, OPERAND_ISOLATION: 0}}
+  - {implementation: impl_single_entry, parameters: {INPUT_WIDTH: 16, ACC_WIDTH: 32, SIGNED: false, OP_MODE: 0, OVERFLOW_MODE: 0, LOAD_EN: true, STATUS_EN: true, OPERAND_ISOLATION: 0}}
+  - {implementation: impl_single_entry, parameters: {INPUT_WIDTH: 16, ACC_WIDTH: 64, SIGNED: true, OP_MODE: 0, OVERFLOW_MODE: 0, LOAD_EN: true, STATUS_EN: true, OPERAND_ISOLATION: 0}}
+  - {implementation: impl_single_entry, parameters: {INPUT_WIDTH: 32, ACC_WIDTH: 64, SIGNED: true, OP_MODE: 0, OVERFLOW_MODE: 0, LOAD_EN: true, STATUS_EN: true, OPERAND_ISOLATION: 0}}
+  - {implementation: impl_single_entry, parameters: {INPUT_WIDTH: 32, ACC_WIDTH: 32, SIGNED: true, OP_MODE: 2, OVERFLOW_MODE: 1, LOAD_EN: true, STATUS_EN: true, OPERAND_ISOLATION: 0}}
+  - {implementation: impl_single_entry, parameters: {INPUT_WIDTH: 16, ACC_WIDTH: 32, SIGNED: true, OP_MODE: 0, OVERFLOW_MODE: 0, LOAD_EN: false, STATUS_EN: true, OPERAND_ISOLATION: 0}}
+  - {implementation: impl_single_entry, parameters: {INPUT_WIDTH: 16, ACC_WIDTH: 32, SIGNED: true, OP_MODE: 0, OVERFLOW_MODE: 0, LOAD_EN: true, STATUS_EN: false, OPERAND_ISOLATION: 0}}
+  - {implementation: impl_single_entry, parameters: {INPUT_WIDTH: 16, ACC_WIDTH: 32, SIGNED: true, OP_MODE: 2, OVERFLOW_MODE: 0, LOAD_EN: true, STATUS_EN: true, OPERAND_ISOLATION: 1}}
+  - {implementation: impl_single_entry, parameters: {INPUT_WIDTH: 16, ACC_WIDTH: 128, SIGNED: true, OP_MODE: 0, OVERFLOW_MODE: 0, LOAD_EN: true, STATUS_EN: true, OPERAND_ISOLATION: 0}}
+
+planned:
+  - ss/ff corner 补充（后续 Gate）
+  - 功耗 toggle 约束（当前为静态估计，无 SAIF）
+  - 门级活动率毛刺评估（当前 RTL toggle 估计）

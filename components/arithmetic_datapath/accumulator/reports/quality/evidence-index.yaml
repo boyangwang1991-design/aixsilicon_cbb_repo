@@ -1,18 +1,21 @@
 {
   "baseline": {
     "self/behavior.yaml": "092b182e4893e305d6c24747811a5d54a9882e71bd26e23e3eed199265a76f1f",
-    "self/cbb.yaml": "1d8e53867643116505e1b2c1a24aa21519b89fda642d8fc4ddc7e7730e7c35bc",
-    "self/characterization/plan.yaml": "af24aec57d652980cc1da77a406bb7efc1d12951b1cc5ccdea9c6b50de121a66",
+    "self/cbb.yaml": "489c40966d6ce0b3d48fe72d1ed8d834ff689c07dc43157c8a39080cec1ff526",
+    "self/characterization/pdk.yaml": "f50ab9d6b7a2d8f0e36212e6f01f97632366aec151e553b276882f75a88d4065",
+    "self/characterization/plan.yaml": "1f0447d7354fa84acb0ffbc5fa5d79ff526438bc1c12ed2625a3b5090c9a55ce",
     "self/constraints/accumulator.sdc": "872b930e3a6367a7c58bbd4550be733b2ff04aa2775b22950fd8a0c04004d9ba",
     "self/fusesoc/aixsilicon_cbb_accumulator.core": "6b3670fcbe6f7453d005bbb6fe8387271e8de794d00476a46034270df8498a90",
-    "self/profiles.yaml": "2619d381970e329d3af8e2c091b1492b7e968caea5d0540cb5bee572fbd86309",
+    "self/profiles.yaml": "207e1dee52811f79354070e73ef2cb03a2f875912e64924694ee926dfb6779ba",
     "self/rtl/accumulator.sv": "795cb41e89addff8301ef30429f61271d4971c70a5f4405f8ea88d2c99a00968",
     "self/verification/formal/negative_elab_tb.sv": "efcefc02b3f5c1732d5de7ad12fa55979ac052aab2000012f0fcbf3c77e1bd72",
-    "self/verification/plan.yaml": "9afaccc1d6ddc39e3d4e879755cf471592f70645c033a67bd787391e07925346",
+    "self/verification/plan.yaml": "e9c32db6abb3c20193cdad9a00ebd0ca37bf858ccb9c90dcfcdd01a60283a33d",
+    "self/verification/scripts/run_config_matrix_sim.sh": "20ccb51e5b1b916bf80e751e7924ab6cb73708d0c1814bba2dec48047eb8ce58",
     "self/verification/scripts/run_functional_sim.sh": "cb080e23e2ad95f9b9746c378ad0031f804867655e5952ac85d029929d6415b9",
     "self/verification/scripts/run_negative_elab.sh": "97973792cc7fc13f85767417cb3dfaadfdc2014fbd9977a90f384117cc795da3",
     "self/verification/scripts/run_static_checks.sh": "c51271e943dddaa5ce02343759223993be05fa0dba9d263e4f09b28f46215eb5",
     "self/verification/simulation/accumulator_tb.sv": "40ea982fb75911484047c8b21fbc0a49d5af3db05c1fb0ba41ba560272fe5d5b",
+    "self/verification/simulation/config_matrix_tb.sv": "c8bdb92a87f1be64037b88e139bdbf65ec7048e9d553d22b91628895d65af7de",
     "self/verification/tool-profile.yaml": "28d1760d6021ac94eae72a7aaff2ef82e209c6388580021e50c1f50cb2dc75cc"
   },
   "runs": {
@@ -34,26 +37,77 @@
       ],
       "gates": [
         "G3",
-        "G4"
+        "G4",
+        "G6"
       ],
       "input_hashes": {
         "self/behavior.yaml": "092b182e4893e305d6c24747811a5d54a9882e71bd26e23e3eed199265a76f1f",
-        "self/cbb.yaml": "1d8e53867643116505e1b2c1a24aa21519b89fda642d8fc4ddc7e7730e7c35bc",
-        "self/characterization/plan.yaml": "af24aec57d652980cc1da77a406bb7efc1d12951b1cc5ccdea9c6b50de121a66",
+        "self/cbb.yaml": "489c40966d6ce0b3d48fe72d1ed8d834ff689c07dc43157c8a39080cec1ff526",
+        "self/characterization/pdk.yaml": "f50ab9d6b7a2d8f0e36212e6f01f97632366aec151e553b276882f75a88d4065",
+        "self/characterization/plan.yaml": "1f0447d7354fa84acb0ffbc5fa5d79ff526438bc1c12ed2625a3b5090c9a55ce",
         "self/constraints/accumulator.sdc": "872b930e3a6367a7c58bbd4550be733b2ff04aa2775b22950fd8a0c04004d9ba",
         "self/fusesoc/aixsilicon_cbb_accumulator.core": "6b3670fcbe6f7453d005bbb6fe8387271e8de794d00476a46034270df8498a90",
-        "self/profiles.yaml": "2619d381970e329d3af8e2c091b1492b7e968caea5d0540cb5bee572fbd86309",
+        "self/profiles.yaml": "207e1dee52811f79354070e73ef2cb03a2f875912e64924694ee926dfb6779ba",
         "self/rtl/accumulator.sv": "795cb41e89addff8301ef30429f61271d4971c70a5f4405f8ea88d2c99a00968",
         "self/verification/formal/negative_elab_tb.sv": "efcefc02b3f5c1732d5de7ad12fa55979ac052aab2000012f0fcbf3c77e1bd72",
-        "self/verification/plan.yaml": "9afaccc1d6ddc39e3d4e879755cf471592f70645c033a67bd787391e07925346",
+        "self/verification/plan.yaml": "e9c32db6abb3c20193cdad9a00ebd0ca37bf858ccb9c90dcfcdd01a60283a33d",
+        "self/verification/scripts/run_config_matrix_sim.sh": "20ccb51e5b1b916bf80e751e7924ab6cb73708d0c1814bba2dec48047eb8ce58",
         "self/verification/scripts/run_functional_sim.sh": "cb080e23e2ad95f9b9746c378ad0031f804867655e5952ac85d029929d6415b9",
         "self/verification/scripts/run_negative_elab.sh": "97973792cc7fc13f85767417cb3dfaadfdc2014fbd9977a90f384117cc795da3",
         "self/verification/scripts/run_static_checks.sh": "c51271e943dddaa5ce02343759223993be05fa0dba9d263e4f09b28f46215eb5",
         "self/verification/simulation/accumulator_tb.sv": "40ea982fb75911484047c8b21fbc0a49d5af3db05c1fb0ba41ba560272fe5d5b",
+        "self/verification/simulation/config_matrix_tb.sv": "c8bdb92a87f1be64037b88e139bdbf65ec7048e9d553d22b91628895d65af7de",
         "self/verification/tool-profile.yaml": "28d1760d6021ac94eae72a7aaff2ef82e209c6388580021e50c1f50cb2dc75cc"
       },
       "method": "simulation",
-      "notes": "G4 functional sim 4393 checks / 0 errors (run-step 75db103e)",
+      "notes": "G4 functional sim 4393/0 (run-step 75db103e)",
+      "seed": 1342185510,
+      "status": "pass",
+      "tool": {
+        "name": "vcs",
+        "version": "W-2024.09-SP1"
+      }
+    },
+    "run-20260914-02": {
+      "artifacts": [
+        {
+          "path": "reports/verification-report.md",
+          "sha256": "dd6bef3ae6f03eb6e4a7dae4ca1fb58fc6968fcb9ad9b7cd45ed22b6f165f6b9"
+        }
+      ],
+      "checks": {
+        "diagnostics_ok": true,
+        "expected_outputs_ok": true,
+        "process_ok": true
+      },
+      "command": [
+        "bash",
+        "verification/scripts/run_config_matrix_sim.sh"
+      ],
+      "gates": [
+        "G5"
+      ],
+      "input_hashes": {
+        "self/behavior.yaml": "092b182e4893e305d6c24747811a5d54a9882e71bd26e23e3eed199265a76f1f",
+        "self/cbb.yaml": "489c40966d6ce0b3d48fe72d1ed8d834ff689c07dc43157c8a39080cec1ff526",
+        "self/characterization/pdk.yaml": "f50ab9d6b7a2d8f0e36212e6f01f97632366aec151e553b276882f75a88d4065",
+        "self/characterization/plan.yaml": "1f0447d7354fa84acb0ffbc5fa5d79ff526438bc1c12ed2625a3b5090c9a55ce",
+        "self/constraints/accumulator.sdc": "872b930e3a6367a7c58bbd4550be733b2ff04aa2775b22950fd8a0c04004d9ba",
+        "self/fusesoc/aixsilicon_cbb_accumulator.core": "6b3670fcbe6f7453d005bbb6fe8387271e8de794d00476a46034270df8498a90",
+        "self/profiles.yaml": "207e1dee52811f79354070e73ef2cb03a2f875912e64924694ee926dfb6779ba",
+        "self/rtl/accumulator.sv": "795cb41e89addff8301ef30429f61271d4971c70a5f4405f8ea88d2c99a00968",
+        "self/verification/formal/negative_elab_tb.sv": "efcefc02b3f5c1732d5de7ad12fa55979ac052aab2000012f0fcbf3c77e1bd72",
+        "self/verification/plan.yaml": "e9c32db6abb3c20193cdad9a00ebd0ca37bf858ccb9c90dcfcdd01a60283a33d",
+        "self/verification/scripts/run_config_matrix_sim.sh": "20ccb51e5b1b916bf80e751e7924ab6cb73708d0c1814bba2dec48047eb8ce58",
+        "self/verification/scripts/run_functional_sim.sh": "cb080e23e2ad95f9b9746c378ad0031f804867655e5952ac85d029929d6415b9",
+        "self/verification/scripts/run_negative_elab.sh": "97973792cc7fc13f85767417cb3dfaadfdc2014fbd9977a90f384117cc795da3",
+        "self/verification/scripts/run_static_checks.sh": "c51271e943dddaa5ce02343759223993be05fa0dba9d263e4f09b28f46215eb5",
+        "self/verification/simulation/accumulator_tb.sv": "40ea982fb75911484047c8b21fbc0a49d5af3db05c1fb0ba41ba560272fe5d5b",
+        "self/verification/simulation/config_matrix_tb.sv": "c8bdb92a87f1be64037b88e139bdbf65ec7048e9d553d22b91628895d65af7de",
+        "self/verification/tool-profile.yaml": "28d1760d6021ac94eae72a7aaff2ef82e209c6388580021e50c1f50cb2dc75cc"
+      },
+      "method": "simulation",
+      "notes": "G5 config matrix 12/12 (run-step 68fc82ea)",
       "seed": 1342185510,
       "status": "pass",
       "tool": {

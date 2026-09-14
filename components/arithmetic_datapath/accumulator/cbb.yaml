@@ -230,9 +230,10 @@ implementations:
 
 # ---------------- 质量门禁（G0~G8） ----------------
 quality:
-  # 当前阶段（C0 Intake → C4 Verify）必选门禁；G5（配置空间扫描）与 G6（PPA 表征）
-  # 依赖目标 PDK/库与扩展 RTL 配置仿真，属后续阶段，另行记录（见 reports/qualification-report.md）。
-  required_gates: [G0, G1, G2, G3, G4]
+  # 当前阶段（C0 Intake → C6 Characterize）必选门禁；G7（Qualification）与 G8（Release）
+  # 依赖完整 per-config run matrix / formal 证明等 CI 证据，属发布阶段，另行记录
+  # （见 reports/qualification-report.md）。
+  required_gates: [G0, G1, G2, G3, G4, G5, G6]
 
 # ---------------- PPA 表征 ----------------
 characterization:

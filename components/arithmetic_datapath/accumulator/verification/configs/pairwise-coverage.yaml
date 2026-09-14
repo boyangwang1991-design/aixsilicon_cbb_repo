@@ -35,407 +35,297 @@ domains:
   STATUS_EN:
   - true
   - false
-missing_pair_feasibility: unknown
+missing_pair_feasibility: enumerated_sampled_domains
 pairs:
 - parameters:
   - ACC_WIDTH
   - INPUT_WIDTH
   candidate_pairs: 49
-  covered_pairs: 12
+  covered_pairs: 32
   missing_pairs:
-  - ACC_WIDTH: 32
+  - &id001
+    ACC_WIDTH: 32
     INPUT_WIDTH: 128
-  - ACC_WIDTH: 32
+  - &id002
+    ACC_WIDTH: 32
     INPUT_WIDTH: 64
-  - ACC_WIDTH: 1
+  - &id003
+    ACC_WIDTH: 1
     INPUT_WIDTH: 16
-  - ACC_WIDTH: 1
-    INPUT_WIDTH: 1
-  - ACC_WIDTH: 1
+  - &id004
+    ACC_WIDTH: 1
     INPUT_WIDTH: 128
-  - ACC_WIDTH: 1
+  - &id005
+    ACC_WIDTH: 1
     INPUT_WIDTH: 64
-  - ACC_WIDTH: 1
+  - &id006
+    ACC_WIDTH: 1
     INPUT_WIDTH: 2
-  - ACC_WIDTH: 1
+  - &id007
+    ACC_WIDTH: 1
     INPUT_WIDTH: 8
-  - ACC_WIDTH: 1
+  - &id008
+    ACC_WIDTH: 1
     INPUT_WIDTH: 32
-  - ACC_WIDTH: 256
-    INPUT_WIDTH: 1
-  - ACC_WIDTH: 256
-    INPUT_WIDTH: 128
-  - ACC_WIDTH: 256
-    INPUT_WIDTH: 64
-  - ACC_WIDTH: 256
-    INPUT_WIDTH: 2
-  - ACC_WIDTH: 256
-    INPUT_WIDTH: 8
-  - ACC_WIDTH: 256
-    INPUT_WIDTH: 32
-  - ACC_WIDTH: 128
-    INPUT_WIDTH: 1
-  - ACC_WIDTH: 128
-    INPUT_WIDTH: 128
-  - ACC_WIDTH: 128
-    INPUT_WIDTH: 64
-  - ACC_WIDTH: 128
-    INPUT_WIDTH: 2
-  - ACC_WIDTH: 128
-    INPUT_WIDTH: 8
-  - ACC_WIDTH: 128
-    INPUT_WIDTH: 32
-  - ACC_WIDTH: 2
+  - &id009
+    ACC_WIDTH: 2
     INPUT_WIDTH: 16
-  - ACC_WIDTH: 2
-    INPUT_WIDTH: 1
-  - ACC_WIDTH: 2
+  - &id010
+    ACC_WIDTH: 2
     INPUT_WIDTH: 128
-  - ACC_WIDTH: 2
+  - &id011
+    ACC_WIDTH: 2
     INPUT_WIDTH: 64
-  - ACC_WIDTH: 2
-    INPUT_WIDTH: 2
-  - ACC_WIDTH: 2
+  - &id012
+    ACC_WIDTH: 2
     INPUT_WIDTH: 8
-  - ACC_WIDTH: 2
+  - &id013
+    ACC_WIDTH: 2
     INPUT_WIDTH: 32
-  - ACC_WIDTH: 16
-    INPUT_WIDTH: 1
-  - ACC_WIDTH: 16
+  - &id014
+    ACC_WIDTH: 16
     INPUT_WIDTH: 128
-  - ACC_WIDTH: 16
+  - &id015
+    ACC_WIDTH: 16
     INPUT_WIDTH: 64
-  - ACC_WIDTH: 16
-    INPUT_WIDTH: 2
-  - ACC_WIDTH: 16
+  - &id016
+    ACC_WIDTH: 16
     INPUT_WIDTH: 32
-  - ACC_WIDTH: 64
-    INPUT_WIDTH: 1
-  - ACC_WIDTH: 64
+  - &id017
+    ACC_WIDTH: 64
     INPUT_WIDTH: 128
-  - ACC_WIDTH: 64
-    INPUT_WIDTH: 64
-  - ACC_WIDTH: 64
-    INPUT_WIDTH: 2
+  infeasible_pairs:
+  - *id001
+  - *id002
+  - *id003
+  - *id004
+  - *id005
+  - *id006
+  - *id007
+  - *id008
+  - *id009
+  - *id010
+  - *id011
+  - *id012
+  - *id013
+  - *id014
+  - *id015
+  - *id016
+  - *id017
+  uncovered_feasible_pairs: []
 - parameters:
   - ACC_WIDTH
   - LOAD_EN
   candidate_pairs: 14
-  covered_pairs: 8
-  missing_pairs:
-  - ACC_WIDTH: 1
-    LOAD_EN: true
-  - ACC_WIDTH: 1
-    LOAD_EN: false
-  - ACC_WIDTH: 256
-    LOAD_EN: false
-  - ACC_WIDTH: 128
-    LOAD_EN: false
-  - ACC_WIDTH: 2
-    LOAD_EN: true
-  - ACC_WIDTH: 2
-    LOAD_EN: false
+  covered_pairs: 14
+  missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - ACC_WIDTH
   - OPERAND_ISOLATION
   candidate_pairs: 14
-  covered_pairs: 8
-  missing_pairs:
-  - ACC_WIDTH: 1
-    OPERAND_ISOLATION: 0
-  - ACC_WIDTH: 1
-    OPERAND_ISOLATION: 1
-  - ACC_WIDTH: 256
-    OPERAND_ISOLATION: 1
-  - ACC_WIDTH: 128
-    OPERAND_ISOLATION: 1
-  - ACC_WIDTH: 2
-    OPERAND_ISOLATION: 0
-  - ACC_WIDTH: 2
-    OPERAND_ISOLATION: 1
+  covered_pairs: 14
+  missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - ACC_WIDTH
   - OP_MODE
   candidate_pairs: 21
-  covered_pairs: 11
-  missing_pairs:
-  - ACC_WIDTH: 1
-    OP_MODE: 0
-  - ACC_WIDTH: 1
-    OP_MODE: 1
-  - ACC_WIDTH: 1
-    OP_MODE: 2
-  - ACC_WIDTH: 256
-    OP_MODE: 1
-  - ACC_WIDTH: 256
-    OP_MODE: 2
-  - ACC_WIDTH: 128
-    OP_MODE: 1
-  - ACC_WIDTH: 128
-    OP_MODE: 2
-  - ACC_WIDTH: 2
-    OP_MODE: 0
-  - ACC_WIDTH: 2
-    OP_MODE: 1
-  - ACC_WIDTH: 2
-    OP_MODE: 2
+  covered_pairs: 21
+  missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - ACC_WIDTH
   - OVERFLOW_MODE
   candidate_pairs: 14
-  covered_pairs: 8
-  missing_pairs:
-  - ACC_WIDTH: 1
-    OVERFLOW_MODE: 0
-  - ACC_WIDTH: 1
-    OVERFLOW_MODE: 1
-  - ACC_WIDTH: 256
-    OVERFLOW_MODE: 1
-  - ACC_WIDTH: 128
-    OVERFLOW_MODE: 1
-  - ACC_WIDTH: 2
-    OVERFLOW_MODE: 0
-  - ACC_WIDTH: 2
-    OVERFLOW_MODE: 1
+  covered_pairs: 14
+  missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - ACC_WIDTH
   - SIGNED
   candidate_pairs: 14
-  covered_pairs: 8
-  missing_pairs:
-  - ACC_WIDTH: 1
-    SIGNED: true
-  - ACC_WIDTH: 1
-    SIGNED: false
-  - ACC_WIDTH: 256
-    SIGNED: false
-  - ACC_WIDTH: 128
-    SIGNED: false
-  - ACC_WIDTH: 2
-    SIGNED: true
-  - ACC_WIDTH: 2
-    SIGNED: false
+  covered_pairs: 14
+  missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - ACC_WIDTH
   - STATUS_EN
   candidate_pairs: 14
-  covered_pairs: 8
-  missing_pairs:
-  - ACC_WIDTH: 1
-    STATUS_EN: true
-  - ACC_WIDTH: 1
-    STATUS_EN: false
-  - ACC_WIDTH: 256
-    STATUS_EN: false
-  - ACC_WIDTH: 128
-    STATUS_EN: false
-  - ACC_WIDTH: 2
-    STATUS_EN: true
-  - ACC_WIDTH: 2
-    STATUS_EN: false
+  covered_pairs: 14
+  missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - INPUT_WIDTH
   - LOAD_EN
   candidate_pairs: 14
-  covered_pairs: 8
-  missing_pairs:
-  - INPUT_WIDTH: 1
-    LOAD_EN: false
-  - INPUT_WIDTH: 128
-    LOAD_EN: true
-  - INPUT_WIDTH: 128
-    LOAD_EN: false
-  - INPUT_WIDTH: 64
-    LOAD_EN: true
-  - INPUT_WIDTH: 64
-    LOAD_EN: false
-  - INPUT_WIDTH: 2
-    LOAD_EN: false
+  covered_pairs: 14
+  missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - INPUT_WIDTH
   - OPERAND_ISOLATION
   candidate_pairs: 14
-  covered_pairs: 8
-  missing_pairs:
-  - INPUT_WIDTH: 1
-    OPERAND_ISOLATION: 1
-  - INPUT_WIDTH: 128
-    OPERAND_ISOLATION: 0
-  - INPUT_WIDTH: 128
-    OPERAND_ISOLATION: 1
-  - INPUT_WIDTH: 64
-    OPERAND_ISOLATION: 0
-  - INPUT_WIDTH: 64
-    OPERAND_ISOLATION: 1
-  - INPUT_WIDTH: 2
-    OPERAND_ISOLATION: 1
+  covered_pairs: 14
+  missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - INPUT_WIDTH
   - OP_MODE
   candidate_pairs: 21
-  covered_pairs: 11
-  missing_pairs:
-  - INPUT_WIDTH: 1
-    OP_MODE: 1
-  - INPUT_WIDTH: 1
-    OP_MODE: 2
-  - INPUT_WIDTH: 128
-    OP_MODE: 0
-  - INPUT_WIDTH: 128
-    OP_MODE: 1
-  - INPUT_WIDTH: 128
-    OP_MODE: 2
-  - INPUT_WIDTH: 64
-    OP_MODE: 0
-  - INPUT_WIDTH: 64
-    OP_MODE: 1
-  - INPUT_WIDTH: 64
-    OP_MODE: 2
-  - INPUT_WIDTH: 2
-    OP_MODE: 1
-  - INPUT_WIDTH: 2
-    OP_MODE: 2
+  covered_pairs: 21
+  missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - INPUT_WIDTH
   - OVERFLOW_MODE
   candidate_pairs: 14
-  covered_pairs: 8
-  missing_pairs:
-  - INPUT_WIDTH: 1
-    OVERFLOW_MODE: 1
-  - INPUT_WIDTH: 128
-    OVERFLOW_MODE: 0
-  - INPUT_WIDTH: 128
-    OVERFLOW_MODE: 1
-  - INPUT_WIDTH: 64
-    OVERFLOW_MODE: 0
-  - INPUT_WIDTH: 64
-    OVERFLOW_MODE: 1
-  - INPUT_WIDTH: 2
-    OVERFLOW_MODE: 1
+  covered_pairs: 14
+  missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - INPUT_WIDTH
   - SIGNED
   candidate_pairs: 14
-  covered_pairs: 8
-  missing_pairs:
-  - INPUT_WIDTH: 1
-    SIGNED: false
-  - INPUT_WIDTH: 128
-    SIGNED: true
-  - INPUT_WIDTH: 128
-    SIGNED: false
-  - INPUT_WIDTH: 64
-    SIGNED: true
-  - INPUT_WIDTH: 64
-    SIGNED: false
-  - INPUT_WIDTH: 2
-    SIGNED: false
+  covered_pairs: 14
+  missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - INPUT_WIDTH
   - STATUS_EN
   candidate_pairs: 14
-  covered_pairs: 8
-  missing_pairs:
-  - INPUT_WIDTH: 1
-    STATUS_EN: false
-  - INPUT_WIDTH: 128
-    STATUS_EN: true
-  - INPUT_WIDTH: 128
-    STATUS_EN: false
-  - INPUT_WIDTH: 64
-    STATUS_EN: true
-  - INPUT_WIDTH: 64
-    STATUS_EN: false
-  - INPUT_WIDTH: 2
-    STATUS_EN: false
+  covered_pairs: 14
+  missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - LOAD_EN
   - OPERAND_ISOLATION
   candidate_pairs: 4
   covered_pairs: 4
   missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - LOAD_EN
   - OP_MODE
   candidate_pairs: 6
   covered_pairs: 6
   missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - LOAD_EN
   - OVERFLOW_MODE
   candidate_pairs: 4
   covered_pairs: 4
   missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - LOAD_EN
   - SIGNED
   candidate_pairs: 4
   covered_pairs: 4
   missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - LOAD_EN
   - STATUS_EN
   candidate_pairs: 4
   covered_pairs: 4
   missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - OPERAND_ISOLATION
   - OP_MODE
   candidate_pairs: 6
   covered_pairs: 6
   missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - OPERAND_ISOLATION
   - OVERFLOW_MODE
   candidate_pairs: 4
   covered_pairs: 4
   missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - OPERAND_ISOLATION
   - SIGNED
   candidate_pairs: 4
   covered_pairs: 4
   missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - OPERAND_ISOLATION
   - STATUS_EN
   candidate_pairs: 4
   covered_pairs: 4
   missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - OP_MODE
   - OVERFLOW_MODE
   candidate_pairs: 6
   covered_pairs: 6
   missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - OP_MODE
   - SIGNED
   candidate_pairs: 6
   covered_pairs: 6
   missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - OP_MODE
   - STATUS_EN
   candidate_pairs: 6
   covered_pairs: 6
   missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - OVERFLOW_MODE
   - SIGNED
   candidate_pairs: 4
   covered_pairs: 4
   missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - OVERFLOW_MODE
   - STATUS_EN
   candidate_pairs: 4
   covered_pairs: 4
   missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []
 - parameters:
   - SIGNED
   - STATUS_EN
   candidate_pairs: 4
   covered_pairs: 4
   missing_pairs: []
+  infeasible_pairs: []
+  uncovered_feasible_pairs: []

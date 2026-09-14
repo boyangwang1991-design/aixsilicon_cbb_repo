@@ -2,11 +2,8 @@ cbb: accumulator
 sets:
   mandatory: 2
   boundary: 15
-  pairwise: 51
-  risk: 0
-  consumer: 0
-  random: 0
+  pairwise: 127
   negative: 7
 generation:
-  complete_pairwise: false
-  completion_limit: 10000
+  complete_pairwise: true
+  completion_limit: 5000
