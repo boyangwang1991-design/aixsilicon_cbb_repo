@@ -59,3 +59,5 @@ incrementer_decrementer #(
 
 - [规格（可读）](docs/cbb_spec.md) · [设计](docs/design.md) · [详设 ripple](docs/detail-design/ripple.md) · [详设 segmented](docs/detail-design/segmented.md)
 - [Intake（G0）](docs/intake.md) · [Qualification（G7）](docs/qualification-report.md) · [PPA 报告](reports/ppa-report.md)
+
+需求入口：[incrementer_decrementer 需求合同](incrementer_decrementer_contract.md)。文档齐全不代表实现或 Gate 通过。

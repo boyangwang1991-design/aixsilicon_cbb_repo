@@ -46,3 +46,5 @@ parity_gen_check #(
 
 - PPA：[`reports/ppa-report.md`](reports/ppa-report.md)（含对比图）
 - Qualification：[`reports/qualification-report.md`](reports/qualification-report.md)
+
+需求入口：[parity_gen_check 需求合同](parity_gen_check_contract.md)。文档齐全不代表实现或 Gate 通过。

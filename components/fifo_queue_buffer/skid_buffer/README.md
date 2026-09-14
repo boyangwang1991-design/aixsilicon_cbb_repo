@@ -45,3 +45,5 @@
 - 配置集由 `config-gen` 确定性生成（`verification/configs/`）
 
 详见 [`docs/cbb_spec.md`](docs/cbb_spec.md) 与 [`docs/intake.md`](docs/intake.md)。
+
+需求入口：[skid_buffer 需求合同](skid_buffer_contract.md)。文档齐全不代表实现或 Gate 通过。

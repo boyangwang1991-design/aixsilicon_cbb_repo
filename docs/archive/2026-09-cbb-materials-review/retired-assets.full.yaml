@@ -1,0 +1,1999 @@
+schema_version: '1.0'
+date: '2026-09-13'
+records:
+- original:
+    id: ARB-006
+    name: lottery_arbiter
+    family: Lottery/Random Arbiter
+    group: components/arbitration_scheduling
+    abstraction: A2
+    priority: P3
+    implementation: LFSR-weighted
+    description: 随机质量与验证
+    status: planned
+    version: 0.1.0
+    path: components/arbitration_scheduling/lottery_arbiter
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: ARI-024
+    name: square_sum_squares
+    family: Square/Sum-of-squares
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P3
+    implementation: dedicated、shared multiplier
+    description: DSP场景资源共享
+    status: planned
+    version: 0.1.0
+    path: components/arithmetic_datapath/square_sum_squares
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: ARI-028
+    name: polynomial_evaluator
+    family: Polynomial Evaluator
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P3
+    implementation: Horner、parallel tree
+    description: 系数常量化与MAC复用
+    status: planned
+    version: 0.1.0
+    path: components/arithmetic_datapath/polynomial_evaluator
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: ARI-029
+    name: bcd_binary_converter
+    family: BCD/Binary Converter
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P3
+    implementation: iterative、double-dabble
+    description: 周期与面积
+    status: planned
+    version: 0.1.0
+    path: components/arithmetic_datapath/bcd_binary_converter
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: ARI-030
+    name: decimal_bcd_arith
+    family: Decimal/BCD Arithmetic
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P3
+    implementation: add/adjust/compare
+    description: 专用业务驱动
+    status: planned
+    version: 0.1.0
+    path: components/arithmetic_datapath/decimal_bcd_arith
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: ARI-032
+    name: fp_math_shell
+    family: FP Add/Multiply/FMA Shell
+    group: components/arithmetic_datapath
+    abstraction: A2
+    priority: P3
+    implementation: vendor/core wrapper、config
+    description: 不重复造完整FPU，重在适配
+    status: planned
+    version: 0.1.0
+    path: components/arithmetic_datapath/fp_math_shell
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-002
+    name: axi_lite_register_slice
+    family: AXI-Lite Register Slice
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P0
+    implementation: combined/per-channel
+    description: 小面积低延迟
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_lite_register_slice
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-002
+    name: axi_lite_register_slice
+    path: ips/infrastructure/axi/axi_lite_register_slice
+- original:
+    id: AXI-003
+    name: axi_buffer
+    family: AXI Buffer
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    implementation: channel depth/transaction buffer
+    description: Outstanding与背压
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_buffer
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-003
+    name: axi_buffer
+    path: ips/infrastructure/axi/axi_buffer
+- original:
+    id: AXI-004
+    name: axi_width_converter
+    family: AXI Data Width Converter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    implementation: upsize/downsize
+    description: Burst、strobe、unaligned
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_width_converter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-004
+    name: axi_width_converter
+    path: ips/infrastructure/axi/axi_width_converter
+- original:
+    id: AXI-005
+    name: axi_addr_width_adapter
+    family: AXI Address Width Adapter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    implementation: extend/truncate/window
+    description: 地址合法性
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_addr_width_adapter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-005
+    name: axi_addr_width_adapter
+    path: ips/infrastructure/axi/axi_addr_width_adapter
+- original:
+    id: AXI-006
+    name: axi_id_converter
+    family: AXI ID Width Converter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    implementation: remap/compress/expand
+    description: ID表面积和并发
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_id_converter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-006
+    name: axi_id_converter
+    path: ips/infrastructure/axi/axi_id_converter
+- original:
+    id: AXI-007
+    name: axi_user_signal_adapter
+    family: AXI User Signal Adapter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    implementation: map/tie/filter
+    description: 固定字段裁剪
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_user_signal_adapter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-007
+    name: axi_user_signal_adapter
+    path: ips/infrastructure/axi/axi_user_signal_adapter
+- original:
+    id: AXI-008
+    name: axi_burst_splitter
+    family: AXI Burst Splitter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    implementation: boundary/max-length/4KB
+    description: 状态与吞吐
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_burst_splitter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-008
+    name: axi_burst_splitter
+    path: ips/infrastructure/axi/axi_burst_splitter
+- original:
+    id: AXI-009
+    name: axi_burst_merger
+    family: AXI Burst Merger/Coalescer
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    implementation: adjacent/same attribute
+    description: 比较、Buffer、顺序
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_burst_merger
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-010
+    name: axi_burst_length_adapter
+    family: AXI Burst Length Adapter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    implementation: fixed/max programmable
+    description: 地址推进
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_burst_length_adapter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-010
+    name: axi_burst_length_adapter
+    path: ips/infrastructure/axi/axi_burst_length_adapter
+- original:
+    id: AXI-011
+    name: axi_outstanding_limiter
+    family: AXI Outstanding Limiter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    implementation: global/per-ID/per-channel
+    description: 计数器和阻塞
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_outstanding_limiter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-011
+    name: axi_outstanding_limiter
+    path: ips/infrastructure/axi/axi_outstanding_limiter
+- original:
+    id: AXI-012
+    name: axi_id_remapper
+    family: AXI ID Remapper
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    implementation: static/table/free-list
+    description: 表容量与匹配
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_id_remapper
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-013
+    name: axi_transaction_serializer
+    family: AXI Transaction Serializer
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    implementation: full/per-ID
+    description: 面积换并发
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_transaction_serializer
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-013
+    name: axi_transaction_serializer
+    path: ips/infrastructure/axi/axi_transaction_serializer
+- original:
+    id: AXI-014
+    name: axi_rw_interleaver
+    family: AXI Read/Write Interleaver
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P3
+    implementation: ordered/tagged
+    description: 顺序规则复杂度
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_rw_interleaver
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-015
+    name: axi_clock_converter
+    family: AXI Clock Converter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P0
+    implementation: async FIFO/handshake hybrid
+    description: 全通道CDC正确性
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_clock_converter
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-016
+    name: axi_protocol_converter
+    family: AXI Protocol Converter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    implementation: AXI4↔AXI4-Lite subset
+    description: Burst拆分与错误
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_protocol_converter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-016
+    name: axi_protocol_converter
+    path: ips/infrastructure/bridge/axi_protocol_converter
+- original:
+    id: AXI-017
+    name: axi_apb_bridge
+    family: AXI-to-APB Bridge
+    group: components/axi_axi_stream
+    abstraction: A3/A4
+    priority: P1
+    implementation: single/multi port
+    description: 队列、译码、时钟
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_apb_bridge
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-017
+    name: axi2apb_bridge
+    path: ips/infrastructure/bridge/axi2apb_bridge
+- original:
+    id: AXI-018
+    name: axi_ahb_bridge
+    family: AXI-to-AHB Bridge
+    group: components/axi_axi_stream
+    abstraction: A3/A4
+    priority: P2
+    implementation: buffered/pipelined
+    description: 顺序和响应映射
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_ahb_bridge
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-019
+    name: axi_address_decoder
+    family: AXI Address Decoder
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P0
+    implementation: region/mask/hierarchical
+    description: 比较和路由关键路径
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_address_decoder
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-020
+    name: axi_demux
+    family: AXI Demux
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    implementation: static/dynamic target
+    description: 响应路由状态
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_demux
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-020
+    name: axi_demux
+    path: ips/infrastructure/axi/axi_demux
+- original:
+    id: AXI-021
+    name: axi_mux
+    family: AXI Mux
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    implementation: fixed/RR/QoS arbitration
+    description: 五通道仲裁与锁定
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_mux
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-021
+    name: axi_mux
+    path: ips/infrastructure/axi/axi_mux
+- original:
+    id: AXI-022
+    name: axi_crossbar
+    family: AXI Crossbar
+    group: components/axi_axi_stream
+    abstraction: A4
+    priority: P2
+    implementation: shared/full/sparse
+    description: 面积、布线、并发
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_crossbar
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-023
+    name: axi_default_slave
+    family: AXI Default Slave
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P0
+    implementation: DECERR/SLVERR programmable
+    description: 无目标响应
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_default_slave
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-024
+    name: axi_timeout_monitor
+    family: AXI Timeout Monitor
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    implementation: per-channel/transaction
+    description: 表项和恢复策略
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_timeout_monitor
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-024
+    name: axi_timeout_monitor
+    path: ips/infrastructure/axi/axi_timeout_monitor
+- original:
+    id: AXI-025
+    name: axi_firewall_region_filter
+    family: AXI Firewall/Region Filter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    implementation: address/ID/privilege
+    description: 安全策略与关键路径
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_firewall_region_filter
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-026
+    name: axi_exclusive_access_monitor
+    family: AXI Exclusive Access Monitor
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P3
+    implementation: local/global table
+    description: 表项与一致性范围
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_exclusive_access_monitor
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-027
+    name: axi_atomic_adapter
+    family: AXI Atomic Adapter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P3
+    implementation: subset/emulation
+    description: 原子性和锁定
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_atomic_adapter
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-028
+    name: axi_qos_mapper
+    family: AXI QoS Mapper
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    implementation: static/table/traffic class
+    description: 配置和仲裁衔接
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_qos_mapper
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-028
+    name: axi_qos_mapper
+    path: ips/infrastructure/axi/axi_qos_mapper
+- original:
+    id: AXI-029
+    name: axi_perf_monitor
+    family: AXI Performance Monitor
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    implementation: latency/bandwidth/outstanding
+    description: 被动观测开销
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_perf_monitor
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-030
+    name: axi_error_injector
+    family: AXI Error Injector
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    implementation: channel/response/data
+    description: 验证模式隔离
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_error_injector
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-030
+    name: axi_error_injector
+    path: ips/infrastructure/axi/axi_error_injector
+- original:
+    id: AXIS-001
+    name: axis_register_slice
+    family: AXI-Stream Register Slice
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P0
+    implementation: F/B/full/skid
+    description: Ready路径
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axis_register_slice
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXIS-001
+    name: axis_register_slice
+    path: ips/infrastructure/axis/axis_register_slice
+- original:
+    id: AXIS-002
+    name: axis_width_converter
+    family: AXI-Stream Width Converter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    implementation: byte-aligned/general ratio
+    description: TKEEP/TLAST对齐
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axis_width_converter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXIS-002
+    name: axis_width_converter
+    path: ips/infrastructure/axis/axis_width_converter
+- original:
+    id: AXIS-003
+    name: axis_switch
+    family: AXI-Stream Switch
+    group: components/axi_axi_stream
+    abstraction: A3/A4
+    priority: P2
+    implementation: mux/demux/crossbar
+    description: 包锁定与路由
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axis_switch
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXIS-003
+    name: axis_switch
+    path: ips/infrastructure/axis/axis_switch
+- original:
+    id: AXIS-004
+    name: axis_packet_fifo
+    family: AXI-Stream Packet FIFO
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P1
+    implementation: store-forward/cut-through
+    description: 包边界与容量
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axis_packet_fifo
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXIS-004
+    name: axis_packet_fifo
+    path: ips/infrastructure/axis/axis_packet_fifo
+- original:
+    id: AXIS-005
+    name: axis_broadcaster
+    family: AXI-Stream Broadcaster
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    implementation: all/subset outputs
+    description: Ready汇聚
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axis_broadcaster
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXIS-005
+    name: axis_broadcaster
+    path: ips/infrastructure/axis/axis_broadcaster
+- original:
+    id: AXIS-006
+    name: axis_combiner_subset
+    family: AXI-Stream Combiner/Subset
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    implementation: TDATA/TUSER composition
+    description: Lane映射
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axis_combiner_subset
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXIS-006
+    name: axis_combiner_subset
+    path: ips/infrastructure/axis/axis_combiner_subset
+- original:
+    id: AXIS-007
+    name: axis_frame_length_monitor
+    family: AXI-Stream Frame Length Monitor
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    implementation: min/max/count
+    description: 低开销检查
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axis_frame_length_monitor
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXIS-007
+    name: axis_frame_length_monitor
+    path: ips/infrastructure/axis/axis_frame_length_monitor
+- original:
+    id: AXIS-008
+    name: axis_rate_limiter
+    family: AXI-Stream Rate Limiter
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P2
+    implementation: token bucket/gap insert
+    description: 吞吐整形
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axis_rate_limiter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXIS-008
+    name: axis_rate_limiter
+    path: ips/infrastructure/axis/axis_rate_limiter
+- original:
+    id: BUS-002
+    name: apb_slave_adapter
+    family: APB Slave Adapter
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P0
+    implementation: APB3/APB4、wait/error
+    description: 低面积与时序
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/apb_slave_adapter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-BUS-002
+    name: apb_slave_adapter
+    path: ips/infrastructure/bridge/apb_slave_adapter
+- original:
+    id: BUS-003
+    name: apb_register_slice
+    family: APB Register Slice
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P1
+    implementation: request/response/full
+    description: PREADY返回路径（request/response/full 三模式 + RESP_STAGES 反馈级数 + G3/G4/G5
+      证据）
+    status: implemented
+    version: 0.1.0
+    path: components/apb_ahb_register/apb_register_slice
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: moved
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-BUS-003
+    name: apb_register_bridge
+    path: ips/infrastructure/bridge/apb_register_bridge
+- original:
+    id: BUS-004
+    name: apb_decoder
+    family: APB Decoder
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P0
+    implementation: one-to-N、hierarchical
+    description: 地址译码与PREADY Mux
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/apb_decoder
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: BUS-005
+    name: apb_mux_interconnect
+    family: APB Mux/Interconnect
+    group: components/apb_ahb_register
+    abstraction: A3/A4
+    priority: P1
+    implementation: N-to-M、fixed arbitration
+    description: 规模与共享路径
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/apb_mux_interconnect
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: BUS-006
+    name: apb_cdc_bridge
+    family: APB CDC Bridge
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P1
+    implementation: handshake/async queue
+    description: 低吞吐CDC优化
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/apb_cdc_bridge
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-BUS-006
+    name: apb_cdc_bridge
+    path: ips/infrastructure/bridge/apb_cdc_bridge
+- original:
+    id: BUS-007
+    name: apb_width_adapter
+    family: APB Width Adapter
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P2
+    implementation: 32/64/custom
+    description: Byte strobe与跨拍
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/apb_width_adapter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-BUS-007
+    name: apb_width_adapter
+    path: ips/infrastructure/bridge/apb_width_adapter
+- original:
+    id: BUS-008
+    name: apb_timeout_default_slave
+    family: APB Timeout/Default Slave
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P0
+    implementation: programmable/fixed
+    description: 防挂死与低开销
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/apb_timeout_default_slave
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: BUS-009
+    name: ahb_lite_slave_adapter
+    family: AHB-Lite Slave Adapter
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P1
+    implementation: pipelined address/data
+    description: 地址/数据相位
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/ahb_lite_slave_adapter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-BUS-009
+    name: ahb_lite_slave_adapter
+    path: ips/infrastructure/bridge/ahb_lite_slave_adapter
+- original:
+    id: BUS-010
+    name: ahb_lite_register_slice
+    family: AHB-Lite Register Slice
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P1
+    implementation: forward/full
+    description: HREADY路径
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/ahb_lite_register_slice
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-BUS-010
+    name: ahb_lite_register_slice
+    path: ips/infrastructure/bridge/ahb_lite_register_slice
+- original:
+    id: BUS-011
+    name: ahb_lite_decoder_mux
+    family: AHB-Lite Decoder/Mux
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P2
+    implementation: one-to-N/N-to-one
+    description: 响应Mux时序
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/ahb_lite_decoder_mux
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: BUS-012
+    name: ahb_lite_cdc_bridge
+    family: AHB-Lite CDC Bridge
+    group: components/apb_ahb_register
+    abstraction: A3
+    priority: P2
+    implementation: handshake/async FIFO
+    description: 相位与响应
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/ahb_lite_cdc_bridge
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: BUS-013
+    name: ahb_apb_bridge
+    family: AHB↔APB Bridge
+    group: components/apb_ahb_register
+    abstraction: A3/A4
+    priority: P1
+    implementation: single/multi APB port
+    description: Buffer与时钟比
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/ahb_apb_bridge
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-BUS-013
+    name: ahb_apb_bridge
+    path: ips/infrastructure/bridge/ahb_apb_bridge
+- original:
+    id: CDC-009
+    name: async_fifo_cdc
+    family: Async FIFO
+    group: components/cdc_rdc
+    abstraction: A2
+    priority: P0
+    implementation: small register/large SRAM
+    description: 指针、满空、复位
+    status: planned
+    version: 0.1.0
+    path: components/cdc_rdc/async_fifo_cdc
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: CDC-011
+    name: plesiochronous_rate_matcher
+    family: Plesiochronous Rate Matcher
+    group: components/cdc_rdc
+    abstraction: A2
+    priority: P3
+    implementation: skip/repeat/elastic
+    description: 频偏吸收
+    status: planned
+    version: 0.1.0
+    path: components/cdc_rdc/plesiochronous_rate_matcher
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: COD-005
+    name: bch_rs_codec_wrapper
+    family: BCH/RS Codec Wrapper
+    group: components/coding_integrity
+    abstraction: A2
+    priority: P3
+    implementation: iterative/vendor-wrapper
+    description: 算法复杂度与授权边界
+    status: planned
+    version: 0.1.0
+    path: components/coding_integrity/bch_rs_codec_wrapper
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: COD-009
+    name: run_length_codec
+    family: Run-length Encoder/Decoder
+    group: components/coding_integrity
+    abstraction: A2
+    priority: P3
+    implementation: streaming、bounded run
+    description: 数据相关吞吐
+    status: planned
+    version: 0.1.0
+    path: components/coding_integrity/run_length_codec
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: COD-010
+    name: zero_suppress_bitmap_codec
+    family: Zero Suppression/Bitmap Codec
+    group: components/coding_integrity
+    abstraction: A2
+    priority: P3
+    implementation: sparse、block mask
+    description: 元数据开销与活动率
+    status: planned
+    version: 0.1.0
+    path: components/coding_integrity/zero_suppress_bitmap_codec
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: CRP-019
+    name: mem_sleep_controller
+    family: Memory Sleep Controller
+    group: components/clock_reset_power
+    abstraction: A2
+    priority: P2
+    implementation: bank/global idle policy
+    description: break-even与唤醒
+    status: planned
+    version: 0.1.0
+    path: components/clock_reset_power/mem_sleep_controller
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: CTL-008
+    name: fsm_shell
+    family: FSM Shell
+    group: components/control_event_status
+    abstraction: A1/A2
+    priority: P0
+    implementation: binary/one-hot/Gray encoding
+    description: 编码按表征选型
+    status: planned
+    version: 0.1.0
+    path: components/control_event_status/fsm_shell
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: CTL-009
+    name: hierarchical_fsm
+    family: Hierarchical FSM
+    group: components/control_event_status
+    abstraction: A2
+    priority: P2
+    implementation: parent/child decomposition
+    description: 状态爆炸控制
+    status: planned
+    version: 0.1.0
+    path: components/control_event_status/hierarchical_fsm
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: DSP-005
+    name: tensor_layout_converter
+    family: Tensor Layout Converter
+    group: components/dsp_ai_datapath
+    abstraction: A3
+    priority: P3
+    implementation: NHWC/NCHW/block/tile
+    description: Buffer和地址生成
+    status: planned
+    version: 0.1.0
+    path: components/dsp_ai_datapath/tensor_layout_converter
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: DSP-009
+    name: dma_descriptor_walker
+    family: DMA Descriptor Walker Core
+    group: components/dsp_ai_datapath
+    abstraction: A4
+    priority: P3
+    implementation: ring/linked list subset
+    description: 若含完整DMA则升级为IP
+    status: planned
+    version: 0.1.0
+    path: components/dsp_ai_datapath/dma_descriptor_walker
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: DSP-012
+    name: sparse_bitmap_index_decoder
+    family: Sparse Bitmap/Index Decoder
+    group: components/dsp_ai_datapath
+    abstraction: A2/A3
+    priority: P3
+    implementation: bitmap/RLE/block sparse
+    description: 控制分支与吞吐
+    status: planned
+    version: 0.1.0
+    path: components/dsp_ai_datapath/sparse_bitmap_index_decoder
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: MON-015
+    name: perf_counter_csr_adapter
+    family: Performance Counter CSR Adapter
+    group: components/monitor_debug
+    abstraction: A3
+    priority: P1
+    implementation: APB/AXI-Lite/generic CSR
+    description: 统一软件接口
+    status: planned
+    version: 0.1.0
+    path: components/monitor_debug/perf_counter_csr_adapter
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: MON-016
+    name: lightweight_logic_analyzer
+    family: Lightweight Logic Analyzer Shell
+    group: components/monitor_debug
+    abstraction: A4
+    priority: P3
+    implementation: trigger+buffer+readout
+    description: 调试配置按需裁剪
+    status: planned
+    version: 0.1.0
+    path: components/monitor_debug/lightweight_logic_analyzer
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-MON-016
+    name: lightweight_logic_analyzer
+    path: ips/debug_trace/debug/lightweight_logic_analyzer
+- original:
+    id: NOC-001
+    name: flit_packer_unpacker
+    family: Flit Packer/Unpacker
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P2
+    implementation: fixed/variable header
+    description: Mux、字段映射
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/flit_packer_unpacker
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-002
+    name: vc_fifo
+    family: Virtual-channel FIFO
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P2
+    implementation: shared/dedicated storage
+    description: RAM利用率与头阻塞
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/vc_fifo
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-003
+    name: vc_allocator
+    family: VC Allocator
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P3
+    implementation: separable/input-first/output-first
+    description: 仲裁规模
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/vc_allocator
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-004
+    name: switch_allocator
+    family: Switch Allocator
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P3
+    implementation: speculative/non-speculative
+    description: 关键路径核心
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/switch_allocator
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-005
+    name: noc_input_port
+    family: NoC Input Port
+    group: components/noc_interconnect
+    abstraction: A3/A4
+    priority: P3
+    implementation: buffer+route+VC state
+    description: 面积和流控
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/noc_input_port
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-006
+    name: noc_output_port
+    family: NoC Output Port
+    group: components/noc_interconnect
+    abstraction: A3/A4
+    priority: P3
+    implementation: arbitration+credit
+    description: 扇入与信用返回
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/noc_output_port
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-008
+    name: route_compute
+    family: Route Compute
+    group: components/noc_interconnect
+    abstraction: A2/A3
+    priority: P3
+    implementation: table/XY/source route
+    description: 组合延迟
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/route_compute
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-013
+    name: link_crc_replay_shell
+    family: Link CRC/Replay Shell
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P3
+    implementation: detect/retry/sequence
+    description: 可靠性和Buffer
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/link_crc_replay_shell
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-014
+    name: link_power_state_handshake
+    family: Link Power-state Handshake
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P2
+    implementation: quiesce/isolate/wakeup
+    description: 低功耗序列
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/link_power_state_handshake
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-015
+    name: deadlock_progress_monitor
+    family: Deadlock/Progress Monitor
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P3
+    implementation: timeout/dependency summary
+    description: 观测开销
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/deadlock_progress_monitor
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-016
+    name: chi_ace_channel_slice
+    family: CHI/ACE Channel Slice
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P3
+    implementation: protocol-channel pipeline
+    description: 一致性协议专项验证
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/chi_ace_channel_slice
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-017
+    name: chiplet_streaming_adapter
+    family: Chiplet Streaming Adapter
+    group: components/noc_interconnect
+    abstraction: A3
+    priority: P3
+    implementation: die-to-die logical stream
+    description: 不替代PHY/标准协议IP
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/chiplet_streaming_adapter
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: QUE-010
+    name: frame_buffer_queue
+    family: Frame Buffer Queue
+    group: components/fifo_queue_buffer
+    abstraction: A2
+    priority: P3
+    implementation: descriptor+payload
+    description: 容量与元数据
+    status: planned
+    version: 0.1.0
+    path: components/fifo_queue_buffer/frame_buffer_queue
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: RDC-001
+    name: async_assert_sync_release_reset
+    family: Async Assert/Sync Release Reset
+    group: components/cdc_rdc
+    abstraction: A1
+    priority: P0
+    implementation: 2/3-stage
+    description: 复位恢复/移除时间
+    status: planned
+    version: 0.1.0
+    path: components/cdc_rdc/async_assert_sync_release_reset
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: SAF-002
+    name: ecc_protected_memory_shell
+    family: ECC-protected Memory Shell
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P1
+    implementation: SECDED、scrub、bypass
+    description: 纠错路径和带宽
+    status: planned
+    version: 0.1.0
+    path: components/interrupt_safety/ecc_protected_memory_shell
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: SAF-008
+    name: safety_bypass_mode
+    family: Safety Mechanism Bypass/Mode
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P2
+    implementation: controlled mux + status
+    description: 安全状态与测试
+    status: planned
+    version: 0.1.0
+    path: components/interrupt_safety/safety_bypass_mode
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: SAF-014
+    name: alarm_handler_core
+    family: Alarm Handler Core
+    group: components/interrupt_safety
+    abstraction: A4
+    priority: P2
+    implementation: class/severity/timeout subset
+    description: 接近IP，需边界治理
+    status: planned
+    version: 0.1.0
+    path: components/interrupt_safety/alarm_handler_core
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: SAF-021
+    name: vt_monitor_wrapper
+    family: Voltage/Temperature Monitor Wrapper
+    group: components/interrupt_safety
+    abstraction: A0/A2
+    priority: P3
+    implementation: alarm/status synchronizer
+    description: 模拟监控器接口
+    status: planned
+    version: 0.1.0
+    path: components/interrupt_safety/vt_monitor_wrapper
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: SAF-022
+    name: safe_state_ctrl
+    family: Safe-state Controller
+    group: components/interrupt_safety
+    abstraction: A2/A4
+    priority: P2
+    implementation: local/global request/ack
+    description: 失效响应时间
+    status: planned
+    version: 0.1.0
+    path: components/interrupt_safety/safe_state_ctrl
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: SAF-024
+    name: latent_fault_test_ctrl
+    family: Latent Fault Test Controller
+    group: components/interrupt_safety
+    abstraction: A2
+    priority: P3
+    implementation: periodic test handshake
+    description: 业务中断与覆盖
+    status: planned
+    version: 0.1.0
+    path: components/interrupt_safety/latent_fault_test_ctrl
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TEC-018
+    name: cam_macro_wrapper
+    family: CAM/TCAM Macro Wrapper
+    group: adapters
+    abstraction: A0
+    priority: P3
+    implementation: Binary/ternary、分段
+    description: 高功耗宏，严格适用范围
+    status: planned
+    version: 0.1.0
+    path: adapters/cam_macro_wrapper
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-001
+    name: multi_bank_sram_subsystem
+    family: 多Bank SRAM子系统
+    group: templates
+    abstraction: A4
+    priority: P1
+    implementation: bank mapper + scheduler + ECC + sleep
+    description: 容量、吞吐、功耗Pareto
+    status: planned
+    version: 0.1.0
+    path: templates/multi_bank_sram_subsystem
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-002
+    name: low_latency_rf_subsystem
+    family: 低延迟寄存器文件子系统
+    group: templates
+    abstraction: A4
+    priority: P2
+    implementation: RF + bypass + replication
+    description: 多读端口优化
+    status: planned
+    version: 0.1.0
+    path: templates/low_latency_rf_subsystem
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-003
+    name: shared_operator_template
+    family: 共享运算单元模板
+    group: templates
+    abstraction: A4
+    priority: P1
+    implementation: arbiter + operand queue + result route
+    description: 面积换延迟
+    status: planned
+    version: 0.1.0
+    path: templates/shared_operator_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-004
+    name: high_throughput_add_mac_tree
+    family: 高吞吐加法/MAC树
+    group: templates
+    abstraction: A4
+    priority: P1
+    implementation: compressor + pipeline + isolation
+    description: 数据通路示范闭环
+    status: planned
+    version: 0.1.0
+    path: templates/high_throughput_add_mac_tree
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-005
+    name: high_freq_ready_valid_channel
+    family: 高频 Ready/Valid 通道
+    group: templates
+    abstraction: A4
+    priority: P0
+    implementation: F/B/full slice组合
+    description: 自动切分反压路径
+    status: planned
+    version: 0.1.0
+    path: templates/high_freq_ready_valid_channel
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-006
+    name: long_distance_physical_link
+    family: 长距离物理链路
+    group: templates
+    abstraction: A4
+    priority: P1
+    implementation: slice + replication + CDC可选
+    description: 跨分区时序收敛
+    status: planned
+    version: 0.1.0
+    path: templates/long_distance_physical_link
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-007
+    name: hierarchical_arbitration_network
+    family: 分层仲裁网络
+    group: templates
+    abstraction: A4
+    priority: P1
+    implementation: local/global arbiter + buffers
+    description: 32/64/128路扩展
+    status: planned
+    version: 0.1.0
+    path: templates/hierarchical_arbitration_network
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-008
+    name: hierarchical_decode_network
+    family: 分层地址译码网络
+    group: templates
+    abstraction: A4
+    priority: P1
+    implementation: global region + local decode
+    description: 高扇出和响应Mux
+    status: planned
+    version: 0.1.0
+    path: templates/hierarchical_decode_network
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-009
+    name: axi_shared_interconnect_template
+    family: AXI共享互联模板
+    group: templates
+    abstraction: A4
+    priority: P2
+    implementation: decode + arbitrate + buffer + monitor
+    description: 可裁剪互联
+    status: planned
+    version: 0.1.0
+    path: templates/axi_shared_interconnect_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-010
+    name: axi_async_bridge_template
+    family: AXI异步桥模板
+    group: templates
+    abstraction: A4
+    priority: P1
+    implementation: channel CDC + depth selection
+    description: 宽总线跨域PPA
+    status: planned
+    version: 0.1.0
+    path: templates/axi_async_bridge_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-011
+    name: axi_width_bridge_template
+    family: AXI宽度转换桥模板
+    group: templates
+    abstraction: A4
+    priority: P2
+    implementation: splitter/packer/ID tracking
+    description: 32～1024bit适配
+    status: planned
+    version: 0.1.0
+    path: templates/axi_width_bridge_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-012
+    name: apb_peripheral_cluster_template
+    family: APB外设簇模板
+    group: templates
+    abstraction: A4
+    priority: P1
+    implementation: bridge + decoder + timeout + CSR
+    description: 低面积控制面
+    status: planned
+    version: 0.1.0
+    path: templates/apb_peripheral_cluster_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-013
+    name: noc_router_template
+    family: NoC Router模板
+    group: templates
+    abstraction: A4
+    priority: P3
+    implementation: VC + allocators + crossbar + credit
+    description: 先进互联研究
+    status: planned
+    version: 0.1.0
+    path: templates/noc_router_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-014
+    name: safe_interrupt_frontend_template
+    family: 安全中断前端模板
+    group: templates
+    abstraction: A4
+    priority: P1
+    implementation: condition + sticky + route + monitor
+    description: PIC/CLIC/安全岛复用
+    status: planned
+    version: 0.1.0
+    path: templates/safe_interrupt_frontend_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-015
+    name: error_management_tree_template
+    family: 错误管理树模板
+    group: templates
+    abstraction: A4
+    priority: P1
+    implementation: local aggregate + route + escalation
+    description: 功能安全公共架构
+    status: planned
+    version: 0.1.0
+    path: templates/error_management_tree_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-016
+    name: power_domain_ctrl_template
+    family: 电源域控制模板
+    group: templates
+    abstraction: A4
+    priority: P2
+    implementation: quiesce + isolate + save + switch + restore
+    description: UPF控制闭环
+    status: planned
+    version: 0.1.0
+    path: templates/power_domain_ctrl_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-017
+    name: clock_reset_manager_template
+    family: Clock/Reset Manager模板
+    group: templates
+    abstraction: A4
+    priority: P2
+    implementation: source switch + divide + gate + reset seq
+    description: 时钟复位公共方案
+    status: planned
+    version: 0.1.0
+    path: templates/clock_reset_manager_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-018
+    name: low_power_pipeline_template
+    family: 低功耗流水线模板
+    group: templates
+    abstraction: A4
+    priority: P1
+    implementation: valid gating + freeze + operand isolate
+    description: 活动相关功耗优化
+    status: planned
+    version: 0.1.0
+    path: templates/low_power_pipeline_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-019
+    name: high_fanout_ctrl_recipe
+    family: 高扇出控制优化配方
+    group: templates
+    abstraction: A4
+    priority: P1
+    implementation: mirror + local decode + enable tree
+    description: 布线和时序
+    status: planned
+    version: 0.1.0
+    path: templates/high_fanout_ctrl_recipe
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-020
+    name: streaming_data_shaping_template
+    family: 流式数据整形模板
+    group: templates
+    abstraction: A4
+    priority: P2
+    implementation: width/rate/packet/buffer pipeline
+    description: 复合协议适配
+    status: planned
+    version: 0.1.0
+    path: templates/streaming_data_shaping_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-021
+    name: e2e_data_protection_channel
+    family: 端到端数据保护通道
+    group: templates
+    abstraction: A4
+    priority: P2
+    implementation: sequence + CRC + timeout + retry
+    description: 安全通信链
+    status: planned
+    version: 0.1.0
+    path: templates/e2e_data_protection_channel
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-022
+    name: perf_observation_subsystem
+    family: 性能观测子系统
+    group: templates
+    abstraction: A4
+    priority: P2
+    implementation: event mux + counters + trace + CSR
+    description: 可观测性按需裁剪
+    status: planned
+    version: 0.1.0
+    path: templates/perf_observation_subsystem
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-023
+    name: memory_bist_access_template
+    family: Memory BIST接入模板
+    group: templates
+    abstraction: A4
+    priority: P3
+    implementation: mux + isolate + controller adapter
+    description: DFT一致接入
+    status: planned
+    version: 0.1.0
+    path: templates/memory_bist_access_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-024
+    name: dsp_double_buffer_datapath
+    family: DSP双缓冲数据通路
+    group: templates
+    abstraction: A4
+    priority: P3
+    implementation: DMA-side stream + ping-pong + compute feed
+    description: 搬运计算重叠
+    status: planned
+    version: 0.1.0
+    path: templates/dsp_double_buffer_datapath
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-001
+    name: axi_channel_register_slice
+    family: AXI Channel Register Slice
+    group: components/axi_axi_stream
+    abstraction: A3
+    priority: P0
+    implementation: per-channel F/B/full/skid
+    description: 单个 AXI 通道的局部 ready/valid 缓冲和时序切分；侧带随 payload 保持，不承担五通道事务组织；完整接口切片归
+      IP。
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_channel_register_slice
+  disposition: migrated
+  reason: 用户明确要求 components/axi_axi_stream 归入 IP；单通道功能边界保留，不添加空包装。
+  source_files: absent
+  target:
+    repo: ip
+    id: MIG-IP-AXI-001
+    name: axi_channel_register_slice
+    path: ips/infrastructure/axi/axi_channel_register_slice
+  restore: 仅在重新确认仓库归属后恢复原 AXI-001；不得与 IP 形成两份实现。

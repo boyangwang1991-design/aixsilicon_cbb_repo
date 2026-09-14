@@ -54,3 +54,5 @@ weighted_rr_arbiter #(
 
 Deficit RR（包长量子 ARB-004）、Age-based（ARB-005）、Lottery（ARB-006）、multi-grant（ARB-007）、
 层次仲裁（ARB-008）、运行时权重热更新。
+
+需求入口：[weighted_rr_arbiter 需求合同](weighted_rr_arbiter_contract.md)。文档齐全不代表实现或 Gate 通过。

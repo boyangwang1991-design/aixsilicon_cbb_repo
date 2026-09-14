@@ -31,4 +31,8 @@
 - 新增 `scripts/init_structure.sh`（幂等初始化）与 `scripts/build_cbb_structure.py`（清单解析生成器）
 - 新增 `docs/`（architecture / cbb_spec / ppa / getting_started）与 recipes / schemas / verification / flows / tools 框架
 
-> 当前各 CBB 为规划占位（成熟度 E0），未含 RTL 与 PPA 表征数据。
+> 0.1.0 初始化时，各 CBB 为规划占位（成熟度 E0），未含 RTL 与 PPA 表征数据。
+
+## 2026-09-13 IP/CBB 分类清理
+
+统一 registry 管理入口、状态和编号纪律；按指导清单精简规划，保留退出记录与工程材料，迁移 APB 桥及 diversity comparator。历史记录见 docs/archive/2026-09-cbb-materials-review/cleanup-2026-09.md。

@@ -1,105 +1,59 @@
-# AixSilicon CBB Repository
+# AIXSILICON CBB 核心逻辑资产仓
 
-**CBB（公共基础构件）交付发布仓**：存放经过验证的 CBB 交付件，管理版本，并作为 **FuseSoC Library** 提供消费入口。
+面向 IP 开发，提供可参数化复用的基础逻辑、局部时序行为与逻辑级 PPA 契约。
 
-CBB 的需求/规格/RTL 实现/验证/PPA 表征的开发方法与工具链在 **cbb-development-suite**（Skill）中定义与执行；本仓库只接收其**交付件**。
+分类按责任与交付边界判定，详见 [IP/CBB 分类原则](docs/ip-cbb-classification.md) 和
+[统一资产管理策略](docs/asset-management.md)。完整 AXI Register Slice、APB Register Bridge、
+总线 CDC Bridge 属于 IP；FIFO、仲裁、同步和权限比较核心属于 CBB。
+按本项目明确归属，单通道 axi_channel_register_slice 也由 IP 仓管理。
+IP 不强制要求 CSR、中断或软件接口。
 
-## 目录结构
+`registry.yaml` 是唯一规划与状态编辑入口；校验脚本不从历史清单恢复候选。
+`planned` 允许有开发目录；`implemented` 不等于正式发布或所有配置已验证。
+源码、规格、验证材料和证据随资产保存，通用研发方法由开发 Skill 管理。
 
-```text
-.
-├── adapters/            # A0 技术适配交付件（22 条候选；实现后落位）
-├── components/          # A1~A4 已交付 CBB 工程包（每构件含 cbb.yaml + rtl + verification + evidence + fusesoc/core）
-├── fusesoc.conf         # FuseSoC 库注册
-├── registry.yaml        # 交付件索引（唯一 SSOT：id/name/family/group/abstraction/priority/implementation/description/status/version/path）
-├── reports/quality/     # 交付证据（run_log.md 等）
-├── CHANGELOG.md         # 平台版本
-└── LICENSE              # Apache-2.0
-```
+## 目录与身份
 
-## FuseSoC 使用
+- `components/<group>/<name>/、adapters/<name>/`：资产工程；已交付旧布局继续按 registry.path 定位。
+- `registry.yaml`：正式主清单；`governance/`：稳定编号、迁移与退出记录。
+- `docs/archive/`：历史清单与指导快照；保留的未入选工程不计入主清单。
+- `scripts/`：仓内索引检查与 README 派生视图生成。
+
+默认新资产 VLNV 为 `aixsilicon:cbb:<name>:<version>`；兼容旧身份须显式登记。
+APB 工程迁移及历史构建身份例外见 [清理报告](docs/archive/2026-09-cbb-materials-review/cleanup-2026-09.md)。
+
+[各 CBB 需求合同索引](docs/requirement-contracts.md)覆盖全部登记条目；规划草案与已有 YAML 派生视图区分管理。
+
+## 使用与维护
 
 ```bash
-# 将本仓库注册为 FuseSoC 库
-fusesoc library add aixsilicon-cbb /path/to/aixsilicon_cbb_repo
-
-# 列出 / 运行交付构件
-fusesoc core list
-fusesoc core show aixsilicon:cbb:<cbb_name>:<version>
-fusesoc run --target sim aixsilicon:cbb:<cbb_name>:<version>
+fusesoc library add aixsilicon_cbb_repo https://github.com/boyangwang1991-design/aixsilicon_cbb_repo.git
+python3 scripts/build_cbb_structure.py --check
+python3 scripts/check_requirement_contracts.py
+python3 scripts/update_registry_readme.py
+python3 scripts/update_registry_readme.py --check
 ```
 
-VLNV 命名：`aixsilicon:cbb:<cbb_name>:<version>`。
+本地在 workflow 根通过 `uv run --no-sync python repos/aixsilicon_cbb_repo/scripts/<脚本>` 执行。
+资产工程 scaffold、stage 与领域 Gate 使用对应开发套件；仓内校验不代替仿真、综合或发布资格。
 
-## 与 IP 的边界
-
-CBB 承载可被两个或更多 IP/子系统复用的机制、数据通路和协议适配：例如仲裁、FIFO、CDC、
-AXI/APB 切片与转换、通用监控/聚合核。它们可以具有完整的 RTL 和协议合规性，但不应绑定产品级
-CSR/地址图、芯片中断编号、特定系统安全策略或单一 IP 的集成生命周期。这些集成契约由
-`aixsilicon:ip:*` 封装。
-
-若 CBB 与 IP 存在对应关系，两者应是“可复用核 → 产品级封装”的组合关系，不应同名或复制 RTL。
-
-## 与开发套件的交接
-
-开发工具位于 `aixsilicon_skill_repo/skills/cbb-development-suite/scripts/cbb_tool.py`。
-在含依赖的 workflow 根目录使用 `uv run --no-sync python <工具路径>`，通过 `--root` 指定本仓库。
-Owner 直接维护 registry 的规划、索引 ID 和实现状态；`cbb.yaml` 维护资产身份与契约，
-两者的 name/version 必须一致。索引 ID（如 QUE-007）与资产 ID（如 aixsilicon:cbb:skid_buffer）分开。
-
-1. 登记 planned 候选，运行 `scripts/build_cbb_structure.py` 校验。
-2. 使用套件 `scaffold --root <repo> --cbb <name>` 物化已登记候选；填充契约并运行开发/验证 Gate。
-3. 外部工程包使用 `stage <deliverable> --root <repo> --dry-run` 预检，再去掉 dry-run 导入。
-   导入保留完整元数据，仅补入缺失文件，内容冲突会拒绝；不改变实现或发布状态。
-4. 基于证据维护 implemented，运行仓库校验并使用 `scripts/update_registry_readme.py` 同步总览。
-   G7/G8 与 Catalog 发布继续由 Qualification/Release 流程判定。
-
-planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态，仅检查一致性并刷新 README。
-仓库校验检查索引与元数据一致性，不能代替编译、仿真或发布资格验证。
-
-## 索引字段
-
-`registry.yaml` 是 CBB 交付件的机器可读索引（唯一 SSOT），每条含：
-
-| 字段 | 说明 |
-| --- | --- |
-| `id` | 构件 ID（如 `QUE-012`） |
-| `name` | 英文功能名（VLNV name，如 `width_conversion_fifo`） |
-| `family` | 中文名（构件族） |
-| `group` | 类别路径（如 `components/fifo_queue_buffer`） |
-| `abstraction` | 抽象粒度 A0~A4 |
-| `priority` | P0~P3 |
-| `implementation` | 主要实现变体 |
-| `description` | PPA/工程关注点 |
-| `status` | `planned`（未实现）或 `implemented`（目录存在且通过验证） |
-| `version` | 版本（SemVer） |
-| `path` | 交付件相对路径 |
-
-`status=implemented` 的条目应存在工程包；`planned` 条目是规划候选，允许存在开发中的目录。
-
-类别说明：`group=adapters`（A0 技术适配，22 条候选）、`group=components/*`（A1~A3 构件）、`group=templates`（A4 子系统模板，24 条候选）。A4 模板为候选索引，实现后以交付件形式进入对应类别。
-
-## 当前已交付构件
-
-> 以下状态总览由 [`scripts/update_registry_readme.py`](scripts/update_registry_readme.py) 依据
-> [`registry.yaml`](registry.yaml:1)（SSOT）自动生成；**修改 `registry.yaml` 后必须运行**
-> `python3 scripts/update_registry_readme.py` 刷新本节，勿手工编辑。
+## 资产状态总览
 
 <!-- REGISTRY-STATUS:BEGIN -->
 > 本节由 `scripts/update_registry_readme.py` 依据 `registry.yaml`（SSOT）自动生成。
 > 修改 `registry.yaml` 后必须运行 `python3 scripts/update_registry_readme.py` 刷新本节；勿手工编辑。
-> 最后更新：`2026-09-10T08:12:59Z`
+> 最后更新：`2026-09-13T00:00:00Z`
 
 ### 总览
 
-| 指标                         | 数量 |
-|------------------------------|------|
-| 总条目（cbbs）               | 410  |
-| implemented（已实现/已交付） | 11   |
-| planned（规划候选）          | 399  |
-| 实现率                       | 2.7% |
+| 指标                             | 数量 |
+|----------------------------------|------|
+| 总条目（cbbs）                   | 297  |
+| implemented/released（已有实现） | 10   |
+| planned（规划候选）              | 287  |
+| 实现率                           | 3.4% |
 
-### 已实现 / 已交付构件（11）
+### 已实现 / 已交付构件（10）
 
 | ID      | 构件                                                                                         | 构件族                   | 抽象  | 优先级 | 版本  | 类别                              |
 |---------|----------------------------------------------------------------------------------------------|--------------------------|-------|--------|-------|-----------------------------------|
@@ -108,7 +62,6 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | ARB-003 | [weighted_rr_arbiter](components/arbitration_scheduling/weighted_rr_arbiter/README.md)       | Weighted RR Arbiter      | A2    | P2     | 0.1.0 | components/arbitration_scheduling |
 | ARB-010 | [packet_locking_arbiter](components/arbitration_scheduling/packet_locking_arbiter/README.md) | Packet-locking Arbiter   | A2/A3 | P1     | 0.1.0 | components/arbitration_scheduling |
 | ARI-001 | [incrementer_decrementer](components/arithmetic_datapath/incrementer_decrementer/README.md)  | Incrementer/Decrementer  | A1    | P0     | 0.1.0 | components/arithmetic_datapath    |
-| BUS-003 | [apb_register_slice](components/apb_ahb_register/apb_register_slice/README.md)               | APB Register Slice       | A3    | P1     | 0.1.0 | components/apb_ahb_register       |
 | COD-001 | [parity_gen_check](components/coding_integrity/parity_gen_check/README.md)                   | Parity Generator/Checker | A1    | P0     | 0.1.0 | components/coding_integrity       |
 | QUE-001 | [sync_fifo](components/fifo_queue_buffer/sync_fifo/README.md)                                | Synchronous FIFO         | A2    | P0     | 0.1.0 | components/fifo_queue_buffer      |
 | QUE-007 | [skid_buffer](components/fifo_queue_buffer/skid_buffer/README.md)                            | Skid Buffer              | A3    | P0     | 0.3.0 | components/fifo_queue_buffer      |
@@ -119,54 +72,51 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 
 | 类别                              | implemented | planned | 合计 |
 |-----------------------------------|-------------|---------|------|
-| adapters                          | 0           | 22      | 22   |
-| components/apb_ahb_register       | 1           | 15      | 16   |
-| components/arbitration_scheduling | 4           | 16      | 20   |
-| components/arithmetic_datapath    | 1           | 34      | 35   |
-| components/axi_axi_stream         | 0           | 38      | 38   |
-| components/cdc_rdc                | 0           | 19      | 19   |
-| components/clock_reset_power      | 0           | 22      | 22   |
-| components/coding_integrity       | 1           | 11      | 12   |
-| components/control_event_status   | 0           | 24      | 24   |
+| adapters                          | 0           | 21      | 21   |
+| components/apb_ahb_register       | 0           | 4       | 4    |
+| components/arbitration_scheduling | 4           | 15      | 19   |
+| components/arithmetic_datapath    | 1           | 29      | 30   |
+| components/cdc_rdc                | 0           | 16      | 16   |
+| components/clock_reset_power      | 0           | 21      | 21   |
+| components/coding_integrity       | 1           | 8       | 9    |
+| components/control_event_status   | 0           | 22      | 22   |
 | components/dft_test               | 0           | 10      | 10   |
-| components/dsp_ai_datapath        | 0           | 15      | 15   |
-| components/fifo_queue_buffer      | 2           | 18      | 20   |
-| components/interrupt_safety       | 1           | 29      | 30   |
-| components/monitor_debug          | 0           | 16      | 16   |
-| components/noc_interconnect       | 0           | 17      | 17   |
+| components/dsp_ai_datapath        | 0           | 12      | 12   |
+| components/fifo_queue_buffer      | 2           | 17      | 19   |
+| components/interrupt_safety       | 1           | 23      | 24   |
+| components/monitor_debug          | 0           | 14      | 14   |
+| components/noc_interconnect       | 0           | 5       | 5    |
 | components/register_memory        | 0           | 25      | 25   |
+| components/safety_reliability     | 0           | 1       | 1    |
 | components/selection_decode       | 1           | 19      | 20   |
 | components/streaming_pipeline     | 0           | 25      | 25   |
-| templates                         | 0           | 24      | 24   |
 
 ### 按抽象粒度分布
 
 | 抽象  | 数量 |
 |-------|------|
-| A0    | 22   |
-| A0/A2 | 2    |
-| A1    | 38   |
+| A0    | 21   |
+| A0/A2 | 1    |
+| A1    | 37   |
 | A1/A0 | 1    |
-| A1/A2 | 20   |
-| A2    | 180  |
-| A2/A3 | 16   |
-| A2/A4 | 4    |
-| A3    | 92   |
-| A3/A4 | 7    |
-| A4    | 28   |
+| A1/A2 | 19   |
+| A2    | 164  |
+| A2/A3 | 14   |
+| A2/A4 | 3    |
+| A3    | 37   |
 
 ### 按优先级分布（implemented / planned）
 
 | 优先级 | implemented | planned | 合计 |
 |--------|-------------|---------|------|
-| P0     | 6           | 72      | 78   |
-| P1     | 3           | 137     | 140  |
-| P2     | 2           | 122     | 124  |
-| P3     | 0           | 68      | 68   |
+| P0     | 6           | 59      | 65   |
+| P1     | 2           | 103     | 105  |
+| P2     | 2           | 90      | 92   |
+| P3     | 0           | 35      | 35   |
 
-### 全部 CBB 明细（410，按类别拆分）
+### 全部 CBB 明细（297，按类别拆分）
 
-#### adapters（22，implemented=0）
+#### adapters（21，implemented=0）
 
 | ID      | 名称                                                                          | 构件族                        | 状态    | 抽象 | 优先级 | 版本  | 功能/描述                       |
 |---------|-------------------------------------------------------------------------------|-------------------------------|---------|------|--------|-------|---------------------------------|
@@ -187,34 +137,21 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | TEC-015 | [sram_macro_wrapper](adapters/sram_macro_wrapper/README.md)                   | SRAM Macro Wrapper            | planned | A0   | P0     | 0.1.0 | 统一读延迟、mask、sleep、BIST   |
 | TEC-016 | [register_file_macro_wrapper](adapters/register_file_macro_wrapper/README.md) | Register File Macro Wrapper   | planned | A0   | P1     | 0.1.0 | 端口语义与 bypass               |
 | TEC-017 | [rom_macro_wrapper](adapters/rom_macro_wrapper/README.md)                     | ROM Macro Wrapper             | planned | A0   | P2     | 0.1.0 | 初始化、时序和测试接口          |
-| TEC-018 | [cam_macro_wrapper](adapters/cam_macro_wrapper/README.md)                     | CAM/TCAM Macro Wrapper        | planned | A0   | P3     | 0.1.0 | 高功耗宏，严格适用范围          |
 | TEC-019 | [efuse_otp_wrapper](adapters/efuse_otp_wrapper/README.md)                     | eFuse/OTP Macro Wrapper       | planned | A0   | P3     | 0.1.0 | 安全、一次性编程、厂商差异      |
 | TEC-020 | [pll_dll_osc_wrapper](adapters/pll_dll_osc_wrapper/README.md)                 | PLL/DLL/OSC Digital Wrapper   | planned | A0   | P3     | 0.1.0 | 仅数字接口适配，不替代模拟IP    |
 | TEC-021 | [fpga_memory_wrapper](adapters/fpga_memory_wrapper/README.md)                 | FPGA Memory Wrapper           | planned | A0   | P1     | 0.1.0 | ASIC/FPGA双实现映射             |
 | TEC-022 | [fpga_dsp_wrapper](adapters/fpga_dsp_wrapper/README.md)                       | FPGA DSP Wrapper              | planned | A0   | P2     | 0.1.0 | 推断稳定性与流水位置            |
 
-#### components/apb_ahb_register（16，implemented=1）
+#### components/apb_ahb_register（4，implemented=0）
 
-| ID      | 名称                                                                                           | 构件族                     | 状态        | 抽象  | 优先级 | 版本  | 功能/描述                                                                             |
-|---------|------------------------------------------------------------------------------------------------|----------------------------|-------------|-------|--------|-------|---------------------------------------------------------------------------------------|
-| BUS-001 | [generic_csr_adapter](components/apb_ahb_register/generic_csr_adapter/README.md)               | Generic CSR Bus Adapter    | planned     | A3    | P0     | 0.1.0 | 内部统一接口                                                                          |
-| BUS-002 | [apb_slave_adapter](components/apb_ahb_register/apb_slave_adapter/README.md)                   | APB Slave Adapter          | planned     | A3    | P0     | 0.1.0 | 低面积与时序                                                                          |
-| BUS-003 | [apb_register_slice](components/apb_ahb_register/apb_register_slice/README.md)                 | APB Register Slice         | implemented | A3    | P1     | 0.1.0 | PREADY返回路径（request/response/full 三模式 + RESP_STAGES 反馈级数 + G3/G4/G5 证据） |
-| BUS-004 | [apb_decoder](components/apb_ahb_register/apb_decoder/README.md)                               | APB Decoder                | planned     | A3    | P0     | 0.1.0 | 地址译码与PREADY Mux                                                                  |
-| BUS-005 | [apb_mux_interconnect](components/apb_ahb_register/apb_mux_interconnect/README.md)             | APB Mux/Interconnect       | planned     | A3/A4 | P1     | 0.1.0 | 规模与共享路径                                                                        |
-| BUS-006 | [apb_cdc_bridge](components/apb_ahb_register/apb_cdc_bridge/README.md)                         | APB CDC Bridge             | planned     | A3    | P1     | 0.1.0 | 低吞吐CDC优化                                                                         |
-| BUS-007 | [apb_width_adapter](components/apb_ahb_register/apb_width_adapter/README.md)                   | APB Width Adapter          | planned     | A3    | P2     | 0.1.0 | Byte strobe与跨拍                                                                     |
-| BUS-008 | [apb_timeout_default_slave](components/apb_ahb_register/apb_timeout_default_slave/README.md)   | APB Timeout/Default Slave  | planned     | A3    | P0     | 0.1.0 | 防挂死与低开销                                                                        |
-| BUS-009 | [ahb_lite_slave_adapter](components/apb_ahb_register/ahb_lite_slave_adapter/README.md)         | AHB-Lite Slave Adapter     | planned     | A3    | P1     | 0.1.0 | 地址/数据相位                                                                         |
-| BUS-010 | [ahb_lite_register_slice](components/apb_ahb_register/ahb_lite_register_slice/README.md)       | AHB-Lite Register Slice    | planned     | A3    | P1     | 0.1.0 | HREADY路径                                                                            |
-| BUS-011 | [ahb_lite_decoder_mux](components/apb_ahb_register/ahb_lite_decoder_mux/README.md)             | AHB-Lite Decoder/Mux       | planned     | A3    | P2     | 0.1.0 | 响应Mux时序                                                                           |
-| BUS-012 | [ahb_lite_cdc_bridge](components/apb_ahb_register/ahb_lite_cdc_bridge/README.md)               | AHB-Lite CDC Bridge        | planned     | A3    | P2     | 0.1.0 | 相位与响应                                                                            |
-| BUS-013 | [ahb_apb_bridge](components/apb_ahb_register/ahb_apb_bridge/README.md)                         | AHB↔APB Bridge             | planned     | A3/A4 | P1     | 0.1.0 | Buffer与时钟比                                                                        |
-| BUS-014 | [csr_shadow_commit_adapter](components/apb_ahb_register/csr_shadow_commit_adapter/README.md)   | CSR Shadow/Commit Adapter  | planned     | A3    | P1     | 0.1.0 | 配置一致性                                                                            |
-| BUS-015 | [csr_access_policy_filter](components/apb_ahb_register/csr_access_policy_filter/README.md)     | CSR Access Policy Filter   | planned     | A3    | P1     | 0.1.0 | 译码与安全策略                                                                        |
-| BUS-016 | [register_broadcast_adapter](components/apb_ahb_register/register_broadcast_adapter/README.md) | Register Broadcast Adapter | planned     | A3    | P2     | 0.1.0 | 高扇出优化                                                                            |
+| ID      | 名称                                                                                           | 构件族                     | 状态    | 抽象 | 优先级 | 版本  | 功能/描述                                                                              |
+|---------|------------------------------------------------------------------------------------------------|----------------------------|---------|------|--------|-------|----------------------------------------------------------------------------------------|
+| BUS-001 | [generic_csr_adapter](components/apb_ahb_register/generic_csr_adapter/README.md)               | Generic CSR Bus Adapter    | planned | A3   | P0     | 0.1.0 | 简单 req/rsp 握手转换核；不实现完整 APB/AXI/AHB 协议或产品寄存器图。                   |
+| BUS-014 | [csr_shadow_commit_adapter](components/apb_ahb_register/csr_shadow_commit_adapter/README.md)   | CSR Shadow/Commit Adapter  | planned | A3   | P1     | 0.1.0 | 配置一致性                                                                             |
+| BUS-015 | [csr_access_policy_filter](components/apb_ahb_register/csr_access_policy_filter/README.md)     | CSR Access Policy Filter   | planned | A3   | P1     | 0.1.0 | 无总线事务处理的局部访问属性比较与写使能过滤；不承担拒绝响应、软件权限配置或系统策略。 |
+| BUS-016 | [register_broadcast_adapter](components/apb_ahb_register/register_broadcast_adapter/README.md) | Register Broadcast Adapter | planned | A3   | P2     | 0.1.0 | 高扇出优化                                                                             |
 
-#### components/arbitration_scheduling（20，implemented=4）
+#### components/arbitration_scheduling（19，implemented=4）
 
 | ID      | 名称                                                                                               | 构件族                    | 状态        | 抽象  | 优先级 | 版本  | 功能/描述                                                                      |
 |---------|----------------------------------------------------------------------------------------------------|---------------------------|-------------|-------|--------|-------|--------------------------------------------------------------------------------|
@@ -223,7 +160,6 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | ARB-003 | [weighted_rr_arbiter](components/arbitration_scheduling/weighted_rr_arbiter/README.md)             | Weighted RR Arbiter       | implemented | A2    | P2     | 0.1.0 | 权重状态与公平性（quota_counter/deficit_rotate 双实现 + G3/G4/G5 证据）        |
 | ARB-004 | [deficit_rr_arbiter](components/arbitration_scheduling/deficit_rr_arbiter/README.md)               | Deficit RR Arbiter        | planned     | A2    | P3     | 0.1.0 | 加法状态与包长                                                                 |
 | ARB-005 | [age_based_arbiter](components/arbitration_scheduling/age_based_arbiter/README.md)                 | Age-based Arbiter         | planned     | A2    | P3     | 0.1.0 | 比较网络面积                                                                   |
-| ARB-006 | [lottery_arbiter](components/arbitration_scheduling/lottery_arbiter/README.md)                     | Lottery/Random Arbiter    | planned     | A2    | P3     | 0.1.0 | 随机质量与验证                                                                 |
 | ARB-007 | [multi_grant_arbiter](components/arbitration_scheduling/multi_grant_arbiter/README.md)             | Multi-grant Arbiter       | planned     | A2    | P2     | 0.1.0 | 多授权组合复杂度                                                               |
 | ARB-008 | [hierarchical_arbiter](components/arbitration_scheduling/hierarchical_arbiter/README.md)           | Hierarchical Arbiter      | planned     | A2    | P1     | 0.1.0 | 大规模请求时序                                                                 |
 | ARB-009 | [pipelined_arbiter](components/arbitration_scheduling/pipelined_arbiter/README.md)                 | Pipelined Arbiter         | planned     | A2    | P1     | 0.1.0 | 延迟与满吞吐                                                                   |
@@ -239,7 +175,7 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | ARB-019 | [reservation_lock_manager](components/arbitration_scheduling/reservation_lock_manager/README.md)   | Reservation/Lock Manager  | planned     | A2    | P3     | 0.1.0 | 死锁与状态开销                                                                 |
 | ARB-020 | [barrier_join_controller](components/arbitration_scheduling/barrier_join_controller/README.md)     | Barrier/Join Controller   | planned     | A2    | P2     | 0.1.0 | 参与者数量与扇入                                                               |
 
-#### components/arithmetic_datapath（35，implemented=1）
+#### components/arithmetic_datapath（30，implemented=1）
 
 | ID      | 名称                                                                                        | 构件族                         | 状态        | 抽象  | 优先级 | 版本  | 功能/描述                                          |
 |---------|---------------------------------------------------------------------------------------------|--------------------------------|-------------|-------|--------|-------|----------------------------------------------------|
@@ -266,87 +202,36 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | ARI-021 | [integer_divider](components/arithmetic_datapath/integer_divider/README.md)                 | Integer Divider                | planned     | A2    | P2     | 0.1.0 | 面积/延迟/吞吐                                     |
 | ARI-022 | [constant_divider](components/arithmetic_datapath/constant_divider/README.md)               | Constant Divider               | planned     | A2    | P2     | 0.1.0 | 误差与常量特化                                     |
 | ARI-023 | [modulo_reducer](components/arithmetic_datapath/modulo_reducer/README.md)                   | Modulo/Reducer                 | planned     | A2    | P3     | 0.1.0 | 除法消除与延迟                                     |
-| ARI-024 | [square_sum_squares](components/arithmetic_datapath/square_sum_squares/README.md)           | Square/Sum-of-squares          | planned     | A2    | P3     | 0.1.0 | DSP场景资源共享                                    |
 | ARI-025 | [average_weighted_sum](components/arithmetic_datapath/average_weighted_sum/README.md)       | Average/Weighted Sum           | planned     | A2    | P2     | 0.1.0 | 系数与位宽增长                                     |
 | ARI-026 | [reciprocal_rsqrt_approx](components/arithmetic_datapath/reciprocal_rsqrt_approx/README.md) | Reciprocal/RSqrt Approximation | planned     | A2    | P3     | 0.1.0 | 精度/延迟/面积                                     |
 | ARI-027 | [cordic](components/arithmetic_datapath/cordic/README.md)                                   | CORDIC                         | planned     | A2    | P3     | 0.1.0 | 迭代次数、精度                                     |
-| ARI-028 | [polynomial_evaluator](components/arithmetic_datapath/polynomial_evaluator/README.md)       | Polynomial Evaluator           | planned     | A2    | P3     | 0.1.0 | 系数常量化与MAC复用                                |
-| ARI-029 | [bcd_binary_converter](components/arithmetic_datapath/bcd_binary_converter/README.md)       | BCD/Binary Converter           | planned     | A2    | P3     | 0.1.0 | 周期与面积                                         |
-| ARI-030 | [decimal_bcd_arith](components/arithmetic_datapath/decimal_bcd_arith/README.md)             | Decimal/BCD Arithmetic         | planned     | A2    | P3     | 0.1.0 | 专用业务驱动                                       |
 | ARI-031 | [fp_classify_compare](components/arithmetic_datapath/fp_classify_compare/README.md)         | FP Classify/Compare            | planned     | A1/A2 | P3     | 0.1.0 | NaN/Inf/zero语义                                   |
-| ARI-032 | [fp_math_shell](components/arithmetic_datapath/fp_math_shell/README.md)                     | FP Add/Multiply/FMA Shell      | planned     | A2    | P3     | 0.1.0 | 不重复造完整FPU，重在适配                          |
 | ARI-033 | [block_fp_scale](components/arithmetic_datapath/block_fp_scale/README.md)                   | Block Floating-point Scale     | planned     | A2    | P3     | 0.1.0 | 精度与存储带宽                                     |
 | ARI-034 | [quantize_dequantize](components/arithmetic_datapath/quantize_dequantize/README.md)         | Quantize/Dequantize            | planned     | A2    | P2     | 0.1.0 | AI数据通路位宽与功耗                               |
 | ARI-035 | [packed_simd_lane_op](components/arithmetic_datapath/packed_simd_lane_op/README.md)         | Packed SIMD Lane Operator      | planned     | A2    | P3     | 0.1.0 | Lane复用与门控                                     |
 
-#### components/axi_axi_stream（38，implemented=0）
+#### components/cdc_rdc（16，implemented=0）
 
-| ID       | 名称                                                                                             | 构件族                          | 状态    | 抽象  | 优先级 | 版本  | 功能/描述                |
-|----------|--------------------------------------------------------------------------------------------------|---------------------------------|---------|-------|--------|-------|--------------------------|
-| AXI-001  | [axi_channel_register_slice](components/axi_axi_stream/axi_channel_register_slice/README.md)     | AXI Channel Register Slice      | planned | A3    | P0     | 0.1.0 | 五通道独立切时序         |
-| AXI-002  | [axi_lite_register_slice](components/axi_axi_stream/axi_lite_register_slice/README.md)           | AXI-Lite Register Slice         | planned | A3    | P0     | 0.1.0 | 小面积低延迟             |
-| AXI-003  | [axi_buffer](components/axi_axi_stream/axi_buffer/README.md)                                     | AXI Buffer                      | planned | A3    | P1     | 0.1.0 | Outstanding与背压        |
-| AXI-004  | [axi_width_converter](components/axi_axi_stream/axi_width_converter/README.md)                   | AXI Data Width Converter        | planned | A3    | P1     | 0.1.0 | Burst、strobe、unaligned |
-| AXI-005  | [axi_addr_width_adapter](components/axi_axi_stream/axi_addr_width_adapter/README.md)             | AXI Address Width Adapter       | planned | A3    | P1     | 0.1.0 | 地址合法性               |
-| AXI-006  | [axi_id_converter](components/axi_axi_stream/axi_id_converter/README.md)                         | AXI ID Width Converter          | planned | A3    | P1     | 0.1.0 | ID表面积和并发           |
-| AXI-007  | [axi_user_signal_adapter](components/axi_axi_stream/axi_user_signal_adapter/README.md)           | AXI User Signal Adapter         | planned | A3    | P2     | 0.1.0 | 固定字段裁剪             |
-| AXI-008  | [axi_burst_splitter](components/axi_axi_stream/axi_burst_splitter/README.md)                     | AXI Burst Splitter              | planned | A3    | P1     | 0.1.0 | 状态与吞吐               |
-| AXI-009  | [axi_burst_merger](components/axi_axi_stream/axi_burst_merger/README.md)                         | AXI Burst Merger/Coalescer      | planned | A3    | P2     | 0.1.0 | 比较、Buffer、顺序       |
-| AXI-010  | [axi_burst_length_adapter](components/axi_axi_stream/axi_burst_length_adapter/README.md)         | AXI Burst Length Adapter        | planned | A3    | P2     | 0.1.0 | 地址推进                 |
-| AXI-011  | [axi_outstanding_limiter](components/axi_axi_stream/axi_outstanding_limiter/README.md)           | AXI Outstanding Limiter         | planned | A3    | P1     | 0.1.0 | 计数器和阻塞             |
-| AXI-012  | [axi_id_remapper](components/axi_axi_stream/axi_id_remapper/README.md)                           | AXI ID Remapper                 | planned | A3    | P2     | 0.1.0 | 表容量与匹配             |
-| AXI-013  | [axi_transaction_serializer](components/axi_axi_stream/axi_transaction_serializer/README.md)     | AXI Transaction Serializer      | planned | A3    | P1     | 0.1.0 | 面积换并发               |
-| AXI-014  | [axi_rw_interleaver](components/axi_axi_stream/axi_rw_interleaver/README.md)                     | AXI Read/Write Interleaver      | planned | A3    | P3     | 0.1.0 | 顺序规则复杂度           |
-| AXI-015  | [axi_clock_converter](components/axi_axi_stream/axi_clock_converter/README.md)                   | AXI Clock Converter             | planned | A3    | P0     | 0.1.0 | 全通道CDC正确性          |
-| AXI-016  | [axi_protocol_converter](components/axi_axi_stream/axi_protocol_converter/README.md)             | AXI Protocol Converter          | planned | A3    | P1     | 0.1.0 | Burst拆分与错误          |
-| AXI-017  | [axi_apb_bridge](components/axi_axi_stream/axi_apb_bridge/README.md)                             | AXI-to-APB Bridge               | planned | A3/A4 | P1     | 0.1.0 | 队列、译码、时钟         |
-| AXI-018  | [axi_ahb_bridge](components/axi_axi_stream/axi_ahb_bridge/README.md)                             | AXI-to-AHB Bridge               | planned | A3/A4 | P2     | 0.1.0 | 顺序和响应映射           |
-| AXI-019  | [axi_address_decoder](components/axi_axi_stream/axi_address_decoder/README.md)                   | AXI Address Decoder             | planned | A3    | P0     | 0.1.0 | 比较和路由关键路径       |
-| AXI-020  | [axi_demux](components/axi_axi_stream/axi_demux/README.md)                                       | AXI Demux                       | planned | A3    | P1     | 0.1.0 | 响应路由状态             |
-| AXI-021  | [axi_mux](components/axi_axi_stream/axi_mux/README.md)                                           | AXI Mux                         | planned | A3    | P1     | 0.1.0 | 五通道仲裁与锁定         |
-| AXI-022  | [axi_crossbar](components/axi_axi_stream/axi_crossbar/README.md)                                 | AXI Crossbar                    | planned | A4    | P2     | 0.1.0 | 面积、布线、并发         |
-| AXI-023  | [axi_default_slave](components/axi_axi_stream/axi_default_slave/README.md)                       | AXI Default Slave               | planned | A3    | P0     | 0.1.0 | 无目标响应               |
-| AXI-024  | [axi_timeout_monitor](components/axi_axi_stream/axi_timeout_monitor/README.md)                   | AXI Timeout Monitor             | planned | A3    | P1     | 0.1.0 | 表项和恢复策略           |
-| AXI-025  | [axi_firewall_region_filter](components/axi_axi_stream/axi_firewall_region_filter/README.md)     | AXI Firewall/Region Filter      | planned | A3    | P2     | 0.1.0 | 安全策略与关键路径       |
-| AXI-026  | [axi_exclusive_access_monitor](components/axi_axi_stream/axi_exclusive_access_monitor/README.md) | AXI Exclusive Access Monitor    | planned | A3    | P3     | 0.1.0 | 表项与一致性范围         |
-| AXI-027  | [axi_atomic_adapter](components/axi_axi_stream/axi_atomic_adapter/README.md)                     | AXI Atomic Adapter              | planned | A3    | P3     | 0.1.0 | 原子性和锁定             |
-| AXI-028  | [axi_qos_mapper](components/axi_axi_stream/axi_qos_mapper/README.md)                             | AXI QoS Mapper                  | planned | A3    | P2     | 0.1.0 | 配置和仲裁衔接           |
-| AXI-029  | [axi_perf_monitor](components/axi_axi_stream/axi_perf_monitor/README.md)                         | AXI Performance Monitor         | planned | A3    | P1     | 0.1.0 | 被动观测开销             |
-| AXI-030  | [axi_error_injector](components/axi_axi_stream/axi_error_injector/README.md)                     | AXI Error Injector              | planned | A3    | P2     | 0.1.0 | 验证模式隔离             |
-| AXIS-001 | [axis_register_slice](components/axi_axi_stream/axis_register_slice/README.md)                   | AXI-Stream Register Slice       | planned | A3    | P0     | 0.1.0 | Ready路径                |
-| AXIS-002 | [axis_width_converter](components/axi_axi_stream/axis_width_converter/README.md)                 | AXI-Stream Width Converter      | planned | A3    | P1     | 0.1.0 | TKEEP/TLAST对齐          |
-| AXIS-003 | [axis_switch](components/axi_axi_stream/axis_switch/README.md)                                   | AXI-Stream Switch               | planned | A3/A4 | P2     | 0.1.0 | 包锁定与路由             |
-| AXIS-004 | [axis_packet_fifo](components/axi_axi_stream/axis_packet_fifo/README.md)                         | AXI-Stream Packet FIFO          | planned | A3    | P1     | 0.1.0 | 包边界与容量             |
-| AXIS-005 | [axis_broadcaster](components/axi_axi_stream/axis_broadcaster/README.md)                         | AXI-Stream Broadcaster          | planned | A3    | P2     | 0.1.0 | Ready汇聚                |
-| AXIS-006 | [axis_combiner_subset](components/axi_axi_stream/axis_combiner_subset/README.md)                 | AXI-Stream Combiner/Subset      | planned | A3    | P2     | 0.1.0 | Lane映射                 |
-| AXIS-007 | [axis_frame_length_monitor](components/axi_axi_stream/axis_frame_length_monitor/README.md)       | AXI-Stream Frame Length Monitor | planned | A3    | P2     | 0.1.0 | 低开销检查               |
-| AXIS-008 | [axis_rate_limiter](components/axi_axi_stream/axis_rate_limiter/README.md)                       | AXI-Stream Rate Limiter         | planned | A3    | P2     | 0.1.0 | 吞吐整形                 |
+| ID      | 名称                                                                                      | 构件族                         | 状态    | 抽象  | 优先级 | 版本  | 功能/描述            |
+|---------|-------------------------------------------------------------------------------------------|--------------------------------|---------|-------|--------|-------|----------------------|
+| CDC-001 | [single_bit_synchronizer](components/cdc_rdc/single_bit_synchronizer/README.md)           | Single-bit Synchronizer        | planned | A1    | P0     | 0.1.0 | MTBF、属性、布局     |
+| CDC-002 | [multibit_static_synchronizer](components/cdc_rdc/multibit_static_synchronizer/README.md) | Multi-bit Static Synchronizer  | planned | A1/A2 | P0     | 0.1.0 | 仅适用于静态配置总线 |
+| CDC-003 | [pulse_synchronizer](components/cdc_rdc/pulse_synchronizer/README.md)                     | Pulse Synchronizer             | planned | A2    | P0     | 0.1.0 | 脉宽与连续脉冲间隔   |
+| CDC-004 | [toggle_synchronizer](components/cdc_rdc/toggle_synchronizer/README.md)                   | Toggle Synchronizer            | planned | A2    | P0     | 0.1.0 | 事件丢失边界         |
+| CDC-005 | [handshake_synchronizer](components/cdc_rdc/handshake_synchronizer/README.md)             | Handshake Synchronizer         | planned | A2    | P0     | 0.1.0 | 延迟、吞吐、复位     |
+| CDC-006 | [bundled_data_cdc](components/cdc_rdc/bundled_data_cdc/README.md)                         | Bundled-data CDC               | planned | A2    | P1     | 0.1.0 | 数据稳定窗口和约束   |
+| CDC-007 | [bus_snapshot_cdc](components/cdc_rdc/bus_snapshot_cdc/README.md)                         | Bus Snapshot CDC               | planned | A2    | P1     | 0.1.0 | 原子采样             |
+| CDC-008 | [gray_counter_cdc](components/cdc_rdc/gray_counter_cdc/README.md)                         | Gray Counter CDC               | planned | A2    | P0     | 0.1.0 | 最大跳变与约束       |
+| CDC-010 | [mesochronous_elastic_buffer](components/cdc_rdc/mesochronous_elastic_buffer/README.md)   | Mesochronous Elastic Buffer    | planned | A2    | P3     | 0.1.0 | 同频异相场景         |
+| CDC-012 | [cdc_event_aggregator](components/cdc_rdc/cdc_event_aggregator/README.md)                 | Clock-domain Event Aggregator  | planned | A2    | P1     | 0.1.0 | 同时事件和扇入       |
+| CDC-013 | [cdc_config_bridge](components/cdc_rdc/cdc_config_bridge/README.md)                       | Clock-domain Config Bridge     | planned | A2/A3 | P1     | 0.1.0 | 一致性与低频配置     |
+| RDC-002 | [sync_reset_bridge](components/cdc_rdc/sync_reset_bridge/README.md)                       | Fully Synchronous Reset Bridge | planned | A2    | P1     | 0.1.0 | 域间顺序             |
+| RDC-003 | [reset_pulse_stretcher](components/cdc_rdc/reset_pulse_stretcher/README.md)               | Reset Pulse Stretcher          | planned | A1/A2 | P0     | 0.1.0 | 最短复位周期         |
+| RDC-004 | [reset_domain_isolation](components/cdc_rdc/reset_domain_isolation/README.md)             | Reset Domain Isolation         | planned | A2    | P1     | 0.1.0 | 失复位域影响隔离     |
+| RDC-005 | [reset_sequencer](components/cdc_rdc/reset_sequencer/README.md)                           | Reset Sequencer                | planned | A2/A4 | P1     | 0.1.0 | 扇出、启动延迟       |
+| RDC-006 | [warm_cold_reset_ctrl](components/cdc_rdc/warm_cold_reset_ctrl/README.md)                 | Warm/Cold Reset Controller     | planned | A2/A4 | P2     | 0.1.0 | 状态保留边界         |
 
-#### components/cdc_rdc（19，implemented=0）
-
-| ID      | 名称                                                                                            | 构件族                          | 状态    | 抽象  | 优先级 | 版本  | 功能/描述            |
-|---------|-------------------------------------------------------------------------------------------------|---------------------------------|---------|-------|--------|-------|----------------------|
-| CDC-001 | [single_bit_synchronizer](components/cdc_rdc/single_bit_synchronizer/README.md)                 | Single-bit Synchronizer         | planned | A1    | P0     | 0.1.0 | MTBF、属性、布局     |
-| CDC-002 | [multibit_static_synchronizer](components/cdc_rdc/multibit_static_synchronizer/README.md)       | Multi-bit Static Synchronizer   | planned | A1/A2 | P0     | 0.1.0 | 仅适用于静态配置总线 |
-| CDC-003 | [pulse_synchronizer](components/cdc_rdc/pulse_synchronizer/README.md)                           | Pulse Synchronizer              | planned | A2    | P0     | 0.1.0 | 脉宽与连续脉冲间隔   |
-| CDC-004 | [toggle_synchronizer](components/cdc_rdc/toggle_synchronizer/README.md)                         | Toggle Synchronizer             | planned | A2    | P0     | 0.1.0 | 事件丢失边界         |
-| CDC-005 | [handshake_synchronizer](components/cdc_rdc/handshake_synchronizer/README.md)                   | Handshake Synchronizer          | planned | A2    | P0     | 0.1.0 | 延迟、吞吐、复位     |
-| CDC-006 | [bundled_data_cdc](components/cdc_rdc/bundled_data_cdc/README.md)                               | Bundled-data CDC                | planned | A2    | P1     | 0.1.0 | 数据稳定窗口和约束   |
-| CDC-007 | [bus_snapshot_cdc](components/cdc_rdc/bus_snapshot_cdc/README.md)                               | Bus Snapshot CDC                | planned | A2    | P1     | 0.1.0 | 原子采样             |
-| CDC-008 | [gray_counter_cdc](components/cdc_rdc/gray_counter_cdc/README.md)                               | Gray Counter CDC                | planned | A2    | P0     | 0.1.0 | 最大跳变与约束       |
-| CDC-009 | [async_fifo_cdc](components/cdc_rdc/async_fifo_cdc/README.md)                                   | Async FIFO                      | planned | A2    | P0     | 0.1.0 | 指针、满空、复位     |
-| CDC-010 | [mesochronous_elastic_buffer](components/cdc_rdc/mesochronous_elastic_buffer/README.md)         | Mesochronous Elastic Buffer     | planned | A2    | P3     | 0.1.0 | 同频异相场景         |
-| CDC-011 | [plesiochronous_rate_matcher](components/cdc_rdc/plesiochronous_rate_matcher/README.md)         | Plesiochronous Rate Matcher     | planned | A2    | P3     | 0.1.0 | 频偏吸收             |
-| CDC-012 | [cdc_event_aggregator](components/cdc_rdc/cdc_event_aggregator/README.md)                       | Clock-domain Event Aggregator   | planned | A2    | P1     | 0.1.0 | 同时事件和扇入       |
-| CDC-013 | [cdc_config_bridge](components/cdc_rdc/cdc_config_bridge/README.md)                             | Clock-domain Config Bridge      | planned | A2/A3 | P1     | 0.1.0 | 一致性与低频配置     |
-| RDC-001 | [async_assert_sync_release_reset](components/cdc_rdc/async_assert_sync_release_reset/README.md) | Async Assert/Sync Release Reset | planned | A1    | P0     | 0.1.0 | 复位恢复/移除时间    |
-| RDC-002 | [sync_reset_bridge](components/cdc_rdc/sync_reset_bridge/README.md)                             | Fully Synchronous Reset Bridge  | planned | A2    | P1     | 0.1.0 | 域间顺序             |
-| RDC-003 | [reset_pulse_stretcher](components/cdc_rdc/reset_pulse_stretcher/README.md)                     | Reset Pulse Stretcher           | planned | A1/A2 | P0     | 0.1.0 | 最短复位周期         |
-| RDC-004 | [reset_domain_isolation](components/cdc_rdc/reset_domain_isolation/README.md)                   | Reset Domain Isolation          | planned | A2    | P1     | 0.1.0 | 失复位域影响隔离     |
-| RDC-005 | [reset_sequencer](components/cdc_rdc/reset_sequencer/README.md)                                 | Reset Sequencer                 | planned | A2/A4 | P1     | 0.1.0 | 扇出、启动延迟       |
-| RDC-006 | [warm_cold_reset_ctrl](components/cdc_rdc/warm_cold_reset_ctrl/README.md)                       | Warm/Cold Reset Controller      | planned | A2/A4 | P2     | 0.1.0 | 状态保留边界         |
-
-#### components/clock_reset_power（22，implemented=0）
+#### components/clock_reset_power（21，implemented=0）
 
 | ID      | 名称                                                                                            | 构件族                               | 状态    | 抽象  | 优先级 | 版本  | 功能/描述            |
 |---------|-------------------------------------------------------------------------------------------------|--------------------------------------|---------|-------|--------|-------|----------------------|
@@ -368,29 +253,25 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | CRP-016 | [power_domain_handshake](components/clock_reset_power/power_domain_handshake/README.md)         | Power-domain Handshake               | planned | A2    | P2     | 0.1.0 | UPF状态序列          |
 | CRP-017 | [isolation_ctrl_sequencer](components/clock_reset_power/isolation_ctrl_sequencer/README.md)     | Isolation Control Sequencer          | planned | A2    | P2     | 0.1.0 | 安全时序             |
 | CRP-018 | [retention_ctrl_sequencer](components/clock_reset_power/retention_ctrl_sequencer/README.md)     | Retention Control Sequencer          | planned | A2    | P2     | 0.1.0 | 数据完整性           |
-| CRP-019 | [mem_sleep_controller](components/clock_reset_power/mem_sleep_controller/README.md)             | Memory Sleep Controller              | planned | A2    | P2     | 0.1.0 | break-even与唤醒     |
 | CRP-020 | [high_fanout_replicator](components/clock_reset_power/high_fanout_replicator/README.md)         | High-fanout Replicator               | planned | A2    | P1     | 0.1.0 | 功能等价与物理收益   |
 | CRP-021 | [config_mirror_local_decode](components/clock_reset_power/config_mirror_local_decode/README.md) | Config Mirror/Local Decode           | planned | A2    | P1     | 0.1.0 | 布线与寄存器面积     |
 | CRP-022 | [enable_tree_helper](components/clock_reset_power/enable_tree_helper/README.md)                 | Enable Tree Helper                   | planned | A2    | P1     | 0.1.0 | 时钟周期与控制对齐   |
 
-#### components/coding_integrity（12，implemented=1）
+#### components/coding_integrity（9，implemented=1）
 
-| ID      | 名称                                                                                           | 构件族                        | 状态        | 抽象  | 优先级 | 版本  | 功能/描述              |
-|---------|------------------------------------------------------------------------------------------------|-------------------------------|-------------|-------|--------|-------|------------------------|
-| COD-001 | [parity_gen_check](components/coding_integrity/parity_gen_check/README.md)                     | Parity Generator/Checker      | implemented | A1    | P0     | 0.1.0 | XOR树平衡              |
-| COD-002 | [crc_gen_check](components/coding_integrity/crc_gen_check/README.md)                           | CRC Generator/Checker         | planned     | A2    | P1     | 0.1.0 | 多项式、数据宽度、吞吐 |
-| COD-003 | [secded_ecc](components/coding_integrity/secded_ecc/README.md)                                 | SECDED ECC                    | planned     | A2    | P0     | 0.1.0 | 校验位、纠错延迟       |
-| COD-004 | [hamming_ecc](components/coding_integrity/hamming_ecc/README.md)                               | Configurable Hamming ECC      | planned     | A2    | P1     | 0.1.0 | 参数合法域             |
-| COD-005 | [bch_rs_codec_wrapper](components/coding_integrity/bch_rs_codec_wrapper/README.md)             | BCH/RS Codec Wrapper          | planned     | A2    | P3     | 0.1.0 | 算法复杂度与授权边界   |
-| COD-006 | [gray_binary_converter](components/coding_integrity/gray_binary_converter/README.md)           | Gray/Binary Converter         | planned     | A1    | P0     | 0.1.0 | CDC计数器复用          |
-| COD-007 | [scrambler_descrambler](components/coding_integrity/scrambler_descrambler/README.md)           | Scrambler/Descrambler         | planned     | A2    | P2     | 0.1.0 | 并行展开与吞吐         |
-| COD-008 | [lfsr_prbs](components/coding_integrity/lfsr_prbs/README.md)                                   | LFSR/PRBS                     | planned     | A1/A2 | P1     | 0.1.0 | 多项式与切换功耗       |
-| COD-009 | [run_length_codec](components/coding_integrity/run_length_codec/README.md)                     | Run-length Encoder/Decoder    | planned     | A2    | P3     | 0.1.0 | 数据相关吞吐           |
-| COD-010 | [zero_suppress_bitmap_codec](components/coding_integrity/zero_suppress_bitmap_codec/README.md) | Zero Suppression/Bitmap Codec | planned     | A2    | P3     | 0.1.0 | 元数据开销与活动率     |
-| COD-011 | [byte_bit_order_converter](components/coding_integrity/byte_bit_order_converter/README.md)     | Byte/Bit Order Converter      | planned     | A1    | P0     | 0.1.0 | 固定连线优先           |
-| COD-012 | [data_packer_unpacker](components/coding_integrity/data_packer_unpacker/README.md)             | Data Packer/Unpacker          | planned     | A2    | P1     | 0.1.0 | Mux规模与时序          |
+| ID      | 名称                                                                                       | 构件族                   | 状态        | 抽象  | 优先级 | 版本  | 功能/描述              |
+|---------|--------------------------------------------------------------------------------------------|--------------------------|-------------|-------|--------|-------|------------------------|
+| COD-001 | [parity_gen_check](components/coding_integrity/parity_gen_check/README.md)                 | Parity Generator/Checker | implemented | A1    | P0     | 0.1.0 | XOR树平衡              |
+| COD-002 | [crc_gen_check](components/coding_integrity/crc_gen_check/README.md)                       | CRC Generator/Checker    | planned     | A2    | P1     | 0.1.0 | 多项式、数据宽度、吞吐 |
+| COD-003 | [secded_ecc](components/coding_integrity/secded_ecc/README.md)                             | SECDED ECC               | planned     | A2    | P0     | 0.1.0 | 校验位、纠错延迟       |
+| COD-004 | [hamming_ecc](components/coding_integrity/hamming_ecc/README.md)                           | Configurable Hamming ECC | planned     | A2    | P1     | 0.1.0 | 参数合法域             |
+| COD-006 | [gray_binary_converter](components/coding_integrity/gray_binary_converter/README.md)       | Gray/Binary Converter    | planned     | A1    | P0     | 0.1.0 | CDC计数器复用          |
+| COD-007 | [scrambler_descrambler](components/coding_integrity/scrambler_descrambler/README.md)       | Scrambler/Descrambler    | planned     | A2    | P2     | 0.1.0 | 并行展开与吞吐         |
+| COD-008 | [lfsr_prbs](components/coding_integrity/lfsr_prbs/README.md)                               | LFSR/PRBS                | planned     | A1/A2 | P1     | 0.1.0 | 多项式与切换功耗       |
+| COD-011 | [byte_bit_order_converter](components/coding_integrity/byte_bit_order_converter/README.md) | Byte/Bit Order Converter | planned     | A1    | P0     | 0.1.0 | 固定连线优先           |
+| COD-012 | [data_packer_unpacker](components/coding_integrity/data_packer_unpacker/README.md)         | Data Packer/Unpacker     | planned     | A2    | P1     | 0.1.0 | Mux规模与时序          |
 
-#### components/control_event_status（24，implemented=0）
+#### components/control_event_status（22，implemented=0）
 
 | ID      | 名称                                                                                               | 构件族                     | 状态    | 抽象  | 优先级 | 版本  | 功能/描述                                     |
 |---------|----------------------------------------------------------------------------------------------------|----------------------------|---------|-------|--------|-------|-----------------------------------------------|
@@ -401,8 +282,6 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | CTL-005 | [timeout_monitor](components/control_event_status/timeout_monitor/README.md)                       | Timeout Monitor            | planned | A2    | P0     | 0.1.0 | 监控开销与恢复                                |
 | CTL-006 | [watchdog_core](components/control_event_status/watchdog_core/README.md)                           | Watchdog                   | planned | A2    | P1     | 0.1.0 | 无总线/CSR的通用看门狗核，关注安全诊断覆盖    |
 | CTL-007 | [prescaler_rate_divider](components/control_event_status/prescaler_rate_divider/README.md)         | Prescaler/Rate Divider     | planned | A1/A2 | P1     | 0.1.0 | 精度和切换                                    |
-| CTL-008 | [fsm_shell](components/control_event_status/fsm_shell/README.md)                                   | FSM Shell                  | planned | A1/A2 | P0     | 0.1.0 | 编码按表征选型                                |
-| CTL-009 | [hierarchical_fsm](components/control_event_status/hierarchical_fsm/README.md)                     | Hierarchical FSM           | planned | A2    | P2     | 0.1.0 | 状态爆炸控制                                  |
 | CTL-010 | [micro_sequencer](components/control_event_status/micro_sequencer/README.md)                       | Micro-sequencer            | planned | A2    | P2     | 0.1.0 | 控制ROM与可配置性                             |
 | CTL-011 | [command_sequencer](components/control_event_status/command_sequencer/README.md)                   | Command Sequencer          | planned | A2    | P2     | 0.1.0 | 状态与Buffer                                  |
 | CTL-012 | [retry_controller_core](components/control_event_status/retry_controller_core/README.md)           | Retry Controller           | planned | A2    | P2     | 0.1.0 | 协议无关的重试机制核，关注活锁与计数器        |
@@ -434,27 +313,24 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | DFT-009 | [test_access_mux](components/dft_test/test_access_mux/README.md)                       | Test Access Mux                 | planned | A3    | P2     | 0.1.0 | 功能路径零影响目标 |
 | DFT-010 | [memory_repair_data_adapter](components/dft_test/memory_repair_data_adapter/README.md) | Memory Repair Data Adapter      | planned | A2    | P3     | 0.1.0 | 工艺相关元数据     |
 
-#### components/dsp_ai_datapath（15，implemented=0）
+#### components/dsp_ai_datapath（12，implemented=0）
 
-| ID      | 名称                                                                                            | 构件族                            | 状态    | 抽象  | 优先级 | 版本  | 功能/描述             |
-|---------|-------------------------------------------------------------------------------------------------|-----------------------------------|---------|-------|--------|-------|-----------------------|
-| DSP-001 | [lane_packer_unpacker](components/dsp_ai_datapath/lane_packer_unpacker/README.md)               | Lane Packer/Unpacker              | planned | A2/A3 | P2     | 0.1.0 | 布线和有效位          |
-| DSP-002 | [vector_reduction](components/dsp_ai_datapath/vector_reduction/README.md)                       | Vector Reduction                  | planned | A2    | P2     | 0.1.0 | 树形、流水、精度      |
-| DSP-003 | [dot_product_tree](components/dsp_ai_datapath/dot_product_tree/README.md)                       | Dot-product Tree                  | planned | A2    | P2     | 0.1.0 | MAC数量与吞吐         |
-| DSP-004 | [sliding_window_generator](components/dsp_ai_datapath/sliding_window_generator/README.md)       | Sliding Window Generator          | planned | A2/A3 | P2     | 0.1.0 | 存储带宽和边界        |
-| DSP-005 | [tensor_layout_converter](components/dsp_ai_datapath/tensor_layout_converter/README.md)         | Tensor Layout Converter           | planned | A3    | P3     | 0.1.0 | Buffer和地址生成      |
-| DSP-006 | [tile_address_generator](components/dsp_ai_datapath/tile_address_generator/README.md)           | Tile Address Generator            | planned | A2    | P2     | 0.1.0 | 乘法消除、增量地址    |
-| DSP-007 | [stride_dilation_addr_gen](components/dsp_ai_datapath/stride_dilation_addr_gen/README.md)       | Stride/Dilation Address Generator | planned | A2    | P2     | 0.1.0 | 控制面积和吞吐        |
-| DSP-008 | [scatter_gather_index_gen](components/dsp_ai_datapath/scatter_gather_index_gen/README.md)       | Scatter/Gather Index Generator    | planned | A2    | P3     | 0.1.0 | 随机访存和队列        |
-| DSP-009 | [dma_descriptor_walker](components/dsp_ai_datapath/dma_descriptor_walker/README.md)             | DMA Descriptor Walker Core        | planned | A4    | P3     | 0.1.0 | 若含完整DMA则升级为IP |
-| DSP-010 | [quantization_pipeline](components/dsp_ai_datapath/quantization_pipeline/README.md)             | Quantization Pipeline             | planned | A2/A3 | P2     | 0.1.0 | 位宽、乘法与流水      |
-| DSP-011 | [activation_approx](components/dsp_ai_datapath/activation_approx/README.md)                     | Activation Approximation          | planned | A2    | P3     | 0.1.0 | 精度/面积             |
-| DSP-012 | [sparse_bitmap_index_decoder](components/dsp_ai_datapath/sparse_bitmap_index_decoder/README.md) | Sparse Bitmap/Index Decoder       | planned | A2/A3 | P3     | 0.1.0 | 控制分支与吞吐        |
-| DSP-013 | [accumulator_bank](components/dsp_ai_datapath/accumulator_bank/README.md)                       | Accumulator Bank                  | planned | A2    | P2     | 0.1.0 | 写冲突和位宽          |
-| DSP-014 | [double_buffer_ctrl](components/dsp_ai_datapath/double_buffer_ctrl/README.md)                   | Double-buffer Controller          | planned | A2    | P2     | 0.1.0 | 计算搬运重叠          |
-| DSP-015 | [loop_nested_counter_gen](components/dsp_ai_datapath/loop_nested_counter_gen/README.md)         | Loop/Nested-counter Generator     | planned | A2    | P2     | 0.1.0 | 控制复用              |
+| ID      | 名称                                                                                      | 构件族                            | 状态    | 抽象  | 优先级 | 版本  | 功能/描述          |
+|---------|-------------------------------------------------------------------------------------------|-----------------------------------|---------|-------|--------|-------|--------------------|
+| DSP-001 | [lane_packer_unpacker](components/dsp_ai_datapath/lane_packer_unpacker/README.md)         | Lane Packer/Unpacker              | planned | A2/A3 | P2     | 0.1.0 | 布线和有效位       |
+| DSP-002 | [vector_reduction](components/dsp_ai_datapath/vector_reduction/README.md)                 | Vector Reduction                  | planned | A2    | P2     | 0.1.0 | 树形、流水、精度   |
+| DSP-003 | [dot_product_tree](components/dsp_ai_datapath/dot_product_tree/README.md)                 | Dot-product Tree                  | planned | A2    | P2     | 0.1.0 | MAC数量与吞吐      |
+| DSP-004 | [sliding_window_generator](components/dsp_ai_datapath/sliding_window_generator/README.md) | Sliding Window Generator          | planned | A2/A3 | P2     | 0.1.0 | 存储带宽和边界     |
+| DSP-006 | [tile_address_generator](components/dsp_ai_datapath/tile_address_generator/README.md)     | Tile Address Generator            | planned | A2    | P2     | 0.1.0 | 乘法消除、增量地址 |
+| DSP-007 | [stride_dilation_addr_gen](components/dsp_ai_datapath/stride_dilation_addr_gen/README.md) | Stride/Dilation Address Generator | planned | A2    | P2     | 0.1.0 | 控制面积和吞吐     |
+| DSP-008 | [scatter_gather_index_gen](components/dsp_ai_datapath/scatter_gather_index_gen/README.md) | Scatter/Gather Index Generator    | planned | A2    | P3     | 0.1.0 | 随机访存和队列     |
+| DSP-010 | [quantization_pipeline](components/dsp_ai_datapath/quantization_pipeline/README.md)       | Quantization Pipeline             | planned | A2/A3 | P2     | 0.1.0 | 位宽、乘法与流水   |
+| DSP-011 | [activation_approx](components/dsp_ai_datapath/activation_approx/README.md)               | Activation Approximation          | planned | A2    | P3     | 0.1.0 | 精度/面积          |
+| DSP-013 | [accumulator_bank](components/dsp_ai_datapath/accumulator_bank/README.md)                 | Accumulator Bank                  | planned | A2    | P2     | 0.1.0 | 写冲突和位宽       |
+| DSP-014 | [double_buffer_ctrl](components/dsp_ai_datapath/double_buffer_ctrl/README.md)             | Double-buffer Controller          | planned | A2    | P2     | 0.1.0 | 计算搬运重叠       |
+| DSP-015 | [loop_nested_counter_gen](components/dsp_ai_datapath/loop_nested_counter_gen/README.md)   | Loop/Nested-counter Generator     | planned | A2    | P2     | 0.1.0 | 控制复用           |
 
-#### components/fifo_queue_buffer（20，implemented=2）
+#### components/fifo_queue_buffer（19，implemented=2）
 
 | ID      | 名称                                                                                                | 构件族                       | 状态        | 抽象  | 优先级 | 版本  | 功能/描述                                                                                      |
 |---------|-----------------------------------------------------------------------------------------------------|------------------------------|-------------|-------|--------|-------|------------------------------------------------------------------------------------------------|
@@ -467,7 +343,6 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | QUE-007 | [skid_buffer](components/fifo_queue_buffer/skid_buffer/README.md)                                   | Skid Buffer                  | implemented | A3    | P0     | 0.3.0 | 切断Ready组合链，满吞吐无气泡（OUT寄存+SKID槽）；forward/full/backward/BYPASS 多实现可对比选型 |
 | QUE-008 | [pipeline_fifo](components/fifo_queue_buffer/pipeline_fifo/README.md)                               | Pipeline FIFO                | planned     | A2/A3 | P1     | 0.1.0 | 物理距离与吞吐                                                                                 |
 | QUE-009 | [packet_fifo](components/fifo_queue_buffer/packet_fifo/README.md)                                   | Packet FIFO                  | planned     | A2    | P2     | 0.1.0 | 包边界和回滚                                                                                   |
-| QUE-010 | [frame_buffer_queue](components/fifo_queue_buffer/frame_buffer_queue/README.md)                     | Frame Buffer Queue           | planned     | A2    | P3     | 0.1.0 | 容量与元数据                                                                                   |
 | QUE-011 | [credit_fifo](components/fifo_queue_buffer/credit_fifo/README.md)                                   | Credit FIFO                  | planned     | A2/A3 | P1     | 0.1.0 | Credit一致性                                                                                   |
 | QUE-012 | [width_conversion_fifo](components/fifo_queue_buffer/width_conversion_fifo/README.md)               | Width-conversion FIFO        | planned     | A2/A3 | P1     | 0.1.0 | 存储利用率与Mux                                                                                |
 | QUE-013 | [multi_channel_fifo](components/fifo_queue_buffer/multi_channel_fifo/README.md)                     | Multi-channel FIFO           | planned     | A2    | P2     | 0.1.0 | RAM共享与仲裁                                                                                  |
@@ -479,83 +354,63 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | QUE-019 | [replay_retry_buffer](components/fifo_queue_buffer/replay_retry_buffer/README.md)                   | Replay/Retry Buffer          | planned     | A2    | P3     | 0.1.0 | 状态容量和恢复延迟                                                                             |
 | QUE-020 | [broadcast_replication_buffer](components/fifo_queue_buffer/broadcast_replication_buffer/README.md) | Broadcast/Replication Buffer | planned     | A2/A3 | P2     | 0.1.0 | 数据复制与背压                                                                                 |
 
-#### components/interrupt_safety（30，implemented=1）
+#### components/interrupt_safety（24，implemented=1）
 
-| ID      | 名称                                                                                               | 构件族                              | 状态        | 抽象  | 优先级 | 版本  | 功能/描述                                             |
-|---------|----------------------------------------------------------------------------------------------------|-------------------------------------|-------------|-------|--------|-------|-------------------------------------------------------|
-| SAF-001 | [parity_protected_register](components/interrupt_safety/parity_protected_register/README.md)       | Parity-protected Register           | planned     | A2    | P1     | 0.1.0 | 面积与读写延迟                                        |
-| SAF-002 | [ecc_protected_memory_shell](components/interrupt_safety/ecc_protected_memory_shell/README.md)     | ECC-protected Memory Shell          | planned     | A2    | P1     | 0.1.0 | 纠错路径和带宽                                        |
-| SAF-003 | [dual_modular_comparator](components/interrupt_safety/dual_modular_comparator/README.md)           | Dual Modular Comparator             | planned     | A2    | P2     | 0.1.0 | 比较覆盖与延迟                                        |
-| SAF-004 | [lockstep_alignment_buffer](components/interrupt_safety/lockstep_alignment_buffer/README.md)       | Lockstep Alignment Buffer           | planned     | A2    | P2     | 0.1.0 | 双核对齐与状态                                        |
-| SAF-005 | [lockstep_comparator](components/interrupt_safety/lockstep_comparator/README.md)                   | Lockstep Comparator                 | implemented | A2    | P2     | 1.0.0 | 比较宽度与错误延迟                                    |
-| SAF-006 | [temporal_redundancy_ctrl](components/interrupt_safety/temporal_redundancy_ctrl/README.md)         | Temporal Redundancy Controller      | planned     | A2    | P3     | 0.1.0 | 性能开销                                              |
-| SAF-007 | [tmr_voter](components/interrupt_safety/tmr_voter/README.md)                                       | TMR Voter                           | planned     | A1/A2 | P3     | 0.1.0 | 面积、共因失效边界                                    |
-| SAF-008 | [safety_bypass_mode](components/interrupt_safety/safety_bypass_mode/README.md)                     | Safety Mechanism Bypass/Mode        | planned     | A2    | P2     | 0.1.0 | 安全状态与测试                                        |
-| SAF-009 | [fault_injection_point](components/interrupt_safety/fault_injection_point/README.md)               | Fault Injection Point               | planned     | A1/A2 | P1     | 0.1.0 | 综合隔离和验证                                        |
-| SAF-010 | [error_status_latch](components/interrupt_safety/error_status_latch/README.md)                     | Error Status Latch                  | planned     | A2    | P0     | 0.1.0 | 信息保留与面积                                        |
-| SAF-011 | [error_aggregator](components/interrupt_safety/error_aggregator/README.md)                         | Error Aggregator                    | planned     | A2    | P0     | 0.1.0 | 扇入、延迟、去重                                      |
-| SAF-012 | [error_router](components/interrupt_safety/error_router/README.md)                                 | Error Router                        | planned     | A2    | P1     | 0.1.0 | 高扇出和配置                                          |
-| SAF-013 | [error_escalation_ctrl](components/interrupt_safety/error_escalation_ctrl/README.md)               | Error Escalation Controller         | planned     | A2    | P2     | 0.1.0 | 状态和响应延迟                                        |
-| SAF-014 | [alarm_handler_core](components/interrupt_safety/alarm_handler_core/README.md)                     | Alarm Handler Core                  | planned     | A4    | P2     | 0.1.0 | 接近IP，需边界治理                                    |
-| SAF-015 | [bus_transaction_monitor](components/interrupt_safety/bus_transaction_monitor/README.md)           | Bus Transaction Monitor             | planned     | A3    | P1     | 0.1.0 | 插入延迟与观测覆盖                                    |
-| SAF-016 | [e2e_protection_codec](components/interrupt_safety/e2e_protection_codec/README.md)                 | End-to-end Protection Codec         | planned     | A3    | P2     | 0.1.0 | 带宽、延迟、标准配置                                  |
-| SAF-017 | [duplicate_sequence_checker](components/interrupt_safety/duplicate_sequence_checker/README.md)     | Duplicate/Sequence Checker          | planned     | A2/A3 | P2     | 0.1.0 | 窗口容量                                              |
-| SAF-018 | [heartbeat_monitor](components/interrupt_safety/heartbeat_monitor/README.md)                       | Alive/Heartbeat Monitor             | planned     | A2    | P1     | 0.1.0 | 误报和监控时钟                                        |
-| SAF-019 | [clock_monitor_shell](components/interrupt_safety/clock_monitor_shell/README.md)                   | Clock Monitor Digital Shell         | planned     | A2    | P2     | 0.1.0 | 参考时钟与计数误差                                    |
-| SAF-020 | [reset_monitor_core](components/interrupt_safety/reset_monitor_core/README.md)                     | Reset Monitor                       | planned     | A2    | P2     | 0.1.0 | 无系统告警/CSR策略的复位检查核，关注RDC与安全状态     |
-| SAF-021 | [vt_monitor_wrapper](components/interrupt_safety/vt_monitor_wrapper/README.md)                     | Voltage/Temperature Monitor Wrapper | planned     | A0/A2 | P3     | 0.1.0 | 模拟监控器接口                                        |
-| SAF-022 | [safe_state_ctrl](components/interrupt_safety/safe_state_ctrl/README.md)                           | Safe-state Controller               | planned     | A2/A4 | P2     | 0.1.0 | 失效响应时间                                          |
-| SAF-023 | [mem_addr_data_protection](components/interrupt_safety/mem_addr_data_protection/README.md)         | Memory Address/Data Protection      | planned     | A2    | P2     | 0.1.0 | 存储与延迟开销                                        |
-| SAF-024 | [latent_fault_test_ctrl](components/interrupt_safety/latent_fault_test_ctrl/README.md)             | Latent Fault Test Controller        | planned     | A2    | P3     | 0.1.0 | 业务中断与覆盖                                        |
-| SAF-025 | [safety_counter_checker](components/interrupt_safety/safety_counter_checker/README.md)             | Safety Counter Checker              | planned     | A1/A2 | P2     | 0.1.0 | 诊断覆盖与面积                                        |
-| SAF-026 | [safety_fsm_checker](components/interrupt_safety/safety_fsm_checker/README.md)                     | Safety FSM Checker                  | planned     | A1/A2 | P1     | 0.1.0 | 编码与综合保持                                        |
-| SAF-027 | [interrupt_source_conditioner](components/interrupt_safety/interrupt_source_conditioner/README.md) | Interrupt Source Conditioner        | planned     | A2    | P0     | 0.1.0 | PIC前端复用重点                                       |
-| SAF-028 | [interrupt_aggregator_core](components/interrupt_safety/interrupt_aggregator_core/README.md)       | Interrupt Aggregator                | planned     | A2    | P0     | 0.1.0 | 无芯片中断编号/CSR绑定的聚合核，关注大位宽扇入        |
-| SAF-029 | [interrupt_router_core](components/interrupt_safety/interrupt_router_core/README.md)               | Interrupt Router                    | planned     | A2/A3 | P1     | 0.1.0 | 无芯片中断编号/CSR绑定的路由核，支持到CLIC/安全岛双送 |
-| SAF-030 | [interrupt_rate_limiter](components/interrupt_safety/interrupt_rate_limiter/README.md)             | Interrupt Rate Limiter              | planned     | A2    | P2     | 0.1.0 | 中断风暴控制                                          |
+| ID      | 名称                                                                                               | 构件族                         | 状态        | 抽象  | 优先级 | 版本  | 功能/描述                                             |
+|---------|----------------------------------------------------------------------------------------------------|--------------------------------|-------------|-------|--------|-------|-------------------------------------------------------|
+| SAF-001 | [parity_protected_register](components/interrupt_safety/parity_protected_register/README.md)       | Parity-protected Register      | planned     | A2    | P1     | 0.1.0 | 面积与读写延迟                                        |
+| SAF-003 | [dual_modular_comparator](components/interrupt_safety/dual_modular_comparator/README.md)           | Dual Modular Comparator        | planned     | A2    | P2     | 0.1.0 | 比较覆盖与延迟                                        |
+| SAF-004 | [lockstep_alignment_buffer](components/interrupt_safety/lockstep_alignment_buffer/README.md)       | Lockstep Alignment Buffer      | planned     | A2    | P2     | 0.1.0 | 双核对齐与状态                                        |
+| SAF-005 | [lockstep_comparator](components/interrupt_safety/lockstep_comparator/README.md)                   | Lockstep Comparator            | implemented | A2    | P2     | 1.0.0 | 比较宽度与错误延迟                                    |
+| SAF-006 | [temporal_redundancy_ctrl](components/interrupt_safety/temporal_redundancy_ctrl/README.md)         | Temporal Redundancy Controller | planned     | A2    | P3     | 0.1.0 | 性能开销                                              |
+| SAF-007 | [tmr_voter](components/interrupt_safety/tmr_voter/README.md)                                       | TMR Voter                      | planned     | A1/A2 | P3     | 0.1.0 | 面积、共因失效边界                                    |
+| SAF-009 | [fault_injection_point](components/interrupt_safety/fault_injection_point/README.md)               | Fault Injection Point          | planned     | A1/A2 | P1     | 0.1.0 | 综合隔离和验证                                        |
+| SAF-010 | [error_status_latch](components/interrupt_safety/error_status_latch/README.md)                     | Error Status Latch             | planned     | A2    | P0     | 0.1.0 | 信息保留与面积                                        |
+| SAF-011 | [error_aggregator](components/interrupt_safety/error_aggregator/README.md)                         | Error Aggregator               | planned     | A2    | P0     | 0.1.0 | 扇入、延迟、去重                                      |
+| SAF-012 | [error_router](components/interrupt_safety/error_router/README.md)                                 | Error Router                   | planned     | A2    | P1     | 0.1.0 | 高扇出和配置                                          |
+| SAF-013 | [error_escalation_ctrl](components/interrupt_safety/error_escalation_ctrl/README.md)               | Error Escalation Controller    | planned     | A2    | P2     | 0.1.0 | 状态和响应延迟                                        |
+| SAF-015 | [bus_transaction_monitor](components/interrupt_safety/bus_transaction_monitor/README.md)           | Bus Transaction Monitor        | planned     | A3    | P1     | 0.1.0 | 插入延迟与观测覆盖                                    |
+| SAF-016 | [e2e_protection_codec](components/interrupt_safety/e2e_protection_codec/README.md)                 | End-to-end Protection Codec    | planned     | A3    | P2     | 0.1.0 | 带宽、延迟、标准配置                                  |
+| SAF-017 | [duplicate_sequence_checker](components/interrupt_safety/duplicate_sequence_checker/README.md)     | Duplicate/Sequence Checker     | planned     | A2/A3 | P2     | 0.1.0 | 窗口容量                                              |
+| SAF-018 | [heartbeat_monitor](components/interrupt_safety/heartbeat_monitor/README.md)                       | Alive/Heartbeat Monitor        | planned     | A2    | P1     | 0.1.0 | 误报和监控时钟                                        |
+| SAF-019 | [clock_monitor_shell](components/interrupt_safety/clock_monitor_shell/README.md)                   | Clock Monitor Digital Shell    | planned     | A2    | P2     | 0.1.0 | 参考时钟与计数误差                                    |
+| SAF-020 | [reset_monitor_core](components/interrupt_safety/reset_monitor_core/README.md)                     | Reset Monitor                  | planned     | A2    | P2     | 0.1.0 | 无系统告警/CSR策略的复位检查核，关注RDC与安全状态     |
+| SAF-023 | [mem_addr_data_protection](components/interrupt_safety/mem_addr_data_protection/README.md)         | Memory Address/Data Protection | planned     | A2    | P2     | 0.1.0 | 存储与延迟开销                                        |
+| SAF-025 | [safety_counter_checker](components/interrupt_safety/safety_counter_checker/README.md)             | Safety Counter Checker         | planned     | A1/A2 | P2     | 0.1.0 | 诊断覆盖与面积                                        |
+| SAF-026 | [safety_fsm_checker](components/interrupt_safety/safety_fsm_checker/README.md)                     | Safety FSM Checker             | planned     | A1/A2 | P1     | 0.1.0 | 编码与综合保持                                        |
+| SAF-027 | [interrupt_source_conditioner](components/interrupt_safety/interrupt_source_conditioner/README.md) | Interrupt Source Conditioner   | planned     | A2    | P0     | 0.1.0 | PIC前端复用重点                                       |
+| SAF-028 | [interrupt_aggregator_core](components/interrupt_safety/interrupt_aggregator_core/README.md)       | Interrupt Aggregator           | planned     | A2    | P0     | 0.1.0 | 无芯片中断编号/CSR绑定的聚合核，关注大位宽扇入        |
+| SAF-029 | [interrupt_router_core](components/interrupt_safety/interrupt_router_core/README.md)               | Interrupt Router               | planned     | A2/A3 | P1     | 0.1.0 | 无芯片中断编号/CSR绑定的路由核，支持到CLIC/安全岛双送 |
+| SAF-030 | [interrupt_rate_limiter](components/interrupt_safety/interrupt_rate_limiter/README.md)             | Interrupt Rate Limiter         | planned     | A2    | P2     | 0.1.0 | 中断风暴控制                                          |
 
-#### components/monitor_debug（16，implemented=0）
+#### components/monitor_debug（14，implemented=0）
 
-| ID      | 名称                                                                                        | 构件族                           | 状态    | 抽象  | 优先级 | 版本  | 功能/描述                              |
-|---------|---------------------------------------------------------------------------------------------|----------------------------------|---------|-------|--------|-------|----------------------------------------|
-| MON-001 | [event_counter](components/monitor_debug/event_counter/README.md)                           | Event Counter                    | planned | A1/A2 | P0     | 0.1.0 | 位宽和门控                             |
-| MON-002 | [multi_event_counter_bank](components/monitor_debug/multi_event_counter_bank/README.md)     | Multi-event Counter Bank         | planned | A2    | P1     | 0.1.0 | 多事件更新与面积                       |
-| MON-003 | [cycle_busy_idle_counter](components/monitor_debug/cycle_busy_idle_counter/README.md)       | Cycle/Busy/Idle Counter          | planned | A2    | P0     | 0.1.0 | 时钟功耗                               |
-| MON-004 | [latency_monitor](components/monitor_debug/latency_monitor/README.md)                       | Latency Monitor                  | planned | A2/A3 | P1     | 0.1.0 | 表项和量化                             |
-| MON-005 | [bandwidth_monitor](components/monitor_debug/bandwidth_monitor/README.md)                   | Bandwidth Monitor                | planned | A2/A3 | P1     | 0.1.0 | 计数位宽                               |
-| MON-006 | [occupancy_monitor](components/monitor_debug/occupancy_monitor/README.md)                   | Occupancy Monitor                | planned | A2    | P1     | 0.1.0 | 除法与采样近似                         |
-| MON-007 | [stall_backpressure_monitor](components/monitor_debug/stall_backpressure_monitor/README.md) | Stall/Backpressure Monitor       | planned | A3    | P1     | 0.1.0 | 信号扇入                               |
-| MON-008 | [activity_toggle_sampler](components/monitor_debug/activity_toggle_sampler/README.md)       | Activity/Toggle Sampler          | planned | A2    | P2     | 0.1.0 | PPA数据采集开销                        |
-| MON-009 | [trace_event_encoder](components/monitor_debug/trace_event_encoder/README.md)               | Trace Event Encoder              | planned | A2    | P2     | 0.1.0 | 编码与带宽                             |
-| MON-010 | [trace_fifo](components/monitor_debug/trace_fifo/README.md)                                 | Trace FIFO                       | planned | A2    | P2     | 0.1.0 | 容量和观测影响                         |
-| MON-011 | [trace_funnel_core](components/monitor_debug/trace_funnel_core/README.md)                   | Trace Funnel                     | planned | A3    | P2     | 0.1.0 | 无调试CSR的Trace汇聚核，关注仲裁与排序 |
-| MON-012 | [trigger_qualifier](components/monitor_debug/trigger_qualifier/README.md)                   | Trigger/Qualifier                | planned | A2    | P2     | 0.1.0 | 比较网络                               |
-| MON-013 | [snapshot_register_bank](components/monitor_debug/snapshot_register_bank/README.md)         | Snapshot Register Bank           | planned | A2    | P1     | 0.1.0 | 面积和采样一致性                       |
-| MON-014 | [protocol_progress_monitor](components/monitor_debug/protocol_progress_monitor/README.md)   | Protocol Progress Monitor        | planned | A3    | P2     | 0.1.0 | 误报和状态开销                         |
-| MON-015 | [perf_counter_csr_adapter](components/monitor_debug/perf_counter_csr_adapter/README.md)     | Performance Counter CSR Adapter  | planned | A3    | P1     | 0.1.0 | 统一软件接口                           |
-| MON-016 | [lightweight_logic_analyzer](components/monitor_debug/lightweight_logic_analyzer/README.md) | Lightweight Logic Analyzer Shell | planned | A4    | P3     | 0.1.0 | 调试配置按需裁剪                       |
+| ID      | 名称                                                                                        | 构件族                     | 状态    | 抽象  | 优先级 | 版本  | 功能/描述                              |
+|---------|---------------------------------------------------------------------------------------------|----------------------------|---------|-------|--------|-------|----------------------------------------|
+| MON-001 | [event_counter](components/monitor_debug/event_counter/README.md)                           | Event Counter              | planned | A1/A2 | P0     | 0.1.0 | 位宽和门控                             |
+| MON-002 | [multi_event_counter_bank](components/monitor_debug/multi_event_counter_bank/README.md)     | Multi-event Counter Bank   | planned | A2    | P1     | 0.1.0 | 多事件更新与面积                       |
+| MON-003 | [cycle_busy_idle_counter](components/monitor_debug/cycle_busy_idle_counter/README.md)       | Cycle/Busy/Idle Counter    | planned | A2    | P0     | 0.1.0 | 时钟功耗                               |
+| MON-004 | [latency_monitor](components/monitor_debug/latency_monitor/README.md)                       | Latency Monitor            | planned | A2/A3 | P1     | 0.1.0 | 表项和量化                             |
+| MON-005 | [bandwidth_monitor](components/monitor_debug/bandwidth_monitor/README.md)                   | Bandwidth Monitor          | planned | A2/A3 | P1     | 0.1.0 | 计数位宽                               |
+| MON-006 | [occupancy_monitor](components/monitor_debug/occupancy_monitor/README.md)                   | Occupancy Monitor          | planned | A2    | P1     | 0.1.0 | 除法与采样近似                         |
+| MON-007 | [stall_backpressure_monitor](components/monitor_debug/stall_backpressure_monitor/README.md) | Stall/Backpressure Monitor | planned | A3    | P1     | 0.1.0 | 信号扇入                               |
+| MON-008 | [activity_toggle_sampler](components/monitor_debug/activity_toggle_sampler/README.md)       | Activity/Toggle Sampler    | planned | A2    | P2     | 0.1.0 | PPA数据采集开销                        |
+| MON-009 | [trace_event_encoder](components/monitor_debug/trace_event_encoder/README.md)               | Trace Event Encoder        | planned | A2    | P2     | 0.1.0 | 编码与带宽                             |
+| MON-010 | [trace_fifo](components/monitor_debug/trace_fifo/README.md)                                 | Trace FIFO                 | planned | A2    | P2     | 0.1.0 | 容量和观测影响                         |
+| MON-011 | [trace_funnel_core](components/monitor_debug/trace_funnel_core/README.md)                   | Trace Funnel               | planned | A3    | P2     | 0.1.0 | 无调试CSR的Trace汇聚核，关注仲裁与排序 |
+| MON-012 | [trigger_qualifier](components/monitor_debug/trigger_qualifier/README.md)                   | Trigger/Qualifier          | planned | A2    | P2     | 0.1.0 | 比较网络                               |
+| MON-013 | [snapshot_register_bank](components/monitor_debug/snapshot_register_bank/README.md)         | Snapshot Register Bank     | planned | A2    | P1     | 0.1.0 | 面积和采样一致性                       |
+| MON-014 | [protocol_progress_monitor](components/monitor_debug/protocol_progress_monitor/README.md)   | Protocol Progress Monitor  | planned | A3    | P2     | 0.1.0 | 误报和状态开销                         |
 
-#### components/noc_interconnect（17，implemented=0）
+#### components/noc_interconnect（5，implemented=0）
 
-| ID      | 名称                                                                                           | 构件族                     | 状态    | 抽象  | 优先级 | 版本  | 功能/描述            |
-|---------|------------------------------------------------------------------------------------------------|----------------------------|---------|-------|--------|-------|----------------------|
-| NOC-001 | [flit_packer_unpacker](components/noc_interconnect/flit_packer_unpacker/README.md)             | Flit Packer/Unpacker       | planned | A3    | P2     | 0.1.0 | Mux、字段映射        |
-| NOC-002 | [vc_fifo](components/noc_interconnect/vc_fifo/README.md)                                       | Virtual-channel FIFO       | planned | A3    | P2     | 0.1.0 | RAM利用率与头阻塞    |
-| NOC-003 | [vc_allocator](components/noc_interconnect/vc_allocator/README.md)                             | VC Allocator               | planned | A3    | P3     | 0.1.0 | 仲裁规模             |
-| NOC-004 | [switch_allocator](components/noc_interconnect/switch_allocator/README.md)                     | Switch Allocator           | planned | A3    | P3     | 0.1.0 | 关键路径核心         |
-| NOC-005 | [noc_input_port](components/noc_interconnect/noc_input_port/README.md)                         | NoC Input Port             | planned | A3/A4 | P3     | 0.1.0 | 面积和流控           |
-| NOC-006 | [noc_output_port](components/noc_interconnect/noc_output_port/README.md)                       | NoC Output Port            | planned | A3/A4 | P3     | 0.1.0 | 扇入与信用返回       |
-| NOC-007 | [crossbar_fabric](components/noc_interconnect/crossbar_fabric/README.md)                       | Crossbar Fabric            | planned | A2/A3 | P2     | 0.1.0 | 布线、Mux、流水      |
-| NOC-008 | [route_compute](components/noc_interconnect/route_compute/README.md)                           | Route Compute              | planned | A2/A3 | P3     | 0.1.0 | 组合延迟             |
-| NOC-009 | [credit_return_channel](components/noc_interconnect/credit_return_channel/README.md)           | Credit Return Channel      | planned | A3    | P2     | 0.1.0 | 反馈延迟与位宽       |
-| NOC-010 | [link_register_slice](components/noc_interconnect/link_register_slice/README.md)               | Link Register Slice        | planned | A3    | P1     | 0.1.0 | 长距离切时序         |
-| NOC-011 | [link_cdc_adapter](components/noc_interconnect/link_cdc_adapter/README.md)                     | Link CDC Adapter           | planned | A3    | P2     | 0.1.0 | 时钟关系             |
-| NOC-012 | [link_width_converter](components/noc_interconnect/link_width_converter/README.md)             | Link Width Converter       | planned | A3    | P2     | 0.1.0 | Buffer与延迟         |
-| NOC-013 | [link_crc_replay_shell](components/noc_interconnect/link_crc_replay_shell/README.md)           | Link CRC/Replay Shell      | planned | A3    | P3     | 0.1.0 | 可靠性和Buffer       |
-| NOC-014 | [link_power_state_handshake](components/noc_interconnect/link_power_state_handshake/README.md) | Link Power-state Handshake | planned | A3    | P2     | 0.1.0 | 低功耗序列           |
-| NOC-015 | [deadlock_progress_monitor](components/noc_interconnect/deadlock_progress_monitor/README.md)   | Deadlock/Progress Monitor  | planned | A3    | P3     | 0.1.0 | 观测开销             |
-| NOC-016 | [chi_ace_channel_slice](components/noc_interconnect/chi_ace_channel_slice/README.md)           | CHI/ACE Channel Slice      | planned | A3    | P3     | 0.1.0 | 一致性协议专项验证   |
-| NOC-017 | [chiplet_streaming_adapter](components/noc_interconnect/chiplet_streaming_adapter/README.md)   | Chiplet Streaming Adapter  | planned | A3    | P3     | 0.1.0 | 不替代PHY/标准协议IP |
+| ID      | 名称                                                                                 | 构件族                | 状态    | 抽象  | 优先级 | 版本  | 功能/描述       |
+|---------|--------------------------------------------------------------------------------------|-----------------------|---------|-------|--------|-------|-----------------|
+| NOC-007 | [crossbar_fabric](components/noc_interconnect/crossbar_fabric/README.md)             | Crossbar Fabric       | planned | A2/A3 | P2     | 0.1.0 | 布线、Mux、流水 |
+| NOC-009 | [credit_return_channel](components/noc_interconnect/credit_return_channel/README.md) | Credit Return Channel | planned | A3    | P2     | 0.1.0 | 反馈延迟与位宽  |
+| NOC-010 | [link_register_slice](components/noc_interconnect/link_register_slice/README.md)     | Link Register Slice   | planned | A3    | P1     | 0.1.0 | 长距离切时序    |
+| NOC-011 | [link_cdc_adapter](components/noc_interconnect/link_cdc_adapter/README.md)           | Link CDC Adapter      | planned | A3    | P2     | 0.1.0 | 时钟关系        |
+| NOC-012 | [link_width_converter](components/noc_interconnect/link_width_converter/README.md)   | Link Width Converter  | planned | A3    | P2     | 0.1.0 | Buffer与延迟    |
 
 #### components/register_memory（25，implemented=0）
 
@@ -586,6 +441,12 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | MEM-023 | [lookup_table_rom](components/register_memory/lookup_table_rom/README.md)                       | Lookup Table/ROM                  | planned | A1/A2 | P1     | 0.1.0 | 深宽映射与推断                                     |
 | MEM-024 | [cam](components/register_memory/cam/README.md)                                                 | CAM                               | planned | A2    | P3     | 0.1.0 | 并行比较功耗                                       |
 | MEM-025 | [content_tag_array](components/register_memory/content_tag_array/README.md)                     | Content Tag Array                 | planned | A2    | P3     | 0.1.0 | Cache/TLB公共结构                                  |
+
+#### components/safety_reliability（1，implemented=0）
+
+| ID              | 名称                                                                                 | 构件族               | 状态    | 抽象 | 优先级 | 版本  | 功能/描述                                                                                 |
+|-----------------|--------------------------------------------------------------------------------------|----------------------|---------|------|--------|-------|-------------------------------------------------------------------------------------------|
+| MIG-CBB-SAF-015 | [diversity_comparator](components/safety_reliability/diversity_comparator/README.md) | diversity_comparator | planned | A2   | P2     | 0.1.0 | 纯比较/CRC 核心逻辑，使用信号或简单握手接口；不承担系统故障管理、链路重放或完整链路协议。 |
 
 #### components/selection_decode（20，implemented=1）
 
@@ -642,50 +503,5 @@ planned 允许存在开发目录。`stage --rebuild` 保留全部规划和状态
 | STR-024 | [stream_monitor_tap](components/streaming_pipeline/stream_monitor_tap/README.md)               | Stream Monitor Tap        | planned | A3    | P2     | 0.1.0 | 零干扰与观测开销   |
 | STR-025 | [bubble_inserter_remover](components/streaming_pipeline/bubble_inserter_remover/README.md)     | Bubble Inserter/Remover   | planned | A3    | P3     | 0.1.0 | 时序整形           |
 
-#### templates（24，implemented=0）
-
-| ID      | 名称                                                                                     | 构件族                  | 状态    | 抽象 | 优先级 | 版本  | 功能/描述              |
-|---------|------------------------------------------------------------------------------------------|-------------------------|---------|------|--------|-------|------------------------|
-| TMP-001 | [multi_bank_sram_subsystem](templates/multi_bank_sram_subsystem/README.md)               | 多Bank SRAM子系统       | planned | A4   | P1     | 0.1.0 | 容量、吞吐、功耗Pareto |
-| TMP-002 | [low_latency_rf_subsystem](templates/low_latency_rf_subsystem/README.md)                 | 低延迟寄存器文件子系统  | planned | A4   | P2     | 0.1.0 | 多读端口优化           |
-| TMP-003 | [shared_operator_template](templates/shared_operator_template/README.md)                 | 共享运算单元模板        | planned | A4   | P1     | 0.1.0 | 面积换延迟             |
-| TMP-004 | [high_throughput_add_mac_tree](templates/high_throughput_add_mac_tree/README.md)         | 高吞吐加法/MAC树        | planned | A4   | P1     | 0.1.0 | 数据通路示范闭环       |
-| TMP-005 | [high_freq_ready_valid_channel](templates/high_freq_ready_valid_channel/README.md)       | 高频 Ready/Valid 通道   | planned | A4   | P0     | 0.1.0 | 自动切分反压路径       |
-| TMP-006 | [long_distance_physical_link](templates/long_distance_physical_link/README.md)           | 长距离物理链路          | planned | A4   | P1     | 0.1.0 | 跨分区时序收敛         |
-| TMP-007 | [hierarchical_arbitration_network](templates/hierarchical_arbitration_network/README.md) | 分层仲裁网络            | planned | A4   | P1     | 0.1.0 | 32/64/128路扩展        |
-| TMP-008 | [hierarchical_decode_network](templates/hierarchical_decode_network/README.md)           | 分层地址译码网络        | planned | A4   | P1     | 0.1.0 | 高扇出和响应Mux        |
-| TMP-009 | [axi_shared_interconnect_template](templates/axi_shared_interconnect_template/README.md) | AXI共享互联模板         | planned | A4   | P2     | 0.1.0 | 可裁剪互联             |
-| TMP-010 | [axi_async_bridge_template](templates/axi_async_bridge_template/README.md)               | AXI异步桥模板           | planned | A4   | P1     | 0.1.0 | 宽总线跨域PPA          |
-| TMP-011 | [axi_width_bridge_template](templates/axi_width_bridge_template/README.md)               | AXI宽度转换桥模板       | planned | A4   | P2     | 0.1.0 | 32～1024bit适配        |
-| TMP-012 | [apb_peripheral_cluster_template](templates/apb_peripheral_cluster_template/README.md)   | APB外设簇模板           | planned | A4   | P1     | 0.1.0 | 低面积控制面           |
-| TMP-013 | [noc_router_template](templates/noc_router_template/README.md)                           | NoC Router模板          | planned | A4   | P3     | 0.1.0 | 先进互联研究           |
-| TMP-014 | [safe_interrupt_frontend_template](templates/safe_interrupt_frontend_template/README.md) | 安全中断前端模板        | planned | A4   | P1     | 0.1.0 | PIC/CLIC/安全岛复用    |
-| TMP-015 | [error_management_tree_template](templates/error_management_tree_template/README.md)     | 错误管理树模板          | planned | A4   | P1     | 0.1.0 | 功能安全公共架构       |
-| TMP-016 | [power_domain_ctrl_template](templates/power_domain_ctrl_template/README.md)             | 电源域控制模板          | planned | A4   | P2     | 0.1.0 | UPF控制闭环            |
-| TMP-017 | [clock_reset_manager_template](templates/clock_reset_manager_template/README.md)         | Clock/Reset Manager模板 | planned | A4   | P2     | 0.1.0 | 时钟复位公共方案       |
-| TMP-018 | [low_power_pipeline_template](templates/low_power_pipeline_template/README.md)           | 低功耗流水线模板        | planned | A4   | P1     | 0.1.0 | 活动相关功耗优化       |
-| TMP-019 | [high_fanout_ctrl_recipe](templates/high_fanout_ctrl_recipe/README.md)                   | 高扇出控制优化配方      | planned | A4   | P1     | 0.1.0 | 布线和时序             |
-| TMP-020 | [streaming_data_shaping_template](templates/streaming_data_shaping_template/README.md)   | 流式数据整形模板        | planned | A4   | P2     | 0.1.0 | 复合协议适配           |
-| TMP-021 | [e2e_data_protection_channel](templates/e2e_data_protection_channel/README.md)           | 端到端数据保护通道      | planned | A4   | P2     | 0.1.0 | 安全通信链             |
-| TMP-022 | [perf_observation_subsystem](templates/perf_observation_subsystem/README.md)             | 性能观测子系统          | planned | A4   | P2     | 0.1.0 | 可观测性按需裁剪       |
-| TMP-023 | [memory_bist_access_template](templates/memory_bist_access_template/README.md)           | Memory BIST接入模板     | planned | A4   | P3     | 0.1.0 | DFT一致接入            |
-| TMP-024 | [dsp_double_buffer_datapath](templates/dsp_double_buffer_datapath/README.md)             | DSP双缓冲数据通路       | planned | A4   | P3     | 0.1.0 | 搬运计算重叠           |
-
 
 <!-- REGISTRY-STATUS:END -->
-
-（历史说明：此前 QUE-001 sync_fifo / QUE-012 width_conversion_fifo 工程包已移除、
-registry 条目回退 planned；SEL-014 popcount 曾于 2026-08-28 移除后同日重建，
-历史证据见 `reports/quality/run_log.md`。完整候选清单见 [`registry.yaml`](registry.yaml:1)。）
-
-## 贡献交付件
-
-新 CBB 交付流程（需求→契约→RTL→验证→PPA→发布）由 cbb-development-suite 定义；本仓库在交付件就绪后：
-
-1. 在 `components/` 对应类别下放置完整工程包（含 `fusesoc/aixsilicon_cbb_<name>.core`）；
-2. 在 [`registry.yaml`](registry.yaml:1) 中登记/更新条目（`status=implemented`）；
-3. 更新 `CHANGELOG.md` 与版本。
-
-## 许可
-
-Apache-2.0（见 [`LICENSE`](LICENSE:1)）。

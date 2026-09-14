@@ -81,7 +81,7 @@ def build_status_section(reg):
     """从 registry 生成状态总览 Markdown 区块（不含 BEGIN/END marker）。"""
     cbbs = reg.get("cbbs", [])
     total = len(cbbs)
-    impl = [e for e in cbbs if e.get("status") == "implemented"]
+    impl = [e for e in cbbs if e.get("status") in ("implemented", "released")]
     planned = [e for e in cbbs if e.get("status") == "planned"]
     updated = reg.get("updated", "未知")
 
@@ -95,7 +95,7 @@ def build_status_section(reg):
     lines.append(_md_table(
         ["指标", "数量"],
         [["总条目（cbbs）", str(total)],
-         ["implemented（已实现/已交付）", str(len(impl))],
+         ["implemented/released（已有实现）", str(len(impl))],
          ["planned（规划候选）", str(len(planned))],
          ["实现率", "%.1f%%" % (100.0 * len(impl) / total if total else 0.0)]],
     ))
@@ -126,7 +126,7 @@ def build_status_section(reg):
     for e in cbbs:
         cat = e.get("group", "(未分类)")
         cats.setdefault(cat, [0, 0])
-        if e.get("status") == "implemented":
+        if e.get("status") in ("implemented", "released"):
             cats[cat][0] += 1
         else:
             cats[cat][1] += 1
@@ -158,7 +158,7 @@ def build_status_section(reg):
     for e in cbbs:
         pr = e.get("priority", "?")
         pr_map.setdefault(pr, [0, 0])
-        if e.get("status") == "implemented":
+        if e.get("status") in ("implemented", "released"):
             pr_map[pr][0] += 1
         else:
             pr_map[pr][1] += 1
@@ -261,7 +261,7 @@ def main():
     if changed:
         print("==> README.md 状态总览已刷新（%d 条，implemented=%d）。" % (
             len(reg.get("cbbs", [])),
-            sum(1 for e in reg.get("cbbs", []) if e.get("status") == "implemented")))
+            sum(1 for e in reg.get("cbbs", []) if e.get("status") in ("implemented", "released"))))
     else:
         print("==> README.md 状态总览已是最新，无需变更。")
 

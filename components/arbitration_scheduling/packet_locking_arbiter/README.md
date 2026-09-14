@@ -39,3 +39,5 @@ PPA必须提供本机`build/eda/pdk.local.yaml`，不能从发布包获取商业
 本工作区由pdk-scan生成，精确库路径不入库。原始EDA结果保存在`build/eda`。
 FuseSoC示例：分别将本构件和固定优先级构件目录传入`--cores-root`，然后
 `run --target=sim --setup --build --run aixsilicon:cbb:packet_locking_arbiter:0.1.0`。
+
+需求入口：[packet_locking_arbiter 需求合同](packet_locking_arbiter_contract.md)。文档齐全不代表实现或 Gate 通过。

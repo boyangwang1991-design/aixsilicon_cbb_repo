@@ -64,3 +64,5 @@ round_robin_arbiter #(
 | [`docs/qualification-report.md`](docs/qualification-report.md) | G7 | 支持矩阵 / Gate 证据 / Waiver / 成熟度 |
 | [`docs/detail-design/`](docs/detail-design/) | C3 | mask/rotate_prio/pointer 详设（含 PPA 优化点） |
 | [`reports/ppa-report.md`](reports/ppa-report.md) | G6 | PPA sweep 结论（三实现综合收敛实证） |
+
+需求入口：[round_robin_arbiter 需求合同](round_robin_arbiter_contract.md)。文档齐全不代表实现或 Gate 通过。

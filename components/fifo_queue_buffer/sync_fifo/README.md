@@ -86,3 +86,5 @@ sync_fifo #(
 
 > 依赖方向单向、防环（见 cbb-development-suite / domain-rules §4.1）。IMPL=sram 宏存储方向
 > 依赖未实现 A0 wrapper（TEC-015 sram_macro_wrapper），登记 non_goals（intake §3）。
+
+需求入口：[sync_fifo 需求合同](sync_fifo_contract.md)。文档齐全不代表实现或 Gate 通过。

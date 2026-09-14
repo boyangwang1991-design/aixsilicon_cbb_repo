@@ -3,15 +3,15 @@
 """
 build_cbb_structure.py — CBB registry.yaml 索引工具（registry-only）
 
-自 cbb_repo_list.md 删除后，registry.yaml 成为唯一 SSOT（410 条，含 family/
+自 cbb_repo_list.md 删除后，registry.yaml 成为唯一 SSOT（含 family/
 implementation/description/status）。本脚本职责：
 
 1. **校验**（默认）：加载 registry.yaml，做一致性健康检查——
    字段齐全、ID 唯一、group/abstraction/priority/status 合法、路径一致、
-   implemented 状态与物理目录实态一致（目录存在 ↔ status=implemented）。
+   implemented/released 必须有工程包；目录存在不表示验证通过。
 2. **规范化**（--write）：修复可自动纠正的问题（排序稳定、去除空字段），重写 registry.yaml。
-3. **重建空工程包**（--rebuild-dirs）：可选，按 registry 条目重建 adapters/components/templates
-   下的空工程包目录（README/fusesoc core/ip-package）。默认不触碰文件系统。
+3. **重建空工程包**（--rebuild-dirs）：可选，按 registry 条目重建 adapters/components
+   下的占位目录（仅 README，不生成 Core 或工程元数据）。默认不触碰文件系统。
 
 用法:
   python3 scripts/build_cbb_structure.py             # 校验（只读）
@@ -29,8 +29,8 @@ REGISTRY_PATH = os.path.join(ROOT, "registry.yaml")
 VALID_ABSTRACTION = {"A0", "A1", "A2", "A3", "A4",
                      "A1/A0", "A1/A2", "A2/A3", "A2/A4", "A3/A4", "A0/A2"}
 VALID_PRIORITY = {"P0", "P1", "P2", "P3"}
-VALID_GROUP_TOPS = {"adapters", "components", "templates"}
-VALID_STATUS = {"planned", "implemented"}
+VALID_GROUP_TOPS = {"adapters", "components"}
+VALID_STATUS = {"planned", "implemented", "released", "deprecated"}
 
 REQUIRED_FIELDS = ["id", "name", "family", "group", "abstraction",
                    "priority", "implementation", "description", "status", "version", "path"]
@@ -53,6 +53,8 @@ def validate(reg, root=None):
     root = Path(root or ROOT).resolve()
     if not isinstance(reg, dict):
         return ["registry 必须是 object"], warnings
+    if (root / "reports").exists():
+        errors.append("仓库根 reports/ 非法：CBB 报告须位于具体工程；历史材料请归档到 docs/archive")
     cbbs = reg.get("cbbs", [])
     if not isinstance(cbbs, list):
         errors.append("cbbs 必须是列表")
@@ -107,14 +109,14 @@ def validate(reg, root=None):
         if Path(p).is_absolute() or ".." in Path(p).parts or not target.is_relative_to(root):
             errors.append("[%s] path 越出仓库: %s" % (cid, p))
             continue
-        # path 必须位于 group 顶层目录下（adapters|components|templates/<category>/<name> 或本顶层/<name>）
+        # path 必须位于 group 顶层目录下（adapters|components/<category>/<name> 或本顶层/<name>）
         if p:
             parts = p.split("/")
             if len(parts) < 2 or parts[0] not in VALID_GROUP_TOPS or p == gp or not p.startswith(gp + "/"):
                 errors.append("[%s] path(%s) 与 group(%s) 不一致" % (cid, p, gp))
 
         # implemented ↔ 物理目录实态
-        if st == "implemented":
+        if st in ("implemented", "released"):
             if not target.is_dir():
                 errors.append("[%s] status=implemented 但目录不存在: %s" % (cid, p))
             elif not (target / "cbb.yaml").is_file():
@@ -135,6 +137,30 @@ def validate(reg, root=None):
             except (ValueError, AttributeError, OSError, yaml.YAMLError) as exc:
                 errors.append("[%s] 无法读取 cbb.yaml: %s" % (cid, exc))
 
+    # Preserve historical identity across migration, withdrawal and reordering.
+    history = root / "governance/reserved-ids.yaml"
+    if history.is_file():
+        import yaml
+        reserved = yaml.safe_load(history.read_text(encoding="utf-8"))["ids"]
+        owners = {value: name for name, value in reserved.items()}
+        if len(owners) != len(reserved):
+            errors.append("历史编号重复")
+        for entry in reg.get('cbbs', []):
+            name, cid = entry.get("name"), entry.get("id")
+            if name not in reserved:
+                errors.append("[%s] 新资产须追加历史编号预留表" % name)
+            if name in reserved and reserved[name] != cid:
+                errors.append("[%s] 不得改变历史编号" % name)
+            if cid in owners and owners[cid] != name:
+                errors.append("[%s] 不得复用历史编号 %s" % (name, cid))
+    retired = root / "governance/retired-assets.yaml"
+    if retired.is_file():
+        import yaml
+        inactive = {e["original"]["name"] for e in yaml.safe_load(retired.read_text(encoding="utf-8"))["records"]
+                    if e["disposition"] != "restored"}
+        for entry in reg.get('cbbs', []):
+            if entry.get("name") in inactive:
+                errors.append("[%s] 恢复前须更新退役记录为 restored" % entry["name"])
     return errors, warnings
 
 
@@ -144,7 +170,7 @@ def rebuild_dirs(reg):
     cbb_doc = "见 registry.yaml（SSOT）。CBB 工程包规范见 cbb-development-suite。"
     created = 0
     for e in reg.get("cbbs", []):
-        if e.get("status") == "implemented":
+        if e.get("status") != "planned":
             continue
         cbb_dir = os.path.join(ROOT, e["path"])
         if os.path.isdir(cbb_dir):
@@ -161,38 +187,18 @@ def rebuild_dirs(reg):
 
 
 def write_registry(reg):
-    """重写 registry.yaml（稳定排序 + 去除空字段 + 生成头注释）。"""
+    """规范化唯一事实源，保留扩展字段及安全 YAML 转义。"""
+    import yaml
     from datetime import datetime, timezone
     reg["updated"] = datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
     reg["cbbs"].sort(key=lambda e: e["id"])
-    lines = []
-    lines.append('schema_version: "%s"' % reg.get("schema_version", "2.0"))
-    lines.append('updated: "%s"' % reg["updated"])
-    lines.append("# 本文件是 CBB 目录唯一 SSOT（由 scripts/build_cbb_structure.py 治理）。")
-    lines.append("# 字段: id/name/family/group/abstraction/priority/implementation/description/status/version/path")
-    lines.append("# 修改入口: 直接编辑本文件后运行 'python3 scripts/build_cbb_structure.py' 校验，")
-    lines.append("#           再运行 'python3 scripts/update_registry_readme.py' 将状态总览同步到 README.md。")
-    lines.append("# status=implemented 表示物理目录存在且通过验证；未实现条目无物理目录。")
-    lines.append("# 边界: CBB 是可被多个 IP 复用的机制/数据通路/协议适配，不承载产品级 CSR/地址图或系统集成策略。")
-    lines.append("vendor: aixsilicon")
-    lines.append("library: cbb")
-    lines.append("")
-    lines.append("cbbs:")
-    for e in reg["cbbs"]:
-        lines.append("  - id: %s" % e["id"])
-        for f in REQUIRED_FIELDS[1:]:
-            v = e.get(f)
-            if f in ("version",):
-                lines.append("    %s: \"%s\"" % (f, v))
-            else:
-                lines.append("    %s: %s" % (f, v))
-    with open(REGISTRY_PATH, "w", encoding="utf-8") as f:
-        f.write("\n".join(lines) + "\n")
+    Path(REGISTRY_PATH).write_text(yaml.safe_dump(reg, allow_unicode=True, sort_keys=False), encoding="utf-8")
 
 
 def main():
     import argparse
     ap = argparse.ArgumentParser(description="CBB registry.yaml 索引工具（SSOT 校验/规范化）")
+    ap.add_argument("--check", action="store_true", help="只读校验（默认）")
     ap.add_argument("--write", action="store_true", help="校验通过后规范化重写 registry.yaml")
     ap.add_argument("--rebuild-dirs", action="store_true",
                     help="按 registry 重建缺失的空工程包目录（不触碰 implemented 构件）")

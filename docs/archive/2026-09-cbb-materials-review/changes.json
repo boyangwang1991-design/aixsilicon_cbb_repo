@@ -1,0 +1,42 @@
+[
+  {
+    "action": "archive",
+    "from": "docs/cleanup-2026-09.md",
+    "to": "docs/archive/2026-09-cbb-materials-review/cleanup-2026-09.md",
+    "sha256": "25b8d9bd8e9a14809e3e7c56b96a0c6bbc83992aa8a14d8edb276d3e824b5b5b"
+  },
+  {
+    "action": "archive",
+    "from": "docs/cleanup-validation.md",
+    "to": "docs/archive/2026-09-cbb-materials-review/cleanup-validation.md",
+    "sha256": "58ba2f199e07874309ebad7895b2c11058ef23bf87500bdaf2fae3a9742a52af"
+  },
+  {
+    "action": "archive",
+    "from": "docs/stale-materials-audit.md",
+    "to": "docs/archive/2026-09-cbb-materials-review/stale-materials-audit.md",
+    "sha256": "588567f566c667e6edbccbfc15b110a1b797e4f683f06fb0feea01d867425864"
+  },
+  {
+    "action": "archive-full-planning-and-retain-runtime-index",
+    "from": "governance/retired-assets.yaml",
+    "to": "docs/archive/2026-09-cbb-materials-review/retired-assets.full.yaml",
+    "sha256": "8e942a08f5f78a3d3a15efdcf8256cc7c3dbd9f7ad39f70d5a3bd7cdc090bd5c"
+  },
+  {
+    "action": "delete-empty-simulation-log",
+    "from": "components/arbitration_scheduling/fixed_priority_arbiter/ucli.key"
+  },
+  {
+    "action": "delete-empty-simulation-log",
+    "from": "components/arbitration_scheduling/round_robin_arbiter/ucli.key"
+  },
+  {
+    "action": "delete-empty-simulation-log",
+    "from": "components/coding_integrity/parity_gen_check/ucli.key"
+  },
+  {
+    "action": "delete-empty-simulation-log",
+    "from": "components/fifo_queue_buffer/skid_buffer/ucli.key"
+  }
+]

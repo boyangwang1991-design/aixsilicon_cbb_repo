@@ -72,3 +72,5 @@ fixed_priority_arbiter #(
 
 无运行时子依赖（`implementations[].dependencies[]` 为空）。非目标：RR/WRR/多授权/层次仲裁
 （见 ARB-002/003/007/008）。
+
+需求入口：[fixed_priority_arbiter 需求合同](fixed_priority_arbiter_contract.md)。文档齐全不代表实现或 Gate 通过。

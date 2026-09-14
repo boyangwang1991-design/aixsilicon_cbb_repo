@@ -1,0 +1,1314 @@
+schema_version: '1.0'
+date: '2026-09-13'
+records:
+- original:
+    id: ARB-006
+    name: lottery_arbiter
+    status: planned
+    version: 0.1.0
+    path: components/arbitration_scheduling/lottery_arbiter
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: ARI-024
+    name: square_sum_squares
+    status: planned
+    version: 0.1.0
+    path: components/arithmetic_datapath/square_sum_squares
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: ARI-028
+    name: polynomial_evaluator
+    status: planned
+    version: 0.1.0
+    path: components/arithmetic_datapath/polynomial_evaluator
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: ARI-029
+    name: bcd_binary_converter
+    status: planned
+    version: 0.1.0
+    path: components/arithmetic_datapath/bcd_binary_converter
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: ARI-030
+    name: decimal_bcd_arith
+    status: planned
+    version: 0.1.0
+    path: components/arithmetic_datapath/decimal_bcd_arith
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: ARI-032
+    name: fp_math_shell
+    status: planned
+    version: 0.1.0
+    path: components/arithmetic_datapath/fp_math_shell
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-002
+    name: axi_lite_register_slice
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_lite_register_slice
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-002
+    name: axi_lite_register_slice
+    path: ips/infrastructure/axi/axi_lite_register_slice
+- original:
+    id: AXI-003
+    name: axi_buffer
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_buffer
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-003
+    name: axi_buffer
+    path: ips/infrastructure/axi/axi_buffer
+- original:
+    id: AXI-004
+    name: axi_width_converter
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_width_converter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-004
+    name: axi_width_converter
+    path: ips/infrastructure/axi/axi_width_converter
+- original:
+    id: AXI-005
+    name: axi_addr_width_adapter
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_addr_width_adapter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-005
+    name: axi_addr_width_adapter
+    path: ips/infrastructure/axi/axi_addr_width_adapter
+- original:
+    id: AXI-006
+    name: axi_id_converter
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_id_converter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-006
+    name: axi_id_converter
+    path: ips/infrastructure/axi/axi_id_converter
+- original:
+    id: AXI-007
+    name: axi_user_signal_adapter
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_user_signal_adapter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-007
+    name: axi_user_signal_adapter
+    path: ips/infrastructure/axi/axi_user_signal_adapter
+- original:
+    id: AXI-008
+    name: axi_burst_splitter
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_burst_splitter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-008
+    name: axi_burst_splitter
+    path: ips/infrastructure/axi/axi_burst_splitter
+- original:
+    id: AXI-009
+    name: axi_burst_merger
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_burst_merger
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-010
+    name: axi_burst_length_adapter
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_burst_length_adapter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-010
+    name: axi_burst_length_adapter
+    path: ips/infrastructure/axi/axi_burst_length_adapter
+- original:
+    id: AXI-011
+    name: axi_outstanding_limiter
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_outstanding_limiter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-011
+    name: axi_outstanding_limiter
+    path: ips/infrastructure/axi/axi_outstanding_limiter
+- original:
+    id: AXI-012
+    name: axi_id_remapper
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_id_remapper
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-013
+    name: axi_transaction_serializer
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_transaction_serializer
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-013
+    name: axi_transaction_serializer
+    path: ips/infrastructure/axi/axi_transaction_serializer
+- original:
+    id: AXI-014
+    name: axi_rw_interleaver
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_rw_interleaver
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-015
+    name: axi_clock_converter
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_clock_converter
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-016
+    name: axi_protocol_converter
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_protocol_converter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-016
+    name: axi_protocol_converter
+    path: ips/infrastructure/bridge/axi_protocol_converter
+- original:
+    id: AXI-017
+    name: axi_apb_bridge
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_apb_bridge
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-017
+    name: axi2apb_bridge
+    path: ips/infrastructure/bridge/axi2apb_bridge
+- original:
+    id: AXI-018
+    name: axi_ahb_bridge
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_ahb_bridge
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-019
+    name: axi_address_decoder
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_address_decoder
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-020
+    name: axi_demux
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_demux
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-020
+    name: axi_demux
+    path: ips/infrastructure/axi/axi_demux
+- original:
+    id: AXI-021
+    name: axi_mux
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_mux
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-021
+    name: axi_mux
+    path: ips/infrastructure/axi/axi_mux
+- original:
+    id: AXI-022
+    name: axi_crossbar
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_crossbar
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-023
+    name: axi_default_slave
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_default_slave
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-024
+    name: axi_timeout_monitor
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_timeout_monitor
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-024
+    name: axi_timeout_monitor
+    path: ips/infrastructure/axi/axi_timeout_monitor
+- original:
+    id: AXI-025
+    name: axi_firewall_region_filter
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_firewall_region_filter
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-026
+    name: axi_exclusive_access_monitor
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_exclusive_access_monitor
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-027
+    name: axi_atomic_adapter
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_atomic_adapter
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-028
+    name: axi_qos_mapper
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_qos_mapper
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-028
+    name: axi_qos_mapper
+    path: ips/infrastructure/axi/axi_qos_mapper
+- original:
+    id: AXI-029
+    name: axi_perf_monitor
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_perf_monitor
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-030
+    name: axi_error_injector
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_error_injector
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXI-030
+    name: axi_error_injector
+    path: ips/infrastructure/axi/axi_error_injector
+- original:
+    id: AXIS-001
+    name: axis_register_slice
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axis_register_slice
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXIS-001
+    name: axis_register_slice
+    path: ips/infrastructure/axis/axis_register_slice
+- original:
+    id: AXIS-002
+    name: axis_width_converter
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axis_width_converter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXIS-002
+    name: axis_width_converter
+    path: ips/infrastructure/axis/axis_width_converter
+- original:
+    id: AXIS-003
+    name: axis_switch
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axis_switch
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXIS-003
+    name: axis_switch
+    path: ips/infrastructure/axis/axis_switch
+- original:
+    id: AXIS-004
+    name: axis_packet_fifo
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axis_packet_fifo
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXIS-004
+    name: axis_packet_fifo
+    path: ips/infrastructure/axis/axis_packet_fifo
+- original:
+    id: AXIS-005
+    name: axis_broadcaster
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axis_broadcaster
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXIS-005
+    name: axis_broadcaster
+    path: ips/infrastructure/axis/axis_broadcaster
+- original:
+    id: AXIS-006
+    name: axis_combiner_subset
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axis_combiner_subset
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXIS-006
+    name: axis_combiner_subset
+    path: ips/infrastructure/axis/axis_combiner_subset
+- original:
+    id: AXIS-007
+    name: axis_frame_length_monitor
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axis_frame_length_monitor
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXIS-007
+    name: axis_frame_length_monitor
+    path: ips/infrastructure/axis/axis_frame_length_monitor
+- original:
+    id: AXIS-008
+    name: axis_rate_limiter
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axis_rate_limiter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-AXIS-008
+    name: axis_rate_limiter
+    path: ips/infrastructure/axis/axis_rate_limiter
+- original:
+    id: BUS-002
+    name: apb_slave_adapter
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/apb_slave_adapter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-BUS-002
+    name: apb_slave_adapter
+    path: ips/infrastructure/bridge/apb_slave_adapter
+- original:
+    id: BUS-003
+    name: apb_register_slice
+    status: implemented
+    version: 0.1.0
+    path: components/apb_ahb_register/apb_register_slice
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: moved
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-BUS-003
+    name: apb_register_bridge
+    path: ips/infrastructure/bridge/apb_register_bridge
+- original:
+    id: BUS-004
+    name: apb_decoder
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/apb_decoder
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: BUS-005
+    name: apb_mux_interconnect
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/apb_mux_interconnect
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: BUS-006
+    name: apb_cdc_bridge
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/apb_cdc_bridge
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-BUS-006
+    name: apb_cdc_bridge
+    path: ips/infrastructure/bridge/apb_cdc_bridge
+- original:
+    id: BUS-007
+    name: apb_width_adapter
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/apb_width_adapter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-BUS-007
+    name: apb_width_adapter
+    path: ips/infrastructure/bridge/apb_width_adapter
+- original:
+    id: BUS-008
+    name: apb_timeout_default_slave
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/apb_timeout_default_slave
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: BUS-009
+    name: ahb_lite_slave_adapter
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/ahb_lite_slave_adapter
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-BUS-009
+    name: ahb_lite_slave_adapter
+    path: ips/infrastructure/bridge/ahb_lite_slave_adapter
+- original:
+    id: BUS-010
+    name: ahb_lite_register_slice
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/ahb_lite_register_slice
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-BUS-010
+    name: ahb_lite_register_slice
+    path: ips/infrastructure/bridge/ahb_lite_register_slice
+- original:
+    id: BUS-011
+    name: ahb_lite_decoder_mux
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/ahb_lite_decoder_mux
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: BUS-012
+    name: ahb_lite_cdc_bridge
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/ahb_lite_cdc_bridge
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: BUS-013
+    name: ahb_apb_bridge
+    status: planned
+    version: 0.1.0
+    path: components/apb_ahb_register/ahb_apb_bridge
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-BUS-013
+    name: ahb_apb_bridge
+    path: ips/infrastructure/bridge/ahb_apb_bridge
+- original:
+    id: CDC-009
+    name: async_fifo_cdc
+    status: planned
+    version: 0.1.0
+    path: components/cdc_rdc/async_fifo_cdc
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: CDC-011
+    name: plesiochronous_rate_matcher
+    status: planned
+    version: 0.1.0
+    path: components/cdc_rdc/plesiochronous_rate_matcher
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: COD-005
+    name: bch_rs_codec_wrapper
+    status: planned
+    version: 0.1.0
+    path: components/coding_integrity/bch_rs_codec_wrapper
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: COD-009
+    name: run_length_codec
+    status: planned
+    version: 0.1.0
+    path: components/coding_integrity/run_length_codec
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: COD-010
+    name: zero_suppress_bitmap_codec
+    status: planned
+    version: 0.1.0
+    path: components/coding_integrity/zero_suppress_bitmap_codec
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: CRP-019
+    name: mem_sleep_controller
+    status: planned
+    version: 0.1.0
+    path: components/clock_reset_power/mem_sleep_controller
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: CTL-008
+    name: fsm_shell
+    status: planned
+    version: 0.1.0
+    path: components/control_event_status/fsm_shell
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: CTL-009
+    name: hierarchical_fsm
+    status: planned
+    version: 0.1.0
+    path: components/control_event_status/hierarchical_fsm
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: DSP-005
+    name: tensor_layout_converter
+    status: planned
+    version: 0.1.0
+    path: components/dsp_ai_datapath/tensor_layout_converter
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: DSP-009
+    name: dma_descriptor_walker
+    status: planned
+    version: 0.1.0
+    path: components/dsp_ai_datapath/dma_descriptor_walker
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: DSP-012
+    name: sparse_bitmap_index_decoder
+    status: planned
+    version: 0.1.0
+    path: components/dsp_ai_datapath/sparse_bitmap_index_decoder
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: MON-015
+    name: perf_counter_csr_adapter
+    status: planned
+    version: 0.1.0
+    path: components/monitor_debug/perf_counter_csr_adapter
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: MON-016
+    name: lightweight_logic_analyzer
+    status: planned
+    version: 0.1.0
+    path: components/monitor_debug/lightweight_logic_analyzer
+  disposition: migrated
+  reason: 按责任边界迁移至另一资产仓。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+  target:
+    repo: ip
+    id: MIG-IP-MON-016
+    name: lightweight_logic_analyzer
+    path: ips/debug_trace/debug/lightweight_logic_analyzer
+- original:
+    id: NOC-001
+    name: flit_packer_unpacker
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/flit_packer_unpacker
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-002
+    name: vc_fifo
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/vc_fifo
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-003
+    name: vc_allocator
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/vc_allocator
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-004
+    name: switch_allocator
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/switch_allocator
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-005
+    name: noc_input_port
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/noc_input_port
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-006
+    name: noc_output_port
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/noc_output_port
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-008
+    name: route_compute
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/route_compute
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-013
+    name: link_crc_replay_shell
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/link_crc_replay_shell
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-014
+    name: link_power_state_handshake
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/link_power_state_handshake
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-015
+    name: deadlock_progress_monitor
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/deadlock_progress_monitor
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-016
+    name: chi_ace_channel_slice
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/chi_ace_channel_slice
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: NOC-017
+    name: chiplet_streaming_adapter
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/chiplet_streaming_adapter
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: QUE-010
+    name: frame_buffer_queue
+    status: planned
+    version: 0.1.0
+    path: components/fifo_queue_buffer/frame_buffer_queue
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: RDC-001
+    name: async_assert_sync_release_reset
+    status: planned
+    version: 0.1.0
+    path: components/cdc_rdc/async_assert_sync_release_reset
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: SAF-002
+    name: ecc_protected_memory_shell
+    status: planned
+    version: 0.1.0
+    path: components/interrupt_safety/ecc_protected_memory_shell
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: SAF-008
+    name: safety_bypass_mode
+    status: planned
+    version: 0.1.0
+    path: components/interrupt_safety/safety_bypass_mode
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: SAF-014
+    name: alarm_handler_core
+    status: planned
+    version: 0.1.0
+    path: components/interrupt_safety/alarm_handler_core
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: SAF-021
+    name: vt_monitor_wrapper
+    status: planned
+    version: 0.1.0
+    path: components/interrupt_safety/vt_monitor_wrapper
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: SAF-022
+    name: safe_state_ctrl
+    status: planned
+    version: 0.1.0
+    path: components/interrupt_safety/safe_state_ctrl
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: SAF-024
+    name: latent_fault_test_ctrl
+    status: planned
+    version: 0.1.0
+    path: components/interrupt_safety/latent_fault_test_ctrl
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TEC-018
+    name: cam_macro_wrapper
+    status: planned
+    version: 0.1.0
+    path: adapters/cam_macro_wrapper
+  disposition: withdrawn
+  reason: 指导清单未保留；退出当前规划，未断言与其他资产功能等价。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-001
+    name: multi_bank_sram_subsystem
+    status: planned
+    version: 0.1.0
+    path: templates/multi_bank_sram_subsystem
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-002
+    name: low_latency_rf_subsystem
+    status: planned
+    version: 0.1.0
+    path: templates/low_latency_rf_subsystem
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-003
+    name: shared_operator_template
+    status: planned
+    version: 0.1.0
+    path: templates/shared_operator_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-004
+    name: high_throughput_add_mac_tree
+    status: planned
+    version: 0.1.0
+    path: templates/high_throughput_add_mac_tree
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-005
+    name: high_freq_ready_valid_channel
+    status: planned
+    version: 0.1.0
+    path: templates/high_freq_ready_valid_channel
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-006
+    name: long_distance_physical_link
+    status: planned
+    version: 0.1.0
+    path: templates/long_distance_physical_link
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-007
+    name: hierarchical_arbitration_network
+    status: planned
+    version: 0.1.0
+    path: templates/hierarchical_arbitration_network
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-008
+    name: hierarchical_decode_network
+    status: planned
+    version: 0.1.0
+    path: templates/hierarchical_decode_network
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-009
+    name: axi_shared_interconnect_template
+    status: planned
+    version: 0.1.0
+    path: templates/axi_shared_interconnect_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-010
+    name: axi_async_bridge_template
+    status: planned
+    version: 0.1.0
+    path: templates/axi_async_bridge_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-011
+    name: axi_width_bridge_template
+    status: planned
+    version: 0.1.0
+    path: templates/axi_width_bridge_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-012
+    name: apb_peripheral_cluster_template
+    status: planned
+    version: 0.1.0
+    path: templates/apb_peripheral_cluster_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-013
+    name: noc_router_template
+    status: planned
+    version: 0.1.0
+    path: templates/noc_router_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-014
+    name: safe_interrupt_frontend_template
+    status: planned
+    version: 0.1.0
+    path: templates/safe_interrupt_frontend_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-015
+    name: error_management_tree_template
+    status: planned
+    version: 0.1.0
+    path: templates/error_management_tree_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-016
+    name: power_domain_ctrl_template
+    status: planned
+    version: 0.1.0
+    path: templates/power_domain_ctrl_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-017
+    name: clock_reset_manager_template
+    status: planned
+    version: 0.1.0
+    path: templates/clock_reset_manager_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-018
+    name: low_power_pipeline_template
+    status: planned
+    version: 0.1.0
+    path: templates/low_power_pipeline_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-019
+    name: high_fanout_ctrl_recipe
+    status: planned
+    version: 0.1.0
+    path: templates/high_fanout_ctrl_recipe
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-020
+    name: streaming_data_shaping_template
+    status: planned
+    version: 0.1.0
+    path: templates/streaming_data_shaping_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-021
+    name: e2e_data_protection_channel
+    status: planned
+    version: 0.1.0
+    path: templates/e2e_data_protection_channel
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-022
+    name: perf_observation_subsystem
+    status: planned
+    version: 0.1.0
+    path: templates/perf_observation_subsystem
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-023
+    name: memory_bist_access_template
+    status: planned
+    version: 0.1.0
+    path: templates/memory_bist_access_template
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: TMP-024
+    name: dsp_double_buffer_datapath
+    status: planned
+    version: 0.1.0
+    path: templates/dsp_double_buffer_datapath
+  disposition: example
+  reason: 示例/模板/配方退出正式产品主清单。
+  source_files: absent
+  restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
+- original:
+    id: AXI-001
+    name: axi_channel_register_slice
+    status: planned
+    version: 0.1.0
+    path: components/axi_axi_stream/axi_channel_register_slice
+  disposition: migrated
+  reason: 用户明确要求 components/axi_axi_stream 归入 IP；单通道功能边界保留，不添加空包装。
+  source_files: absent
+  target:
+    repo: ip
+    id: MIG-IP-AXI-001
+    name: axi_channel_register_slice
+    path: ips/infrastructure/axi/axi_channel_register_slice
+  restore: 仅在重新确认仓库归属后恢复原 AXI-001；不得与 IP 形成两份实现。
+historical_snapshot: docs/archive/2026-09-cbb-materials-review/retired-assets.full.yaml

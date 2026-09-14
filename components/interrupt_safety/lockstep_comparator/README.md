@@ -39,3 +39,5 @@ uv run --no-sync python characterization/scripts/run_synthesis.py --extra
 `verification/scripts/run_formal.py` 和 `characterization/scripts/extract_ppa.py`。
 精确路径、商业库和原始日志保留在忽略的 build 目录，公开摘要只包含参数、指标与 hash。
 FuseSoC Core 可独立导出构建，公开包不依赖私有 skill。
+
+需求入口：[lockstep_comparator 需求合同](lockstep_comparator_contract.md)。文档齐全不代表实现或 Gate 通过。

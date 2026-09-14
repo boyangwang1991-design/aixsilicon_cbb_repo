@@ -81,3 +81,5 @@ popcount #(
 
 生成器 [`tools/gen_popcount.py`](tools/gen_popcount.py) 为标准库 Python（无运行时
 依赖）；Wallace/compressor 无子模块。非目标：周期计数/累加（见 CTL-*、MON-* 计数器）。
+
+需求入口：[popcount 需求合同](popcount_contract.md)。文档齐全不代表实现或 Gate 通过。
