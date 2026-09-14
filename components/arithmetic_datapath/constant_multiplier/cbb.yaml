@@ -3,10 +3,537 @@ cbb:
   id: aixsilicon:cbb:constant_multiplier
   name: constant_multiplier
   version: 0.1.0
+  owner: aixsilicon
   maturity: E0
+  license: Apache-2.0
 classification:
   abstraction: A2
-purpose:
-  summary: 常量特化与共享
+  primary_domain: arithmetic_datapath
 workflow:
   family: stateful
+  documentation: split
+contract:
+  top_module: constant_multiplier
+  source_contract: constant_multiplier_contract.md
+  interface: valid_ce
+  clock_domains: 1
+  ordering: in_order
+  throughput: 1_per_enabled_cycle
+  hwif_rationale: 局部算术 valid/ce 接口，无标准总线依赖
+parameters:
+  INPUT_WIDTH:
+    type: int
+    default: 16
+    description: INPUT_WIDTH，语义见源契约及 tools/generate.py 的规范化规则
+    affects:
+    - area
+    - timing
+    - interface_width
+    legal:
+      min: 1
+      max: 128
+    partitions:
+    - 1
+    - 2
+    - 8
+    - 16
+    - 128
+  INPUT_SIGNED:
+    type: bool
+    default: true
+    description: INPUT_SIGNED，语义见源契约及 tools/generate.py 的规范化规则
+    affects:
+    - area
+    - timing
+    - interface_width
+  COEFF:
+    type: int
+    default: 3
+    description: COEFF，语义见源契约及 tools/generate.py 的规范化规则
+    affects:
+    - area
+    - timing
+    - interface_width
+    partitions:
+    - 0
+    - 1
+    - -1
+    - 3
+    - 45
+    - 85
+    - -170141183460469231731687303715884105728
+    legal:
+      min: -170141183460469231731687303715884105728
+      max: 170141183460469231731687303715884105727
+  COEFF_WIDTH:
+    type: int
+    default: 128
+    description: COEFF_WIDTH，语义见源契约及 tools/generate.py 的规范化规则
+    affects:
+    - area
+    - timing
+    - interface_width
+    legal:
+      min: 1
+      max: 128
+    partitions:
+    - 1
+    - 3
+    - 128
+  OUTPUT_MODE:
+    type: enum
+    default: 0
+    description: OUTPUT_MODE，语义见源契约及 tools/generate.py 的规范化规则
+    affects:
+    - area
+    - timing
+    - interface_width
+    legal: &id001
+    - 0
+    - 1
+    partitions: *id001
+    encoding:
+      0: FULL
+      1: QUANTIZED
+  ROUND_MODE:
+    type: enum
+    default: 0
+    description: ROUND_MODE，语义见源契约及 tools/generate.py 的规范化规则
+    affects:
+    - area
+    - timing
+    - interface_width
+    legal: &id002
+    - 0
+    - 1
+    - 2
+    partitions: *id002
+    encoding:
+      0: FLOOR
+      1: TOWARD_ZERO
+      2: NEAREST_EVEN
+  OVERFLOW_MODE:
+    type: enum
+    default: 0
+    description: OVERFLOW_MODE，语义见源契约及 tools/generate.py 的规范化规则
+    affects:
+    - area
+    - timing
+    - interface_width
+    legal: &id003
+    - 0
+    - 1
+    partitions: *id003
+    encoding:
+      0: WRAP
+      1: SATURATE
+  IMPL:
+    type: enum
+    default: 0
+    description: IMPL，语义见源契约及 tools/generate.py 的规范化规则
+    affects:
+    - area
+    - timing
+    - interface_width
+    legal: &id004
+    - 0
+    - 1
+    - 2
+    - 3
+    - 4
+    partitions: *id004
+    encoding:
+      0: NATIVE
+      1: BINARY
+      2: CSD
+      3: ADDER_GRAPH
+      4: AUTO
+  OUTPUT_WIDTH:
+    type: int
+    default: 256
+    description: OUTPUT_WIDTH，语义见源契约及 tools/generate.py 的规范化规则
+    affects:
+    - area
+    - timing
+    - interface_width
+    legal:
+      min: 1
+      max: 256
+    partitions:
+    - 1
+    - 8
+    - 256
+  OUTPUT_SIGNED:
+    type: bool
+    default: true
+    description: OUTPUT_SIGNED，语义见源契约及 tools/generate.py 的规范化规则
+    affects:
+    - area
+    - timing
+    - interface_width
+  SHIFT_RIGHT:
+    type: int
+    default: 0
+    description: SHIFT_RIGHT，语义见源契约及 tools/generate.py 的规范化规则
+    affects:
+    - area
+    - timing
+    - interface_width
+    legal:
+      min: 0
+      max: 256
+    partitions:
+    - 0
+    - 1
+    - 256
+  LATENCY:
+    type: int
+    default: 0
+    description: LATENCY，语义见源契约及 tools/generate.py 的规范化规则
+    affects:
+    - area
+    - timing
+    - interface_width
+    legal:
+      min: 0
+      max: 8
+    partitions:
+    - 0
+    - 1
+    - 2
+    - 8
+  OPERAND_ISOLATION:
+    type: bool
+    default: false
+    description: OPERAND_ISOLATION，语义见源契约及 tools/generate.py 的规范化规则
+    affects:
+    - area
+    - timing
+    - interface_width
+constraints:
+- id: PC-001
+  expression: OUTPUT_MODE != 0 or (SHIFT_RIGHT == 0 and ROUND_MODE == 0 and OVERFLOW_MODE
+    == 0)
+  severity: error
+- id: PC-002
+  expression: COEFF >= -(1 << (COEFF_WIDTH-1)) and COEFF < (1 << (COEFF_WIDTH-1))
+  severity: error
+requirements:
+- id: REQ-001
+  source_id: CM-NUM-001
+  description: CM-NUM-001：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-002
+  source_id: CM-NUM-002
+  description: CM-NUM-002：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-003
+  source_id: CM-NUM-003
+  description: CM-NUM-003：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-004
+  source_id: CM-NUM-004
+  description: CM-NUM-004：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-005
+  source_id: CM-NUM-005
+  description: CM-NUM-005：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-006
+  source_id: CM-NUM-006
+  description: CM-NUM-006：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-007
+  source_id: CM-NUM-007
+  description: CM-NUM-007：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-008
+  source_id: CM-NUM-008
+  description: CM-NUM-008：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-009
+  source_id: CM-IF-001
+  description: CM-IF-001：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-010
+  source_id: CM-IF-002
+  description: CM-IF-002：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-011
+  source_id: CM-IF-003
+  description: CM-IF-003：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-012
+  source_id: CM-IF-004
+  description: CM-IF-004：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-013
+  source_id: CM-IF-005
+  description: CM-IF-005：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-014
+  source_id: CM-IF-006
+  description: CM-IF-006：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-015
+  source_id: CM-FUN-001
+  description: CM-FUN-001：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-016
+  source_id: CM-FUN-002
+  description: CM-FUN-002：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-017
+  source_id: CM-FUN-003
+  description: CM-FUN-003：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-018
+  source_id: CM-FUN-004
+  description: CM-FUN-004：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-019
+  source_id: CM-FUN-005
+  description: CM-FUN-005：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-020
+  source_id: CM-FUN-006
+  description: CM-FUN-006：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-021
+  source_id: CM-FUN-007
+  description: CM-FUN-007：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-022
+  source_id: CM-IMP-001
+  description: CM-IMP-001：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-023
+  source_id: CM-IMP-002
+  description: CM-IMP-002：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-024
+  source_id: CM-IMP-003
+  description: CM-IMP-003：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-025
+  source_id: CM-GEN-001
+  description: CM-GEN-001：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-026
+  source_id: CM-GEN-002
+  description: CM-GEN-002：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-027
+  source_id: CM-GEN-003
+  description: CM-GEN-003：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-028
+  source_id: CM-GEN-004
+  description: CM-GEN-004：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-029
+  source_id: CM-GEN-005
+  description: CM-GEN-005：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-030
+  source_id: CM-GEN-006
+  description: CM-GEN-006：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-031
+  source_id: CM-PPA-001
+  description: CM-PPA-001：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-032
+  source_id: CM-PPA-002
+  description: CM-PPA-002：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-033
+  source_id: CM-PPA-003
+  description: CM-PPA-003：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-034
+  source_id: CM-PPA-004
+  description: CM-PPA-004：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-035
+  source_id: CM-PPA-005
+  description: CM-PPA-005：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-036
+  source_id: CM-PPA-006
+  description: CM-PPA-006：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-037
+  source_id: CM-VER-001
+  description: CM-VER-001：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-038
+  source_id: CM-VER-002
+  description: CM-VER-002：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-039
+  source_id: CM-VER-003
+  description: CM-VER-003：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-040
+  source_id: CM-VER-004
+  description: CM-VER-004：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-041
+  source_id: CM-VER-005
+  description: CM-VER-005：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-042
+  source_id: CM-VER-006
+  description: CM-VER-006：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-043
+  source_id: CM-VER-007
+  description: CM-VER-007：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-044
+  source_id: CM-VER-008
+  description: CM-VER-008：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-045
+  source_id: CM-VER-009
+  description: CM-VER-009：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+- id: REQ-046
+  source_id: CM-VER-010
+  description: CM-VER-010：遵守源契约对应条款
+  tests:
+  - tc_contract
+  properties: []
+implementations:
+- id: impl_native
+  source: rtl/
+  files:
+  - rtl/constant_multiplier.sv
+  dependencies: []
+  generator: tools/generate.py
+  selection: NATIVE
+- id: impl_binary
+  source: rtl/
+  files:
+  - rtl/constant_multiplier.sv
+  dependencies: []
+  generator: tools/generate.py
+  selection: BINARY
+- id: impl_csd
+  source: rtl/
+  files:
+  - rtl/constant_multiplier.sv
+  dependencies: []
+  generator: tools/generate.py
+  selection: CSD
+- id: impl_adder_graph
+  source: rtl/
+  files:
+  - rtl/constant_multiplier.sv
+  dependencies: []
+  generator: tools/generate.py
+  selection: ADDER_GRAPH
+quality:
+  required_gates:
+  - G0
+  - G1
+  - G2
+  - G3
+  - G4
+  - G5
+  - G6
+  - G7
+  - G8
+release:
+  fusesoc_core: aixsilicon:cbb:constant_multiplier:0.1.0

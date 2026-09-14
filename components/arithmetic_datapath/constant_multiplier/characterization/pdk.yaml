@@ -1,0 +1,8 @@
+schema: cbb-pdk-context/0.2
+status: PDK_READY
+capability: ready
+synthesis_capable: true
+profile_sha256: ae9be4557b76dffbacb0e0dcfc1eb81253e0bf6d201fb7b8d86ec3ec3aa2580e
+library_hashes:
+- 543bea70be344b3bc9d7d4c81e45aa23b7eb59c267cf5969015caf3f01b6609a
+local_snapshot_ref: build/eda/pdk.local.yaml

@@ -1,13 +1,21 @@
-target: constant_multiplier
-family: stateful
-status: planned
+scope: contract implementation candidate; no release qualification claim
+matrix:
+  methods:
+  - simulation
+  - formal
+evidence_inputs:
+- tools/generate.py
+- model/reference.py
+acceptance:
+  functional: all executed cases match independent integer reference
+  ppa: same-library four-implementation comparison
+  qualification: unexecuted configurations remain not_run
+testcases:
+- id: tc_contract
+  status: planned
+  acceptance: 任意精度 oracle 对比实际 RTL；小宽度穷举、大宽度边界随机；覆盖全部延迟及 ce/reset/空泡、负向和变异。
 verification_forms:
 - simulation
 - formal
-focus:
-- state_invariants
-- reset_contract
-- continuous_traffic
-configs: []
-testcases: []
-reset_contract: 'TODO: derive from behavior contract'
+configs:
+- verification/configs/manifest.yaml

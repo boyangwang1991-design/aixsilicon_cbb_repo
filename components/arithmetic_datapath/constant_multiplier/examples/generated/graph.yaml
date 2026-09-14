@@ -1,0 +1,94 @@
+nodes:
+- id: n0
+  op: input
+  inputs: []
+  coefficient: '1'
+  width: 16
+  signed: true
+  stage: 0
+  shift: 0
+- id: n1
+  op: shift
+  inputs:
+  - n0
+  coefficient: '4'
+  width: 18
+  signed: true
+  stage: 0
+  shift: 2
+- id: n2
+  op: sub
+  inputs:
+  - n1
+  - n0
+  coefficient: '3'
+  width: 18
+  signed: true
+  stage: 0
+  shift: 0
+- id: n3
+  op: shift
+  inputs:
+  - n2
+  coefficient: '48'
+  width: 22
+  signed: true
+  stage: 0
+  shift: 4
+- id: n4
+  op: register
+  inputs:
+  - n3
+  coefficient: '48'
+  width: 22
+  signed: true
+  stage: 1
+  shift: 0
+- id: n5
+  op: register
+  inputs:
+  - n2
+  coefficient: '3'
+  width: 18
+  signed: true
+  stage: 1
+  shift: 0
+- id: n6
+  op: sub
+  inputs:
+  - n4
+  - n5
+  coefficient: '45'
+  width: 22
+  signed: true
+  stage: 1
+  shift: 0
+- id: n7
+  op: quantize
+  inputs:
+  - n6
+  coefficient: '45'
+  width: 22
+  signed: true
+  stage: 1
+  shift: 0
+- id: n8
+  op: register
+  inputs:
+  - n7
+  coefficient: '45'
+  width: 22
+  signed: true
+  stage: 2
+  shift: 0
+  quantized: true
+product: n6
+output: n8
+search:
+  algorithm: 1.0.0
+  budget: 64
+  seed: 914
+  attempts: 64
+  quality: estimated
+  selected: ADDER_GRAPH
+latency: 2

@@ -1,0 +1,405 @@
+cbb: constant_multiplier
+requirements:
+- id: ASM-001
+  type: assumption
+  description: 接收方以 ce 推进，不重复消费保持的 valid；输入控制与有效数据不含 X/Z。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-001
+  type: invariant
+  description: P=C*X，以输入符号解释；扩位先于移位加减。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-002
+  type: invariant
+  description: 量化顺序为精确乘积、右移舍入、范围比较、回绕或饱和。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-003
+  type: invariant
+  description: ce=0 所有流水状态保持；同步低有效复位优先清 valid。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-004
+  type: invariant
+  description: 推进边沿 O[n]=F(I[n-L+1])，空泡推进、II=1。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: REQ-001
+  type: requirement
+  description: CM-NUM-001：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-002
+  type: requirement
+  description: CM-NUM-002：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-003
+  type: requirement
+  description: CM-NUM-003：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-004
+  type: requirement
+  description: CM-NUM-004：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-005
+  type: requirement
+  description: CM-NUM-005：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-006
+  type: requirement
+  description: CM-NUM-006：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-007
+  type: requirement
+  description: CM-NUM-007：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-008
+  type: requirement
+  description: CM-NUM-008：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-009
+  type: requirement
+  description: CM-IF-001：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-010
+  type: requirement
+  description: CM-IF-002：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-011
+  type: requirement
+  description: CM-IF-003：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-012
+  type: requirement
+  description: CM-IF-004：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-013
+  type: requirement
+  description: CM-IF-005：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-014
+  type: requirement
+  description: CM-IF-006：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-015
+  type: requirement
+  description: CM-FUN-001：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-016
+  type: requirement
+  description: CM-FUN-002：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-017
+  type: requirement
+  description: CM-FUN-003：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-018
+  type: requirement
+  description: CM-FUN-004：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-019
+  type: requirement
+  description: CM-FUN-005：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-020
+  type: requirement
+  description: CM-FUN-006：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-021
+  type: requirement
+  description: CM-FUN-007：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-022
+  type: requirement
+  description: CM-IMP-001：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-023
+  type: requirement
+  description: CM-IMP-002：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-024
+  type: requirement
+  description: CM-IMP-003：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-025
+  type: requirement
+  description: CM-GEN-001：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-026
+  type: requirement
+  description: CM-GEN-002：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-027
+  type: requirement
+  description: CM-GEN-003：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-028
+  type: requirement
+  description: CM-GEN-004：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-029
+  type: requirement
+  description: CM-GEN-005：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-030
+  type: requirement
+  description: CM-GEN-006：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-031
+  type: requirement
+  description: CM-PPA-001：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-032
+  type: requirement
+  description: CM-PPA-002：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-033
+  type: requirement
+  description: CM-PPA-003：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-034
+  type: requirement
+  description: CM-PPA-004：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-035
+  type: requirement
+  description: CM-PPA-005：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-036
+  type: requirement
+  description: CM-PPA-006：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-037
+  type: requirement
+  description: CM-VER-001：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-038
+  type: requirement
+  description: CM-VER-002：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-039
+  type: requirement
+  description: CM-VER-003：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-040
+  type: requirement
+  description: CM-VER-004：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-041
+  type: requirement
+  description: CM-VER-005：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-042
+  type: requirement
+  description: CM-VER-006：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-043
+  type: requirement
+  description: CM-VER-007：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-044
+  type: requirement
+  description: CM-VER-008：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-045
+  type: requirement
+  description: CM-VER-009：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []
+- id: REQ-046
+  type: requirement
+  description: CM-VER-010：遵守源契约对应条款
+  properties: []
+  tests:
+  - tc_contract
+  configs: []
+  evidence: []

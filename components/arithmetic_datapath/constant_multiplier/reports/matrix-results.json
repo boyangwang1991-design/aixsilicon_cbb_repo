@@ -1,0 +1,2828 @@
+{
+  "status": "pass",
+  "seed": 914,
+  "host_negative_graph_mutations": 26,
+  "configurations": 140,
+  "vectors": 24930,
+  "mutation": {
+    "MUTATE": true,
+    "DROP": true
+  },
+  "cases": [
+    {
+      "config": {
+        "INPUT_WIDTH": 1,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 3,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 107,
+      "module": "cm_0",
+      "rtl_sha256": "09a30cb9fc04972e31efe5f0acab5058c04f0ec3c58d555f1dd424c25a3e4401"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 128,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 130,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_1",
+      "rtl_sha256": "8c99f961144875314b71d55ffd49baaca0fce05dbb440be1a440c4b88e6c7d9f"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 64,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 66,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_2",
+      "rtl_sha256": "b2cdbfe9585da7aac1ed47b4945cd5d0924cc8d0f6f68c470ac5c2918bbc8257"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 2,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 4,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 109,
+      "module": "cm_3",
+      "rtl_sha256": "a9ec6ded22a4bbfe369d303eb3612bc522943d63354df0e8ef90d94d65ddd9fe"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 8,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 10,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 361,
+      "module": "cm_4",
+      "rtl_sha256": "d957df4503c4441ffac19dafc7565d8a7a7f5772fad4783a04604da6615be827"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": false,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": false
+      },
+      "vectors": 192,
+      "module": "cm_5",
+      "rtl_sha256": "30dbf923f73c0377d0dea6ccab43d39868b80b88f7f0d42505ae5c15a792c581"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "-170141183460469231731687303715884105728",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 144,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_6",
+      "rtl_sha256": "c8177533e61cb3008a2ac120b1702cea61d40a0a98edca9f65330b5ed08921eb"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "170141183460469231731687303715884105727",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 143,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_7",
+      "rtl_sha256": "804d47c942f2f31d6d592349a6b41c9659fc428099ca6eafc02587e226edc0fd"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "-1",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 17,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_8",
+      "rtl_sha256": "a6f307b68350f843e8468309b3354b355aad3f1f8f840b89faeaf0ab2dbfc5ff"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "-170141183460469231731687303715884105727",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 143,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_9",
+      "rtl_sha256": "0f3883523f031d823e33b074e989d206e6d494bc12e3f2f28f01b8c6a8f28a53"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "0",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 1,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_10",
+      "rtl_sha256": "6de85237d2bb9fbea162f2e1eed350de6896991cb9f801c7ea89f422c2310ea3"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "1",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 16,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_11",
+      "rtl_sha256": "83776c09ce719de12344710b90ef798fa556f351726fdba31c6930294c770c9f"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "45",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 22,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_12",
+      "rtl_sha256": "daeb9b838bcea5eb5000941bdb99d86db38a6d27d7b93a3823fcb0ac7e559964"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "85",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 23,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_13",
+      "rtl_sha256": "dd76351cef66474f9f76e7d58b0d45491338aee452a7b53d0256ce395018dd1d"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 64,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_14",
+      "rtl_sha256": "f259e93504ff4a1c20c2b765bc24550ba62bb61375c2a955231689d91dbcc5f7"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 3,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_15",
+      "rtl_sha256": "42bc385525e9d6bd5be47420b6cfeffc70b1569697ed436ec5773a32a85771c3"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_16",
+      "rtl_sha256": "0c9986199a9bcef5a5ceee21a460a21804dfd58da78931016041cc294bcfe21d"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "BINARY",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_17",
+      "rtl_sha256": "e61ac87f42a44c7154ec4834bfbae2b17eb24c7b6fc11606f918ac21f5b7f3d7"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "CSD",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_18",
+      "rtl_sha256": "7657421cbf7ee93554fad4ded598dc21c4f2c7dd25aeaa1b2ce3110e433d4489"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "ADDER_GRAPH",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_19",
+      "rtl_sha256": "bc6339f953ebc72d7531d2284f5cc9213900f6718cbe8c95c21931733f76dc22"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "AUTO",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_20",
+      "rtl_sha256": "05f23418acc05c840026baec9a8244ff418ec5188eaa858690847356c91fdba8"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_21",
+      "rtl_sha256": "bbcb95658791ddcdeab78314d3c49e2c3ab7f5bb578536d367f7863b2f9eb800"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_22",
+      "rtl_sha256": "6c77f37c3a72f596acc1f5ef2931e348f554d90b909c5d76b9b80040b6765b17"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_23",
+      "rtl_sha256": "2002ba9628a0f481657e6db8787c42561d4a82365c6753da8d6daf781f50b323"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_24",
+      "rtl_sha256": "baa4c71185c7421fbeb2e02487dd81565a5553360bd95f992ad14abb48347122"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_25",
+      "rtl_sha256": "ec447cdf4a673aea019ad48be09fac2a4e39e7c5215bca8ee6c4f311e946db8a"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 8,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 200,
+      "module": "cm_26",
+      "rtl_sha256": "3ddf03bee792f622e00df824a441a9407d22f29821cab78ae26c61ffb7d5c17f"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 4,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 196,
+      "module": "cm_27",
+      "rtl_sha256": "39ef77f5ea84e809477c0c28a4c46bd2b268d14fabf1e837e01646fbcedc300f"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 1,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 193,
+      "module": "cm_28",
+      "rtl_sha256": "fb9a82f51155f9e9a6d6aeda332c373833c96a171858aa93793a96cca0a22649"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 2,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 194,
+      "module": "cm_29",
+      "rtl_sha256": "c57603da8e03ea54cd44a9c04fc1c1ffd0d261ccbe5a43fc032c1029614a4001"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": true,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_30",
+      "rtl_sha256": "7ed647b0b67056fede27604d4c7c579379942e9affe931a2a44a2842cf6f3a17"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "45",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 2,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 22,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 194,
+      "module": "cm_31",
+      "rtl_sha256": "fa77965b1593eb89d266d0d6b1d54b0a4bdb12b8d35f3446e2922cbf2410fc96"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_32",
+      "rtl_sha256": "eabb09d1faf52b5606f2fd07d38bb1c7946e47813493a67e847f94073c3373fd"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 1,
+        "INPUT_SIGNED": false,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 2,
+        "OUTPUT_SIGNED": false
+      },
+      "vectors": 107,
+      "module": "cm_33",
+      "rtl_sha256": "5058d83e2f2cece88b53f3d66fa73e254760fd7fdb876af7e623042fa88f74e0"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 2,
+        "INPUT_SIGNED": false,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 4,
+        "OUTPUT_SIGNED": false
+      },
+      "vectors": 109,
+      "module": "cm_34",
+      "rtl_sha256": "83f566566df2a18fd3e9b8efb16afda699e5575c0b7851655920ff806f8ac8da"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 1,
+        "INPUT_SIGNED": true,
+        "COEFF": "0",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 1,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 107,
+      "module": "cm_35",
+      "rtl_sha256": "7208419c831d797f9e29e5de968dd852631a3749aed4c772794bce75092c25de"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 1,
+        "INPUT_SIGNED": true,
+        "COEFF": "1",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 1,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 107,
+      "module": "cm_36",
+      "rtl_sha256": "96bbeef085b3d49314d9e99fe66c923efc8b7eb2697c8025a81f080d729de3a1"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 2,
+        "INPUT_SIGNED": true,
+        "COEFF": "0",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 1,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 109,
+      "module": "cm_37",
+      "rtl_sha256": "68c86b307699041affb7f55086c5afe1d93a05e9b147589476d02323d414bd74"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 2,
+        "INPUT_SIGNED": true,
+        "COEFF": "1",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 2,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 109,
+      "module": "cm_38",
+      "rtl_sha256": "b60db4bd9a244f39b7867b187b562100445593d35031b49e01cb94375c396956"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 1,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 3,
+        "OUTPUT_WIDTH": 3,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 107,
+      "module": "cm_39",
+      "rtl_sha256": "22350fe7cf0a9fef985887b1a63a355165199f89d445c7e5fda07c99688f609b"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 2,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 3,
+        "OUTPUT_WIDTH": 4,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 109,
+      "module": "cm_40",
+      "rtl_sha256": "5fa10cb62e74aa41e0db27e8d0ae985e81cd4d053dc7caef2ac3bff8c6ae0028"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 1,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 107,
+      "module": "cm_41",
+      "rtl_sha256": "551284efd3b5e4bcdc21b50a0c8760d15c56d7b28fefffa2e237118dba82a8f5"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 2,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 109,
+      "module": "cm_42",
+      "rtl_sha256": "872f1259d125d6f646f90ab4d7c513b2bc4318b25e14a708406120fc976420e2"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 1,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "BINARY",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 3,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 107,
+      "module": "cm_43",
+      "rtl_sha256": "17d00db6d146d9f5a426de97f4eb0f12a60652bb026381c3c3f7101caa541b9a"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 1,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "CSD",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 3,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 107,
+      "module": "cm_44",
+      "rtl_sha256": "ad82d4140dc24c123dd913113b4e0a951e460a8458f97437018240aa3fa13a49"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 2,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "BINARY",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 4,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 109,
+      "module": "cm_45",
+      "rtl_sha256": "492082957fee89c2ea029f3ec5f7cc64fdfc1bf448e9a346427c64d0e1a640cf"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 2,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "CSD",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 4,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 109,
+      "module": "cm_46",
+      "rtl_sha256": "b4bc01083393ee3c83d014f82fef1140d78c9cf395cac901f5f4096596778f5c"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 1,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 3,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 107,
+      "module": "cm_47",
+      "rtl_sha256": "317da629835c007901f046d5d26701b753601de4981ff2a6fa92bf6a369dcf66"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 1,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 3,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 107,
+      "module": "cm_48",
+      "rtl_sha256": "dcb95e15480d3fcccaa190eeb2c0de2c62f6ccdeedf5a181731834ffbb9eef3c"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 2,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 4,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 109,
+      "module": "cm_49",
+      "rtl_sha256": "4f9e557b95d7da0d2ee86259ee6f56d7d53c483f3f31afe021c8b081d63fddb3"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 2,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 4,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 109,
+      "module": "cm_50",
+      "rtl_sha256": "01bd4c5ae23817b67406aa1caf4855135809fee95bf007140a370a6b3c74df93"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 1,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 3,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 107,
+      "module": "cm_51",
+      "rtl_sha256": "500bcb53f7ed62218da229b9e2fc24dbec8f8fe07a2c6c0028e70cbf99ea87b0"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 2,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 4,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 109,
+      "module": "cm_52",
+      "rtl_sha256": "e327f35c4fc97ba8c3ea5eedc5db14fd0dc0cd6411b95f894d9e988c870ece72"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 1,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 1,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 3,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 108,
+      "module": "cm_53",
+      "rtl_sha256": "f919d3631c4a3d6d7dd38d86ffcc0cbddf1366bf95e23ec68e9bdb7de73ddc07"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 1,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 2,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 3,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 109,
+      "module": "cm_54",
+      "rtl_sha256": "3a24c8bfefc9f616dc2f4816aa849f34a4eb1ee63638d8fed26753deee60e1ed"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 2,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 1,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 4,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 110,
+      "module": "cm_55",
+      "rtl_sha256": "c76b33cb37fa6ca1637c34d4ec9ad72345e1ad2936a96cab8ad799c4310a8adb"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 2,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 2,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 4,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 111,
+      "module": "cm_56",
+      "rtl_sha256": "f5ebafb0ea6e1e6fac2f8c97ac2f590d4cf4bbf6001737c31072d559e6fcef3f"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 1,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": true,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 3,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 107,
+      "module": "cm_57",
+      "rtl_sha256": "81307ed6cf8b62e561c9f77f623096bb0e32cfd854597385f0e863c71c5a5de1"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 2,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": true,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 4,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 109,
+      "module": "cm_58",
+      "rtl_sha256": "c007cd3908f7725e718c3b4a9d8e03e49024f2df84a0ba1f55f6f1cf1657610c"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": false,
+        "COEFF": "0",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 1,
+        "OUTPUT_SIGNED": false
+      },
+      "vectors": 192,
+      "module": "cm_59",
+      "rtl_sha256": "fd8d78aefdda1d1d8d964a84964f4d267c7b55efb50f3c98a35ca1aa96bce224"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": false,
+        "COEFF": "1",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 16,
+        "OUTPUT_SIGNED": false
+      },
+      "vectors": 192,
+      "module": "cm_60",
+      "rtl_sha256": "dcd8e46a1682fac16f93c8fb610597189d985280dc4e617a69914c09f6634f72"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": false,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 3,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": false
+      },
+      "vectors": 192,
+      "module": "cm_61",
+      "rtl_sha256": "7f6244e8edb90a8faf484eec6009f1962be2bb671ffe042a1f7f029e79034795"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": false,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_62",
+      "rtl_sha256": "dab074eb3a9752ae0eb8a90bd826b21ae756ea71e646716a22e17797523b3f4a"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": false,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "BINARY",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": false
+      },
+      "vectors": 192,
+      "module": "cm_63",
+      "rtl_sha256": "01d3c29bb837baa4944cb37f2e0dc0f4a63598caf9666426227d64a9ff14b6db"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": false,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "CSD",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": false
+      },
+      "vectors": 192,
+      "module": "cm_64",
+      "rtl_sha256": "d24748e7aaac77f75fe86fa3b26278fd3d3d2ac5b445db74ce657c81f359dd7a"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": false,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": false
+      },
+      "vectors": 192,
+      "module": "cm_65",
+      "rtl_sha256": "433741472142a3e115a9b30253ad691c6439fd531dbc7e3b9a3ea64e84c696cf"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": false,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": false
+      },
+      "vectors": 192,
+      "module": "cm_66",
+      "rtl_sha256": "19862148897b457e7407453da5eb686b7fc8b2ecdb495f722b74ae1dfb923b0b"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": false,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": false
+      },
+      "vectors": 192,
+      "module": "cm_67",
+      "rtl_sha256": "04e74c57ab75be7c81417d84e6906d7d29863cac4a5e5b80dcf6e9f774133e2b"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": false,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 1,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": false
+      },
+      "vectors": 193,
+      "module": "cm_68",
+      "rtl_sha256": "38adf081deb4116bf8009f9cca309d21ae13e4878bd5e9e7c2036feeee5d1be9"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": false,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 2,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": false
+      },
+      "vectors": 194,
+      "module": "cm_69",
+      "rtl_sha256": "a2270ad1a7dfb3ac9bc0665ce3e3dc7e9eade659f817236116ac5196b705efd5"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": false,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": true,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": false
+      },
+      "vectors": 192,
+      "module": "cm_70",
+      "rtl_sha256": "5d2c127deb3c9a1705a04da3b788b6ed185b7cbd9f62b21c905937e806bf8045"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "0",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 1,
+        "OUTPUT_WIDTH": 1,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_71",
+      "rtl_sha256": "ebac39d5c6b9bddbe2ea7b83a8942028cad58071f6486a51df072115d166cba2"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "0",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 3,
+        "OUTPUT_WIDTH": 1,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_72",
+      "rtl_sha256": "e05498bd76b46042d9fddab4a5c55340a3a43ee5ccf16ca852edfedd8633f163"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "1",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 3,
+        "OUTPUT_WIDTH": 16,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_73",
+      "rtl_sha256": "e9dddb716f0fa568e54e4bcfe81dced8d30fc420105f90acf093716687946388"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "0",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_74",
+      "rtl_sha256": "54f9b2811e9c99ddff2f892300617ee36b10bb492c97a00f91626ef7013208ff"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "1",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_75",
+      "rtl_sha256": "ea7b7100f9dd0eff483a2fca730772a46be3ea5dea7c6d74ea6fffd8d5616778"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "0",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "BINARY",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 1,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_76",
+      "rtl_sha256": "662b7fd79d754406af36889f86ca5b5aea165b4f05fd7ef9f38f679b8527343d"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "0",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "CSD",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 1,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_77",
+      "rtl_sha256": "cf603fade58ef37bcb4e5d249c377ab111957b13f3aecbc8f15c1e824739689e"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "1",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "BINARY",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 16,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_78",
+      "rtl_sha256": "9f52d2c02a1f9bc2e871a1f93a495d60eaf35dd235224b1d7782f7ff940cffba"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "1",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "CSD",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 16,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_79",
+      "rtl_sha256": "4d45150180caa907917aebcaa565277960829994812e1c5f3831ef45843bea01"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "0",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 1,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_80",
+      "rtl_sha256": "4e499d98bb2184c80c5f5656b476141680b6e9ac66175800585b7ee7dc8bce01"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "0",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 1,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_81",
+      "rtl_sha256": "351cb0ea9fbbbc76028033e4d9c2115ac97d05478429ae188f0e6dc2ad48c970"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "1",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 16,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_82",
+      "rtl_sha256": "280edb7a9802bac5eb0c30ff7c0934290a73379875c9b0f99b101e978eaacbec"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "1",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 16,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_83",
+      "rtl_sha256": "3a28836ff6c238c516b13f80fed673a251bcc4d7dd8cf376e595049669ba2c5b"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "0",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 1,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_84",
+      "rtl_sha256": "f8354021af7de3c96db2e8f2b2c37f6fa687498e7ea970373e905264e0fa0e46"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "1",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 16,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_85",
+      "rtl_sha256": "a16ef35a34c67eb7b33ac7d6a58c2a8a1df4f657449e156d5b4b33b56f55db27"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "0",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 1,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 1,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 193,
+      "module": "cm_86",
+      "rtl_sha256": "4747e18a0a507a6428e58dec52b69ac72b857f252f603d38a09a33f42c63fa00"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "0",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 2,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 1,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 194,
+      "module": "cm_87",
+      "rtl_sha256": "2fd8821353e23bb475928d9d0a514adb1e991ce3e270a7c1d46fdb1cafe7b216"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "1",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 1,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 16,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 193,
+      "module": "cm_88",
+      "rtl_sha256": "ebe1d43e1ef3cc30d3c1746b0e01f6cec76f1db7e3b5f01256b6b37cf4f2805b"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "1",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 2,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 16,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 194,
+      "module": "cm_89",
+      "rtl_sha256": "8a19e2e1fec053a988cab7fe898fbebae34ba081511beab1425fcb4196fcf827"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "0",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": true,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 1,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_90",
+      "rtl_sha256": "84d41a2212c218af067537b6c79ffbdc710bf812a87ba72af4f0575b044bf0d0"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "1",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": true,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 16,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_91",
+      "rtl_sha256": "a26b8b83a5ec0dfbcd221b0e845635c3d920dcd11d9bab66b1702a558fa83abb"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 3,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_92",
+      "rtl_sha256": "7028fb409d490757aaf8d488ef3aa4462f81ad3abc7ebd5ea520502e564f820d"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "BINARY",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 3,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_93",
+      "rtl_sha256": "339f63a4444fd5452692fd64274f9ef2f6da2c73da4f262d19a053c633d2db14"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "CSD",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 3,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_94",
+      "rtl_sha256": "5d77a23c484fb4441df7ea76d702a982d97ddbf216d4ae79211a552b6c51ec42"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 3,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_95",
+      "rtl_sha256": "baacf7cab8a505e50b863fd285fdcf1606e6016509b12a0990e3ef848a6a63db"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 3,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_96",
+      "rtl_sha256": "154d18302948b946e09008d1c51ebdbdf53252d6b2a10a9df01898b6a2122074"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 3,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_97",
+      "rtl_sha256": "38128143da32a436c2aed289036a7e13ff3ea4638e7112766fc0c0099d6e6a0b"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 1,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 3,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 193,
+      "module": "cm_98",
+      "rtl_sha256": "23277c1d4f69d73050640106f978954b7f0e21cd823a269517d1bfa47dbac30e"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 2,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 3,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 194,
+      "module": "cm_99",
+      "rtl_sha256": "914da44fbcbb08989cd1f55525268cbff88aa67d07faacdceb5a01b0829bbde3"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": true,
+        "COEFF_WIDTH": 3,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_100",
+      "rtl_sha256": "c619d362e9d748d9156b38c92fc3e037bf98d4fe2eaca8f5d7bef34567907a4b"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "TOWARD_ZERO",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_101",
+      "rtl_sha256": "96d1d4ba70d993e7005c8fa9ae02b6c45fcfa1de5b0b0004e2c8515bd42815da"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "NEAREST_EVEN",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_102",
+      "rtl_sha256": "6eb1c7a43e72479d5f39fbe001839d929e380b17e818de8f98fbb1a4f66123a0"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "SATURATE",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_103",
+      "rtl_sha256": "57066943ecccd2c41c678754ba43ef8c673ef262411f000cbdf07a94101849dc"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "BINARY",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_104",
+      "rtl_sha256": "67eff2ca4c01484368ae00034d7b5a32efa4174a1d1f630e4ea933aa53236d91"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "CSD",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_105",
+      "rtl_sha256": "380bc6207d002342f203815adfc0920c71824af5498da5fe957d721f540714e4"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 1,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_106",
+      "rtl_sha256": "fa0fb7fe623e944249a5ae89b0bdfcf7e9e7d66f514ec0bc9234163277183a67"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 8,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_107",
+      "rtl_sha256": "c587305d98d49a451a340e502e842b959afe405fe7ab21af74d1e66e9a5c9861"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": false
+      },
+      "vectors": 192,
+      "module": "cm_108",
+      "rtl_sha256": "fbbeade012b031fcf9791ccfd63f43cdfa16c6c2aa524de5ef4b6a774a86d6ee"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 1,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_109",
+      "rtl_sha256": "8ef9b3a08eabdad0e15dc8ccf061473451df5a92e708d59b60e3f825855f8893"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 256,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_110",
+      "rtl_sha256": "c067e39ec93857ce43b293cf973e222e42d15b827487e7d9456f3e24c19f77ff"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 1,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 193,
+      "module": "cm_111",
+      "rtl_sha256": "c56cba6048c05d254be3c89c39b49a331c029507a83cb238215ee86fc3edf76a"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 2,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 194,
+      "module": "cm_112",
+      "rtl_sha256": "ce2aa767c3c9ea725bc921cc7b6e6358b9e86bd4b42b822c4ac2fc1ab8316440"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "QUANTIZED",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": true,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 256,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_113",
+      "rtl_sha256": "981083d15c7c03fd4b3dcf72b440d6f635da208d0ca4952753f0bd7280facfd6"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "BINARY",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_114",
+      "rtl_sha256": "67907743c04984208710fd37cbaf6e5106da9c206da4050af8966bf6a1688b39"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "BINARY",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_115",
+      "rtl_sha256": "eb9bc7453bc5fc5b256d9aa246cb3c56a81998800bec9a30a221f971447ba70f"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "CSD",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_116",
+      "rtl_sha256": "feeb06c10b684f953b899be0ed5a65b294e55989f62dccabce595f673e3cb4e3"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "CSD",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_117",
+      "rtl_sha256": "923bb56b5cdcab61d9a59f48eac85b57f4b99aca30da1e461575285693d9b9e7"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "BINARY",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_118",
+      "rtl_sha256": "20f608dbfaebe66fe78fb8972b6a408b4c0631e14edab1bee9d9cf02b3fdfda1"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "CSD",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_119",
+      "rtl_sha256": "4ea18fd059ea618e4c4742281a611bfa4a523a068bb722e64a5a7031a4438a12"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 1,
+        "IMPL": "BINARY",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 193,
+      "module": "cm_120",
+      "rtl_sha256": "5b21176528dad8ade0d75fb29e775bdb09574311bc28dfe768adbed93b8f4f1a"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 2,
+        "IMPL": "BINARY",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 194,
+      "module": "cm_121",
+      "rtl_sha256": "5acb9e87e579a80135f7b1dbb219fb8d5e18d583ad4d4d7a1adef188c83c83f9"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 1,
+        "IMPL": "CSD",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 193,
+      "module": "cm_122",
+      "rtl_sha256": "01f2f1a3df7c4364ca774e278cb829e033bd999aaae6174acd9769acd3f4dfa8"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 2,
+        "IMPL": "CSD",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 194,
+      "module": "cm_123",
+      "rtl_sha256": "2d6bc923e18d5b383fc3913a71a03dcf141474879edb4ce9ec4930c04aa99f7d"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "BINARY",
+        "OPERAND_ISOLATION": true,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_124",
+      "rtl_sha256": "9d79fec19201774ca8ed7b8806b00d8cc6c910d9ce2c9951a9bf5f7ecad15571"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "CSD",
+        "OPERAND_ISOLATION": true,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_125",
+      "rtl_sha256": "11cfce4c5fb8cf8cf427e7fa9df7cae5f0af7b2e0062ef81ecaa39f980ea6588"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_126",
+      "rtl_sha256": "abeee459ec2b101dbc9185067a6e568ae8046a09b3cfb9e46b4271dd2d60f4f6"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_127",
+      "rtl_sha256": "86508a8beb0c465404af73d7113f38a4c358ceadd3e69281d80d80ffb69e713e"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 1,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 193,
+      "module": "cm_128",
+      "rtl_sha256": "159b7d3c6c861e8996c045e7d696e979e7e81f494d4011721f7f1cf7f852db24"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 2,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 194,
+      "module": "cm_129",
+      "rtl_sha256": "71fe8a540dbfe8523c1993908f34c105cb92b95b263d56c6ab3d972f1e3c361b"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 1,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 193,
+      "module": "cm_130",
+      "rtl_sha256": "e413310b155e5a9beed818cbc9454a89fc92de95ac2fb8708e1918cf370276cc"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 2,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 194,
+      "module": "cm_131",
+      "rtl_sha256": "2922d90881bcc25434cd8cf9506e22a4ab9a140661b23907f008b88d6485cd5f"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": true,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_132",
+      "rtl_sha256": "74fb1570460aca16c87104880a264b1c891ba3614088b33d2e5185bd6f2fa0f5"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": true,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_133",
+      "rtl_sha256": "c1b2a53c9405f8bd2bd449711511b2a2058d9730383c61561d79a854323383a8"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 1,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 193,
+      "module": "cm_134",
+      "rtl_sha256": "dbed69da25c5adcc29d8d46edbe6b82dc48c353af96a75a57c616db6242cf2a2"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 2,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 194,
+      "module": "cm_135",
+      "rtl_sha256": "d37a814dd336264bae38dd3c6ba7ed8ad99d031d00f1a2c66319f55d3b188f0d"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 0,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": true,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 192,
+      "module": "cm_136",
+      "rtl_sha256": "3ea9a322f765f69a5e1e1a6e8e0c804513e96e15d98d03ff80f670e5b383634b"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 1,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": true,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 193,
+      "module": "cm_137",
+      "rtl_sha256": "ec4dd4b92c6eb78fdc145bd543db9512a51036b06297059e6dbf82e37d0970c2"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 16,
+        "INPUT_SIGNED": true,
+        "COEFF": "3",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 2,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": true,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 18,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 194,
+      "module": "cm_138",
+      "rtl_sha256": "e685f90e7b8626e8b37237c6ed775fdef55d423036d989c9d817b0c2c83985a7"
+    },
+    {
+      "config": {
+        "INPUT_WIDTH": 8,
+        "INPUT_SIGNED": true,
+        "COEFF": "-1",
+        "OUTPUT_MODE": "FULL",
+        "SHIFT_RIGHT": 0,
+        "ROUND_MODE": "FLOOR",
+        "OVERFLOW_MODE": "WRAP",
+        "LATENCY": 8,
+        "IMPL": "NATIVE",
+        "OPERAND_ISOLATION": false,
+        "COEFF_WIDTH": 128,
+        "OUTPUT_WIDTH": 9,
+        "OUTPUT_SIGNED": true
+      },
+      "vectors": 369,
+      "module": "cm_139",
+      "rtl_sha256": "0595f6bb6577bd7b6c19aee40ff5df33a954a2e76b0b79e7ab8e4deef8996205"
+    }
+  ],
+  "formal": "not_run",
+  "log_hashes": {
+    "compile.txt": "b252733fe580d7c47e6496f7fcde24cc8151c354b145ce13378565f6a0f75d1f",
+    "simulation.txt": "3401d76de4fc43b91b729a3837c072faf6ca962351431d5cd181e4433e6ce8fa",
+    "MUTATE.txt": "47d1b49e881983e9996ce5345eedff6b8a59f759ab6f45e72f8782fb99e1a902",
+    "DROP.txt": "4d7ea4d3aecb65e68e7923c03b1b28bdfb1c36304aa2807ad5d724766173a885"
+  },
+  "raw_result_sha256": "61ae2b03ff285ab2a7d10bad3930309fe53b8c36466454367c7108f454a3145d",
+  "command": [
+    "python",
+    "verification/run.py",
+    "--matrix",
+    "--out",
+    "build/eda/final_matrix"
+  ]
+}

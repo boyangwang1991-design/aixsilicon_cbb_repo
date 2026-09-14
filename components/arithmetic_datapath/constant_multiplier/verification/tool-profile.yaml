@@ -1,0 +1,13 @@
+tools:
+  simulation:
+    name: vcs
+    version: W-2024.09-SP1
+  formal:
+    name: fm_shell
+    version: V-2023.12-SP3
+  synthesis:
+    name: dc_shell
+    version: V-2023.12-SP3
+  negative:
+    name: generate.py
+    version: 1.0.0

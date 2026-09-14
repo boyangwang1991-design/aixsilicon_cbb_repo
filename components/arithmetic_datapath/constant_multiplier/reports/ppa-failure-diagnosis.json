@@ -1,0 +1,18 @@
+{
+  "tag": "w128_l0_binary",
+  "tool_status": "tool_internal_error",
+  "root_cause": "system_out_of_memory",
+  "child_pid": 156845,
+  "killed_child_anon_rss_kib": 10430936,
+  "evidence": {
+    "dc": {
+      "path": "build/eda/ppa/w128_l0_binary/dc.txt",
+      "sha256": "03f8ee1c5f856b280550114d8b38e0a7b80b25c782bea4766092e1d1daea9237"
+    },
+    "kernel": {
+      "path": "build/eda/ppa_diagnosis/kernel-original.txt",
+      "sha256": "b2815e266c447259d29e7837b45414c68256aaffa02e18c80a1d16072b4c9d5e"
+    }
+  },
+  "note": "Kernel OOM kill and DC child failure match by PID; no PPA metrics inferred."
+}

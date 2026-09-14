@@ -1,0 +1,42 @@
+[
+  {
+    "parameter": ".INPUT_WIDTH(0)",
+    "expected": "elaboration rejection CM-CONFIG",
+    "pass": true
+  },
+  {
+    "parameter": ".INPUT_WIDTH(129)",
+    "expected": "elaboration rejection CM-CONFIG",
+    "pass": true
+  },
+  {
+    "parameter": ".COEFF_WIDTH(1)",
+    "expected": "elaboration rejection CM-CONFIG",
+    "pass": true
+  },
+  {
+    "parameter": ".LATENCY(9)",
+    "expected": "elaboration rejection CM-CONFIG",
+    "pass": true
+  },
+  {
+    "parameter": ".SHIFT_RIGHT(1)",
+    "expected": "elaboration rejection CM-CONFIG",
+    "pass": true
+  },
+  {
+    "parameter": ".ROUND_MODE(2)",
+    "expected": "elaboration rejection CM-CONFIG",
+    "pass": true
+  },
+  {
+    "parameter": ".OUTPUT_MODE(2)",
+    "expected": "elaboration rejection CM-CONFIG",
+    "pass": true
+  },
+  {
+    "parameter": ".IMPL(2)",
+    "expected": "elaboration rejection CM-CONFIG",
+    "pass": true
+  }
+]

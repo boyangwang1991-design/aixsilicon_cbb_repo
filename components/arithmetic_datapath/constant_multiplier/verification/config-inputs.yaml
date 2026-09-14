@@ -1,0 +1,11 @@
+risk:
+- parameters:
+    INPUT_WIDTH: 8
+    COEFF: -1
+    LATENCY: 8
+  reason: 最小负数取负及延迟上限
+consumer:
+- parameters:
+    COEFF: 45
+    LATENCY: 2
+  reason: 定点 DSP 常量缩放代表，非已验证下游实例

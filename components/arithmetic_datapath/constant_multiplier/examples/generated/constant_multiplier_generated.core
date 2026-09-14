@@ -1,0 +1,12 @@
+CAPI=2:
+name: aixsilicon:cbb:constant_multiplier_generated:0.1.0
+filesets:
+  rtl:
+    files:
+    - constant_multiplier_generated.sv
+    file_type: systemVerilogSource
+targets:
+  default:
+    filesets:
+    - rtl
+    toplevel: constant_multiplier_generated

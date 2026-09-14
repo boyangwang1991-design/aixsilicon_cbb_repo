@@ -1,0 +1,338 @@
+set: negative
+configs:
+- config_id: cfg_input_width0_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 0
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width129_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 129
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_input_signedTrue_coeffu8_2d313730313431313833343630343639323331373331363837333033373135383834313035373239_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: -170141183460469231731687303715884105729
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_input_signedTrue_coeff170141183460469231731687303715884105728_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 170141183460469231731687303715884105728
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width0_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 0
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width129_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 129
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode2_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 2
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode3_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 3
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode2_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 2
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl5_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 5
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width0_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 0
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width257_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 257
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_rightu8_2d31_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: -1
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right257_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 257
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latencyu8_2d31_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: -1
+    OPERAND_ISOLATION: false
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency9_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 9
+    OPERAND_ISOLATION: false
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain

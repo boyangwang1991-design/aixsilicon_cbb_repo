@@ -1,0 +1,128 @@
+[
+  {
+    "parameters": {
+      "INPUT_WIDTH": 8,
+      "COEFF": "45",
+      "LATENCY": 0
+    },
+    "implementation": "BINARY",
+    "status": "proved",
+    "log_sha256": "bb6d6e4368c22be8234b6707f6c43ec57f30043959c3355584418ba9a3ceb426",
+    "reference_sha256": "67b12edf9ff948f1b7737bc4410b84ba5a333a68212a42002dbdf9e811951db1",
+    "implementation_sha256": "32f5d0ae4dd06a5f7611a12745eb3e587caecc2ab7311e60bb1cee10babae907"
+  },
+  {
+    "parameters": {
+      "INPUT_WIDTH": 8,
+      "COEFF": "45",
+      "LATENCY": 0
+    },
+    "implementation": "CSD",
+    "status": "proved",
+    "log_sha256": "1d5f0cc2d4a3dca04bfc7fd57aeecc3bda7d29e585e5575aaa9a25d4b79957f0",
+    "reference_sha256": "67b12edf9ff948f1b7737bc4410b84ba5a333a68212a42002dbdf9e811951db1",
+    "implementation_sha256": "d023a74b0b446543402f2c856bc57b86a1dce29feb9e742d63061a3d63a588f4"
+  },
+  {
+    "parameters": {
+      "INPUT_WIDTH": 8,
+      "COEFF": "45",
+      "LATENCY": 0
+    },
+    "implementation": "ADDER_GRAPH",
+    "status": "proved",
+    "log_sha256": "4dfd1c2e6b9320474b2b7b5ea9dbb18e0c1e492f1f0352e41aa7c03c8dfa1ef1",
+    "reference_sha256": "67b12edf9ff948f1b7737bc4410b84ba5a333a68212a42002dbdf9e811951db1",
+    "implementation_sha256": "30b56fcd4982b1b6327031961d719a787dac6ff21e02102ffb8dfb2e55fa0a0c"
+  },
+  {
+    "parameters": {
+      "INPUT_WIDTH": 8,
+      "COEFF": "-7",
+      "LATENCY": 1,
+      "OUTPUT_MODE": "QUANTIZED",
+      "OUTPUT_WIDTH": 4,
+      "OUTPUT_SIGNED": true,
+      "SHIFT_RIGHT": 1,
+      "ROUND_MODE": "NEAREST_EVEN",
+      "OVERFLOW_MODE": "SATURATE"
+    },
+    "implementation": "BINARY",
+    "status": "proved",
+    "log_sha256": "87e99529b107b39c913f91b8fc0b07c265db9d99873927047d678620ca1f3ba3",
+    "reference_sha256": "655e24f8a63f2633d217d924a3b94b51baa3b618712bae6276e06f9a1c718c2e",
+    "implementation_sha256": "5133185f25813200a838863d2c2b0752ce5567eb7bb66ee589fe5612c44f02e9"
+  },
+  {
+    "parameters": {
+      "INPUT_WIDTH": 8,
+      "COEFF": "-7",
+      "LATENCY": 1,
+      "OUTPUT_MODE": "QUANTIZED",
+      "OUTPUT_WIDTH": 4,
+      "OUTPUT_SIGNED": true,
+      "SHIFT_RIGHT": 1,
+      "ROUND_MODE": "NEAREST_EVEN",
+      "OVERFLOW_MODE": "SATURATE"
+    },
+    "implementation": "CSD",
+    "status": "proved",
+    "log_sha256": "bafab1a60f776febbaef7b94423e091bc4c53c28e8118ac3afbe304c66a1da37",
+    "reference_sha256": "655e24f8a63f2633d217d924a3b94b51baa3b618712bae6276e06f9a1c718c2e",
+    "implementation_sha256": "e15ad74a50b34df5b3e721aa84cf1c0c817131020273fb4174245145c51b4e9a"
+  },
+  {
+    "parameters": {
+      "INPUT_WIDTH": 8,
+      "COEFF": "-7",
+      "LATENCY": 1,
+      "OUTPUT_MODE": "QUANTIZED",
+      "OUTPUT_WIDTH": 4,
+      "OUTPUT_SIGNED": true,
+      "SHIFT_RIGHT": 1,
+      "ROUND_MODE": "NEAREST_EVEN",
+      "OVERFLOW_MODE": "SATURATE"
+    },
+    "implementation": "ADDER_GRAPH",
+    "status": "proved",
+    "log_sha256": "f6dde38ca880bd58ee123053df99cd96ea58e5bee416b3a2372fb6a466db9ede",
+    "reference_sha256": "655e24f8a63f2633d217d924a3b94b51baa3b618712bae6276e06f9a1c718c2e",
+    "implementation_sha256": "e15ad74a50b34df5b3e721aa84cf1c0c817131020273fb4174245145c51b4e9a"
+  },
+  {
+    "parameters": {
+      "INPUT_WIDTH": 128,
+      "COEFF": "-1",
+      "LATENCY": 0
+    },
+    "implementation": "BINARY",
+    "status": "proved",
+    "log_sha256": "99ffd3ae62adf6dfe39371300a9e66243388619692f76c6504cd9933ff235a42",
+    "reference_sha256": "dadf2834926f67c2556cb956b4c47ba07df96066793f2e556300cf24cbdf8873",
+    "implementation_sha256": "12a29e6c651bec4d399362365e305a9ecdb9a4f46451606f9ec919e4ccfbdebc"
+  },
+  {
+    "parameters": {
+      "INPUT_WIDTH": 128,
+      "COEFF": "-1",
+      "LATENCY": 0
+    },
+    "implementation": "CSD",
+    "status": "proved",
+    "log_sha256": "c499c30119c9a0c5553c2d83aca3f0df4d0d6838c72fa1e0c2abfd637a0d3c0c",
+    "reference_sha256": "dadf2834926f67c2556cb956b4c47ba07df96066793f2e556300cf24cbdf8873",
+    "implementation_sha256": "12a29e6c651bec4d399362365e305a9ecdb9a4f46451606f9ec919e4ccfbdebc"
+  },
+  {
+    "parameters": {
+      "INPUT_WIDTH": 128,
+      "COEFF": "-1",
+      "LATENCY": 0
+    },
+    "implementation": "ADDER_GRAPH",
+    "status": "proved",
+    "log_sha256": "d083f344abcfa71e497fe243663415da2925b0d76181974bf2faad92ea43e8f7",
+    "reference_sha256": "dadf2834926f67c2556cb956b4c47ba07df96066793f2e556300cf24cbdf8873",
+    "implementation_sha256": "12a29e6c651bec4d399362365e305a9ecdb9a4f46451606f9ec919e4ccfbdebc"
+  }
+]

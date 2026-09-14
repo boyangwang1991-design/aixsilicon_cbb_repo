@@ -1,0 +1,25 @@
+profiles:
+  profile_native:
+    implementation: impl_native
+    parameters:
+      IMPL: 0
+    use_case: 静态 DSP 缩放结构评估 NATIVE
+    support: experimental
+  profile_binary:
+    implementation: impl_binary
+    parameters:
+      IMPL: 1
+    use_case: 静态 DSP 缩放结构评估 BINARY
+    support: experimental
+  profile_csd:
+    implementation: impl_csd
+    parameters:
+      IMPL: 2
+    use_case: 静态 DSP 缩放结构评估 CSD
+    support: experimental
+  profile_adder_graph:
+    implementation: impl_adder_graph
+    parameters:
+      IMPL: 3
+    use_case: 静态 DSP 缩放结构评估 ADDER_GRAPH
+    support: experimental

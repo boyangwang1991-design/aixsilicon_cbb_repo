@@ -1,8 +1,73 @@
-# 表征计划（Characterization Plan）— constant_multiplier
-# G6 PPA：先用 cbb_tool.py pdk-scan 生成 characterization/pdk.yaml（工艺上下文）。
-# pdk-scan 判定 PDK_READY 时必须真实综合表征，禁止降级 OPTIONAL_UNAVAILABLE(E0)；
-# 仅当判定 PDK_UNAVAILABLE 时才标注 OPTIONAL_UNAVAILABLE(E0)，不伪造门级数据（ppa-evidence.md）。
-points: []
-benchmark_profiles: []
-measured_region: {}
-status: PENDING_PDK_SCAN
+status: candidate
+points:
+- implementation: impl_native
+  parameters:
+    INPUT_WIDTH: 8
+    COEFF: '45'
+    LATENCY: 0
+- implementation: impl_binary
+  parameters:
+    INPUT_WIDTH: 8
+    COEFF: '45'
+    LATENCY: 0
+- implementation: impl_csd
+  parameters:
+    INPUT_WIDTH: 8
+    COEFF: '45'
+    LATENCY: 0
+- implementation: impl_adder_graph
+  parameters:
+    INPUT_WIDTH: 8
+    COEFF: '45'
+    LATENCY: 0
+- implementation: impl_native
+  parameters:
+    INPUT_WIDTH: 16
+    COEFF: '85'
+    LATENCY: 2
+- implementation: impl_binary
+  parameters:
+    INPUT_WIDTH: 16
+    COEFF: '85'
+    LATENCY: 2
+- implementation: impl_csd
+  parameters:
+    INPUT_WIDTH: 16
+    COEFF: '85'
+    LATENCY: 2
+- implementation: impl_adder_graph
+  parameters:
+    INPUT_WIDTH: 16
+    COEFF: '85'
+    LATENCY: 2
+- implementation: impl_native
+  parameters:
+    INPUT_WIDTH: 128
+    COEFF: '-170141183460469231731687303715884105727'
+    LATENCY: 0
+- implementation: impl_binary
+  parameters:
+    INPUT_WIDTH: 128
+    COEFF: '-170141183460469231731687303715884105727'
+    LATENCY: 0
+- implementation: impl_csd
+  parameters:
+    INPUT_WIDTH: 128
+    COEFF: '-170141183460469231731687303715884105727'
+    LATENCY: 0
+- implementation: impl_adder_graph
+  parameters:
+    INPUT_WIDTH: 128
+    COEFF: '-170141183460469231731687303715884105727'
+    LATENCY: 0
+comparison_plot: reports/ppa-comparison.png
+constraints:
+  period_ns: 2.5
+  io_delay_ns: 0.25
+  output_load_pf: 0.01
+  input_transition_ns: 0.05
+  uncertainty_ns: 0.05
+context: characterization/pdk.yaml
+activity: default unannotated estimate
+selection: Pareto only; no configured numerical area/power limit
+maturity: synthesized; physical implementation not_run

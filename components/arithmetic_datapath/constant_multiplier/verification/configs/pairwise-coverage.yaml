@@ -1,0 +1,1727 @@
+scope: sampled_candidate_domains
+domains:
+  COEFF:
+  - 3
+  - -170141183460469231731687303715884105728
+  - 170141183460469231731687303715884105727
+  - -1
+  - -170141183460469231731687303715884105727
+  - 0
+  - 1
+  - 45
+  - 85
+  COEFF_WIDTH:
+  - 128
+  - 1
+  - 64
+  - 2
+  - 3
+  IMPL:
+  - 0
+  - 1
+  - 2
+  - 3
+  - 4
+  INPUT_SIGNED:
+  - true
+  - false
+  INPUT_WIDTH:
+  - 16
+  - 1
+  - 128
+  - 64
+  - 2
+  - 8
+  LATENCY:
+  - 0
+  - 8
+  - 4
+  - 1
+  - 2
+  OPERAND_ISOLATION:
+  - false
+  - true
+  OUTPUT_MODE:
+  - 0
+  - 1
+  OUTPUT_SIGNED:
+  - true
+  - false
+  OUTPUT_WIDTH:
+  - 256
+  - 1
+  - 128
+  - 2
+  - 8
+  OVERFLOW_MODE:
+  - 0
+  - 1
+  ROUND_MODE:
+  - 0
+  - 1
+  - 2
+  SHIFT_RIGHT:
+  - 0
+  - 256
+  - 128
+  - 1
+missing_pair_feasibility: unknown
+pairs:
+- parameters:
+  - COEFF
+  - COEFF_WIDTH
+  candidate_pairs: 45
+  covered_pairs: 14
+  missing_pairs:
+  - COEFF: 3
+    COEFF_WIDTH: 1
+  - COEFF: 3
+    COEFF_WIDTH: 2
+  - COEFF: -170141183460469231731687303715884105728
+    COEFF_WIDTH: 1
+  - COEFF: -170141183460469231731687303715884105728
+    COEFF_WIDTH: 64
+  - COEFF: -170141183460469231731687303715884105728
+    COEFF_WIDTH: 2
+  - COEFF: -170141183460469231731687303715884105728
+    COEFF_WIDTH: 3
+  - COEFF: 170141183460469231731687303715884105727
+    COEFF_WIDTH: 1
+  - COEFF: 170141183460469231731687303715884105727
+    COEFF_WIDTH: 64
+  - COEFF: 170141183460469231731687303715884105727
+    COEFF_WIDTH: 2
+  - COEFF: 170141183460469231731687303715884105727
+    COEFF_WIDTH: 3
+  - COEFF: -1
+    COEFF_WIDTH: 1
+  - COEFF: -1
+    COEFF_WIDTH: 64
+  - COEFF: -1
+    COEFF_WIDTH: 2
+  - COEFF: -1
+    COEFF_WIDTH: 3
+  - COEFF: -170141183460469231731687303715884105727
+    COEFF_WIDTH: 1
+  - COEFF: -170141183460469231731687303715884105727
+    COEFF_WIDTH: 64
+  - COEFF: -170141183460469231731687303715884105727
+    COEFF_WIDTH: 2
+  - COEFF: -170141183460469231731687303715884105727
+    COEFF_WIDTH: 3
+  - COEFF: 0
+    COEFF_WIDTH: 64
+  - COEFF: 0
+    COEFF_WIDTH: 2
+  - COEFF: 1
+    COEFF_WIDTH: 1
+  - COEFF: 1
+    COEFF_WIDTH: 64
+  - COEFF: 1
+    COEFF_WIDTH: 2
+  - COEFF: 45
+    COEFF_WIDTH: 1
+  - COEFF: 45
+    COEFF_WIDTH: 64
+  - COEFF: 45
+    COEFF_WIDTH: 2
+  - COEFF: 45
+    COEFF_WIDTH: 3
+  - COEFF: 85
+    COEFF_WIDTH: 1
+  - COEFF: 85
+    COEFF_WIDTH: 64
+  - COEFF: 85
+    COEFF_WIDTH: 2
+  - COEFF: 85
+    COEFF_WIDTH: 3
+- parameters:
+  - COEFF
+  - IMPL
+  candidate_pairs: 45
+  covered_pairs: 17
+  missing_pairs:
+  - COEFF: -170141183460469231731687303715884105728
+    IMPL: 1
+  - COEFF: -170141183460469231731687303715884105728
+    IMPL: 2
+  - COEFF: -170141183460469231731687303715884105728
+    IMPL: 3
+  - COEFF: -170141183460469231731687303715884105728
+    IMPL: 4
+  - COEFF: 170141183460469231731687303715884105727
+    IMPL: 1
+  - COEFF: 170141183460469231731687303715884105727
+    IMPL: 2
+  - COEFF: 170141183460469231731687303715884105727
+    IMPL: 3
+  - COEFF: 170141183460469231731687303715884105727
+    IMPL: 4
+  - COEFF: -1
+    IMPL: 1
+  - COEFF: -1
+    IMPL: 2
+  - COEFF: -1
+    IMPL: 3
+  - COEFF: -1
+    IMPL: 4
+  - COEFF: -170141183460469231731687303715884105727
+    IMPL: 1
+  - COEFF: -170141183460469231731687303715884105727
+    IMPL: 2
+  - COEFF: -170141183460469231731687303715884105727
+    IMPL: 3
+  - COEFF: -170141183460469231731687303715884105727
+    IMPL: 4
+  - COEFF: 0
+    IMPL: 3
+  - COEFF: 0
+    IMPL: 4
+  - COEFF: 1
+    IMPL: 3
+  - COEFF: 1
+    IMPL: 4
+  - COEFF: 45
+    IMPL: 1
+  - COEFF: 45
+    IMPL: 2
+  - COEFF: 45
+    IMPL: 3
+  - COEFF: 45
+    IMPL: 4
+  - COEFF: 85
+    IMPL: 1
+  - COEFF: 85
+    IMPL: 2
+  - COEFF: 85
+    IMPL: 3
+  - COEFF: 85
+    IMPL: 4
+- parameters:
+  - COEFF
+  - INPUT_SIGNED
+  candidate_pairs: 18
+  covered_pairs: 12
+  missing_pairs:
+  - COEFF: -170141183460469231731687303715884105728
+    INPUT_SIGNED: false
+  - COEFF: 170141183460469231731687303715884105727
+    INPUT_SIGNED: false
+  - COEFF: -1
+    INPUT_SIGNED: false
+  - COEFF: -170141183460469231731687303715884105727
+    INPUT_SIGNED: false
+  - COEFF: 45
+    INPUT_SIGNED: false
+  - COEFF: 85
+    INPUT_SIGNED: false
+- parameters:
+  - COEFF
+  - INPUT_WIDTH
+  candidate_pairs: 54
+  covered_pairs: 19
+  missing_pairs:
+  - COEFF: -170141183460469231731687303715884105728
+    INPUT_WIDTH: 1
+  - COEFF: -170141183460469231731687303715884105728
+    INPUT_WIDTH: 128
+  - COEFF: -170141183460469231731687303715884105728
+    INPUT_WIDTH: 64
+  - COEFF: -170141183460469231731687303715884105728
+    INPUT_WIDTH: 2
+  - COEFF: -170141183460469231731687303715884105728
+    INPUT_WIDTH: 8
+  - COEFF: 170141183460469231731687303715884105727
+    INPUT_WIDTH: 1
+  - COEFF: 170141183460469231731687303715884105727
+    INPUT_WIDTH: 128
+  - COEFF: 170141183460469231731687303715884105727
+    INPUT_WIDTH: 64
+  - COEFF: 170141183460469231731687303715884105727
+    INPUT_WIDTH: 2
+  - COEFF: 170141183460469231731687303715884105727
+    INPUT_WIDTH: 8
+  - COEFF: -1
+    INPUT_WIDTH: 1
+  - COEFF: -1
+    INPUT_WIDTH: 128
+  - COEFF: -1
+    INPUT_WIDTH: 64
+  - COEFF: -1
+    INPUT_WIDTH: 2
+  - COEFF: -170141183460469231731687303715884105727
+    INPUT_WIDTH: 1
+  - COEFF: -170141183460469231731687303715884105727
+    INPUT_WIDTH: 128
+  - COEFF: -170141183460469231731687303715884105727
+    INPUT_WIDTH: 64
+  - COEFF: -170141183460469231731687303715884105727
+    INPUT_WIDTH: 2
+  - COEFF: -170141183460469231731687303715884105727
+    INPUT_WIDTH: 8
+  - COEFF: 0
+    INPUT_WIDTH: 128
+  - COEFF: 0
+    INPUT_WIDTH: 64
+  - COEFF: 0
+    INPUT_WIDTH: 8
+  - COEFF: 1
+    INPUT_WIDTH: 128
+  - COEFF: 1
+    INPUT_WIDTH: 64
+  - COEFF: 1
+    INPUT_WIDTH: 8
+  - COEFF: 45
+    INPUT_WIDTH: 1
+  - COEFF: 45
+    INPUT_WIDTH: 128
+  - COEFF: 45
+    INPUT_WIDTH: 64
+  - COEFF: 45
+    INPUT_WIDTH: 2
+  - COEFF: 45
+    INPUT_WIDTH: 8
+  - COEFF: 85
+    INPUT_WIDTH: 1
+  - COEFF: 85
+    INPUT_WIDTH: 128
+  - COEFF: 85
+    INPUT_WIDTH: 64
+  - COEFF: 85
+    INPUT_WIDTH: 2
+  - COEFF: 85
+    INPUT_WIDTH: 8
+- parameters:
+  - COEFF
+  - LATENCY
+  candidate_pairs: 45
+  covered_pairs: 19
+  missing_pairs:
+  - COEFF: -170141183460469231731687303715884105728
+    LATENCY: 8
+  - COEFF: -170141183460469231731687303715884105728
+    LATENCY: 4
+  - COEFF: -170141183460469231731687303715884105728
+    LATENCY: 1
+  - COEFF: -170141183460469231731687303715884105728
+    LATENCY: 2
+  - COEFF: 170141183460469231731687303715884105727
+    LATENCY: 8
+  - COEFF: 170141183460469231731687303715884105727
+    LATENCY: 4
+  - COEFF: 170141183460469231731687303715884105727
+    LATENCY: 1
+  - COEFF: 170141183460469231731687303715884105727
+    LATENCY: 2
+  - COEFF: -1
+    LATENCY: 4
+  - COEFF: -1
+    LATENCY: 1
+  - COEFF: -1
+    LATENCY: 2
+  - COEFF: -170141183460469231731687303715884105727
+    LATENCY: 8
+  - COEFF: -170141183460469231731687303715884105727
+    LATENCY: 4
+  - COEFF: -170141183460469231731687303715884105727
+    LATENCY: 1
+  - COEFF: -170141183460469231731687303715884105727
+    LATENCY: 2
+  - COEFF: 0
+    LATENCY: 8
+  - COEFF: 0
+    LATENCY: 4
+  - COEFF: 1
+    LATENCY: 8
+  - COEFF: 1
+    LATENCY: 4
+  - COEFF: 45
+    LATENCY: 8
+  - COEFF: 45
+    LATENCY: 4
+  - COEFF: 45
+    LATENCY: 1
+  - COEFF: 85
+    LATENCY: 8
+  - COEFF: 85
+    LATENCY: 4
+  - COEFF: 85
+    LATENCY: 1
+  - COEFF: 85
+    LATENCY: 2
+- parameters:
+  - COEFF
+  - OPERAND_ISOLATION
+  candidate_pairs: 18
+  covered_pairs: 12
+  missing_pairs:
+  - COEFF: -170141183460469231731687303715884105728
+    OPERAND_ISOLATION: true
+  - COEFF: 170141183460469231731687303715884105727
+    OPERAND_ISOLATION: true
+  - COEFF: -1
+    OPERAND_ISOLATION: true
+  - COEFF: -170141183460469231731687303715884105727
+    OPERAND_ISOLATION: true
+  - COEFF: 45
+    OPERAND_ISOLATION: true
+  - COEFF: 85
+    OPERAND_ISOLATION: true
+- parameters:
+  - COEFF
+  - OUTPUT_MODE
+  candidate_pairs: 18
+  covered_pairs: 12
+  missing_pairs:
+  - COEFF: -170141183460469231731687303715884105728
+    OUTPUT_MODE: 1
+  - COEFF: 170141183460469231731687303715884105727
+    OUTPUT_MODE: 1
+  - COEFF: -1
+    OUTPUT_MODE: 1
+  - COEFF: -170141183460469231731687303715884105727
+    OUTPUT_MODE: 1
+  - COEFF: 45
+    OUTPUT_MODE: 1
+  - COEFF: 85
+    OUTPUT_MODE: 1
+- parameters:
+  - COEFF
+  - OUTPUT_SIGNED
+  candidate_pairs: 18
+  covered_pairs: 12
+  missing_pairs:
+  - COEFF: -170141183460469231731687303715884105728
+    OUTPUT_SIGNED: false
+  - COEFF: 170141183460469231731687303715884105727
+    OUTPUT_SIGNED: false
+  - COEFF: -1
+    OUTPUT_SIGNED: false
+  - COEFF: -170141183460469231731687303715884105727
+    OUTPUT_SIGNED: false
+  - COEFF: 45
+    OUTPUT_SIGNED: false
+  - COEFF: 85
+    OUTPUT_SIGNED: false
+- parameters:
+  - COEFF
+  - OUTPUT_WIDTH
+  candidate_pairs: 45
+  covered_pairs: 17
+  missing_pairs:
+  - COEFF: -170141183460469231731687303715884105728
+    OUTPUT_WIDTH: 1
+  - COEFF: -170141183460469231731687303715884105728
+    OUTPUT_WIDTH: 128
+  - COEFF: -170141183460469231731687303715884105728
+    OUTPUT_WIDTH: 2
+  - COEFF: -170141183460469231731687303715884105728
+    OUTPUT_WIDTH: 8
+  - COEFF: 170141183460469231731687303715884105727
+    OUTPUT_WIDTH: 1
+  - COEFF: 170141183460469231731687303715884105727
+    OUTPUT_WIDTH: 128
+  - COEFF: 170141183460469231731687303715884105727
+    OUTPUT_WIDTH: 2
+  - COEFF: 170141183460469231731687303715884105727
+    OUTPUT_WIDTH: 8
+  - COEFF: -1
+    OUTPUT_WIDTH: 1
+  - COEFF: -1
+    OUTPUT_WIDTH: 128
+  - COEFF: -1
+    OUTPUT_WIDTH: 2
+  - COEFF: -1
+    OUTPUT_WIDTH: 8
+  - COEFF: -170141183460469231731687303715884105727
+    OUTPUT_WIDTH: 1
+  - COEFF: -170141183460469231731687303715884105727
+    OUTPUT_WIDTH: 128
+  - COEFF: -170141183460469231731687303715884105727
+    OUTPUT_WIDTH: 2
+  - COEFF: -170141183460469231731687303715884105727
+    OUTPUT_WIDTH: 8
+  - COEFF: 0
+    OUTPUT_WIDTH: 128
+  - COEFF: 0
+    OUTPUT_WIDTH: 2
+  - COEFF: 1
+    OUTPUT_WIDTH: 128
+  - COEFF: 1
+    OUTPUT_WIDTH: 2
+  - COEFF: 45
+    OUTPUT_WIDTH: 1
+  - COEFF: 45
+    OUTPUT_WIDTH: 128
+  - COEFF: 45
+    OUTPUT_WIDTH: 2
+  - COEFF: 45
+    OUTPUT_WIDTH: 8
+  - COEFF: 85
+    OUTPUT_WIDTH: 1
+  - COEFF: 85
+    OUTPUT_WIDTH: 128
+  - COEFF: 85
+    OUTPUT_WIDTH: 2
+  - COEFF: 85
+    OUTPUT_WIDTH: 8
+- parameters:
+  - COEFF
+  - OVERFLOW_MODE
+  candidate_pairs: 18
+  covered_pairs: 10
+  missing_pairs:
+  - COEFF: -170141183460469231731687303715884105728
+    OVERFLOW_MODE: 1
+  - COEFF: 170141183460469231731687303715884105727
+    OVERFLOW_MODE: 1
+  - COEFF: -1
+    OVERFLOW_MODE: 1
+  - COEFF: -170141183460469231731687303715884105727
+    OVERFLOW_MODE: 1
+  - COEFF: 0
+    OVERFLOW_MODE: 1
+  - COEFF: 1
+    OVERFLOW_MODE: 1
+  - COEFF: 45
+    OVERFLOW_MODE: 1
+  - COEFF: 85
+    OVERFLOW_MODE: 1
+- parameters:
+  - COEFF
+  - ROUND_MODE
+  candidate_pairs: 27
+  covered_pairs: 11
+  missing_pairs:
+  - COEFF: -170141183460469231731687303715884105728
+    ROUND_MODE: 1
+  - COEFF: -170141183460469231731687303715884105728
+    ROUND_MODE: 2
+  - COEFF: 170141183460469231731687303715884105727
+    ROUND_MODE: 1
+  - COEFF: 170141183460469231731687303715884105727
+    ROUND_MODE: 2
+  - COEFF: -1
+    ROUND_MODE: 1
+  - COEFF: -1
+    ROUND_MODE: 2
+  - COEFF: -170141183460469231731687303715884105727
+    ROUND_MODE: 1
+  - COEFF: -170141183460469231731687303715884105727
+    ROUND_MODE: 2
+  - COEFF: 0
+    ROUND_MODE: 1
+  - COEFF: 0
+    ROUND_MODE: 2
+  - COEFF: 1
+    ROUND_MODE: 1
+  - COEFF: 1
+    ROUND_MODE: 2
+  - COEFF: 45
+    ROUND_MODE: 1
+  - COEFF: 45
+    ROUND_MODE: 2
+  - COEFF: 85
+    ROUND_MODE: 1
+  - COEFF: 85
+    ROUND_MODE: 2
+- parameters:
+  - COEFF
+  - SHIFT_RIGHT
+  candidate_pairs: 36
+  covered_pairs: 11
+  missing_pairs:
+  - COEFF: 3
+    SHIFT_RIGHT: 128
+  - COEFF: -170141183460469231731687303715884105728
+    SHIFT_RIGHT: 256
+  - COEFF: -170141183460469231731687303715884105728
+    SHIFT_RIGHT: 128
+  - COEFF: -170141183460469231731687303715884105728
+    SHIFT_RIGHT: 1
+  - COEFF: 170141183460469231731687303715884105727
+    SHIFT_RIGHT: 256
+  - COEFF: 170141183460469231731687303715884105727
+    SHIFT_RIGHT: 128
+  - COEFF: 170141183460469231731687303715884105727
+    SHIFT_RIGHT: 1
+  - COEFF: -1
+    SHIFT_RIGHT: 256
+  - COEFF: -1
+    SHIFT_RIGHT: 128
+  - COEFF: -1
+    SHIFT_RIGHT: 1
+  - COEFF: -170141183460469231731687303715884105727
+    SHIFT_RIGHT: 256
+  - COEFF: -170141183460469231731687303715884105727
+    SHIFT_RIGHT: 128
+  - COEFF: -170141183460469231731687303715884105727
+    SHIFT_RIGHT: 1
+  - COEFF: 0
+    SHIFT_RIGHT: 256
+  - COEFF: 0
+    SHIFT_RIGHT: 128
+  - COEFF: 0
+    SHIFT_RIGHT: 1
+  - COEFF: 1
+    SHIFT_RIGHT: 256
+  - COEFF: 1
+    SHIFT_RIGHT: 128
+  - COEFF: 1
+    SHIFT_RIGHT: 1
+  - COEFF: 45
+    SHIFT_RIGHT: 256
+  - COEFF: 45
+    SHIFT_RIGHT: 128
+  - COEFF: 45
+    SHIFT_RIGHT: 1
+  - COEFF: 85
+    SHIFT_RIGHT: 256
+  - COEFF: 85
+    SHIFT_RIGHT: 128
+  - COEFF: 85
+    SHIFT_RIGHT: 1
+- parameters:
+  - COEFF_WIDTH
+  - IMPL
+  candidate_pairs: 25
+  covered_pairs: 10
+  missing_pairs:
+  - COEFF_WIDTH: 1
+    IMPL: 1
+  - COEFF_WIDTH: 1
+    IMPL: 2
+  - COEFF_WIDTH: 1
+    IMPL: 3
+  - COEFF_WIDTH: 1
+    IMPL: 4
+  - COEFF_WIDTH: 64
+    IMPL: 1
+  - COEFF_WIDTH: 64
+    IMPL: 2
+  - COEFF_WIDTH: 64
+    IMPL: 3
+  - COEFF_WIDTH: 64
+    IMPL: 4
+  - COEFF_WIDTH: 2
+    IMPL: 0
+  - COEFF_WIDTH: 2
+    IMPL: 1
+  - COEFF_WIDTH: 2
+    IMPL: 2
+  - COEFF_WIDTH: 2
+    IMPL: 3
+  - COEFF_WIDTH: 2
+    IMPL: 4
+  - COEFF_WIDTH: 3
+    IMPL: 3
+  - COEFF_WIDTH: 3
+    IMPL: 4
+- parameters:
+  - COEFF_WIDTH
+  - INPUT_SIGNED
+  candidate_pairs: 10
+  covered_pairs: 6
+  missing_pairs:
+  - COEFF_WIDTH: 1
+    INPUT_SIGNED: false
+  - COEFF_WIDTH: 64
+    INPUT_SIGNED: false
+  - COEFF_WIDTH: 2
+    INPUT_SIGNED: true
+  - COEFF_WIDTH: 2
+    INPUT_SIGNED: false
+- parameters:
+  - COEFF_WIDTH
+  - INPUT_WIDTH
+  candidate_pairs: 30
+  covered_pairs: 11
+  missing_pairs:
+  - COEFF_WIDTH: 1
+    INPUT_WIDTH: 1
+  - COEFF_WIDTH: 1
+    INPUT_WIDTH: 128
+  - COEFF_WIDTH: 1
+    INPUT_WIDTH: 64
+  - COEFF_WIDTH: 1
+    INPUT_WIDTH: 2
+  - COEFF_WIDTH: 1
+    INPUT_WIDTH: 8
+  - COEFF_WIDTH: 64
+    INPUT_WIDTH: 1
+  - COEFF_WIDTH: 64
+    INPUT_WIDTH: 128
+  - COEFF_WIDTH: 64
+    INPUT_WIDTH: 64
+  - COEFF_WIDTH: 64
+    INPUT_WIDTH: 2
+  - COEFF_WIDTH: 64
+    INPUT_WIDTH: 8
+  - COEFF_WIDTH: 2
+    INPUT_WIDTH: 16
+  - COEFF_WIDTH: 2
+    INPUT_WIDTH: 1
+  - COEFF_WIDTH: 2
+    INPUT_WIDTH: 128
+  - COEFF_WIDTH: 2
+    INPUT_WIDTH: 64
+  - COEFF_WIDTH: 2
+    INPUT_WIDTH: 2
+  - COEFF_WIDTH: 2
+    INPUT_WIDTH: 8
+  - COEFF_WIDTH: 3
+    INPUT_WIDTH: 128
+  - COEFF_WIDTH: 3
+    INPUT_WIDTH: 64
+  - COEFF_WIDTH: 3
+    INPUT_WIDTH: 8
+- parameters:
+  - COEFF_WIDTH
+  - LATENCY
+  candidate_pairs: 25
+  covered_pairs: 10
+  missing_pairs:
+  - COEFF_WIDTH: 1
+    LATENCY: 8
+  - COEFF_WIDTH: 1
+    LATENCY: 4
+  - COEFF_WIDTH: 1
+    LATENCY: 1
+  - COEFF_WIDTH: 1
+    LATENCY: 2
+  - COEFF_WIDTH: 64
+    LATENCY: 8
+  - COEFF_WIDTH: 64
+    LATENCY: 4
+  - COEFF_WIDTH: 64
+    LATENCY: 1
+  - COEFF_WIDTH: 64
+    LATENCY: 2
+  - COEFF_WIDTH: 2
+    LATENCY: 0
+  - COEFF_WIDTH: 2
+    LATENCY: 8
+  - COEFF_WIDTH: 2
+    LATENCY: 4
+  - COEFF_WIDTH: 2
+    LATENCY: 1
+  - COEFF_WIDTH: 2
+    LATENCY: 2
+  - COEFF_WIDTH: 3
+    LATENCY: 8
+  - COEFF_WIDTH: 3
+    LATENCY: 4
+- parameters:
+  - COEFF_WIDTH
+  - OPERAND_ISOLATION
+  candidate_pairs: 10
+  covered_pairs: 6
+  missing_pairs:
+  - COEFF_WIDTH: 1
+    OPERAND_ISOLATION: true
+  - COEFF_WIDTH: 64
+    OPERAND_ISOLATION: true
+  - COEFF_WIDTH: 2
+    OPERAND_ISOLATION: false
+  - COEFF_WIDTH: 2
+    OPERAND_ISOLATION: true
+- parameters:
+  - COEFF_WIDTH
+  - OUTPUT_MODE
+  candidate_pairs: 10
+  covered_pairs: 6
+  missing_pairs:
+  - COEFF_WIDTH: 1
+    OUTPUT_MODE: 1
+  - COEFF_WIDTH: 64
+    OUTPUT_MODE: 1
+  - COEFF_WIDTH: 2
+    OUTPUT_MODE: 0
+  - COEFF_WIDTH: 2
+    OUTPUT_MODE: 1
+- parameters:
+  - COEFF_WIDTH
+  - OUTPUT_SIGNED
+  candidate_pairs: 10
+  covered_pairs: 6
+  missing_pairs:
+  - COEFF_WIDTH: 1
+    OUTPUT_SIGNED: false
+  - COEFF_WIDTH: 64
+    OUTPUT_SIGNED: false
+  - COEFF_WIDTH: 2
+    OUTPUT_SIGNED: true
+  - COEFF_WIDTH: 2
+    OUTPUT_SIGNED: false
+- parameters:
+  - COEFF_WIDTH
+  - OUTPUT_WIDTH
+  candidate_pairs: 25
+  covered_pairs: 10
+  missing_pairs:
+  - COEFF_WIDTH: 1
+    OUTPUT_WIDTH: 1
+  - COEFF_WIDTH: 1
+    OUTPUT_WIDTH: 128
+  - COEFF_WIDTH: 1
+    OUTPUT_WIDTH: 2
+  - COEFF_WIDTH: 1
+    OUTPUT_WIDTH: 8
+  - COEFF_WIDTH: 64
+    OUTPUT_WIDTH: 1
+  - COEFF_WIDTH: 64
+    OUTPUT_WIDTH: 128
+  - COEFF_WIDTH: 64
+    OUTPUT_WIDTH: 2
+  - COEFF_WIDTH: 64
+    OUTPUT_WIDTH: 8
+  - COEFF_WIDTH: 2
+    OUTPUT_WIDTH: 256
+  - COEFF_WIDTH: 2
+    OUTPUT_WIDTH: 1
+  - COEFF_WIDTH: 2
+    OUTPUT_WIDTH: 128
+  - COEFF_WIDTH: 2
+    OUTPUT_WIDTH: 2
+  - COEFF_WIDTH: 2
+    OUTPUT_WIDTH: 8
+  - COEFF_WIDTH: 3
+    OUTPUT_WIDTH: 128
+  - COEFF_WIDTH: 3
+    OUTPUT_WIDTH: 2
+- parameters:
+  - COEFF_WIDTH
+  - OVERFLOW_MODE
+  candidate_pairs: 10
+  covered_pairs: 5
+  missing_pairs:
+  - COEFF_WIDTH: 1
+    OVERFLOW_MODE: 1
+  - COEFF_WIDTH: 64
+    OVERFLOW_MODE: 1
+  - COEFF_WIDTH: 2
+    OVERFLOW_MODE: 0
+  - COEFF_WIDTH: 2
+    OVERFLOW_MODE: 1
+  - COEFF_WIDTH: 3
+    OVERFLOW_MODE: 1
+- parameters:
+  - COEFF_WIDTH
+  - ROUND_MODE
+  candidate_pairs: 15
+  covered_pairs: 6
+  missing_pairs:
+  - COEFF_WIDTH: 1
+    ROUND_MODE: 1
+  - COEFF_WIDTH: 1
+    ROUND_MODE: 2
+  - COEFF_WIDTH: 64
+    ROUND_MODE: 1
+  - COEFF_WIDTH: 64
+    ROUND_MODE: 2
+  - COEFF_WIDTH: 2
+    ROUND_MODE: 0
+  - COEFF_WIDTH: 2
+    ROUND_MODE: 1
+  - COEFF_WIDTH: 2
+    ROUND_MODE: 2
+  - COEFF_WIDTH: 3
+    ROUND_MODE: 1
+  - COEFF_WIDTH: 3
+    ROUND_MODE: 2
+- parameters:
+  - COEFF_WIDTH
+  - SHIFT_RIGHT
+  candidate_pairs: 20
+  covered_pairs: 6
+  missing_pairs:
+  - COEFF_WIDTH: 128
+    SHIFT_RIGHT: 128
+  - COEFF_WIDTH: 1
+    SHIFT_RIGHT: 256
+  - COEFF_WIDTH: 1
+    SHIFT_RIGHT: 128
+  - COEFF_WIDTH: 1
+    SHIFT_RIGHT: 1
+  - COEFF_WIDTH: 64
+    SHIFT_RIGHT: 256
+  - COEFF_WIDTH: 64
+    SHIFT_RIGHT: 128
+  - COEFF_WIDTH: 64
+    SHIFT_RIGHT: 1
+  - COEFF_WIDTH: 2
+    SHIFT_RIGHT: 0
+  - COEFF_WIDTH: 2
+    SHIFT_RIGHT: 256
+  - COEFF_WIDTH: 2
+    SHIFT_RIGHT: 128
+  - COEFF_WIDTH: 2
+    SHIFT_RIGHT: 1
+  - COEFF_WIDTH: 3
+    SHIFT_RIGHT: 256
+  - COEFF_WIDTH: 3
+    SHIFT_RIGHT: 128
+  - COEFF_WIDTH: 3
+    SHIFT_RIGHT: 1
+- parameters:
+  - IMPL
+  - INPUT_SIGNED
+  candidate_pairs: 10
+  covered_pairs: 8
+  missing_pairs:
+  - IMPL: 3
+    INPUT_SIGNED: false
+  - IMPL: 4
+    INPUT_SIGNED: false
+- parameters:
+  - IMPL
+  - INPUT_WIDTH
+  candidate_pairs: 30
+  covered_pairs: 14
+  missing_pairs:
+  - IMPL: 1
+    INPUT_WIDTH: 128
+  - IMPL: 1
+    INPUT_WIDTH: 64
+  - IMPL: 1
+    INPUT_WIDTH: 8
+  - IMPL: 2
+    INPUT_WIDTH: 128
+  - IMPL: 2
+    INPUT_WIDTH: 64
+  - IMPL: 2
+    INPUT_WIDTH: 8
+  - IMPL: 3
+    INPUT_WIDTH: 1
+  - IMPL: 3
+    INPUT_WIDTH: 128
+  - IMPL: 3
+    INPUT_WIDTH: 64
+  - IMPL: 3
+    INPUT_WIDTH: 2
+  - IMPL: 3
+    INPUT_WIDTH: 8
+  - IMPL: 4
+    INPUT_WIDTH: 1
+  - IMPL: 4
+    INPUT_WIDTH: 128
+  - IMPL: 4
+    INPUT_WIDTH: 64
+  - IMPL: 4
+    INPUT_WIDTH: 2
+  - IMPL: 4
+    INPUT_WIDTH: 8
+- parameters:
+  - IMPL
+  - LATENCY
+  candidate_pairs: 25
+  covered_pairs: 13
+  missing_pairs:
+  - IMPL: 1
+    LATENCY: 8
+  - IMPL: 1
+    LATENCY: 4
+  - IMPL: 2
+    LATENCY: 8
+  - IMPL: 2
+    LATENCY: 4
+  - IMPL: 3
+    LATENCY: 8
+  - IMPL: 3
+    LATENCY: 4
+  - IMPL: 3
+    LATENCY: 1
+  - IMPL: 3
+    LATENCY: 2
+  - IMPL: 4
+    LATENCY: 8
+  - IMPL: 4
+    LATENCY: 4
+  - IMPL: 4
+    LATENCY: 1
+  - IMPL: 4
+    LATENCY: 2
+- parameters:
+  - IMPL
+  - OPERAND_ISOLATION
+  candidate_pairs: 10
+  covered_pairs: 8
+  missing_pairs:
+  - IMPL: 3
+    OPERAND_ISOLATION: true
+  - IMPL: 4
+    OPERAND_ISOLATION: true
+- parameters:
+  - IMPL
+  - OUTPUT_MODE
+  candidate_pairs: 10
+  covered_pairs: 8
+  missing_pairs:
+  - IMPL: 3
+    OUTPUT_MODE: 1
+  - IMPL: 4
+    OUTPUT_MODE: 1
+- parameters:
+  - IMPL
+  - OUTPUT_SIGNED
+  candidate_pairs: 10
+  covered_pairs: 8
+  missing_pairs:
+  - IMPL: 3
+    OUTPUT_SIGNED: false
+  - IMPL: 4
+    OUTPUT_SIGNED: false
+- parameters:
+  - IMPL
+  - OUTPUT_WIDTH
+  candidate_pairs: 25
+  covered_pairs: 13
+  missing_pairs:
+  - IMPL: 1
+    OUTPUT_WIDTH: 128
+  - IMPL: 1
+    OUTPUT_WIDTH: 2
+  - IMPL: 2
+    OUTPUT_WIDTH: 128
+  - IMPL: 2
+    OUTPUT_WIDTH: 2
+  - IMPL: 3
+    OUTPUT_WIDTH: 1
+  - IMPL: 3
+    OUTPUT_WIDTH: 128
+  - IMPL: 3
+    OUTPUT_WIDTH: 2
+  - IMPL: 3
+    OUTPUT_WIDTH: 8
+  - IMPL: 4
+    OUTPUT_WIDTH: 1
+  - IMPL: 4
+    OUTPUT_WIDTH: 128
+  - IMPL: 4
+    OUTPUT_WIDTH: 2
+  - IMPL: 4
+    OUTPUT_WIDTH: 8
+- parameters:
+  - IMPL
+  - OVERFLOW_MODE
+  candidate_pairs: 10
+  covered_pairs: 6
+  missing_pairs:
+  - IMPL: 1
+    OVERFLOW_MODE: 1
+  - IMPL: 2
+    OVERFLOW_MODE: 1
+  - IMPL: 3
+    OVERFLOW_MODE: 1
+  - IMPL: 4
+    OVERFLOW_MODE: 1
+- parameters:
+  - IMPL
+  - ROUND_MODE
+  candidate_pairs: 15
+  covered_pairs: 7
+  missing_pairs:
+  - IMPL: 1
+    ROUND_MODE: 1
+  - IMPL: 1
+    ROUND_MODE: 2
+  - IMPL: 2
+    ROUND_MODE: 1
+  - IMPL: 2
+    ROUND_MODE: 2
+  - IMPL: 3
+    ROUND_MODE: 1
+  - IMPL: 3
+    ROUND_MODE: 2
+  - IMPL: 4
+    ROUND_MODE: 1
+  - IMPL: 4
+    ROUND_MODE: 2
+- parameters:
+  - IMPL
+  - SHIFT_RIGHT
+  candidate_pairs: 20
+  covered_pairs: 7
+  missing_pairs:
+  - IMPL: 0
+    SHIFT_RIGHT: 128
+  - IMPL: 1
+    SHIFT_RIGHT: 256
+  - IMPL: 1
+    SHIFT_RIGHT: 128
+  - IMPL: 1
+    SHIFT_RIGHT: 1
+  - IMPL: 2
+    SHIFT_RIGHT: 256
+  - IMPL: 2
+    SHIFT_RIGHT: 128
+  - IMPL: 2
+    SHIFT_RIGHT: 1
+  - IMPL: 3
+    SHIFT_RIGHT: 256
+  - IMPL: 3
+    SHIFT_RIGHT: 128
+  - IMPL: 3
+    SHIFT_RIGHT: 1
+  - IMPL: 4
+    SHIFT_RIGHT: 256
+  - IMPL: 4
+    SHIFT_RIGHT: 128
+  - IMPL: 4
+    SHIFT_RIGHT: 1
+- parameters:
+  - INPUT_SIGNED
+  - INPUT_WIDTH
+  candidate_pairs: 12
+  covered_pairs: 9
+  missing_pairs:
+  - INPUT_SIGNED: false
+    INPUT_WIDTH: 128
+  - INPUT_SIGNED: false
+    INPUT_WIDTH: 64
+  - INPUT_SIGNED: false
+    INPUT_WIDTH: 8
+- parameters:
+  - INPUT_SIGNED
+  - LATENCY
+  candidate_pairs: 10
+  covered_pairs: 8
+  missing_pairs:
+  - INPUT_SIGNED: false
+    LATENCY: 8
+  - INPUT_SIGNED: false
+    LATENCY: 4
+- parameters:
+  - INPUT_SIGNED
+  - OPERAND_ISOLATION
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - INPUT_SIGNED
+  - OUTPUT_MODE
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - INPUT_SIGNED
+  - OUTPUT_SIGNED
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - INPUT_SIGNED
+  - OUTPUT_WIDTH
+  candidate_pairs: 10
+  covered_pairs: 8
+  missing_pairs:
+  - INPUT_SIGNED: false
+    OUTPUT_WIDTH: 128
+  - INPUT_SIGNED: false
+    OUTPUT_WIDTH: 2
+- parameters:
+  - INPUT_SIGNED
+  - OVERFLOW_MODE
+  candidate_pairs: 4
+  covered_pairs: 3
+  missing_pairs:
+  - INPUT_SIGNED: false
+    OVERFLOW_MODE: 1
+- parameters:
+  - INPUT_SIGNED
+  - ROUND_MODE
+  candidate_pairs: 6
+  covered_pairs: 4
+  missing_pairs:
+  - INPUT_SIGNED: false
+    ROUND_MODE: 1
+  - INPUT_SIGNED: false
+    ROUND_MODE: 2
+- parameters:
+  - INPUT_SIGNED
+  - SHIFT_RIGHT
+  candidate_pairs: 8
+  covered_pairs: 4
+  missing_pairs:
+  - INPUT_SIGNED: true
+    SHIFT_RIGHT: 128
+  - INPUT_SIGNED: false
+    SHIFT_RIGHT: 256
+  - INPUT_SIGNED: false
+    SHIFT_RIGHT: 128
+  - INPUT_SIGNED: false
+    SHIFT_RIGHT: 1
+- parameters:
+  - INPUT_WIDTH
+  - LATENCY
+  candidate_pairs: 30
+  covered_pairs: 15
+  missing_pairs:
+  - INPUT_WIDTH: 1
+    LATENCY: 8
+  - INPUT_WIDTH: 1
+    LATENCY: 4
+  - INPUT_WIDTH: 128
+    LATENCY: 8
+  - INPUT_WIDTH: 128
+    LATENCY: 4
+  - INPUT_WIDTH: 128
+    LATENCY: 1
+  - INPUT_WIDTH: 128
+    LATENCY: 2
+  - INPUT_WIDTH: 64
+    LATENCY: 8
+  - INPUT_WIDTH: 64
+    LATENCY: 4
+  - INPUT_WIDTH: 64
+    LATENCY: 1
+  - INPUT_WIDTH: 64
+    LATENCY: 2
+  - INPUT_WIDTH: 2
+    LATENCY: 8
+  - INPUT_WIDTH: 2
+    LATENCY: 4
+  - INPUT_WIDTH: 8
+    LATENCY: 4
+  - INPUT_WIDTH: 8
+    LATENCY: 1
+  - INPUT_WIDTH: 8
+    LATENCY: 2
+- parameters:
+  - INPUT_WIDTH
+  - OPERAND_ISOLATION
+  candidate_pairs: 12
+  covered_pairs: 9
+  missing_pairs:
+  - INPUT_WIDTH: 128
+    OPERAND_ISOLATION: true
+  - INPUT_WIDTH: 64
+    OPERAND_ISOLATION: true
+  - INPUT_WIDTH: 8
+    OPERAND_ISOLATION: true
+- parameters:
+  - INPUT_WIDTH
+  - OUTPUT_MODE
+  candidate_pairs: 12
+  covered_pairs: 9
+  missing_pairs:
+  - INPUT_WIDTH: 128
+    OUTPUT_MODE: 1
+  - INPUT_WIDTH: 64
+    OUTPUT_MODE: 1
+  - INPUT_WIDTH: 8
+    OUTPUT_MODE: 1
+- parameters:
+  - INPUT_WIDTH
+  - OUTPUT_SIGNED
+  candidate_pairs: 12
+  covered_pairs: 9
+  missing_pairs:
+  - INPUT_WIDTH: 128
+    OUTPUT_SIGNED: false
+  - INPUT_WIDTH: 64
+    OUTPUT_SIGNED: false
+  - INPUT_WIDTH: 8
+    OUTPUT_SIGNED: false
+- parameters:
+  - INPUT_WIDTH
+  - OUTPUT_WIDTH
+  candidate_pairs: 30
+  covered_pairs: 14
+  missing_pairs:
+  - INPUT_WIDTH: 1
+    OUTPUT_WIDTH: 128
+  - INPUT_WIDTH: 1
+    OUTPUT_WIDTH: 2
+  - INPUT_WIDTH: 128
+    OUTPUT_WIDTH: 1
+  - INPUT_WIDTH: 128
+    OUTPUT_WIDTH: 128
+  - INPUT_WIDTH: 128
+    OUTPUT_WIDTH: 2
+  - INPUT_WIDTH: 128
+    OUTPUT_WIDTH: 8
+  - INPUT_WIDTH: 64
+    OUTPUT_WIDTH: 1
+  - INPUT_WIDTH: 64
+    OUTPUT_WIDTH: 128
+  - INPUT_WIDTH: 64
+    OUTPUT_WIDTH: 2
+  - INPUT_WIDTH: 64
+    OUTPUT_WIDTH: 8
+  - INPUT_WIDTH: 2
+    OUTPUT_WIDTH: 128
+  - INPUT_WIDTH: 2
+    OUTPUT_WIDTH: 2
+  - INPUT_WIDTH: 8
+    OUTPUT_WIDTH: 1
+  - INPUT_WIDTH: 8
+    OUTPUT_WIDTH: 128
+  - INPUT_WIDTH: 8
+    OUTPUT_WIDTH: 2
+  - INPUT_WIDTH: 8
+    OUTPUT_WIDTH: 8
+- parameters:
+  - INPUT_WIDTH
+  - OVERFLOW_MODE
+  candidate_pairs: 12
+  covered_pairs: 7
+  missing_pairs:
+  - INPUT_WIDTH: 1
+    OVERFLOW_MODE: 1
+  - INPUT_WIDTH: 128
+    OVERFLOW_MODE: 1
+  - INPUT_WIDTH: 64
+    OVERFLOW_MODE: 1
+  - INPUT_WIDTH: 2
+    OVERFLOW_MODE: 1
+  - INPUT_WIDTH: 8
+    OVERFLOW_MODE: 1
+- parameters:
+  - INPUT_WIDTH
+  - ROUND_MODE
+  candidate_pairs: 18
+  covered_pairs: 8
+  missing_pairs:
+  - INPUT_WIDTH: 1
+    ROUND_MODE: 1
+  - INPUT_WIDTH: 1
+    ROUND_MODE: 2
+  - INPUT_WIDTH: 128
+    ROUND_MODE: 1
+  - INPUT_WIDTH: 128
+    ROUND_MODE: 2
+  - INPUT_WIDTH: 64
+    ROUND_MODE: 1
+  - INPUT_WIDTH: 64
+    ROUND_MODE: 2
+  - INPUT_WIDTH: 2
+    ROUND_MODE: 1
+  - INPUT_WIDTH: 2
+    ROUND_MODE: 2
+  - INPUT_WIDTH: 8
+    ROUND_MODE: 1
+  - INPUT_WIDTH: 8
+    ROUND_MODE: 2
+- parameters:
+  - INPUT_WIDTH
+  - SHIFT_RIGHT
+  candidate_pairs: 24
+  covered_pairs: 8
+  missing_pairs:
+  - INPUT_WIDTH: 16
+    SHIFT_RIGHT: 128
+  - INPUT_WIDTH: 1
+    SHIFT_RIGHT: 256
+  - INPUT_WIDTH: 1
+    SHIFT_RIGHT: 128
+  - INPUT_WIDTH: 1
+    SHIFT_RIGHT: 1
+  - INPUT_WIDTH: 128
+    SHIFT_RIGHT: 256
+  - INPUT_WIDTH: 128
+    SHIFT_RIGHT: 128
+  - INPUT_WIDTH: 128
+    SHIFT_RIGHT: 1
+  - INPUT_WIDTH: 64
+    SHIFT_RIGHT: 256
+  - INPUT_WIDTH: 64
+    SHIFT_RIGHT: 128
+  - INPUT_WIDTH: 64
+    SHIFT_RIGHT: 1
+  - INPUT_WIDTH: 2
+    SHIFT_RIGHT: 256
+  - INPUT_WIDTH: 2
+    SHIFT_RIGHT: 128
+  - INPUT_WIDTH: 2
+    SHIFT_RIGHT: 1
+  - INPUT_WIDTH: 8
+    SHIFT_RIGHT: 256
+  - INPUT_WIDTH: 8
+    SHIFT_RIGHT: 128
+  - INPUT_WIDTH: 8
+    SHIFT_RIGHT: 1
+- parameters:
+  - LATENCY
+  - OPERAND_ISOLATION
+  candidate_pairs: 10
+  covered_pairs: 8
+  missing_pairs:
+  - LATENCY: 8
+    OPERAND_ISOLATION: true
+  - LATENCY: 4
+    OPERAND_ISOLATION: true
+- parameters:
+  - LATENCY
+  - OUTPUT_MODE
+  candidate_pairs: 10
+  covered_pairs: 8
+  missing_pairs:
+  - LATENCY: 8
+    OUTPUT_MODE: 1
+  - LATENCY: 4
+    OUTPUT_MODE: 1
+- parameters:
+  - LATENCY
+  - OUTPUT_SIGNED
+  candidate_pairs: 10
+  covered_pairs: 8
+  missing_pairs:
+  - LATENCY: 8
+    OUTPUT_SIGNED: false
+  - LATENCY: 4
+    OUTPUT_SIGNED: false
+- parameters:
+  - LATENCY
+  - OUTPUT_WIDTH
+  candidate_pairs: 25
+  covered_pairs: 13
+  missing_pairs:
+  - LATENCY: 8
+    OUTPUT_WIDTH: 1
+  - LATENCY: 8
+    OUTPUT_WIDTH: 128
+  - LATENCY: 8
+    OUTPUT_WIDTH: 2
+  - LATENCY: 8
+    OUTPUT_WIDTH: 8
+  - LATENCY: 4
+    OUTPUT_WIDTH: 1
+  - LATENCY: 4
+    OUTPUT_WIDTH: 128
+  - LATENCY: 4
+    OUTPUT_WIDTH: 2
+  - LATENCY: 4
+    OUTPUT_WIDTH: 8
+  - LATENCY: 1
+    OUTPUT_WIDTH: 128
+  - LATENCY: 1
+    OUTPUT_WIDTH: 2
+  - LATENCY: 2
+    OUTPUT_WIDTH: 128
+  - LATENCY: 2
+    OUTPUT_WIDTH: 2
+- parameters:
+  - LATENCY
+  - OVERFLOW_MODE
+  candidate_pairs: 10
+  covered_pairs: 6
+  missing_pairs:
+  - LATENCY: 8
+    OVERFLOW_MODE: 1
+  - LATENCY: 4
+    OVERFLOW_MODE: 1
+  - LATENCY: 1
+    OVERFLOW_MODE: 1
+  - LATENCY: 2
+    OVERFLOW_MODE: 1
+- parameters:
+  - LATENCY
+  - ROUND_MODE
+  candidate_pairs: 15
+  covered_pairs: 7
+  missing_pairs:
+  - LATENCY: 8
+    ROUND_MODE: 1
+  - LATENCY: 8
+    ROUND_MODE: 2
+  - LATENCY: 4
+    ROUND_MODE: 1
+  - LATENCY: 4
+    ROUND_MODE: 2
+  - LATENCY: 1
+    ROUND_MODE: 1
+  - LATENCY: 1
+    ROUND_MODE: 2
+  - LATENCY: 2
+    ROUND_MODE: 1
+  - LATENCY: 2
+    ROUND_MODE: 2
+- parameters:
+  - LATENCY
+  - SHIFT_RIGHT
+  candidate_pairs: 20
+  covered_pairs: 7
+  missing_pairs:
+  - LATENCY: 0
+    SHIFT_RIGHT: 128
+  - LATENCY: 8
+    SHIFT_RIGHT: 256
+  - LATENCY: 8
+    SHIFT_RIGHT: 128
+  - LATENCY: 8
+    SHIFT_RIGHT: 1
+  - LATENCY: 4
+    SHIFT_RIGHT: 256
+  - LATENCY: 4
+    SHIFT_RIGHT: 128
+  - LATENCY: 4
+    SHIFT_RIGHT: 1
+  - LATENCY: 1
+    SHIFT_RIGHT: 256
+  - LATENCY: 1
+    SHIFT_RIGHT: 128
+  - LATENCY: 1
+    SHIFT_RIGHT: 1
+  - LATENCY: 2
+    SHIFT_RIGHT: 256
+  - LATENCY: 2
+    SHIFT_RIGHT: 128
+  - LATENCY: 2
+    SHIFT_RIGHT: 1
+- parameters:
+  - OPERAND_ISOLATION
+  - OUTPUT_MODE
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - OPERAND_ISOLATION
+  - OUTPUT_SIGNED
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - OPERAND_ISOLATION
+  - OUTPUT_WIDTH
+  candidate_pairs: 10
+  covered_pairs: 8
+  missing_pairs:
+  - OPERAND_ISOLATION: true
+    OUTPUT_WIDTH: 128
+  - OPERAND_ISOLATION: true
+    OUTPUT_WIDTH: 2
+- parameters:
+  - OPERAND_ISOLATION
+  - OVERFLOW_MODE
+  candidate_pairs: 4
+  covered_pairs: 3
+  missing_pairs:
+  - OPERAND_ISOLATION: true
+    OVERFLOW_MODE: 1
+- parameters:
+  - OPERAND_ISOLATION
+  - ROUND_MODE
+  candidate_pairs: 6
+  covered_pairs: 4
+  missing_pairs:
+  - OPERAND_ISOLATION: true
+    ROUND_MODE: 1
+  - OPERAND_ISOLATION: true
+    ROUND_MODE: 2
+- parameters:
+  - OPERAND_ISOLATION
+  - SHIFT_RIGHT
+  candidate_pairs: 8
+  covered_pairs: 4
+  missing_pairs:
+  - OPERAND_ISOLATION: false
+    SHIFT_RIGHT: 128
+  - OPERAND_ISOLATION: true
+    SHIFT_RIGHT: 256
+  - OPERAND_ISOLATION: true
+    SHIFT_RIGHT: 128
+  - OPERAND_ISOLATION: true
+    SHIFT_RIGHT: 1
+- parameters:
+  - OUTPUT_MODE
+  - OUTPUT_SIGNED
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - OUTPUT_MODE
+  - OUTPUT_WIDTH
+  candidate_pairs: 10
+  covered_pairs: 8
+  missing_pairs:
+  - OUTPUT_MODE: 1
+    OUTPUT_WIDTH: 128
+  - OUTPUT_MODE: 1
+    OUTPUT_WIDTH: 2
+- parameters:
+  - OUTPUT_MODE
+  - OVERFLOW_MODE
+  candidate_pairs: 4
+  covered_pairs: 3
+  missing_pairs:
+  - OUTPUT_MODE: 0
+    OVERFLOW_MODE: 1
+- parameters:
+  - OUTPUT_MODE
+  - ROUND_MODE
+  candidate_pairs: 6
+  covered_pairs: 4
+  missing_pairs:
+  - OUTPUT_MODE: 0
+    ROUND_MODE: 1
+  - OUTPUT_MODE: 0
+    ROUND_MODE: 2
+- parameters:
+  - OUTPUT_MODE
+  - SHIFT_RIGHT
+  candidate_pairs: 8
+  covered_pairs: 4
+  missing_pairs:
+  - OUTPUT_MODE: 0
+    SHIFT_RIGHT: 256
+  - OUTPUT_MODE: 0
+    SHIFT_RIGHT: 128
+  - OUTPUT_MODE: 0
+    SHIFT_RIGHT: 1
+  - OUTPUT_MODE: 1
+    SHIFT_RIGHT: 128
+- parameters:
+  - OUTPUT_SIGNED
+  - OUTPUT_WIDTH
+  candidate_pairs: 10
+  covered_pairs: 8
+  missing_pairs:
+  - OUTPUT_SIGNED: false
+    OUTPUT_WIDTH: 128
+  - OUTPUT_SIGNED: false
+    OUTPUT_WIDTH: 2
+- parameters:
+  - OUTPUT_SIGNED
+  - OVERFLOW_MODE
+  candidate_pairs: 4
+  covered_pairs: 3
+  missing_pairs:
+  - OUTPUT_SIGNED: false
+    OVERFLOW_MODE: 1
+- parameters:
+  - OUTPUT_SIGNED
+  - ROUND_MODE
+  candidate_pairs: 6
+  covered_pairs: 4
+  missing_pairs:
+  - OUTPUT_SIGNED: false
+    ROUND_MODE: 1
+  - OUTPUT_SIGNED: false
+    ROUND_MODE: 2
+- parameters:
+  - OUTPUT_SIGNED
+  - SHIFT_RIGHT
+  candidate_pairs: 8
+  covered_pairs: 4
+  missing_pairs:
+  - OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 128
+  - OUTPUT_SIGNED: false
+    SHIFT_RIGHT: 256
+  - OUTPUT_SIGNED: false
+    SHIFT_RIGHT: 128
+  - OUTPUT_SIGNED: false
+    SHIFT_RIGHT: 1
+- parameters:
+  - OUTPUT_WIDTH
+  - OVERFLOW_MODE
+  candidate_pairs: 10
+  covered_pairs: 6
+  missing_pairs:
+  - OUTPUT_WIDTH: 1
+    OVERFLOW_MODE: 1
+  - OUTPUT_WIDTH: 128
+    OVERFLOW_MODE: 1
+  - OUTPUT_WIDTH: 2
+    OVERFLOW_MODE: 1
+  - OUTPUT_WIDTH: 8
+    OVERFLOW_MODE: 1
+- parameters:
+  - OUTPUT_WIDTH
+  - ROUND_MODE
+  candidate_pairs: 15
+  covered_pairs: 7
+  missing_pairs:
+  - OUTPUT_WIDTH: 1
+    ROUND_MODE: 1
+  - OUTPUT_WIDTH: 1
+    ROUND_MODE: 2
+  - OUTPUT_WIDTH: 128
+    ROUND_MODE: 1
+  - OUTPUT_WIDTH: 128
+    ROUND_MODE: 2
+  - OUTPUT_WIDTH: 2
+    ROUND_MODE: 1
+  - OUTPUT_WIDTH: 2
+    ROUND_MODE: 2
+  - OUTPUT_WIDTH: 8
+    ROUND_MODE: 1
+  - OUTPUT_WIDTH: 8
+    ROUND_MODE: 2
+- parameters:
+  - OUTPUT_WIDTH
+  - SHIFT_RIGHT
+  candidate_pairs: 20
+  covered_pairs: 7
+  missing_pairs:
+  - OUTPUT_WIDTH: 256
+    SHIFT_RIGHT: 128
+  - OUTPUT_WIDTH: 1
+    SHIFT_RIGHT: 256
+  - OUTPUT_WIDTH: 1
+    SHIFT_RIGHT: 128
+  - OUTPUT_WIDTH: 1
+    SHIFT_RIGHT: 1
+  - OUTPUT_WIDTH: 128
+    SHIFT_RIGHT: 256
+  - OUTPUT_WIDTH: 128
+    SHIFT_RIGHT: 128
+  - OUTPUT_WIDTH: 128
+    SHIFT_RIGHT: 1
+  - OUTPUT_WIDTH: 2
+    SHIFT_RIGHT: 256
+  - OUTPUT_WIDTH: 2
+    SHIFT_RIGHT: 128
+  - OUTPUT_WIDTH: 2
+    SHIFT_RIGHT: 1
+  - OUTPUT_WIDTH: 8
+    SHIFT_RIGHT: 256
+  - OUTPUT_WIDTH: 8
+    SHIFT_RIGHT: 128
+  - OUTPUT_WIDTH: 8
+    SHIFT_RIGHT: 1
+- parameters:
+  - OVERFLOW_MODE
+  - ROUND_MODE
+  candidate_pairs: 6
+  covered_pairs: 4
+  missing_pairs:
+  - OVERFLOW_MODE: 1
+    ROUND_MODE: 1
+  - OVERFLOW_MODE: 1
+    ROUND_MODE: 2
+- parameters:
+  - OVERFLOW_MODE
+  - SHIFT_RIGHT
+  candidate_pairs: 8
+  covered_pairs: 4
+  missing_pairs:
+  - OVERFLOW_MODE: 0
+    SHIFT_RIGHT: 128
+  - OVERFLOW_MODE: 1
+    SHIFT_RIGHT: 256
+  - OVERFLOW_MODE: 1
+    SHIFT_RIGHT: 128
+  - OVERFLOW_MODE: 1
+    SHIFT_RIGHT: 1
+- parameters:
+  - ROUND_MODE
+  - SHIFT_RIGHT
+  candidate_pairs: 12
+  covered_pairs: 5
+  missing_pairs:
+  - ROUND_MODE: 0
+    SHIFT_RIGHT: 128
+  - ROUND_MODE: 1
+    SHIFT_RIGHT: 256
+  - ROUND_MODE: 1
+    SHIFT_RIGHT: 128
+  - ROUND_MODE: 1
+    SHIFT_RIGHT: 1
+  - ROUND_MODE: 2
+    SHIFT_RIGHT: 256
+  - ROUND_MODE: 2
+    SHIFT_RIGHT: 128
+  - ROUND_MODE: 2
+    SHIFT_RIGHT: 1

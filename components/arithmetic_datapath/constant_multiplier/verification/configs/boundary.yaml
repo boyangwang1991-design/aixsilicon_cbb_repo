@@ -1,0 +1,566 @@
+set: boundary
+configs:
+- config_id: cfg_input_width1_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 1
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width128_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 128
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width64_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 64
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width2_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 2
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width8_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 8
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedFalse_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: false
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeffu8_2d313730313431313833343630343639323331373331363837333033373135383834313035373238_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: -170141183460469231731687303715884105728
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff170141183460469231731687303715884105727_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 170141183460469231731687303715884105727
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeffu8_2d31_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: -1
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeffu8_2d313730313431313833343630343639323331373331363837333033373135383834313035373237_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: -170141183460469231731687303715884105727
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff0_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 0
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff1_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 1
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff45_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 45
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff85_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 85
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width64_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 64
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width3_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 3
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode1_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 1
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl1_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 1
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  - mandatory
+  profiles:
+  - profile_binary
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl2_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 2
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  - mandatory
+  profiles:
+  - profile_csd
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl3_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 3
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  - mandatory
+  profiles:
+  - profile_adder_graph
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl4_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 4
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width1_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 1
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width128_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 128
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width2_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 2
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width8_output_signedTrue_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 8
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedFalse_shift_right0_latency0_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: false
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency8_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 8
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency4_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 4
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency1_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 1
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency2_operand_isolationFalse
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 2
+    OPERAND_ISOLATION: false
+  sets:
+  - boundary
+  profiles: []
+- config_id: cfg_input_width16_input_signedTrue_coeff3_coeff_width128_output_mode0_round_mode0_overflow_mode0_impl0_output_width256_output_signedTrue_shift_right0_latency0_operand_isolationTrue
+  parameters:
+    INPUT_WIDTH: 16
+    INPUT_SIGNED: true
+    COEFF: 3
+    COEFF_WIDTH: 128
+    OUTPUT_MODE: 0
+    ROUND_MODE: 0
+    OVERFLOW_MODE: 0
+    IMPL: 0
+    OUTPUT_WIDTH: 256
+    OUTPUT_SIGNED: true
+    SHIFT_RIGHT: 0
+    LATENCY: 0
+    OPERAND_ISOLATION: true
+  sets:
+  - boundary
+  profiles: []

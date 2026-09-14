@@ -1,0 +1,20 @@
+{
+  "generator": "1.0.0",
+  "module": "constant_multiplier_generated",
+  "configuration_sha256": "f1334a8dda54da39449074635a6a1cc47eca97ca568d98f002114d4e845fde3c",
+  "rtl_sha256": "5a906466dd5c432b4ebebbb69f9b2c7ed6b9010eff6d7d1a76fe077fe31cd42d",
+  "output_width": 22,
+  "output_signed": true,
+  "latency": 2,
+  "ii": 1,
+  "structure": {
+    "algorithm": "1.0.0",
+    "budget": 64,
+    "seed": 914,
+    "attempts": 64,
+    "quality": "estimated",
+    "selected": "ADDER_GRAPH"
+  },
+  "verification": "not_run",
+  "ppa_index": "ppa.json"
+}

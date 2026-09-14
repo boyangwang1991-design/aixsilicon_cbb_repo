@@ -1,0 +1,55 @@
+{
+  "status": "candidate",
+  "input_hashes": {
+    "rtl/constant_multiplier.sv": "72fe710cfa2c2ccfea402d82925db64df5c39b4eff2996cb9987a7cf4c26dbbf",
+    "tools/generate.py": "592a2ff4e3d7f51772cca76244f171aa52d46efa9cb6bf7d0c8547651db881af",
+    "tools/package.py": "453b9a489643a3a2fe5a23773b7cb359b9e03a362279d890d3b62d983d03b758",
+    "model/reference.py": "148f35f6f162aad8591cfae6b258c1642f7f0c3834e377db4c37336ae454471f",
+    "verification/plan.yaml": "0098cf4904737a2b5dbd654181ff2b815773ad01c626f7add6044c375d2b0bf9",
+    "verification/config-inputs.yaml": "67c66c5d0d61ba7d9668a351aac31b9971f0a6c9610a6e5af6f9632f69f7c3da",
+    "verification/run.py": "4dbafde8ac7e701ee36715996db4ea9706a7687bf920961a0daaab499afd9fa7",
+    "verification/static.py": "cd2f755c913eec0cabc9787117f4073f20a5bab676bd5f3906abaf83399ef0f7",
+    "verification/summarize.py": "53933ff3c6afa289c4bfea9865e0d8df753274eef976dee3ea3d55ef96afa708",
+    "verification/tool-profile.yaml": "0734b2ebcf6df5f1b77680031580c4a01b6d4408aca1ce6edc303239ddb53fb0",
+    "verification/ppa_smoke.py": "d9b6453cd3795b45f31d8c02fbcca80e18054bc1c7271032d444e7aeede31996",
+    "verification/simulation/tc_contract.py": "36b6600f6c8407a3e60aee4fbf9073ca724f98f0f19b1a5f157a86eb89ec89fd",
+    "verification/simulation/smoke_tb.sv": "d629438843267267b7169d513d518141ad0735b4faeedf0c368dca1c7d884792",
+    "verification/formal/run_equivalence.py": "76812472dd0adc55509b8aebfa26970e4395b304b34f42e2d01d5b942f1df50e",
+    "verification/configs/mandatory.yaml": "eecb6da2b17434566832e733b068ef15c9b0b5f05a264ff5cf6051023bf9a738",
+    "verification/configs/boundary.yaml": "75d32fdcffb59081004930aaafac58cfd43e86e620ffe14c0c67dd2bca28661f",
+    "verification/configs/pairwise.yaml": "6b88dbb933d66d21cbcbe6059066b30e7db8fa59f68c42886876b0484afbadcf",
+    "verification/configs/risk.yaml": "953e7563b4377d2bf225b3d903acfa0f40d8b2706cee3c6c30072a6cce540509",
+    "verification/configs/consumer.yaml": "835849f9eb47a952395396431a6931de9f9ea40eb2710019b8e823d82bd0ac16",
+    "verification/configs/random.yaml": "6bcc3d3c30a0bdffe3aa8628def49ceda97335cd351b7b7225723878cb0562c2",
+    "verification/configs/negative.yaml": "8d70981c55ee7ee4f9d2938af6cd842d56379bad500a7e5849e4ee4e2cd32691",
+    "verification/configs/pairwise-coverage.yaml": "2ca11cec0fd8e207de5158407b126d0430ea8ae5f0ac8105278bb9cbdaa467a3",
+    "verification/configs/manifest.yaml": "1d8c9d5234b21e2703fc6184be4897b89991e5a5df70fbcb3f8029fa7f87be78",
+    "verification/scripts/run_static_checks.sh": "f55954130e752e04d6c0ed916b387ec60e0d650bc5e572d7ec8f2e9edb10596f",
+    "verification/scripts/run_functional_sim.sh": "0d8b6cf20527d9281863799a6952ff303eb4ac2e2e3331b1746765f0848665fe",
+    "constraints/constant_multiplier.sdc": "7e04a8a1018f5f8cc66a3de8f07ac15b4061987560e026214599b5dd2e9b1b02"
+  },
+  "artifacts": [
+    {
+      "path": "reports/functional-results.json",
+      "sha256": "332ab58bf1f5ac5b93e24741b58680740da76bc7fa3c119754da83fb8ff7993a"
+    },
+    {
+      "path": "reports/matrix-results.json",
+      "sha256": "180e9cdaf949af1f2275d211ff7c5a47a8c7c9925cad12f58a1ad836b1ba8429"
+    },
+    {
+      "path": "reports/formal-results.json",
+      "sha256": "fac2c7f7074ca59f015e009b54951f1aafc07852a434b5d56e1827fadc2de3f1"
+    },
+    {
+      "path": "reports/static-results.json",
+      "sha256": "d5f851d6dc5721e66575dedecd88b1db75f41ee46ed2e45eae74620730ec30b4"
+    },
+    {
+      "path": "reports/ppa-functional-results.json",
+      "sha256": "384092ee733206374f7495d37a1dea56353196838be6b386f35f648d1d465a50"
+    }
+  ],
+  "gates": "not_promoted",
+  "formal_retimed_pipeline": "not_proved"
+}

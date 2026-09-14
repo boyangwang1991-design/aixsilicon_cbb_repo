@@ -1,0 +1,12 @@
+cbb: constant_multiplier
+sets:
+  mandatory: 1
+  boundary: 31
+  pairwise: 106
+  risk: 1
+  consumer: 1
+  random: 0
+  negative: 16
+generation:
+  complete_pairwise: false
+  completion_limit: 10000

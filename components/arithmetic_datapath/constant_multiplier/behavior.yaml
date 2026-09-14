@@ -1,0 +1,22 @@
+invariants:
+- id: INV-001
+  description: P=C*X，以输入符号解释；扩位先于移位加减。
+- id: INV-002
+  description: 量化顺序为精确乘积、右移舍入、范围比较、回绕或饱和。
+- id: INV-003
+  description: ce=0 所有流水状态保持；同步低有效复位优先清 valid。
+- id: INV-004
+  description: 推进边沿 O[n]=F(I[n-L+1])，空泡推进、II=1。
+assumptions:
+- id: ASM-001
+  description: 接收方以 ce 推进，不重复消费保持的 valid；输入控制与有效数据不含 X/Z。
+reset:
+  polarity: active_low
+  type: synchronous
+  priority: reset_over_ce
+  data_reset: false
+non_goals:
+- runtime coefficient
+- ready/backpressure
+- MCM
+- floating point
