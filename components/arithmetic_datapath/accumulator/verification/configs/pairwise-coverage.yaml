@@ -1,0 +1,441 @@
+scope: sampled_candidate_domains
+domains:
+  ACC_WIDTH:
+  - 32
+  - 1
+  - 256
+  - 128
+  - 2
+  - 16
+  - 64
+  INPUT_WIDTH:
+  - 16
+  - 1
+  - 128
+  - 64
+  - 2
+  - 8
+  - 32
+  LOAD_EN:
+  - true
+  - false
+  OPERAND_ISOLATION:
+  - 0
+  - 1
+  OP_MODE:
+  - 0
+  - 1
+  - 2
+  OVERFLOW_MODE:
+  - 0
+  - 1
+  SIGNED:
+  - true
+  - false
+  STATUS_EN:
+  - true
+  - false
+missing_pair_feasibility: unknown
+pairs:
+- parameters:
+  - ACC_WIDTH
+  - INPUT_WIDTH
+  candidate_pairs: 49
+  covered_pairs: 12
+  missing_pairs:
+  - ACC_WIDTH: 32
+    INPUT_WIDTH: 128
+  - ACC_WIDTH: 32
+    INPUT_WIDTH: 64
+  - ACC_WIDTH: 1
+    INPUT_WIDTH: 16
+  - ACC_WIDTH: 1
+    INPUT_WIDTH: 1
+  - ACC_WIDTH: 1
+    INPUT_WIDTH: 128
+  - ACC_WIDTH: 1
+    INPUT_WIDTH: 64
+  - ACC_WIDTH: 1
+    INPUT_WIDTH: 2
+  - ACC_WIDTH: 1
+    INPUT_WIDTH: 8
+  - ACC_WIDTH: 1
+    INPUT_WIDTH: 32
+  - ACC_WIDTH: 256
+    INPUT_WIDTH: 1
+  - ACC_WIDTH: 256
+    INPUT_WIDTH: 128
+  - ACC_WIDTH: 256
+    INPUT_WIDTH: 64
+  - ACC_WIDTH: 256
+    INPUT_WIDTH: 2
+  - ACC_WIDTH: 256
+    INPUT_WIDTH: 8
+  - ACC_WIDTH: 256
+    INPUT_WIDTH: 32
+  - ACC_WIDTH: 128
+    INPUT_WIDTH: 1
+  - ACC_WIDTH: 128
+    INPUT_WIDTH: 128
+  - ACC_WIDTH: 128
+    INPUT_WIDTH: 64
+  - ACC_WIDTH: 128
+    INPUT_WIDTH: 2
+  - ACC_WIDTH: 128
+    INPUT_WIDTH: 8
+  - ACC_WIDTH: 128
+    INPUT_WIDTH: 32
+  - ACC_WIDTH: 2
+    INPUT_WIDTH: 16
+  - ACC_WIDTH: 2
+    INPUT_WIDTH: 1
+  - ACC_WIDTH: 2
+    INPUT_WIDTH: 128
+  - ACC_WIDTH: 2
+    INPUT_WIDTH: 64
+  - ACC_WIDTH: 2
+    INPUT_WIDTH: 2
+  - ACC_WIDTH: 2
+    INPUT_WIDTH: 8
+  - ACC_WIDTH: 2
+    INPUT_WIDTH: 32
+  - ACC_WIDTH: 16
+    INPUT_WIDTH: 1
+  - ACC_WIDTH: 16
+    INPUT_WIDTH: 128
+  - ACC_WIDTH: 16
+    INPUT_WIDTH: 64
+  - ACC_WIDTH: 16
+    INPUT_WIDTH: 2
+  - ACC_WIDTH: 16
+    INPUT_WIDTH: 32
+  - ACC_WIDTH: 64
+    INPUT_WIDTH: 1
+  - ACC_WIDTH: 64
+    INPUT_WIDTH: 128
+  - ACC_WIDTH: 64
+    INPUT_WIDTH: 64
+  - ACC_WIDTH: 64
+    INPUT_WIDTH: 2
+- parameters:
+  - ACC_WIDTH
+  - LOAD_EN
+  candidate_pairs: 14
+  covered_pairs: 8
+  missing_pairs:
+  - ACC_WIDTH: 1
+    LOAD_EN: true
+  - ACC_WIDTH: 1
+    LOAD_EN: false
+  - ACC_WIDTH: 256
+    LOAD_EN: false
+  - ACC_WIDTH: 128
+    LOAD_EN: false
+  - ACC_WIDTH: 2
+    LOAD_EN: true
+  - ACC_WIDTH: 2
+    LOAD_EN: false
+- parameters:
+  - ACC_WIDTH
+  - OPERAND_ISOLATION
+  candidate_pairs: 14
+  covered_pairs: 8
+  missing_pairs:
+  - ACC_WIDTH: 1
+    OPERAND_ISOLATION: 0
+  - ACC_WIDTH: 1
+    OPERAND_ISOLATION: 1
+  - ACC_WIDTH: 256
+    OPERAND_ISOLATION: 1
+  - ACC_WIDTH: 128
+    OPERAND_ISOLATION: 1
+  - ACC_WIDTH: 2
+    OPERAND_ISOLATION: 0
+  - ACC_WIDTH: 2
+    OPERAND_ISOLATION: 1
+- parameters:
+  - ACC_WIDTH
+  - OP_MODE
+  candidate_pairs: 21
+  covered_pairs: 11
+  missing_pairs:
+  - ACC_WIDTH: 1
+    OP_MODE: 0
+  - ACC_WIDTH: 1
+    OP_MODE: 1
+  - ACC_WIDTH: 1
+    OP_MODE: 2
+  - ACC_WIDTH: 256
+    OP_MODE: 1
+  - ACC_WIDTH: 256
+    OP_MODE: 2
+  - ACC_WIDTH: 128
+    OP_MODE: 1
+  - ACC_WIDTH: 128
+    OP_MODE: 2
+  - ACC_WIDTH: 2
+    OP_MODE: 0
+  - ACC_WIDTH: 2
+    OP_MODE: 1
+  - ACC_WIDTH: 2
+    OP_MODE: 2
+- parameters:
+  - ACC_WIDTH
+  - OVERFLOW_MODE
+  candidate_pairs: 14
+  covered_pairs: 8
+  missing_pairs:
+  - ACC_WIDTH: 1
+    OVERFLOW_MODE: 0
+  - ACC_WIDTH: 1
+    OVERFLOW_MODE: 1
+  - ACC_WIDTH: 256
+    OVERFLOW_MODE: 1
+  - ACC_WIDTH: 128
+    OVERFLOW_MODE: 1
+  - ACC_WIDTH: 2
+    OVERFLOW_MODE: 0
+  - ACC_WIDTH: 2
+    OVERFLOW_MODE: 1
+- parameters:
+  - ACC_WIDTH
+  - SIGNED
+  candidate_pairs: 14
+  covered_pairs: 8
+  missing_pairs:
+  - ACC_WIDTH: 1
+    SIGNED: true
+  - ACC_WIDTH: 1
+    SIGNED: false
+  - ACC_WIDTH: 256
+    SIGNED: false
+  - ACC_WIDTH: 128
+    SIGNED: false
+  - ACC_WIDTH: 2
+    SIGNED: true
+  - ACC_WIDTH: 2
+    SIGNED: false
+- parameters:
+  - ACC_WIDTH
+  - STATUS_EN
+  candidate_pairs: 14
+  covered_pairs: 8
+  missing_pairs:
+  - ACC_WIDTH: 1
+    STATUS_EN: true
+  - ACC_WIDTH: 1
+    STATUS_EN: false
+  - ACC_WIDTH: 256
+    STATUS_EN: false
+  - ACC_WIDTH: 128
+    STATUS_EN: false
+  - ACC_WIDTH: 2
+    STATUS_EN: true
+  - ACC_WIDTH: 2
+    STATUS_EN: false
+- parameters:
+  - INPUT_WIDTH
+  - LOAD_EN
+  candidate_pairs: 14
+  covered_pairs: 8
+  missing_pairs:
+  - INPUT_WIDTH: 1
+    LOAD_EN: false
+  - INPUT_WIDTH: 128
+    LOAD_EN: true
+  - INPUT_WIDTH: 128
+    LOAD_EN: false
+  - INPUT_WIDTH: 64
+    LOAD_EN: true
+  - INPUT_WIDTH: 64
+    LOAD_EN: false
+  - INPUT_WIDTH: 2
+    LOAD_EN: false
+- parameters:
+  - INPUT_WIDTH
+  - OPERAND_ISOLATION
+  candidate_pairs: 14
+  covered_pairs: 8
+  missing_pairs:
+  - INPUT_WIDTH: 1
+    OPERAND_ISOLATION: 1
+  - INPUT_WIDTH: 128
+    OPERAND_ISOLATION: 0
+  - INPUT_WIDTH: 128
+    OPERAND_ISOLATION: 1
+  - INPUT_WIDTH: 64
+    OPERAND_ISOLATION: 0
+  - INPUT_WIDTH: 64
+    OPERAND_ISOLATION: 1
+  - INPUT_WIDTH: 2
+    OPERAND_ISOLATION: 1
+- parameters:
+  - INPUT_WIDTH
+  - OP_MODE
+  candidate_pairs: 21
+  covered_pairs: 11
+  missing_pairs:
+  - INPUT_WIDTH: 1
+    OP_MODE: 1
+  - INPUT_WIDTH: 1
+    OP_MODE: 2
+  - INPUT_WIDTH: 128
+    OP_MODE: 0
+  - INPUT_WIDTH: 128
+    OP_MODE: 1
+  - INPUT_WIDTH: 128
+    OP_MODE: 2
+  - INPUT_WIDTH: 64
+    OP_MODE: 0
+  - INPUT_WIDTH: 64
+    OP_MODE: 1
+  - INPUT_WIDTH: 64
+    OP_MODE: 2
+  - INPUT_WIDTH: 2
+    OP_MODE: 1
+  - INPUT_WIDTH: 2
+    OP_MODE: 2
+- parameters:
+  - INPUT_WIDTH
+  - OVERFLOW_MODE
+  candidate_pairs: 14
+  covered_pairs: 8
+  missing_pairs:
+  - INPUT_WIDTH: 1
+    OVERFLOW_MODE: 1
+  - INPUT_WIDTH: 128
+    OVERFLOW_MODE: 0
+  - INPUT_WIDTH: 128
+    OVERFLOW_MODE: 1
+  - INPUT_WIDTH: 64
+    OVERFLOW_MODE: 0
+  - INPUT_WIDTH: 64
+    OVERFLOW_MODE: 1
+  - INPUT_WIDTH: 2
+    OVERFLOW_MODE: 1
+- parameters:
+  - INPUT_WIDTH
+  - SIGNED
+  candidate_pairs: 14
+  covered_pairs: 8
+  missing_pairs:
+  - INPUT_WIDTH: 1
+    SIGNED: false
+  - INPUT_WIDTH: 128
+    SIGNED: true
+  - INPUT_WIDTH: 128
+    SIGNED: false
+  - INPUT_WIDTH: 64
+    SIGNED: true
+  - INPUT_WIDTH: 64
+    SIGNED: false
+  - INPUT_WIDTH: 2
+    SIGNED: false
+- parameters:
+  - INPUT_WIDTH
+  - STATUS_EN
+  candidate_pairs: 14
+  covered_pairs: 8
+  missing_pairs:
+  - INPUT_WIDTH: 1
+    STATUS_EN: false
+  - INPUT_WIDTH: 128
+    STATUS_EN: true
+  - INPUT_WIDTH: 128
+    STATUS_EN: false
+  - INPUT_WIDTH: 64
+    STATUS_EN: true
+  - INPUT_WIDTH: 64
+    STATUS_EN: false
+  - INPUT_WIDTH: 2
+    STATUS_EN: false
+- parameters:
+  - LOAD_EN
+  - OPERAND_ISOLATION
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - LOAD_EN
+  - OP_MODE
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - LOAD_EN
+  - OVERFLOW_MODE
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - LOAD_EN
+  - SIGNED
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - LOAD_EN
+  - STATUS_EN
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - OPERAND_ISOLATION
+  - OP_MODE
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - OPERAND_ISOLATION
+  - OVERFLOW_MODE
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - OPERAND_ISOLATION
+  - SIGNED
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - OPERAND_ISOLATION
+  - STATUS_EN
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - OP_MODE
+  - OVERFLOW_MODE
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - OP_MODE
+  - SIGNED
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - OP_MODE
+  - STATUS_EN
+  candidate_pairs: 6
+  covered_pairs: 6
+  missing_pairs: []
+- parameters:
+  - OVERFLOW_MODE
+  - SIGNED
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - OVERFLOW_MODE
+  - STATUS_EN
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []
+- parameters:
+  - SIGNED
+  - STATUS_EN
+  candidate_pairs: 4
+  covered_pairs: 4
+  missing_pairs: []

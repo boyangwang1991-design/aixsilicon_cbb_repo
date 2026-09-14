@@ -1,0 +1,111 @@
+# 验证计划（Verification Plan）— accumulator（ARI-006, A2/P0）
+# 声明验证形态、配置矩阵、用例→需求映射、属性与结果解释。
+# 对齐 cbb-development-suite references/verification-strategy.md；
+# stateful 族：状态不变量 + 复位契约 + 连续流量；模拟 + 形式化。
+
+target: accumulator
+family: stateful
+status: planned
+reset_contract: >-
+  低有效同步复位 rst_ni=0 清状态 A 及所有状态/事件输出（acc_o=0、update_o=0、
+  overflow_event_o=0、overflow_sticky_o=0）；clear_i 同步清零并清 sticky（优先级高于
+  ce_i/load/valid）；LOAD_EN 装载全 ACC_WIDTH 位初值并清 sticky。
+
+# 验证形态
+verification_forms:
+  - simulation: "穷举(小位宽)+随机序列+边界+控制优先级（黄金模型：独立无限精度算术）"
+  - formal: "状态不变量与复位契约断言（SVA bind）"
+  - negative: "非法参数 elaboration $error 拦截（INPUT_WIDTH/ACC_WIDTH/OP_MODE/OVERFLOW_MODE/OPERAND_ISOLATION 越界）"
+  - equivalence: "操作数隔离开关（OPERAND_ISOLATION=0/1）根时钟采样等价"
+
+# 配置矩阵（config-gen 生成，见 verification/configs/；此处为分区意图）
+configs:
+  - {set: mandatory,  intent: "默认参数点 INPUT16/ACC32/signed/ADD_ONLY/WRAP/LOAD/STATUS"}
+  - {set: boundary,   intent: "位宽边界{1,2,8,16,32,128,256}、signed/unsigned、OP_MODE{0,1,2}、OVERFLOW{0,1}、LOAD/STATUS/ISOLATION 开关"}
+  - {set: pairwise,   intent: "两参数交互（位宽×OP_MODE、位宽×OVERFLOW、signed×overflow、LOAD×OP_MODE 等）"}
+  - {set: negative,   intent: "位宽 0/越界、OP_MODE=3、OVERFLOW_MODE=2、OPERAND_ISOLATION=2 → $error"}
+
+# 属性（SVA/断言目标；specify 阶段声明即追踪锚点）
+properties:
+  - id: PROP-ACC_CORRECT-001
+    desc: "acc_o 与独立无限精度参考模型逐步一致（含 clear/load/ce/valid 优先级）"
+    status: planned
+    acceptance: "对任意合法控制与输入序列，acc_o 每拍等于参考模型逐步计算结果；穷举+随机序列全部通过"
+  - id: PROP-ACC_NUM-002
+    desc: "符号/零扩展、WRAP 低 W 位、SATURATE 钳位范围正确"
+    status: planned
+    acceptance: "signed/unsigned × WRAP/SATURATE 下边界与随机值符合数值合同（ACC-NUM-001..003）"
+  - id: PROP-ACC_OVERFLOW-003
+    desc: "overflow_event 当且仅当 T 越界；signed overflow 非 carry-out；sticky 置位/清除/同拍优先级"
+    status: planned
+    acceptance: "边界与随机序列下 event/sticky 与参考一致；status_clear 与新溢出同拍置位优先"
+  - id: PROP-ACC_TIMING-004
+    desc: "update_o/overflow_event_o 每沿重新赋值、无事件为 0；II=1；acc_o 即时体现更新"
+    status: planned
+    acceptance: "连续有效输入每拍一个 update 脉冲且无粘滞；ce=0 时事件输出下一拍清零"
+  - id: PROP-ACC_RESET-005
+    desc: "同步复位清状态与事件；clear/load/valid 冲突优先级正确"
+    status: planned
+    acceptance: "复位后全零；CLR 与 valid 同拍只清零；LOAD 与 valid 同拍只装载"
+  - id: PROP-ACC_EQV-007
+    desc: "OPERAND_ISOLATION=0/1 根时钟采样输出等价；结构变体等价"
+    status: planned
+    acceptance: "隔离开关前后相同输入序列下 acc_o/event/sticky 逐拍一致"
+
+# 用例→需求映射（REQ 见 cbb.yaml / trace/rtm.yaml）
+testcases:
+  - id: tc_exhaust_w8
+    desc: "小位宽穷举（A、X、加减及关键控制）逐步验证每个前缀和"
+    maps: [REQ-001]
+    status: planned
+    acceptance: "8 位有符号全空间 × 关键控制下 acc_o 与参考逐步一致"
+  - id: tc_random
+    desc: "随机序列（含连续有效、空泡、正负混合）"
+    maps: [REQ-001, REQ-002, REQ-003]
+    status: planned
+    acceptance: "随机序列下状态/event/sticky 与参考一致"
+  - id: tc_seq
+    desc: "连续有效输入的每个前缀和与状态推进（不能只验最终总和）"
+    maps: [REQ-001, REQ-004, REQ-005]
+    status: planned
+    acceptance: "每拍前缀和正确、II=1、update 每拍一个脉冲"
+  - id: tc_edge
+    desc: "边界：全0/全1/最大/最小/±1；回绕与饱和边界；无符号下溢"
+    maps: [REQ-002, REQ-003]
+    status: planned
+    acceptance: "回绕/饱和/溢出标志与数值合同一致"
+  - id: tc_sticky
+    desc: "sticky 清除与新溢出同拍、idle 下 event 清零"
+    maps: [REQ-003]
+    status: planned
+    acceptance: "status_clear 与 overflow 同拍不吞事件；idle 无重复报告"
+  - id: tc_continuous
+    desc: "连续流量与 ce=0 停顿恢复"
+    maps: [REQ-004]
+    status: planned
+    acceptance: "连续有效每拍处理一个样本；ce=0 保持状态；恢复后继续正确"
+  - id: tc_reset
+    desc: "同步复位开钟/复位清状态；复位后首次有效输入"
+    maps: [REQ-005]
+    status: planned
+    acceptance: "rst_ni=0 清全部状态与事件；释放后首个有效更新正确"
+  - id: tc_negative_elab
+    desc: "非法参数 elaboration $error（INPUT_WIDTH/ACC_WIDTH/OP_MODE/OVERFLOW_MODE/OPERAND_ISOLATION 越界）"
+    maps: [REQ-006]
+    status: planned
+    acceptance: "非法配置非零退出并报错 ID（而非工具崩溃）"
+  - id: tc_iso_equiv
+    desc: "OPERAND_ISOLATION=0 vs 1 根时钟采样等价（同输入序列比对 DUT/DUT_ISO）"
+    maps: [REQ-007]
+    status: planned
+    acceptance: "隔离开关前后 acc_o/event/sticky 逐拍一致"
+
+# 结果解释与证据位置
+results:
+  evidence_dir: build/eda/evidence
+  g3_static: [compile.txt, negative_elab.txt, lint.txt]
+  g4_functional: [functional_sim.txt]
+  interpretation: >
+    每个 fail 必须有根因与修复计划；无未解释失败。负向必须证明
+    checker 有效（非法参数非零退出+报错 ID）。隔离/门控等价用相同输入
+    序列比对根时钟采样结果，不能仅验证最终总和。

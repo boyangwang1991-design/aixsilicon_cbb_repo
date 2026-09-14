@@ -1,0 +1,67 @@
+# ============================================================
+# accumulator 行为契约 (behavior.yaml) —— SSOT
+# Accumulator：A_next = A ± X，清零/装载/使能/回绕饱和/溢出状态
+# ============================================================
+
+requirements: []
+
+invariants:
+  - id: INV-001
+    description: >-
+      正确性——对任意合法控制与输入序列，acc_o 与独立无限精度参考模型逐步一致：
+      按 ACC-CTL-001 优先级 rst_ni/clear_i/ce_i/load_i/valid_i 决定状态更新；
+      ce_i=1 且 valid_i=1 时执行 A±X（II=1，每拍处理一个样本）。
+    properties: [PROP-ACC_CORRECT-001]
+    tests: [tc_exhaust_w8, tc_random, tc_seq]
+  - id: INV-002
+    description: >-
+      数值——按 SIGNED 对 X 做符号/零扩展，以无限精度整数计算 T=A+X 或 T=A-X
+      再映射到状态范围；WRAP 保存 T 低 ACC_WIDTH 位，SATURATE 钳位到
+      [−2^(W−1),2^(W−1)−1]（signed）或 [0,2^W−1]（unsigned）。
+    properties: [PROP-ACC_NUM-002]
+    tests: [tc_edge, tc_random]
+  - id: INV-003
+    description: >-
+      溢出——overflow_event_o 当且仅当本次 T 越界（含无符号下溢）置位；
+      signed overflow 不能以 carry-out 直接替代；overflow_sticky_o 自复位/CLR/LOAD
+      或 status_clear_i 清除以来是否发生溢出；status_clear_i 与新生溢出同拍时
+      置位优先。
+    properties: [PROP-ACC_OVERFLOW-003]
+    tests: [tc_edge, tc_sticky, tc_random]
+  - id: INV-004
+    description: >-
+      时序——update_o 与 overflow_event_o 每个根时钟沿重新赋值、无事件时为 0；
+      ce_i=0 不使它们保持高电平；连续有效更新时 update_o 每拍一个脉冲代表一次
+      更新。接收边沿后 acc_o 立即体现本次更新。
+    properties: [PROP-ACC_TIMING-004]
+    tests: [tc_seq, tc_continuous]
+  - id: INV-005
+    description: >-
+      复位——rst_ni=0 清状态 A 及所有状态/事件输出；同步复位。CLR 与 valid 同拍
+      只清零（本次 data_i 不参与计算）；LOAD 与 valid 同拍只装载。
+    properties: [PROP-ACC_RESET-005]
+    tests: [tc_reset, tc_seq]
+
+assumptions:
+  - id: ASM-001
+    description: 输入 X/Z 不承诺（2-state 仿真语义；X 传播视为未定义，断言以 $isunknown 规避）。
+  - id: ASM-002
+    description: 参数 INPUT_WIDTH/ACC_WIDTH/SIGNED/OP_MODE/OVERFLOW_MODE/LOAD_EN/STATUS_EN/
+      OPERAND_ISOLATION 为编译期参数，不运行时切换（生成/参数化语义）。
+  - id: ASM-003
+    description: ce_i=0 时 load/valid 不被接收（A 保持）；连续 ce_i=1、valid_i=1 时同一状态
+      每拍处理一个样本，II=1。
+  - id: ASM-004
+    description: LOAD_EN=false 时 load_i 不起作用并要求集成绑 0；STATUS_EN=false 时状态输入忽略、
+      状态输出绑 0。
+  - id: ASM-005
+    description: 上层不得假定 update_o 是标准流协议的 TVALID（无 ready、无内部排队）。
+
+non_goals:
+  - 乘法器、MAC 的乘法前级（可组合但非本 CBB 核心边界）
+  - APB/AXI、DMA、任务调度、软件寄存器、统计中断、存储器管理
+  - 浮点累加、反馈缩放、每步舍入积分器（数值语义与数据路径变化显著）
+  - 多输入同拍求和归约（前置 reduction tree，见 ARI-005 adder_tree、ARI-003 carry_save_adder）
+  - 多上下文交织/分条累加、跨位段偏斜流水、carry-save 冗余反馈（独立增强探索，
+    不纳入 V1.0 全功能逐拍合同）
+  - 任意 LATENCY 参数（V1.0 状态反馈更新就是一个时钟周期；输出额外寄存器由独立包装处理）

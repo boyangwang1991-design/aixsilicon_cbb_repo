@@ -1,0 +1,114 @@
+set: negative
+configs:
+- config_id: cfg_input_width0_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 0
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width129_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 129
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_acc_width0_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 0
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_acc_width257_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 257
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode3_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 3
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode2_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 2
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation2
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 2
+  sets:
+  - negative
+  profiles: []
+  expected:
+    stage: host_preflight
+    diagnostic: parameter_domain

@@ -1,0 +1,36 @@
+cbb: accumulator
+updated: '2026-09-14T08:40:07Z'
+gates:
+  G0:
+    status: pass
+    evidence: docs/intake.md,trace/rtm.yaml,docs/design.md,reports/verification-report.md,reports/qualification-report.md
+    note: 'C0-C4 complete: specify/design/implement/verify evidence in reports (G4
+      sim 4393/0, G3 neg-elab 8/8)'
+  G1:
+    status: pass
+    evidence: docs/intake.md,trace/rtm.yaml,docs/design.md,reports/verification-report.md,reports/qualification-report.md
+    note: 'C0-C4 complete: specify/design/implement/verify evidence in reports (G4
+      sim 4393/0, G3 neg-elab 8/8)'
+  G2:
+    status: pass
+    evidence: docs/intake.md,trace/rtm.yaml,docs/design.md,reports/verification-report.md,reports/qualification-report.md
+    note: 'C0-C4 complete: specify/design/implement/verify evidence in reports (G4
+      sim 4393/0, G3 neg-elab 8/8)'
+  G3:
+    status: pass
+    evidence: run-20260914-01,reports/verification-report.md,reports/qualification-report.md
+    note: 'G3/G4: run-20260914-01 (functional sim 4393/0, VCS W-2024.09) + negative
+      elab 8/8'
+  G4:
+    status: pass
+    evidence: run-20260914-01,reports/verification-report.md,reports/qualification-report.md
+    note: 'G3/G4: run-20260914-01 (functional sim 4393/0, VCS W-2024.09) + negative
+      elab 8/8'
+  G5:
+    status: not_applicable
+    note: 'G5 config-space sweep and G6 PPA not executed: requires target PDK/library
+      and extended RTL config sim; deferred to next phase'
+  G6:
+    status: not_applicable
+    note: 'G5 config-space sweep and G6 PPA not executed: requires target PDK/library
+      and extended RTL config sim; deferred to next phase'

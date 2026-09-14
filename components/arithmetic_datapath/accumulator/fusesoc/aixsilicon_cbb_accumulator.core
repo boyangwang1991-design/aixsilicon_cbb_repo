@@ -1,0 +1,76 @@
+CAPI=2:
+
+# FuseSoC Core — accumulator (ARI-006)
+# VLNV: aixsilicon:cbb:accumulator:0.1.0
+# 参数化整数/定点累加器，单实现基线（impl_single_entry）
+# stateful 族：单时钟、同步复位、II=1
+
+name: aixsilicon:cbb:accumulator:0.1.0
+description: "Accumulator CBB, A2, A_next=A±X with clear/load/ce, wrap/saturate and overflow status (stateful)"
+provider:
+  name: aixsilicon
+  library: cbb
+
+filesets:
+  rtl_src:
+    files:
+      - ../rtl/accumulator.sv
+    file_type: systemVerilogSource
+
+  tb_src:
+    files:
+      - ../verification/simulation/accumulator_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets: [rtl_src]
+  sim:
+    default_tool: vcs
+    filesets: [rtl_src, tb_src]
+    toplevel: [accumulator_tb]
+    tools:
+      vcs:
+        vcs_options: [-full64, '-timescale=1ns/1ps']
+  synth:
+    default_tool: dc
+    filesets: [rtl_src]
+    toplevel: [accumulator]
+  lint:
+    default_tool: spyglass
+    filesets: [rtl_src]
+    toplevel: [accumulator]
+
+parameters:
+  INPUT_WIDTH:
+    datatype: int
+    default: 16
+    description: "Input X width [1..128] (PC-001/007)"
+  ACC_WIDTH:
+    datatype: int
+    default: 32
+    description: "Accumulator state and output width [1..256] (PC-003/008)"
+  SIGNED:
+    datatype: bit
+    default: 1
+    description: "1=signed (sign-extend), 0=unsigned (zero-extend)"
+  OP_MODE:
+    datatype: int
+    default: 0
+    description: "{0=ADD_ONLY, 1=SUB_ONLY, 2=ADD_SUB} (PC-004)"
+  OVERFLOW_MODE:
+    datatype: int
+    default: 0
+    description: "{0=WRAP, 1=SATURATE} (PC-005)"
+  LOAD_EN:
+    datatype: bit
+    default: 1
+    description: "Enable full ACC_WIDTH initial value load"
+  STATUS_EN:
+    datatype: bit
+    default: 1
+    description: "Enable event and sticky overflow status"
+  OPERAND_ISOLATION:
+    datatype: int
+    default: 0
+    description: "Operand isolation {0=off, 1=on} (PC-006)"

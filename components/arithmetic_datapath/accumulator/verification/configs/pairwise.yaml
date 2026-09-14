@@ -1,0 +1,671 @@
+set: pairwise
+configs:
+- config_id: cfg_input_width8_acc_width16_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 8
+    ACC_WIDTH: 16
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width8_acc_width64_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 8
+    ACC_WIDTH: 64
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width32_acc_width64_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 32
+    ACC_WIDTH: 64
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width8_acc_width32_signedFalse_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 8
+    ACC_WIDTH: 32
+    SIGNED: false
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width32_acc_width32_signedFalse_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 32
+    ACC_WIDTH: 32
+    SIGNED: false
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width8_acc_width32_signedTrue_op_mode1_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 8
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 1
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width8_acc_width32_signedTrue_op_mode2_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 8
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 2
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width32_acc_width32_signedTrue_op_mode1_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 32
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 1
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width32_acc_width32_signedTrue_op_mode2_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 32
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 2
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width8_acc_width32_signedTrue_op_mode0_overflow_mode1_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 8
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 1
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width32_acc_width32_signedTrue_op_mode0_overflow_mode1_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 32
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 1
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width8_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enFalse_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 8
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: false
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width32_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enFalse_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 32
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: false
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width8_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enFalse_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 8
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: false
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width32_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enFalse_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 32
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: false
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width8_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation1
+  parameters:
+    INPUT_WIDTH: 8
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 1
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width32_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation1
+  parameters:
+    INPUT_WIDTH: 32
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 1
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width16_signedFalse_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 16
+    SIGNED: false
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width64_signedFalse_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 64
+    SIGNED: false
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width16_signedTrue_op_mode1_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 16
+    SIGNED: true
+    OP_MODE: 1
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width16_signedTrue_op_mode2_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 16
+    SIGNED: true
+    OP_MODE: 2
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width64_signedTrue_op_mode1_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 64
+    SIGNED: true
+    OP_MODE: 1
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width64_signedTrue_op_mode2_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 64
+    SIGNED: true
+    OP_MODE: 2
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width16_signedTrue_op_mode0_overflow_mode1_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 16
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 1
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width64_signedTrue_op_mode0_overflow_mode1_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 64
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 1
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width16_signedTrue_op_mode0_overflow_mode0_load_enFalse_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 16
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: false
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width64_signedTrue_op_mode0_overflow_mode0_load_enFalse_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 64
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: false
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width16_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enFalse_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 16
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: false
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width64_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enFalse_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 64
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: false
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width16_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation1
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 16
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 1
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width64_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation1
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 64
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 1
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedFalse_op_mode1_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: false
+    OP_MODE: 1
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedFalse_op_mode2_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: false
+    OP_MODE: 2
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedFalse_op_mode0_overflow_mode1_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: false
+    OP_MODE: 0
+    OVERFLOW_MODE: 1
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedFalse_op_mode0_overflow_mode0_load_enFalse_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: false
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: false
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedFalse_op_mode0_overflow_mode0_load_enTrue_status_enFalse_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: false
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: false
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  - mandatory
+  profiles:
+  - prof_nco
+- config_id: cfg_input_width16_acc_width32_signedFalse_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation1
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: false
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 1
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode1_overflow_mode1_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 1
+    OVERFLOW_MODE: 1
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode2_overflow_mode1_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 2
+    OVERFLOW_MODE: 1
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  - mandatory
+  profiles:
+  - prof_saturating
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode1_overflow_mode0_load_enFalse_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 1
+    OVERFLOW_MODE: 0
+    LOAD_EN: false
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode2_overflow_mode0_load_enFalse_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 2
+    OVERFLOW_MODE: 0
+    LOAD_EN: false
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode1_overflow_mode0_load_enTrue_status_enFalse_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 1
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: false
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode2_overflow_mode0_load_enTrue_status_enFalse_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 2
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: false
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode1_overflow_mode0_load_enTrue_status_enTrue_operand_isolation1
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 1
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 1
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode2_overflow_mode0_load_enTrue_status_enTrue_operand_isolation1
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 2
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 1
+  sets:
+  - pairwise
+  - mandatory
+  profiles:
+  - prof_power_opt
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode1_load_enFalse_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 1
+    LOAD_EN: false
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode1_load_enTrue_status_enFalse_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 1
+    LOAD_EN: true
+    STATUS_EN: false
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode1_load_enTrue_status_enTrue_operand_isolation1
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 1
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 1
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enFalse_status_enFalse_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: false
+    STATUS_EN: false
+    OPERAND_ISOLATION: 0
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enFalse_status_enTrue_operand_isolation1
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: false
+    STATUS_EN: true
+    OPERAND_ISOLATION: 1
+  sets:
+  - pairwise
+  profiles: []
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enFalse_operand_isolation1
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: false
+    OPERAND_ISOLATION: 1
+  sets:
+  - pairwise
+  profiles: []

@@ -1,0 +1,31 @@
+set: mandatory
+configs:
+- config_id: cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 16
+    ACC_WIDTH: 32
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: true
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - mandatory
+  - boundary
+  profiles:
+  - prof_default
+- config_id: cfg_input_width8_acc_width16_signedTrue_op_mode0_overflow_mode0_load_enFalse_status_enTrue_operand_isolation0
+  parameters:
+    INPUT_WIDTH: 8
+    ACC_WIDTH: 16
+    SIGNED: true
+    OP_MODE: 0
+    OVERFLOW_MODE: 0
+    LOAD_EN: false
+    STATUS_EN: true
+    OPERAND_ISOLATION: 0
+  sets:
+  - mandatory
+  profiles:
+  - prof_area_opt

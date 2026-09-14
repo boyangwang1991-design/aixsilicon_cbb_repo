@@ -2,14 +2,24 @@
 document_type: cbb-requirements
 registry_id: ARI-006
 name: accumulator
+display_name: Accumulator
+registry_status: planned
+registry_classification: A2
+priority: P0
 version: 0.1.0
-status: draft
-basis: planning_intent
+status: derived
+basis: existing_yaml
+source_hashes:
+  cbb.yaml: 1d8e53867643116505e1b2c1a24aa21519b89fda642d8fc4ddc7e7730e7c35bc
+  behavior.yaml: 092b182e4893e305d6c24747811a5d54a9882e71bd26e23e3eed199265a76f1f
+focus: 反馈路径与门控
+research_date: 2026-09-14
 ---
 
 # accumulator 需求合同
 
-本文为本轮规划需求草案，明确该核应交付的能力和验收条件。尚未完成 G1 参数/接口冻结；默认值、实现支持上限和具体端口名须在 G1 按以下需求落实到 YAML，并经校验后形成可执行规格。本文不构成已有 RTL 或已通过验证的声明。
+本文是现有工程 YAML 的可读需求视图，参数/行为以所链接源文件为准（[`cbb.yaml`](cbb.yaml)、[`behavior.yaml`](behavior.yaml)）。
+本文不引入新实现要求、不更新 Gate，也不把历史验证推广到全部配置。架构与调研论证见 [`docs/design.md`](docs/design.md)。
 
 | 字段 | 内容 |
 |---|---|
@@ -22,52 +32,70 @@ basis: planning_intent
 
 ## 1. 定位与使用场景
 
-反馈路径与门控
+参数化整数/定点累加器 CBB：`A_next = A ± X`，支持清零、初值装载、有效使能、回绕/饱和与溢出状态；重点优化单周期反馈路径、操作数隔离与 ICG 映射（A2 数据通路构件，stateful 族）。
 
-需求焦点：接收使能有效时将输入累加到持久状态，支持明确的 load 和 clear 控制。
+拟复用场景：DSP/NPU 部分和累加、事件权重/字节数/能量求和、有符号积分/误差累计、NCO 相位累加（模 2^W 回绕）。这些是需求场景，不表示已有消费者依赖或完成集成。
 
-边界焦点：需求基线优先级为 reset、clear、load、accumulate、hold；回绕与饱和为静态选择的不同配置。
+## 2. 已有需求与行为基线
 
-拟复用场景：地址/计数计算数据通路；DSP 或向量运算叶子核。这些是需求场景，不表示已有消费者依赖或完成集成。
+| 原需求 ID | 源契约条目（保留原文要点） | 已有测试映射 | 来源 |
+|---|---|---|---|
+| REQ-001 | 核心功能——按 ACC-CTL-001 优先级实现 A_next=A±X，支持清零/装载/使能/回绕饱和 | tc_exhaust_w8, tc_random, tc_seq | cbb.yaml |
+| REQ-002 | 数值边界——按 SIGNED 符号/零扩展，WRAP 低 W 位、SATURATE 钳位 | tc_edge, tc_random | cbb.yaml |
+| REQ-003 | 溢出/状态——event 当且仅当 T 越界，signed overflow 非 carry-out，sticky 同拍优先级 | tc_edge, tc_sticky, tc_random | cbb.yaml |
+| REQ-004 | 时序/接受——单状态每拍一个样本 II=1，事件每沿重赋值 | tc_seq, tc_continuous | cbb.yaml |
+| REQ-005 | 复位/重启——同步复位清状态与事件，CLR/LOAD 与 valid 冲突优先级 | tc_reset, tc_seq | cbb.yaml |
+| REQ-006 | 配置合法性——非法 OP_MODE/位宽 elaboration $error 拦截 | tc_negative_elab | cbb.yaml |
+| REQ-007 | 实现等价——隔离/门控开关前后根时钟采样一致 | tc_iso_equiv | cbb.yaml |
+| REQ-008 | 依赖与使用约束——局部累加核心逻辑边界 | — | cbb.yaml |
+| REQ-009 | PPA 与可观察性能——关键路径/吞吐记录 | — | cbb.yaml |
 
-## 2. 接口与配置需求
+## 3. 参数与接口契约
 
-接口角色：操作数与可选操作选择输入；结果及溢出/异常/有效标志输出；有状态操作另提供使能/清除。只要求实现本核实际需要的角色，不为目录分类添加空接口。
+| 参数 | 类型 | 默认值 | 合法域 | 语义 |
+|---|---|---|---|---|
+| INPUT_WIDTH | int | 16 | 1~128 | 输入 X 位宽（PC-001/007） |
+| ACC_WIDTH | int | 32 | 1~256 | 状态和输出位宽（PC-003/008） |
+| SIGNED | bool | true | bool | true=符号扩展，false=零扩展 |
+| OP_MODE | int | 0 | [0,1,2] | ADD_ONLY/SUB_ONLY/ADD_SUB（PC-004） |
+| OVERFLOW_MODE | int | 0 | [0,1] | WRAP/SATURATE（PC-005） |
+| LOAD_EN / STATUS_EN | bool | true | bool | 装载使能 / 状态输出使能 |
+| OPERAND_ISOLATION | int | 0 | [0,1] | 操作数隔离（PC-006） |
 
-配置合法域：各操作数位宽≥1；符号域显式选择；输出位宽能容纳需求声明的完整值或启用显式舍入/饱和；流水级数≥0。数学合法域不代表无限规模均可实现；G1 必须在有限支持集合中给出默认、最小、最大和非法组合，最大支持配置需通过展开与验证。
+现有接口、时钟域及延迟约定（cbb.yaml contract）：
 
-候选实现：wrap、saturate、clear/load。这些是选型空间，不要求首版同时实现全部结构。对比时固定相同可观察功能配置；改变延迟、舍入或丢弃策略须作为显式配置差异。
+```yaml
+interface: native_bits_in_out
+clock_domains: 1
+ordering: in_order
+throughput: 1_per_cycle
+```
 
-## 3. 可验证需求
+## 4. 不变量、复位与异常
 
-| ID | 类别 | 要求 |
-|---|---|---|
-| REQ-001 | 核心功能 | 接收使能有效时将输入累加到持久状态，支持明确的 load 和 clear 控制。 |
-| REQ-002 | 关键边界 | 需求基线优先级为 reset、clear、load、accumulate、hold；回绕与饱和为静态选择的不同配置。 |
-| REQ-003 | 时序/接受 | 组合核延迟按组合路径计；流水/迭代核必须分别声明 L 与启动间隔 II，结果携带相同操作身份。 |
-| REQ-004 | 复位/重启 | 组合核不人为增加复位；有状态核 reset 清状态及 valid，load/clear/运算冲突按本核优先级。 |
-| REQ-005 | 配置合法性 | 配置不得产生零宽端口、地址越界或不足位宽的状态编码。静态非法配置在构建/展开前拒绝；动态非法控制不得静默形成一次正常副作用。 |
-| REQ-006 | 实现等价 | 在相同功能配置和约定的输出对齐方式下，已交付实现的有效输出序列必须等价；有损/近似功能按本核声明的数量关系或误差界比较。 |
-| REQ-007 | 局部责任 | 只承担本文列出的局部核心逻辑；完整总线事务、软件地址图、系统故障处置和 SoC 管理由外部 IP 承担。专用状态不得被包装为无边界的系统控制器。 |
-| REQ-008 | 依赖与使用约束 | 通用子核若引用，先查当前 registry 再声明固定 VLNV 与配置；未实现候选只能列为设计选项，不得伪造可消费依赖。HWIF 绑定在 G1 按实际接口选择，当前角色描述不冒充协议兼容声明。 |
-| REQ-009 | PPA 与可观察性能 | 交付至少一个代表配置的资源规模、关键路径、延迟与可持续吞吐说明。逻辑/宏映射、时钟/约束和工具条件必须随结果记录，禁止使用无条件的频率/面积承诺。 |
+不变量（behavior.yaml INV-001..005）：正确性（acc_o 与独立无限精度参考逐步一致）、
+数值（符号/零扩展、WRAP/SATURATE）、溢出（event/sticky 语义与同拍优先级）、
+时序（事件每沿重赋值、II=1）、复位（同步复位清状态与事件）。
 
-## 4. 验收清单
+环境假设（ASM-001..005）：输入 X/Z 不承诺；参数为编译期；ce=0 时 load/valid 不被接收；
+LOAD_EN=false 时 load_i 绑 0、STATUS_EN=false 时状态绑 0；update_o 不是标准流 TVALID。
 
-| 验收项 | 覆盖需求 | 通过条件 |
-|---|---|---|
-| AC-01 功能 | REQ-001、REQ-002 | 用独立参考关系逐项检查核心功能与边界，覆盖：零、正负边界、全一、最小负数、精确/不精确舍入、溢出和同语义实现等价。 |
-| AC-02 时序 | REQ-003、REQ-004 | 在正常工作、停顿、复位和重新启动下检查有效输出、状态推进及延迟；禁止伪事件、错配或未声明的数据丢弃。 |
-| AC-03 参数 | REQ-005 | 对最小、默认、最大及非规则合法配置完成展开；逐项构造越界与冲突配置并确认被拒绝，拒绝不得以工具崩溃代替参数诊断。 |
-| AC-04 变体 | REQ-006 | 每个支持实现与参考关系一致；若存在变体，按相同配置比对有效结果，并单独记录允许的延迟/精度差异。 |
-| AC-05 集成 | REQ-007、REQ-008 | 列明使用假设、所有外部依赖与接口限制；不能引用不存在的已实现子核或未声明的跨仓源码路径。 |
-| AC-06 表征 | REQ-009 | 记录代表配置、结果和证据位置；无工具/无宏时明确未验证，不填写通过或虚构 PPA 数值。 |
+### 非目标
 
-验收条目是后续验证工作的目标，不是当前测试或 Gate 结果；不得把本文的 AC 编号当作已存在 testcase/config ID。
+```yaml
+- 乘法器、MAC 的乘法前级（可组合但非核心边界）
+- APB/AXI、DMA、任务调度、软件寄存器、统计中断、存储器管理
+- 浮点累加、反馈缩放、每步舍入积分器
+- 多输入同拍求和归约（前置 reduction tree）
+- 多上下文交织/分条、偏斜流水、carry-save 冗余反馈（独立增强探索）
+- 任意 LATENCY 参数（V1.0 反馈更新即一个时钟周期）
+```
 
-## 5. G1 交接
+## 5. 验收与变更边界
 
-specify-cbb 应将 REQ-001～REQ-009 落实到 cbb.yaml/behavior.yaml 与参数模型，给出逐项端口、默认值、合法组合及测试追踪。生成配置后才能引用真实 config ID。后续 docs/cbb_spec.md 从冻结 YAML 形成可读规格；本文件在转为派生视图前保留为需求输入。
+按上述原需求 ID、测试与配置映射执行验收，完整约束和验证配置见已有工程。原需求表中的测试名是源模型声明，
+本文不代表已重跑；验证证据见 [`reports/verification-report.md`](reports/verification-report.md) 与
+`build/eda/evidence/{g3_static,g4_functional}/`（G4 功能仿真 4393 checks / 0 errors，G3 负向 8/8）。
+修改这些行为须先修改 owner YAML，重建追踪与证据，再刷新本文。
 
-本轮不生成占位 RTL、虚假验证报告或发布 Core；实现状态仍以 registry 为准。
-
+设计规格入口：[`docs/cbb_spec.md`](docs/cbb_spec.md)。门禁与资格结论仍由具体版本、参数和工具证据决定。

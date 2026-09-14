@@ -1,0 +1,22 @@
+# 工具 Profile（verification/tool-profile.yaml）— accumulator
+# 记录验证/静态工具版本；evidence-index run 引用本文件方法对应的工具。
+# 字段：methods -> 工具名/版本。探测结果见 build/eda/evidence（不入库）。
+
+methods:
+  simulation:
+    name: vcs
+    version: W-2024.09-SP1
+  static:
+    name: vcs
+    version: W-2024.09-SP1
+  negative_elaboration:
+    name: vcs
+    version: W-2024.09-SP1
+
+tools:
+  simulation:
+    name: vcs
+    version: W-2024.09-SP1
+  static:
+    name: vcs
+    version: W-2024.09-SP1

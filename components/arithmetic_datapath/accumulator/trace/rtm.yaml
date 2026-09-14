@@ -1,0 +1,217 @@
+cbb: accumulator
+requirements:
+- id: ASM-001
+  type: assumption
+  description: 输入 X/Z 不承诺（2-state 仿真语义；X 传播视为未定义，断言以 $isunknown 规避）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-002
+  type: assumption
+  description: 参数 INPUT_WIDTH/ACC_WIDTH/SIGNED/OP_MODE/OVERFLOW_MODE/LOAD_EN/STATUS_EN/
+    OPERAND_ISOLATION 为编译期参数，不运行时切换（生成/参数化语义）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-003
+  type: assumption
+  description: ce_i=0 时 load/valid 不被接收（A 保持）；连续 ce_i=1、valid_i=1 时同一状态 每拍处理一个样本，II=1。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-004
+  type: assumption
+  description: LOAD_EN=false 时 load_i 不起作用并要求集成绑 0；STATUS_EN=false 时状态输入忽略、 状态输出绑
+    0。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-005
+  type: assumption
+  description: 上层不得假定 update_o 是标准流协议的 TVALID（无 ready、无内部排队）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-001
+  type: invariant
+  description: 正确性——对任意合法控制与输入序列，acc_o 与独立无限精度参考模型逐步一致： 按 ACC-CTL-001 优先级 rst_ni/clear_i/ce_i/load_i/valid_i
+    决定状态更新； ce_i=1 且 valid_i=1 时执行 A±X（II=1，每拍处理一个样本）。
+  properties:
+  - PROP-ACC_CORRECT-001
+  tests:
+  - tc_exhaust_w8
+  - tc_random
+  - tc_seq
+  configs: []
+  evidence: []
+- id: INV-002
+  type: invariant
+  description: 数值——按 SIGNED 对 X 做符号/零扩展，以无限精度整数计算 T=A+X 或 T=A-X 再映射到状态范围；WRAP 保存 T
+    低 ACC_WIDTH 位，SATURATE 钳位到 [−2^(W−1),2^(W−1)−1]（signed）或 [0,2^W−1]（unsigned）。
+  properties:
+  - PROP-ACC_NUM-002
+  tests:
+  - tc_edge
+  - tc_random
+  configs: []
+  evidence: []
+- id: INV-003
+  type: invariant
+  description: 溢出——overflow_event_o 当且仅当本次 T 越界（含无符号下溢）置位； signed overflow 不能以 carry-out
+    直接替代；overflow_sticky_o 自复位/CLR/LOAD 或 status_clear_i 清除以来是否发生溢出；status_clear_i
+    与新生溢出同拍时 置位优先。
+  properties:
+  - PROP-ACC_OVERFLOW-003
+  tests:
+  - tc_edge
+  - tc_sticky
+  - tc_random
+  configs: []
+  evidence: []
+- id: INV-004
+  type: invariant
+  description: 时序——update_o 与 overflow_event_o 每个根时钟沿重新赋值、无事件时为 0； ce_i=0 不使它们保持高电平；连续有效更新时
+    update_o 每拍一个脉冲代表一次 更新。接收边沿后 acc_o 立即体现本次更新。
+  properties:
+  - PROP-ACC_TIMING-004
+  tests:
+  - tc_seq
+  - tc_continuous
+  configs: []
+  evidence: []
+- id: INV-005
+  type: invariant
+  description: 复位——rst_ni=0 清状态 A 及所有状态/事件输出；同步复位。CLR 与 valid 同拍 只清零（本次 data_i 不参与计算）；LOAD
+    与 valid 同拍只装载。
+  properties:
+  - PROP-ACC_RESET-005
+  tests:
+  - tc_reset
+  - tc_seq
+  configs: []
+  evidence: []
+- id: REQ-001
+  type: requirement
+  description: 核心功能——按 ACC-CTL-001 优先级实现 A_next = A ± X，支持清零（clear_i）、 初值装载（load_i）、有效使能（ce_i）与回绕/饱和，提供完整累加状态
+    acc_o 与溢出状态。
+  properties:
+  - PROP-ACC_CORRECT-001
+  tests:
+  - tc_exhaust_w8
+  - tc_random
+  - tc_seq
+  configs:
+  - cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  - cfg_input_width8_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  - cfg_input_width16_acc_width32_signedTrue_op_mode2_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-002
+  type: requirement
+  description: 数值边界——按 SIGNED 对 X 做符号/零扩展，以无限精度整数计算 T=A+X 或 T=A-X 再映射到状态范围；WRAP 保存
+    T 的低 ACC_WIDTH 位，SATURATE 钳位到 状态可表示范围。
+  properties:
+  - PROP-ACC_NUM-002
+  tests:
+  - tc_edge
+  - tc_random
+  configs:
+  - cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  - cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode1_load_enTrue_status_enTrue_operand_isolation0
+  - cfg_input_width16_acc_width32_signedFalse_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  - cfg_input_width1_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-003
+  type: requirement
+  description: 溢出/状态——溢出事件当且仅当本次 T 越界，无符号下溢计入 overflow； signed overflow 不能以 carry-out
+    直接替代；sticky 清除与新生溢出同拍时 置位优先。
+  properties:
+  - PROP-ACC_OVERFLOW-003
+  tests:
+  - tc_edge
+  - tc_sticky
+  - tc_random
+  configs:
+  - cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  - cfg_input_width16_acc_width32_signedFalse_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-004
+  type: requirement
+  description: 时序/接受——单状态每根时钟沿处理一个样本，II=1；无 ready、无内部排队； update_o 与 overflow_event_o
+    每沿重新赋值、无事件时为 0；接收边沿后 acc_o 立即体现本次更新。
+  properties:
+  - PROP-ACC_TIMING-004
+  tests:
+  - tc_seq
+  - tc_continuous
+  configs:
+  - cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-005
+  type: requirement
+  description: 复位/重启——同步复位 rst_ni 清状态及所有状态/事件输出；clear_i、load_i、 valid_i 冲突按 ACC-CTL-001
+    优先级；CLR 与 valid 同拍只清零、LOAD 与 valid 同拍只装载。
+  properties:
+  - PROP-ACC_RESET-005
+  tests:
+  - tc_reset
+  - tc_seq
+  configs:
+  - cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  - cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enFalse_status_enTrue_operand_isolation0
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-006
+  type: requirement
+  description: 配置合法性——非法 OP_MODE/位宽组合在 elaboration 期报错；LOAD_EN=false 时 load_i 不起作用并需集成绑
+    0，STATUS_EN=false 时状态输入忽略、状态输出 绑 0；不得产生零宽端口或不足位宽的状态编码。
+  properties: []
+  tests:
+  - tc_negative_elab
+  configs:
+  - cfg_input_width0_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  - cfg_input_width129_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  - cfg_input_width16_acc_width0_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  - cfg_input_width16_acc_width257_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  - cfg_input_width16_acc_width32_signedTrue_op_mode3_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  - cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode2_load_enTrue_status_enTrue_operand_isolation0
+  - cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation2
+  evidence:
+  - build/eda/evidence/g3_static/negative_elab.txt
+- id: REQ-007
+  type: requirement
+  description: 实现等价——在相同功能配置和约定输出对齐下，已交付实现的有效输出序列必须 等价；操作数隔离与门控开关前后根时钟采样结果不变；冗余/偏斜结构需额外
+    状态映射证明，不能仅复用二进制寄存器逐位比较。
+  properties:
+  - PROP-ACC_EQV-007
+  tests:
+  - tc_iso_equiv
+  configs:
+  - cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation0
+  - cfg_input_width16_acc_width32_signedTrue_op_mode0_overflow_mode0_load_enTrue_status_enTrue_operand_isolation1
+  evidence:
+  - build/eda/evidence/g4_functional/functional_sim.txt
+- id: REQ-008
+  type: requirement
+  description: 依赖与使用约束——只承担本文列出的局部累加核心逻辑；完整总线事务、软件 地址图、统计中断与存储管理由外部 IP 承担。通用子核若引用，先查当前
+    registry 再声明固定 VLNV 与配置；未实现候选只能列为设计选项。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: REQ-009
+  type: requirement
+  description: PPA 与可观察性能——交付至少一个代表配置的资源规模、关键路径（A→A 反馈、 data_i→A、控制→A、A→下游）、延迟与可持续吞吐说明；工艺库、PVT、工具
+    版本、时序/负载约束与 RTL 哈希随结果记录，禁止无条件的频率/面积承诺。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
