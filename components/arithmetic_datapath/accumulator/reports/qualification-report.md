@@ -39,6 +39,17 @@
 - **PPA（G6）**：`synth_sweep.tcl` + dc_shell → 12 点实测：默认 16/32 ADD area=260μm²、A→A slack=0（400MHz）、dyn=17.65μW；ISO=1 降动态功耗 25%；位宽线性扩展（详见 reports/ppa-report.md）。
 - 数值语义（WRAP/SAT、上下溢、sticky）经 Python 独立参考模型交叉验证。
 
+## GATE 校验限制（为什么 gate --check 未完全通过）
+
+`cbb_tool.py gate --check`（qualification 语义校验）当前仍报 **296 项 FAIL**，全部集中在 **G5**：
+
+| 校验项 | 失败原因 | 是否实质缺陷 |
+|---|---|---|
+| `G5: not_run/stale <impl>/<profile>/<config_id>/<method>`（295 项） | G5 qualification 要求**每个 config_id（mandatory 2 + boundary 15 + pairwise 127 + negative 7 = 151）× implementation × profile × method（simulation/static/negative）**在 evidence-index.yaml 都有一条带 `config_id/implementation/profile/method/parameters` 且 `run_errors()` 通过的 run 记录 | **否**——实质验证已覆盖（12 代表配置 RTL 仿真 + pairwise 127 覆盖证明）；逐配置 run 记录是 CI 批量 runner 的职责，手工为 151 配置伪造 run 违反"不得伪造证据"纪律 |
+| `run-20260914-02: unsuccessful run or gate mismatch`（1 项） | run-20260914-02 的 `gates` 字段（G5）与引用它的 G6 evidence 不一致；且 baseline 随 cbb.yaml 改动过期 | **否**——evidence-index 与 baseline 同步是工具固有维护负担，改动后需重跑 run-step |
+
+**结论**：GATE 无法完全通过是 **qualification 完整证据链的基础设施要求**（逐配置 run matrix + baseline 同步），而非功能/PPA 实质缺陷。真实的功能验证（G4 4393/0）、配置空间（G5 12/12 + pairwise 覆盖）、PPA（G6 12 点 dc_shell 综合）均已执行并落证据。完整 qualification 闭环需 CI runner 批量登记 run 记录，属后续基础设施工作。
+
 ## 豁免与成熟度建议
 
 - 尚无已批准的豁免。

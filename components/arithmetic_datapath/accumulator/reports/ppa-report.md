@@ -36,6 +36,13 @@
 > A→A slack=0.00：A→A 反馈路径为关键路径（arrival≈2.0ns），达到 400MHz 约束边界；
 > data→reg 路径 slack≈1.1~1.2ns（次关键）。无 reg→out/未约束路径未达边界（report_timing 已验证）。
 
+### 2.1 PPA 对比图
+
+![accumulator PPA 对比（面积/动态功耗/漏电）](./ppa_run-20260914-01.png)
+
+> 上图按 characterization/plan.yaml 声明的 12 个测量点顺序（逻辑递增）绘制，
+> 数据源 build/eda/ppa/run-20260914-01/（每个点 area/timing/power rpt + summary）。
+
 ## 3. 观察与趋势
 
 - **位宽**：面积随 ACC_WIDTH 近似线性（16/32:260 → 16/64:524 → 16/128:1054）；功耗同步增长。
