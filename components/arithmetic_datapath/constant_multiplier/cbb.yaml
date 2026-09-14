@@ -1,0 +1,12 @@
+schema_version: '1.0'
+cbb:
+  id: aixsilicon:cbb:constant_multiplier
+  name: constant_multiplier
+  version: 0.1.0
+  maturity: E0
+classification:
+  abstraction: A2
+purpose:
+  summary: 常量特化与共享
+workflow:
+  family: stateful

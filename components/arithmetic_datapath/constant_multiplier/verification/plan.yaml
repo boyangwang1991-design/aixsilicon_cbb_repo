@@ -1,0 +1,13 @@
+target: constant_multiplier
+family: stateful
+status: planned
+verification_forms:
+- simulation
+- formal
+focus:
+- state_invariants
+- reset_contract
+- continuous_traffic
+configs: []
+testcases: []
+reset_contract: 'TODO: derive from behavior contract'
