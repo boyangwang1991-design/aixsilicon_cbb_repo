@@ -12,7 +12,17 @@
     "kernel": {
       "path": "build/eda/ppa_diagnosis/kernel-original.txt",
       "sha256": "b2815e266c447259d29e7837b45414c68256aaffa02e18c80a1d16072b4c9d5e"
+    },
+    "low_effort_dc": {
+      "path": "build/eda/ppa_diagnosis/low_effort/dc.txt",
+      "sha256": "eedbe1a82938b3ea23fa8417dd46f6bdcdd3a69493bb05d39eabab8524aba1f0"
     }
   },
-  "note": "Kernel OOM kill and DC child failure match by PID; no PPA metrics inferred."
+  "note": "Kernel OOM kill and DC child failure match by PID; no PPA metrics inferred.",
+  "low_effort_retry": {
+    "status": "tool_out_of_memory",
+    "virtual_memory_limit_mib": 7168,
+    "path": "build/eda/ppa_diagnosis/low_effort/dc.txt",
+    "sha256": "eedbe1a82938b3ea23fa8417dd46f6bdcdd3a69493bb05d39eabab8524aba1f0"
+  }
 }
