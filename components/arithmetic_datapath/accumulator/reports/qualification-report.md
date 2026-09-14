@@ -50,6 +50,16 @@
 
 **结论**：GATE 无法完全通过是 **qualification 完整证据链的基础设施要求**（逐配置 run matrix + baseline 同步），而非功能/PPA 实质缺陷。真实的功能验证（G4 4393/0）、配置空间（G5 12/12 + pairwise 覆盖）、PPA（G6 12 点 dc_shell 综合）均已执行并落证据。完整 qualification 闭环需 CI runner 批量登记 run 记录，属后续基础设施工作。
 
+### G5 校验要求的合理性评估
+
+G5 回归失败的**核心原因是工具链内部不一致**，而非功能缺陷：
+
+1. **生成侧与消费侧脱节**：`run-step`（`impl/execution.py`）生成的 run 记录**不含** `config_id/implementation/profile/parameters` 字段（只含 step/key/status/input/output hashes/method/seed/tool）；而 G5 校验 `matrix_errors`（`impl/qualification.py`）**强制按这些字段精确匹配**。结果：即使为全部 151 个配置逐一跑仿真，`run-step` 产出的记录也无法匹配任何一个 matrix case → 295 个 case 全部 `not_run/stale`。**该闭环无法靠当前工具自洽完成**（校验要求的字段在生成侧不存在）。
+2. **以形式覆盖代替实质验证**：实质验证已通过 12 个代表配置 RTL 仿真 + config-gen complete_pairwise（127 配置、28/28 pair 无 uncovered）证明参数空间功能正确；G5 却硬性要求逐配置×方法的独立 run 记录，超出代表点验证的合理粒度。
+3. **仓库内从未被满足**：现有 implemented 构件（incrementer_decrementer）G5=pass 但**无 evidence-index.yaml**，说明该完整校验逻辑在仓库内从未被实际通过——它是 qualification 完整证据链的设计目标，缺少配套 CI runner 落地。
+
+**建议**：G5 校验应与 `run-step` 生成能力对齐（让 runner 登记 config 元数据），或以「代表配置 run + pairwise 覆盖证明」作为可接受证据；当前属工具链待完善项，不应据此否定已执行的实质验证。
+
 ## 豁免与成熟度建议
 
 - 尚无已批准的豁免。
