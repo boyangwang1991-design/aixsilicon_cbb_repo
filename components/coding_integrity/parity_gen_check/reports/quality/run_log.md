@@ -12,3 +12,5 @@
     tree=linear 各宽度 area/slack 一致(DC 重排线性链为树), 小宽度功耗差~9%; 图 reports/ppa-*.png; 报告 reports/ppa-report.md + reports/qualification-report.md(用户指令); SKILL 固化 PPA 合理性/多扫描点/绘图/报告 reports/ + EDA 产物 build/
 - `2026-08-28 05:58:03` | **observe** | G6 | SV 优先 + arrival 时序收尾: impl_tree 简化为一行 reduction XOR(综合器自动最优); PPA 时序主指标= data arrival time; scaffold 不建 evidence/(改 build/eda/evidence) | 结果(PASS)
     生成方式决策(design-cbb SKILL §2): Python/SV 均可时倾向 SV; parity 复盘 —  由 DC/Genus 生成最优平衡树, tree/linear 综合收敛本质; 删除 gen_parity.py + rtl/parity_impl_tree.sv; 时序报告/绘图用 arrival(独立于虚拟时钟); scaffold.py evidence->build/eda/evidence; 两仓已推送
+- `2026-09-14 08:50:07` | **verify** | F-PG-ASSERT-001 局部断言修复回归通过；不提升旧 Gate 或发布资格 | 结果(PASS)
+    VCS W-2024.09-SP1 实测 7 宽度×3 实现×2 奇偶模式、1024 动态向量；强制错误输出被 INV-001 检出。真实执行及哈希：build/assertion/1789375594099866037/execution.json。变更范围和复核见 docs/assertion_change_plan.md；IP 消费者完整回归继续执行。

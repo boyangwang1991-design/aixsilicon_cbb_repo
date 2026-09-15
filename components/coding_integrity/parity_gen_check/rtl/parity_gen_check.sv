@@ -49,20 +49,25 @@ module parity_gen_check #(
 
     assign parity_o = xor_i ^ FLIP;
 
-    // ---- 就近 SVA（INV-001 函数一致性；纯组合用 immediate assertion，综合忽略）----
+    // INV-001: evaluate after the combinational network settles. ASM-001 gives
+    // no promise for X/Z input; a wrong/X output for known input still fails.
+    // synopsys translate_off
+`ifndef SYNTHESIS
     generate
         if (PARITY_TYPE == 0) begin : g_sva_ev
             always_comb begin
-                assert (parity_o == ^data_i) else
+                assert final ($isunknown(data_i) || parity_o == ^data_i) else
                     $error("parity_gen_check INV-001 even violation: got=%b", parity_o);
             end
         end else begin : g_sva_od
             always_comb begin
-                assert (parity_o == ~^data_i) else
+                assert final ($isunknown(data_i) || parity_o == ~^data_i) else
                     $error("parity_gen_check INV-001 odd violation: got=%b", parity_o);
             end
         end
     endgenerate
+`endif
+    // synopsys translate_on
 
 endmodule
 
