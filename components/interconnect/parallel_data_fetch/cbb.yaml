@@ -1,0 +1,263 @@
+# ============================================================
+# cbb.yaml — parallel_data_fetch SSOT 元数据（INT-001, A3/P2）
+# 单请求远端原子快照经窄链路连续回传并在请求端重组
+# - ASYNC_MODE=0：A/B 同钟，长线用 LINK_PIPE_STAGES 级统一 bundle pipeline
+# - ASYNC_MODE=1：请求 toggle 同步 + alive 存活检测，返回 beat 经 Gray 指针 async FIFO
+# - SLICE_IMPL    ：shift / indexed / banked 三种切片结构（同一可观察契约）
+# 嵌套依赖：CDC 复用组织批准标准结构（本版内联同构私有实现；见 profiles.yaml notes）
+# ============================================================
+
+schema_version: 1.0
+
+cbb:
+  id: aixsilicon:cbb:parallel_data_fetch
+  name: parallel_data_fetch
+  version: 0.1.0
+  owner: aixsilicon:cbb
+  maturity: E0
+  license: Apache-2.0
+
+classification:
+  abstraction: A3                    # 局部握手构件：请求/结果 ready-valid + 窄链路连续发送
+  primary_domain: interconnect
+  secondary_domains: [streaming_pipeline, cdc_rdc, fifo_queue_buffer]
+
+contract:
+  top_module: parallel_data_fetch
+  interface: ready_valid             # A 端请求/结果、B 端取数/数据均 ready-valid；窄链路侧无 ready
+  clock_domains: 2                   # ASYNC_MODE=0 时两端口连接同一时钟（1 域）；=1 时为真实 2 域
+  ordering: in_order                 # 单 outstanding，beat 顺序即切片顺序
+  throughput: 1_request_per_transaction   # 单 outstanding，响应被消费后才接受下一请求
+  reset: asynchronous_assert_synchronous_release
+
+# ---------------- 可配置参数 ----------------
+parameters:
+  DATA_WIDTH:
+    type: int
+    default: 256
+    legal: {min: 8, max: 4096}
+    partitions: [8, 32, 256, 1024, 4096]
+    affects: [interface_width, area, timing, state_space]
+    semantics: 完整并行数据宽度（快照与重组寄存器宽度）
+  LINK_WIDTH:
+    type: int
+    default: 32
+    legal: {min: 1, max: 256}
+    partitions: [1, 8, 32, 128, 256]
+    affects: [interface_width, area, timing, latency]
+    semantics: 返回窄链路每拍宽度；BEAT_COUNT = DATA_WIDTH / LINK_WIDTH
+  LSB_FIRST:
+    type: int
+    default: 1
+    legal: {min: 0, max: 1}
+    partitions: [0, 1]
+    affects: [timing]
+    semantics: 1=低位切片先发送；0=高位切片先发送（仅改变 beat 顺序，不改变重组结果）
+  ASYNC_MODE:
+    type: int
+    default: 0
+    legal: {min: 0, max: 1}
+    partitions: [0, 1]
+    affects: [area, timing, latency, state_space]
+    semantics: 0=A/B 同钟（无跨域结构）；1=A/B 时钟频率相位无关（toggle 同步 + async FIFO）
+  PARITY_EN:
+    type: int
+    default: 1
+    legal: {min: 0, max: 1}
+    partitions: [0, 1]
+    affects: [area, timing]
+    semantics: 1=每个返回 beat 计算奇偶校验位并逐拍检查
+  ODD_PARITY:
+    type: int
+    default: 0
+    legal: {min: 0, max: 1}
+    partitions: [0, 1]
+    affects: [timing]
+    semantics: 0=偶校验；1=奇校验（仅 PARITY_EN=1 时有效）
+  TIMEOUT_EN:
+    type: int
+    default: 1
+    legal: {min: 0, max: 1}
+    partitions: [0, 1]
+    affects: [area, state_space]
+    semantics: 1=A 端对远端处理与传输计时，超限返回 ERR_TIMEOUT
+  TIMEOUT_CYCLES:
+    type: int
+    default: 1024
+    legal: {min: 8, max: 1048576}
+    partitions: [8, 1024, 65536]
+    affects: [area, state_space]
+    semantics: A 端最大等待周期数（须大于 BEAT_COUNT）
+  REQ_SYNC_STAGES:
+    type: int
+    default: 2
+    legal: {min: 2, max: 4}
+    partitions: [2, 3, 4]
+    affects: [area, timing, latency]
+    semantics: 异步请求 toggle 与 alive 的跨域同步级数
+  RSP_FIFO_DEPTH:
+    type: int
+    default: 16
+    legal: {min: 2, max: 4096}
+    partitions: [2, 16, 256]
+    affects: [area, state_space]
+    semantics: 异步返回 async FIFO 深度（须为 2 的幂，且不小于 BEAT_COUNT）
+  LINK_PIPE_STAGES:
+    type: int
+    default: 0
+    legal: {min: 0, max: 8}
+    partitions: [0, 1, 8]
+    affects: [area, timing, latency]
+    semantics: 同步模式返回 bundle 固定流水级数（data/valid/last/error/parity/epoch 同级）
+  SLICE_IMPL:
+    type: int
+    default: 2
+    legal: {min: 0, max: 2}
+    partitions: [0, 1, 2]
+    affects: [area, timing, latency]
+    semantics: >-
+      切片微架构（多实现/Profile，逻辑功能不得依赖实现结构）：
+      0=shift 移位寄存器；1=indexed snapshot 不变的索引 MUX；2=banked 静态数组 + 索引 MUX（默认）
+  RESET_DEFAULT_DATA:
+    type: int
+    default: 0
+    legal: {min: 0, max: 1}
+    partitions: [0, 1]
+    affects: [state_space]
+    semantics: 0=失败/复位后 a_rsp_data_o 输出全 0；1=输出全 1（避免误读零值语义）
+
+constraints:
+  - id: PC-001
+    expression: "DATA_WIDTH >= 8 and DATA_WIDTH <= 4096"
+    severity: error
+  - id: PC-002
+    expression: "LINK_WIDTH >= 1 and LINK_WIDTH <= 256"
+    severity: error
+  - id: PC-003
+    expression: "DATA_WIDTH >= LINK_WIDTH"
+    severity: error                   # 防零拍事务
+  - id: PC-004
+    expression: "DATA_WIDTH % LINK_WIDTH == 0"
+    severity: error                   # 不支持非整数切分（无 keep/字节掩码）
+  - id: PC-005
+    expression: "RSP_FIFO_DEPTH >= 2"
+    severity: error
+  - id: PC-006
+    expression: "ASYNC_MODE == 0 or RSP_FIFO_DEPTH >= DATA_WIDTH / LINK_WIDTH"
+    severity: error                   # 异步须容纳完整 transaction，防 overflow/死锁
+  - id: PC-007
+    expression: "TIMEOUT_EN == 0 or TIMEOUT_CYCLES > DATA_WIDTH / LINK_WIDTH"
+    severity: error                   # 超时窗口须覆盖完整连续发送
+  - id: PC-008
+    expression: "ASYNC_MODE == 0 or REQ_SYNC_STAGES >= 2"
+    severity: error                   # 跨域至少两级同步
+  - id: PC-009
+    expression: "RSP_FIFO_DEPTH == 2 or RSP_FIFO_DEPTH % 4 == 0"
+    severity: error                   # Gray 指针要求深度为 2 的幂（先按 4 的倍数粗筛）
+  - id: PC-010
+    expression: "RSP_FIFO_DEPTH == 2 or RSP_FIFO_DEPTH % 8 == 0 or RSP_FIFO_DEPTH == 4"
+    severity: error                   # 非 2 的幂取证：12/20/24 等会通过 %4 但非 2 幂
+  - id: PC-011
+    expression: "ASYNC_MODE == 0 or LINK_PIPE_STAGES == 0"
+    severity: error                   # 异步模式不实例化同步长线 pipeline（避免无用/重复结构）
+
+# ---------------- 需求（REQ→PROP/tests/configs 映射；configs 由 config-gen 真实产出回填）----------------
+requirements:
+  - id: REQ-001
+    description: >-
+      一次请求恰好一个成功结果——A 端重组数据与 B 端在 b_data_valid_i && b_data_ready_o
+      被接受时的快照逐 bit 一致；发送期间 B 端输入变化不影响结果（snapshot 已原子锁存）。
+    properties: [PROP-PDF_SNAPSHOT-001, PROP-PDF_CONSERVE-002]
+    tests: [tc_sync_basic, tc_snapshot_hold, tc_random]
+    configs: [cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0]
+  - id: REQ-002
+    description: >-
+      边界——LSB-first/MSB-first 切片顺序正确；BEAT_COUNT=1 与非 2 次幂 BEAT_COUNT 均正确；
+      任何路径都不输出部分数据（仅在收齐且检查通过后置 a_rsp_valid_o）。
+    properties: [PROP-PDF_CONSERVE-002]
+    tests: [tc_sync_basic, tc_beat1, tc_pipe_stages, tc_random]
+    configs: [cfg_data_width8_link_width8_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0, cfg_data_width144_link_width16_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0, cfg_data_width256_link_width32_lsb_first0_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages8_slice_impl2_reset_default_data0]
+  - id: REQ-003
+    description: >-
+      时序与背压——连续发送无中间 bubble、仅末拍 last=1；A 端在 a_rsp_valid_o && !a_rsp_ready_i
+      期间 data/error/error_code 保持稳定；结果被消费后才在下一周期回到 IDLE。
+    properties: [PROP-PDF_BEATSEQ-003, PROP-PDF_HOLDSTABLE-004]
+    tests: [tc_sync_basic, tc_backpressure, tc_provider_latency]
+    configs: [cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages1_slice_impl2_reset_default_data0]
+  - id: REQ-004
+    description: >-
+      复位与恢复——A/B 复位可独立断言（异步断言、同步释放）；任一端复位使 link_up 失效且不接受
+      请求；事务中对端复位产生 ERR_REMOTE_RESET 并清除部分重组数据，不自动重发旧请求。
+    properties: [PROP-PDF_LINKUP-005, PROP-PDF_ERROR-006]
+    tests: [tc_reset, tc_async_reset_order, tc_error_inject]
+    configs: [cfg_data_width256_link_width32_lsb_first1_async_mode1_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0]
+  - id: REQ-005
+    description: >-
+      配置合法性——不整除、DATA_WIDTH<LINK_WIDTH、异步深度不足、超时窗口过小、同步级数不足、
+      切片编码越界等非法组合在 elaboration 阶段由 generate 块 $error 拒绝；不产生零宽向量或数组越界。
+    properties: []                    # 负向编译证据（非 SVA）
+    tests: [tc_negative_elab]
+    configs: [cfg_data_width8_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0, cfg_data_width256_link_width32_lsb_first1_async_mode1_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth2_link_pipe_stages0_slice_impl2_reset_default_data0, cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles8_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0, cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl3_reset_default_data0]
+  - id: REQ-006
+    description: >-
+      实现等价——SLICE_IMPL=shift/indexed/banked 三种切片结构在相同功能配置下可观察输出序列
+      等价（数据、顺序、last 与错误语义一致），差异只允许出现在面积/时序/功耗。
+    properties: [PROP-PDF_CONSERVE-002]
+    tests: [tc_slice_equivalence, tc_random]
+    configs: [cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl0_reset_default_data0, cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl1_reset_default_data0]
+  - id: REQ-007
+    description: >-
+      局部责任——只承担单请求远端取数、原子快照、并行转窄、重组、奇偶校验、超时、复位恢复与
+      错误返回；不引入地址选择、总线事务、多 outstanding、路由或软件寄存器。
+    properties: [PROP-PDF_LINKUP-005]
+    tests: [tc_sync_basic, tc_backpressure]
+    configs: [cfg_data_width1024_link_width128_lsb_first1_async_mode0_parity_en1_odd_parity1_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0]
+  - id: REQ-008
+    description: >-
+      依赖与使用约束——CDC 复用组织批准标准结构（toggle 同步器 + Gray 指针 async FIFO），
+      只做选型/参数化/实例化；未实现子核不得作为可消费依赖声明；HWIF 无绑定（本构件不定义
+      总线协议契约，两端业务接口为原生 ready-valid）。
+    properties: []
+    tests: [tc_async_modes]
+    configs: [cfg_data_width256_link_width32_lsb_first1_async_mode1_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages4_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0]
+  - id: REQ-009
+    description: >-
+      PPA 与可观察性能——交付代表配置的资源规模、关键路径、延迟与可持续吞吐说明；记录
+      snapshot/assemble 寄存器、切片结构、pipeline 级数与 async FIFO/parity 增量。
+    properties: []
+    tests: [tc_sync_basic]
+    configs: [cfg_data_width4096_link_width1_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles65536_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0]
+
+# ---------------- 实现变体（切片微架构，同一可观察契约）----------------
+implementations:
+  - id: impl_shift
+    source: rtl/
+    constraints: constraints/
+    dependencies: []                  # 内联同构私有实现；不声明未实现子 CBB 为运行时依赖
+    files:
+      - rtl/parallel_data_fetch.sv
+  - id: impl_indexed
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/parallel_data_fetch.sv
+  - id: impl_banked
+    source: rtl/
+    constraints: constraints/
+    dependencies: []
+    files:
+      - rtl/parallel_data_fetch.sv
+
+# ---------------- 质量门禁（G0~G8）----------------
+quality:
+  required_gates: [G0, G1, G2, G3, G4, G5, G6, G7, G8]
+
+# ---------------- PPA 表征 ----------------
+characterization:
+  benchmark_profiles: []
+  measured_region: {DATA_WIDTH: [256, 1024], LINK_WIDTH: [32, 64], ASYNC_MODE: [0, 1]}
+  status: OPTIONAL_UNAVAILABLE      # 尚无本地标准单元库/PDK 扫描；G6 未执行，不伪造门级数据
+
+release:
+  fusesoc_core: aixsilicon:cbb:parallel_data_fetch:0.1.0

@@ -1,0 +1,218 @@
+cbb: parallel_data_fetch
+requirements:
+- id: ASM-001
+  type: assumption
+  description: 所有输入为同步二值信号；复位撤销在各自时钟域内同步（异步断言）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-002
+  type: assumption
+  description: B 端数据源：未接受的 fetch 请求不主动返回数据；b_data_i 在 b_data_valid_i && b_data_ready_o
+    当拍有效；允许 b_fetch_ready_i 与 b_data_valid_i 同拍为 1（零等待）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-003
+  type: assumption
+  description: A 端消费者最终会接受 response；两端时钟在需要完成 transaction 期间持续运行 （clock 停止由 alive/timeout
+    检测为不可用）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-004
+  type: assumption
+  description: 激活性质（活性）成立需要：两端时钟持续运行、provider 最终响应、A 端最终接受 response。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: ASM-005
+  type: assumption
+  description: 业务层如需更强数据保护（CRC/ECC），在 b_data_i 内自带字段；本构件只提供逐 beat 奇偶校验。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-001
+  type: invariant
+  description: 单 outstanding：a_req_fire 后直到该 transaction 的 response 被 a_rsp_ready_i
+    接受， 不再发生第二次 a_req_fire（a_req_ready_o 保持 0）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-002
+  type: invariant
+  description: 原子快照：snapshot_q 仅在 b_data_valid_i && b_data_ready_o 时更新；发送期间 b_data_i
+    变化不改变已锁存内容，link_rsp_data 只能来自 snapshot_q。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-003
+  type: invariant
+  description: 连续发送：payload 发送一旦开始，link_rsp_valid 连续保持 BEAT_COUNT 拍且不含 bubble； 仅第
+    BEAT_COUNT 拍 link_rsp_last=1；error response 为单拍 valid=1,error=1,last=1。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-004
+  type: invariant
+  description: 全或无：a_rsp_valid_o 仅在收齐 BEAT_COUNT 拍且校验通过后置 1；失败时 a_rsp_error_o=1 且
+    a_rsp_data_o 为 RESET_VALUE 语义值（绝不输出部分或损坏数据）。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-005
+  type: invariant
+  description: 输出稳定：a_rsp_valid_o && !a_rsp_ready_i 期间 a_rsp_data_o/a_rsp_error_o/
+    a_rsp_error_code_o 保持恒定直至被接受。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-006
+  type: invariant
+  description: epoch 隔离：每次新请求翻转单 bit epoch；requester 只接受当前 epoch 的 beat， 超时或恢复后的迟到旧
+    epoch 数据被排空丢弃，不能形成成功结果。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-007
+  type: invariant
+  description: link_up 门控：两端 alive 均稳定至少 REQ_SYNC_STAGES 周期后 link_up=1； link_up=0
+    时 a_req_ready_o=0，provider 不得发起 payload 发送。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: INV-008
+  type: invariant
+  description: 异步 FIFO 容量：provider 仅在 free_entries >= BEAT_COUNT（transaction reservation）
+    时启动发送，async FIFO 在合法参数下永不 overflow/underflow。
+  properties: []
+  tests: []
+  configs: []
+  evidence: []
+- id: REQ-001
+  type: requirement
+  description: 一次请求恰好一个成功结果——A 端重组数据与 B 端在 b_data_valid_i && b_data_ready_o 被接受时的快照逐
+    bit 一致；发送期间 B 端输入变化不影响结果（snapshot 已原子锁存）。
+  properties:
+  - PROP-PDF_SNAPSHOT-001
+  - PROP-PDF_CONSERVE-002
+  tests:
+  - tc_sync_basic
+  - tc_snapshot_hold
+  - tc_random
+  configs:
+  - cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+  evidence: []
+- id: REQ-002
+  type: requirement
+  description: 边界——LSB-first/MSB-first 切片顺序正确；BEAT_COUNT=1 与非 2 次幂 BEAT_COUNT 均正确；
+    任何路径都不输出部分数据（仅在收齐且检查通过后置 a_rsp_valid_o）。
+  properties:
+  - PROP-PDF_CONSERVE-002
+  tests:
+  - tc_sync_basic
+  - tc_beat1
+  - tc_pipe_stages
+  - tc_random
+  configs:
+  - cfg_data_width8_link_width8_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+  - cfg_data_width144_link_width16_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+  - cfg_data_width256_link_width32_lsb_first0_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages8_slice_impl2_reset_default_data0
+  evidence: []
+- id: REQ-003
+  type: requirement
+  description: 时序与背压——连续发送无中间 bubble、仅末拍 last=1；A 端在 a_rsp_valid_o && !a_rsp_ready_i
+    期间 data/error/error_code 保持稳定；结果被消费后才在下一周期回到 IDLE。
+  properties:
+  - PROP-PDF_BEATSEQ-003
+  - PROP-PDF_HOLDSTABLE-004
+  tests:
+  - tc_sync_basic
+  - tc_backpressure
+  - tc_provider_latency
+  configs:
+  - cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages1_slice_impl2_reset_default_data0
+  evidence: []
+- id: REQ-004
+  type: requirement
+  description: 复位与恢复——A/B 复位可独立断言（异步断言、同步释放）；任一端复位使 link_up 失效且不接受 请求；事务中对端复位产生 ERR_REMOTE_RESET
+    并清除部分重组数据，不自动重发旧请求。
+  properties:
+  - PROP-PDF_LINKUP-005
+  - PROP-PDF_ERROR-006
+  tests:
+  - tc_reset
+  - tc_async_reset_order
+  - tc_error_inject
+  configs:
+  - cfg_data_width256_link_width32_lsb_first1_async_mode1_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+  evidence: []
+- id: REQ-005
+  type: requirement
+  description: 配置合法性——不整除、DATA_WIDTH<LINK_WIDTH、异步深度不足、超时窗口过小、同步级数不足、 切片编码越界等非法组合在
+    elaboration 阶段由 generate 块 $error 拒绝；不产生零宽向量或数组越界。
+  properties: []
+  tests:
+  - tc_negative_elab
+  configs:
+  - cfg_data_width8_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+  - cfg_data_width256_link_width32_lsb_first1_async_mode1_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth2_link_pipe_stages0_slice_impl2_reset_default_data0
+  - cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles8_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+  - cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl3_reset_default_data0
+  evidence: []
+- id: REQ-006
+  type: requirement
+  description: 实现等价——SLICE_IMPL=shift/indexed/banked 三种切片结构在相同功能配置下可观察输出序列 等价（数据、顺序、last
+    与错误语义一致），差异只允许出现在面积/时序/功耗。
+  properties:
+  - PROP-PDF_CONSERVE-002
+  tests:
+  - tc_slice_equivalence
+  - tc_random
+  configs:
+  - cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl0_reset_default_data0
+  - cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl1_reset_default_data0
+  evidence: []
+- id: REQ-007
+  type: requirement
+  description: 局部责任——只承担单请求远端取数、原子快照、并行转窄、重组、奇偶校验、超时、复位恢复与 错误返回；不引入地址选择、总线事务、多 outstanding、路由或软件寄存器。
+  properties:
+  - PROP-PDF_LINKUP-005
+  tests:
+  - tc_sync_basic
+  - tc_backpressure
+  configs:
+  - cfg_data_width1024_link_width128_lsb_first1_async_mode0_parity_en1_odd_parity1_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+  evidence: []
+- id: REQ-008
+  type: requirement
+  description: 依赖与使用约束——CDC 复用组织批准标准结构（toggle 同步器 + Gray 指针 async FIFO）， 只做选型/参数化/实例化；未实现子核不得作为可消费依赖声明；HWIF
+    无绑定（本构件不定义 总线协议契约，两端业务接口为原生 ready-valid）。
+  properties: []
+  tests:
+  - tc_async_modes
+  configs:
+  - cfg_data_width256_link_width32_lsb_first1_async_mode1_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages4_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+  evidence: []
+- id: REQ-009
+  type: requirement
+  description: PPA 与可观察性能——交付代表配置的资源规模、关键路径、延迟与可持续吞吐说明；记录 snapshot/assemble 寄存器、切片结构、pipeline
+    级数与 async FIFO/parity 增量。
+  properties: []
+  tests:
+  - tc_sync_basic
+  configs:
+  - cfg_data_width4096_link_width1_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles65536_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+  evidence: []

@@ -1,0 +1,38 @@
+set: risk
+configs:
+- config_id: cfg_data_width4096_link_width1_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles65536_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+  parameters:
+    DATA_WIDTH: 4096
+    LINK_WIDTH: 1
+    LSB_FIRST: 1
+    ASYNC_MODE: 0
+    PARITY_EN: 1
+    ODD_PARITY: 0
+    TIMEOUT_EN: 1
+    TIMEOUT_CYCLES: 65536
+    REQ_SYNC_STAGES: 2
+    RSP_FIFO_DEPTH: 16
+    LINK_PIPE_STAGES: 0
+    SLICE_IMPL: 2
+    RESET_DEFAULT_DATA: 0
+  sets:
+  - risk
+  profiles: []
+- config_id: cfg_data_width4096_link_width8_lsb_first1_async_mode1_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth512_link_pipe_stages0_slice_impl2_reset_default_data0
+  parameters:
+    DATA_WIDTH: 4096
+    LINK_WIDTH: 8
+    LSB_FIRST: 1
+    ASYNC_MODE: 1
+    PARITY_EN: 1
+    ODD_PARITY: 0
+    TIMEOUT_EN: 1
+    TIMEOUT_CYCLES: 1024
+    REQ_SYNC_STAGES: 2
+    RSP_FIFO_DEPTH: 512
+    LINK_PIPE_STAGES: 0
+    SLICE_IMPL: 2
+    RESET_DEFAULT_DATA: 0
+  sets:
+  - risk
+  profiles: []

@@ -1,0 +1,24 @@
+cbb: parallel_data_fetch
+updated: '2026-09-16T09:34:13Z'
+gates:
+  G0:
+    status: pass
+    evidence: docs/intake.md + parallel_data_fetch_contract.md + registry INT-001
+    note: CBB边界判定/查重新增/interconnect新类别
+  G1:
+    status: pass
+    evidence: cbb.yaml+behavior.yaml+profiles.yaml; check --phase specify --strict
+      PASS; config-gen 219 cfg; trace/rtm.yaml
+    note: 契约与RTM闭环
+  G2:
+    status: pass
+    evidence: docs/design.md + docs/detail-design/slice_impl.md（双端点边界/CDC选型/错误模型/PPA）
+    note: 架构与详设论证（DOC-02）
+  G3:
+    status: pass
+    evidence: build/eda/evidence/g3_static/summary.txt
+    note: 'vcs W-2024.09: positive 21/21, negative 15/15'
+  G4:
+    status: pass
+    evidence: build/eda/evidence/g4_functional/summary.txt
+    note: 'vcs: 12/12 参数化用例, 52 txn/case, bubbles=0; 异步模式定向回归留待后续'

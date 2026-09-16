@@ -2,6 +2,25 @@
 
 本仓库遵循语义化版本（SemVer）管理 CBB 平台整体版本；单个 CBB 在其工程包内独立维护版本。
 
+## [Unreleased]
+
+### Added
+- 新增类别 `components/interconnect` 与 CBB **INT-001 parallel_data_fetch**
+  （[`components/interconnect/parallel_data_fetch/`](components/interconnect/parallel_data_fetch/README.md)，A3/P2）——
+  单请求远端原子快照经窄链路连续回传并在请求端重组，以传输时延换取长距布线资源。
+  - **双端点集成边界**：`parallel_data_fetch_requester`（A 端，仅 A 域）与
+    `parallel_data_fetch_provider`（B 端，仅 B 域）可分别放置于相距较远的区域，窄链路作为跨区布线；
+    `pdf_async_fifo`（Gray 指针）作为链路跨域单元挂在端点之外，`parallel_data_fetch` 仅为同层封装。
+  - 参数与约束（PC-001～PC-011）：`DATA_WIDTH/LINK_WIDTH/LSB_FIRST/ASYNC_MODE/PARITY_EN/ODD_PARITY/
+    TIMEOUT_EN/TIMEOUT_CYCLES/REQ_SYNC_STAGES/RSP_FIFO_DEPTH/LINK_PIPE_STAGES/SLICE_IMPL`；
+    非法组合由 RTL `generate` 内 `$error` 在 elaboration 期拦截。
+  - 切片三实现 `SLICE_IMPL=shift/indexed/banked`，共享同一可观察契约（SVA 约束输出恒等于快照切片）。
+  - 证据：G3 静态基线 positive 21/21 + negative 15/15；G4 功能 12/12 参数化用例
+    （BEAT_COUNT=1/非 2 次幂、pipe1/8、三切片、MSB-first、奇/偶校验、宽/窄链路），
+    每用例 52 事务、SVA 全程开启、`bubbles=0`（VCS W-2024.09）。
+  - 未完成：G5 配置矩阵回归、异步模式定向/随机回归、G6 门级 PPA（`OPTIONAL_UNAVAILABLE`，E0）
+    与 G7/G8；见工程内 `reports/qualification-report.md` 剩余风险。
+
 ## [0.1.2] - 2026-08-28
 
 ### Added
@@ -32,6 +51,17 @@
 - 新增 `docs/`（architecture / cbb_spec / ppa / getting_started）与 recipes / schemas / verification / flows / tools 框架
 
 > 0.1.0 初始化时，各 CBB 为规划占位（成熟度 E0），未含 RTL 与 PPA 表征数据。
+
+## 2026-09-16 noc_interconnect 分类退出
+
+- 按需求方要求退出 `components/noc_interconnect` 整类规划（NOC-007 crossbar_fabric、NOC-009
+  credit_return_channel、NOC-010 link_register_slice、NOC-011 link_cdc_adapter、NOC-012
+  link_width_converter）：退出前仅为需求草案与 README 占位，无实现、无验证/PPA 证据。
+- `registry.yaml` 移除 5 条登记（292 条，implemented=10）；`README.md` 派生视图经
+  `scripts/update_registry_readme.py` 刷新。
+- 退出记录写入 `governance/retired-assets.yaml`（`source_files: archived` + `archive_path`）；
+  ID 与名称继续保留在 `governance/reserved-ids.yaml`，编号不复用。
+- 需求草案与 README 占位归档至 `docs/archive/2026-09-cbb-materials-review/noc_interconnect/`。
 
 ## 2026-09-13 IP/CBB 分类清理
 

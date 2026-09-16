@@ -1,0 +1,100 @@
+# verification/config-inputs.yaml — config-gen 的额外输入（风险/消费者/负向/随机）
+# 每条记录给 parameters（与默认值合并）与 reason；negative 另有 stage/diagnostic。
+risk:
+- parameters:
+    DATA_WIDTH: 4096
+    LINK_WIDTH: 1
+    TIMEOUT_CYCLES: 65536
+  reason: 极端切分 4096→1（BEAT_COUNT=4096）：连续发送帧最长，超时窗口与计数器位宽风险最高。
+- parameters:
+    DATA_WIDTH: 4096
+    LINK_WIDTH: 8
+    ASYNC_MODE: 1
+    RSP_FIFO_DEPTH: 512
+  reason: 异步最大事务：BEAT_COUNT=512，async FIFO 恰好容纳一个完整 transaction 的容量边界。
+- parameters:
+    DATA_WIDTH: 8
+    LINK_WIDTH: 8
+  reason: BEAT_COUNT=1 退化配置：验证不生成零宽计数器、单拍 last 语义正确。
+consumer:
+- parameters:
+    DATA_WIDTH: 144
+    LINK_WIDTH: 16
+  reason: 非 2 次幂 BEAT_COUNT=9 覆盖（counter 位宽与末拍合并语义）。
+- parameters:
+    DATA_WIDTH: 1024
+    LINK_WIDTH: 128
+    ODD_PARITY: 1
+  reason: 宽配置 + 奇校验覆盖（ODD_PARITY=1 与 PARITY_EN=1 组合）。
+- parameters:
+    DATA_WIDTH: 256
+    LINK_WIDTH: 32
+  reason: 契约典型配置 256→32 同步（DFX trace entry / 描述符读取场景）。
+- parameters:
+    DATA_WIDTH: 512
+    LINK_WIDTH: 64
+  reason: 契约典型配置 512→64 同步（安全密钥派生结果块读取场景）。
+- parameters:
+    DATA_WIDTH: 1024
+    LINK_WIDTH: 128
+  reason: 契约典型配置 1024→128 同步（远端状态向量低占空比读取场景）。
+- parameters:
+    DATA_WIDTH: 256
+    LINK_WIDTH: 32
+    ASYNC_MODE: 1
+    RSP_FIFO_DEPTH: 16
+  reason: 契约典型配置 256→32 异步（两端时钟域无关的长距跨区读取场景）。
+negative:
+- parameters:
+    DATA_WIDTH: 8
+    LINK_WIDTH: 32
+  reason: 数据宽度小于链路宽度，无法整拍切分
+  stage: elaboration
+  diagnostic: parameter_domain
+- parameters:
+    DATA_WIDTH: 10
+    LINK_WIDTH: 4
+  reason: 非整数切分（10 % 4 != 0），无 keep/字节掩码语义
+  stage: elaboration
+  diagnostic: parameter_domain
+- parameters:
+    DATA_WIDTH: 256
+    LINK_WIDTH: 32
+    ASYNC_MODE: 1
+    RSP_FIFO_DEPTH: 2
+  reason: 异步 FIFO 深度小于 BEAT_COUNT（8），无法容纳完整 transaction
+  stage: elaboration
+  diagnostic: parameter_domain
+- parameters:
+    DATA_WIDTH: 256
+    LINK_WIDTH: 32
+    TIMEOUT_EN: 1
+    TIMEOUT_CYCLES: 8
+  reason: 超时窗口未覆盖 BEAT_COUNT（8），合法事务必然被判超时
+  stage: elaboration
+  diagnostic: parameter_domain
+- parameters:
+    DATA_WIDTH: 256
+    LINK_WIDTH: 32
+    ASYNC_MODE: 1
+    REQ_SYNC_STAGES: 1
+  reason: 跨域同步级数不足（低于两级），CDC 不可靠
+  stage: elaboration
+  diagnostic: parameter_domain
+- parameters:
+    DATA_WIDTH: 256
+    LINK_WIDTH: 16
+    SLICE_IMPL: 3
+  reason: 切片微架构编码越界（合法域 0..2）
+  stage: elaboration
+  diagnostic: parameter_domain
+- parameters:
+    DATA_WIDTH: 8192
+    LINK_WIDTH: 32
+  reason: 数据宽度超出支持上限 4096
+  stage: elaboration
+  diagnostic: parameter_domain
+# 说明：本构件 13 个参数的采样域乘积远超 config-gen 的有界枚举上限（10000），
+# 故不声明 `random` 配置策略，避免生成器以“输出未修改”拒绝。约束随机激励由
+# verification/plan.yaml 的 tc_random 测试用例在 TB 内完成（参数/数据/provider 延迟/
+# A 端背压随机），不依赖配置集抽样。该取舍记录于 reports 与 run_log。

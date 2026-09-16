@@ -1,0 +1,100 @@
+CAPI=2:
+
+# FuseSoC Core — parallel_data_fetch (INT-001, v0.1.0)
+# VLNV: aixsilicon:cbb:parallel_data_fetch:0.1.0
+# 结构：双端点（物理集成边界）+ 链路单元 + 同层封装（极简单文件，无 package/interface）
+#   parallel_data_fetch_requester  A 端（仅 A 域时钟/复位）
+#   parallel_data_fetch_provider   B 端（仅 B 域时钟/复位；含 pdf_link_pipe / pdf_async_fifo / pdf_sync_ff）
+#   parallel_data_fetch            同层封装（内部连线窄链路；仿真/冒烟用）
+# 集成说明见 ../docs/design.md §1、../docs/cbb_spec.md §2
+name: aixsilicon:cbb:parallel_data_fetch:0.1.0
+description: "Single-request remote atomic snapshot fetched over a narrow link and reassembled at the requester (CBB, A3): sync/async clock modes, shift/indexed/banked slice microarchitectures"
+provider:
+  name: aixsilicon
+  library: cbb
+
+filesets:
+  rtl_src:
+    files:
+      - ../rtl/parallel_data_fetch_requester.sv   # A 端端点（含 pdf_alive_check）
+      - ../rtl/parallel_data_fetch_provider.sv   # B 端端点（含 pdf_sync_ff/pdf_link_pipe/pdf_async_fifo）
+      - ../rtl/parallel_data_fetch.sv            # 同层封装（内部实例化两端点 + 链路单元）
+      # 依赖顺序：provider 先于 wrapper（wrapper 例化 provider/requester）
+      # FuseSoC 按 filesets 顺序解析；如需显式序可拆分多个 fileset
+    file_type: systemVerilogSource
+
+  tb_src:
+    files:
+      - ../verification/simulation/parallel_data_fetch_tb.sv
+    file_type: systemVerilogSource
+
+targets:
+  default:
+    filesets: [rtl_src]
+  sim:
+    default_tool: vcs
+    filesets: [rtl_src, tb_src]
+    toplevel: [parallel_data_fetch_tb]
+  synth:
+    default_tool: dc
+    filesets: [rtl_src]
+    toplevel: [parallel_data_fetch]
+  lint:
+    default_tool: spyglass
+    filesets: [rtl_src]
+    toplevel: [parallel_data_fetch]
+
+# 参数合法域见 ../cbb.yaml constraints（PC-001..PC-011）；非法组合由 RTL generate 内 $error 拦截
+parameters:
+  DATA_WIDTH:
+    datatype: int
+    default: 256
+    description: "Full parallel data width [8..4096] (PC-001)"
+  LINK_WIDTH:
+    datatype: int
+    default: 32
+    description: "Narrow link width; DATA_WIDTH % LINK_WIDTH == 0 (PC-002/003/004)"
+  LSB_FIRST:
+    datatype: int
+    default: 1
+    description: "1=LSB slice sent first, 0=MSB first"
+  ASYNC_MODE:
+    datatype: int
+    default: 0
+    description: "0=same clock (A/B tied), 1=independent clock domains (toggle sync + async FIFO)"
+  PARITY_EN:
+    datatype: int
+    default: 1
+    description: "1=per-beat parity generation and check"
+  ODD_PARITY:
+    datatype: int
+    default: 0
+    description: "0=even parity, 1=odd parity"
+  TIMEOUT_EN:
+    datatype: int
+    default: 1
+    description: "1=requester timeout enabled"
+  TIMEOUT_CYCLES:
+    datatype: int
+    default: 1024
+    description: "Requester wait limit; must exceed BEAT_COUNT (PC-007)"
+  REQ_SYNC_STAGES:
+    datatype: int
+    default: 2
+    description: "CDC synchronizer stages for request toggle / alive [2..4] (PC-008)"
+  RSP_FIFO_DEPTH:
+    datatype: int
+    default: 16
+    description: "Async return FIFO depth (power of two, >= BEAT_COUNT when async) (PC-005/006/009)"
+  LINK_PIPE_STAGES:
+    datatype: int
+    default: 0
+    description: "Sync-mode long-link bundle pipeline stages [0..8]; async requires 0 (PC-011)"
+  SLICE_IMPL:
+    datatype: int
+    default: 2
+    description: "Slice microarchitecture {0=shift,1=indexed,2=banked} (PC-013)"
+  RESET_DEFAULT_DATA:
+    datatype: int
+    default: 0
+    description: "Failed/reset output data value {0=all zero,1=all one}"

@@ -1,0 +1,11 @@
+# CBB 运行日志（唯一）
+
+- `2026-09-16 09:35:38` | **intake** | G0 | INT-001 注册：新建 components/interconnect 类别，CBB 边界判定与查重完成 | 结果(PASS)
+    查重结论：与 stream_mux/stream_width_converter/stream_broadcaster/pipeline_fifo/bus_snapshot_cdc 契约均不同，新增条目。复用候选 toggle_synchronizer/async_fifo/parity_gen_check 中前两者仍为 planned 无实现，故内联同构私有实现并记录替换路径。
+- `2026-09-16 09:35:39` | **design** | G2 | 双端点物理边界重构 + 设计论证落地 | 结果(PASS)
+    用户指出需拆分为两个模块以便 SoC 跨区集成；据此将 RTL 拆为 requester/provider 端点 + 链路单元，async FIFO 因跨域无法归入单侧故为同级单元；新增 DOC-02 文档先行约束并同步 canonical SKILL。
+- `2026-09-16 09:35:39` | **verify** | G3 | G3 静态基线：positive 21/21, negative 15/15 (VCS W-2024.09) | 结果(PASS)
+- `2026-09-16 09:35:39` | **verify** | G4 | G4 功能：12/12 参数化用例，52 txn/case，bubbles=0 | 结果(PASS)
+    修复过程记录：requester 的 link_req_o 悬空(x)导致 toggle 检测失效；TB 数据源 FSM 依赖 fetch_ready 当前值造成死锁；TB 提前拉低 rsp_ready 导致 HOLD 滞留；parity 注入与 BEAT_COUNT=1 竞争。均已修正并有回归证据。
+- `2026-09-16 09:35:39` | **characterize** | G6 | G6 OPTIONAL_UNAVAILABLE：本机无可提交标准单元库快照，PPA 仅为结构推理(E0) | 结果(BLOCKED)
+    未伪造门级数据；待库上下文具备后按 characterization/plan.yaml 运行。

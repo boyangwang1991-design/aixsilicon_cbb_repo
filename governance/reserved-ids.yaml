@@ -246,6 +246,7 @@ ids:
   protocol_progress_monitor: MON-014
   perf_counter_csr_adapter: MON-015
   lightweight_logic_analyzer: MON-016
+  parallel_data_fetch: INT-001
   flit_packer_unpacker: NOC-001
   vc_fifo: NOC-002
   vc_allocator: NOC-003

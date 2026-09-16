@@ -1,0 +1,74 @@
+set: consumer
+configs:
+- config_id: cfg_data_width144_link_width16_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+  parameters:
+    DATA_WIDTH: 144
+    LINK_WIDTH: 16
+    LSB_FIRST: 1
+    ASYNC_MODE: 0
+    PARITY_EN: 1
+    ODD_PARITY: 0
+    TIMEOUT_EN: 1
+    TIMEOUT_CYCLES: 1024
+    REQ_SYNC_STAGES: 2
+    RSP_FIFO_DEPTH: 16
+    LINK_PIPE_STAGES: 0
+    SLICE_IMPL: 2
+    RESET_DEFAULT_DATA: 0
+  sets:
+  - consumer
+  profiles: []
+- config_id: cfg_data_width1024_link_width128_lsb_first1_async_mode0_parity_en1_odd_parity1_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+  parameters:
+    DATA_WIDTH: 1024
+    LINK_WIDTH: 128
+    LSB_FIRST: 1
+    ASYNC_MODE: 0
+    PARITY_EN: 1
+    ODD_PARITY: 1
+    TIMEOUT_EN: 1
+    TIMEOUT_CYCLES: 1024
+    REQ_SYNC_STAGES: 2
+    RSP_FIFO_DEPTH: 16
+    LINK_PIPE_STAGES: 0
+    SLICE_IMPL: 2
+    RESET_DEFAULT_DATA: 0
+  sets:
+  - consumer
+  profiles: []
+- config_id: cfg_data_width512_link_width64_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+  parameters:
+    DATA_WIDTH: 512
+    LINK_WIDTH: 64
+    LSB_FIRST: 1
+    ASYNC_MODE: 0
+    PARITY_EN: 1
+    ODD_PARITY: 0
+    TIMEOUT_EN: 1
+    TIMEOUT_CYCLES: 1024
+    REQ_SYNC_STAGES: 2
+    RSP_FIFO_DEPTH: 16
+    LINK_PIPE_STAGES: 0
+    SLICE_IMPL: 2
+    RESET_DEFAULT_DATA: 0
+  sets:
+  - consumer
+  profiles: []
+- config_id: cfg_data_width1024_link_width128_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+  parameters:
+    DATA_WIDTH: 1024
+    LINK_WIDTH: 128
+    LSB_FIRST: 1
+    ASYNC_MODE: 0
+    PARITY_EN: 1
+    ODD_PARITY: 0
+    TIMEOUT_EN: 1
+    TIMEOUT_CYCLES: 1024
+    REQ_SYNC_STAGES: 2
+    RSP_FIFO_DEPTH: 16
+    LINK_PIPE_STAGES: 0
+    SLICE_IMPL: 2
+    RESET_DEFAULT_DATA: 0
+  sets:
+  - consumer
+  profiles: []

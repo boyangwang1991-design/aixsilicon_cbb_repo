@@ -1,6 +1,6 @@
 # CBB 需求合同索引
 
-当前 297 个条目均有工程目录和需求合同：10 个从现有 YAML 提取，287 个为规划需求草案。
+当前 292 个条目均有工程目录和需求合同：10 个从现有 YAML 提取，282 个为规划需求草案。
 
 此表为本轮生成的导航；身份与状态以 registry.yaml 为准，覆盖检查使用 scripts/check_requirement_contracts.py。
 
@@ -183,11 +183,7 @@
 | MON-012 | [trigger_qualifier](../components/monitor_debug/trigger_qualifier/trigger_qualifier_contract.md) | 规划需求草案 |
 | MON-013 | [snapshot_register_bank](../components/monitor_debug/snapshot_register_bank/snapshot_register_bank_contract.md) | 规划需求草案 |
 | MON-014 | [protocol_progress_monitor](../components/monitor_debug/protocol_progress_monitor/protocol_progress_monitor_contract.md) | 规划需求草案 |
-| NOC-007 | [crossbar_fabric](../components/noc_interconnect/crossbar_fabric/crossbar_fabric_contract.md) | 规划需求草案 |
-| NOC-009 | [credit_return_channel](../components/noc_interconnect/credit_return_channel/credit_return_channel_contract.md) | 规划需求草案 |
-| NOC-010 | [link_register_slice](../components/noc_interconnect/link_register_slice/link_register_slice_contract.md) | 规划需求草案 |
-| NOC-011 | [link_cdc_adapter](../components/noc_interconnect/link_cdc_adapter/link_cdc_adapter_contract.md) | 规划需求草案 |
-| NOC-012 | [link_width_converter](../components/noc_interconnect/link_width_converter/link_width_converter_contract.md) | 规划需求草案 |
+| INT-001 | [parallel_data_fetch](../components/interconnect/parallel_data_fetch/parallel_data_fetch_contract.md) | 已有规格视图 |
 | QUE-001 | [sync_fifo](../components/fifo_queue_buffer/sync_fifo/sync_fifo_contract.md) | 已有规格视图 |
 | QUE-002 | [async_fifo](../components/fifo_queue_buffer/async_fifo/async_fifo_contract.md) | 规划需求草案 |
 | QUE-003 | [fall_through_fifo](../components/fifo_queue_buffer/fall_through_fifo/fall_through_fifo_contract.md) | 规划需求草案 |
@@ -306,6 +302,6 @@
 
 ## 本轮核查边界
 
-287 份草案给出每核功能与关键边界，并按领域补充接口、配置、时序、复位及验收条件；G1 再冻结具体参数和端口。10 份已有工程视图以 cbb.yaml、params.yaml、behavior.yaml 的源哈希约束同步，不修改 RTL 或历史证据。397 个已有工程受控文件（README 和需求合同除外）已与 Git HEAD 核对一致。
+282 份草案给出每核功能与关键边界，并按领域补充接口、配置、时序、复位及验收条件；G1 再冻结具体参数和端口。10 份已有工程视图以 cbb.yaml、params.yaml、behavior.yaml 的源哈希约束同步，不修改 RTL 或历史证据。397 个已有工程受控文件（README 和需求合同除外）已与 Git HEAD 核对一致。NOC-007/009/010/011/012 本轮按需求方要求退出，需求草案与 README 占位已随 noc_interconnect 分类归档至 docs/archive/2026-09-cbb-materials-review/。
 
 发现 popcount 的历史 profiles.yaml 含未引用的冒号，标准 YAML 解析失败；本轮未更改该历史配置，也未把它作为需求视图来源。后续该核 G1/配置验证须先修复，现有需求文档覆盖不能替代配置校验。

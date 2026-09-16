@@ -1,0 +1,96 @@
+# behavior.yaml — parallel_data_fetch 行为契约（REQ/INV/ASM/EXC 的 SSOT 伴侣）
+# 与 cbb.yaml 同 ID 定义必须一致（rtm 对同 ID 相同定义去重，不同定义拒绝）。
+
+invariants:
+  - id: INV-001
+    description: >-
+      单 outstanding：a_req_fire 后直到该 transaction 的 response 被 a_rsp_ready_i 接受，
+      不再发生第二次 a_req_fire（a_req_ready_o 保持 0）。
+  - id: INV-002
+    description: >-
+      原子快照：snapshot_q 仅在 b_data_valid_i && b_data_ready_o 时更新；发送期间
+      b_data_i 变化不改变已锁存内容，link_rsp_data 只能来自 snapshot_q。
+  - id: INV-003
+    description: >-
+      连续发送：payload 发送一旦开始，link_rsp_valid 连续保持 BEAT_COUNT 拍且不含 bubble；
+      仅第 BEAT_COUNT 拍 link_rsp_last=1；error response 为单拍 valid=1,error=1,last=1。
+  - id: INV-004
+    description: >-
+      全或无：a_rsp_valid_o 仅在收齐 BEAT_COUNT 拍且校验通过后置 1；失败时 a_rsp_error_o=1
+      且 a_rsp_data_o 为 RESET_VALUE 语义值（绝不输出部分或损坏数据）。
+  - id: INV-005
+    description: >-
+      输出稳定：a_rsp_valid_o && !a_rsp_ready_i 期间 a_rsp_data_o/a_rsp_error_o/
+      a_rsp_error_code_o 保持恒定直至被接受。
+  - id: INV-006
+    description: >-
+      epoch 隔离：每次新请求翻转单 bit epoch；requester 只接受当前 epoch 的 beat，
+      超时或恢复后的迟到旧 epoch 数据被排空丢弃，不能形成成功结果。
+  - id: INV-007
+    description: >-
+      link_up 门控：两端 alive 均稳定至少 REQ_SYNC_STAGES 周期后 link_up=1；
+      link_up=0 时 a_req_ready_o=0，provider 不得发起 payload 发送。
+  - id: INV-008
+    description: >-
+      异步 FIFO 容量：provider 仅在 free_entries >= BEAT_COUNT（transaction reservation）
+      时启动发送，async FIFO 在合法参数下永不 overflow/underflow。
+
+assumptions:
+  - id: ASM-001
+    description: 所有输入为同步二值信号；复位撤销在各自时钟域内同步（异步断言）。
+  - id: ASM-002
+    description: >-
+      B 端数据源：未接受的 fetch 请求不主动返回数据；b_data_i 在 b_data_valid_i &&
+      b_data_ready_o 当拍有效；允许 b_fetch_ready_i 与 b_data_valid_i 同拍为 1（零等待）。
+  - id: ASM-003
+    description: >-
+      A 端消费者最终会接受 response；两端时钟在需要完成 transaction 期间持续运行
+      （clock 停止由 alive/timeout 检测为不可用）。
+  - id: ASM-004
+    description: >-
+      激活性质（活性）成立需要：两端时钟持续运行、provider 最终响应、A 端最终接受 response。
+  - id: ASM-005
+    description: >-
+      业务层如需更强数据保护（CRC/ECC），在 b_data_i 内自带字段；本构件只提供逐 beat 奇偶校验。
+
+timing:
+  request_latency_cycles: 1          # a_req_fire 后下一周期起进入 RECEIVE 并开始计时
+  continuous_beats: "BEAT_COUNT = DATA_WIDTH / LINK_WIDTH"
+  sync_total_latency: "T_req_pipe + T_provider + BEAT_COUNT + LINK_PIPE_STAGES + T_reassemble"
+  reassemble_latency_cycles: 1       # A 端输出寄存器
+  timeout_window: "从 a_req_fire 次周期开始计数，TIMEOUT_CYCLES-1 未完成则 ERR_TIMEOUT"
+  reset: asynchronous_active_low_assert_synchronous_release
+
+exceptions:
+  - id: EXC-001
+    description: >-
+      ERR_TIMEOUT（1）：A 端等待远端处理/返回超限。清空部分重组寄存器；异步模式先完成 link
+      recovery，同步模式等待 provider 回到 IDLE 或内部 abort；迟到旧 epoch 数据被丢弃。
+  - id: EXC-002
+    description: ERR_PROVIDER（2）：B 端数据源以 b_data_error_i 报告无法完成请求，单拍 error response。
+  - id: EXC-003
+    description: >-
+      ERR_PARITY（3）：任一返回 beat 校验失败。继续消费至 last 或超时以避免发送端悬挂，
+      最终丢弃整份数据并返回该错误。
+  - id: EXC-004
+    description: ERR_PROTOCOL（4）：拍数超限、last 提前/缺失或状态序列非法。
+  - id: EXC-005
+    description: >-
+      ERR_REMOTE_RESET（5）：transaction 期间对端 alive 下降。本端立即放弃、清除部分重组数据、
+      两端重新等待 link_up，不自动重发旧请求。
+  - id: EXC-006
+    description: ERR_FIFO（6）：async FIFO overflow/underflow 或内部错误。
+  - id: EXC-007
+    description: ERR_INTERNAL（7）：非法状态或冗余检查失败。
+  - id: EXC-008
+    description: >-
+      错误优先级（多错误同时发生）：REMOTE_RESET > FIFO > INTERNAL > PROTOCOL > PARITY >
+      PROVIDER > TIMEOUT。错误只经 A 端 response 握手返回，本构件不产生中断或软件寄存器。
+
+non_goals:
+  - 地址选择、命令字段与多数据对象选择（须在 CBB 之外完成或实例化多个本构件）
+  - AXI/APB 等标准总线协议事务、burst、多 outstanding、乱序返回
+  - 连续流/高带宽数据面传输（每周期持续宽数据传输）
+  - 多 lane、packet、credit、路由、QoS、CRC 与链路重传
+  - 软件可见 CSR/DFX 寄存器、中断产生、PLL/CDR 与芯片间或 die-to-die PHY
+  - 数据源无原子快照能力且不允许增加快照寄存器的场景

@@ -1,0 +1,106 @@
+# verification/plan.yaml — parallel_data_fetch 验证计划（C1 建立，C4 更新同一文件）
+# 纯 YAML；C4 用真实 run 结果替换 status: planned，并冻结。
+target: parallel_data_fetch
+
+verification_forms:
+  - id: sim_functional
+    method: simulation
+    scope: 定向 + 约束随机 + 错误注入（同步/异步模式、切片实现等价）
+  - id: static_baseline
+    method: static
+    scope: compile / elaboration / 负向参数 $error 拦截（G3）
+  - id: sim_config_matrix
+    method: simulation
+    scope: 生成配置集矩阵回归（mandatory/boundary/pairwise/negative 的代表点，G5）
+
+# configs: 由 cbb_tool.py config-gen 生成后按实际 config_id 回填（禁止凭记忆手写）
+# 全部 219 条 config 的完整清单见 verification/configs/manifest.yaml 与各集合文件；
+# 此处只列 REQ 追踪直接引用的代表点，避免与生成产物双维护。
+configs:
+  - id: cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+    set: mandatory
+    profile: sync_typical
+  - id: cfg_data_width8_link_width8_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+    set: pairwise
+    note: BEAT_COUNT=1 退化边界（DATA_WIDTH=LINK_WIDTH）
+  - id: cfg_data_width144_link_width16_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+    set: consumer
+    note: 非 2 次幂 BEAT_COUNT=9
+  - id: cfg_data_width256_link_width32_lsb_first0_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages8_slice_impl2_reset_default_data0
+    set: pairwise
+    note: MSB-first + LINK_PIPE_STAGES=8
+  - id: cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages1_slice_impl2_reset_default_data0
+    set: boundary
+    note: 同步 1 级长线 pipeline（背压保持）
+  - id: cfg_data_width256_link_width32_lsb_first1_async_mode1_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+    set: boundary
+    note: 异步典型（两端独立复位/remote reset）
+  - id: cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl0_reset_default_data0
+    set: boundary
+    note: 切片实现等价——shift
+  - id: cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl1_reset_default_data0
+    set: boundary
+    note: 切片实现等价——indexed
+  - id: cfg_data_width1024_link_width128_lsb_first1_async_mode0_parity_en1_odd_parity1_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+    set: consumer
+    note: 宽配置 + 奇校验
+  - id: cfg_data_width256_link_width32_lsb_first1_async_mode1_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages4_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+    set: pairwise
+    note: 异步同步级数上界（REQ_SYNC_STAGES=4）
+  - id: cfg_data_width4096_link_width1_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles65536_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+    set: risk
+    note: 极端切分 4096→1（BEAT_COUNT=4096，PPA/计数器位宽风险点）
+
+testcases:
+  - id: tc_sync_basic
+    status: planned
+    acceptance: 同步模式典型配置下 A 端结果与 B 端被接受时快照逐 bit 一致，且连续多次请求各自独立。
+  - id: tc_beat1
+    status: planned
+    acceptance: BEAT_COUNT=1（DATA_WIDTH=LINK_WIDTH）时单拍发送、单拍 last 正确且不产生零宽信号。
+  - id: tc_pipe_stages
+    status: planned
+    acceptance: LINK_PIPE_STAGES=0/1/8 下 bundle 各字段严格同级延迟，valid/last/parity/epoch 不失配。
+  - id: tc_snapshot_hold
+    status: planned
+    acceptance: 发送期间持续改变 b_data_i，返回值仍等于被接受时刻的 snapshot。
+  - id: tc_backpressure
+    status: planned
+    acceptance: A 端长时间不接受 response 时输出保持稳定；provider 侧不受 A 端业务反压影响。
+  - id: tc_provider_latency
+    status: planned
+    acceptance: provider 零等待/固定等待/随机等待下事务均正确完成，零等待允许 fetch_ready 与 data_valid 同拍。
+  - id: tc_slice_equivalence
+    status: planned
+    acceptance: SLICE_IMPL=0/1/2 在相同功能配置下有效输出序列（数据、顺序、last、错误）完全一致。
+  - id: tc_random
+    status: planned
+    acceptance: 约束随机参数/数据/provider 延迟/A 端背压下 scoreboard 无失配，无丢无重无混事务。
+  - id: tc_async_modes
+    status: planned
+    acceptance: A 快 B 慢、A 慢 B 快、同频异相下事务正确；临界 full/empty 不产生 overflow/underflow。
+  - id: tc_async_reset_order
+    status: planned
+    acceptance: 两端独立复位与不同释放顺序下 link_up 正确失效并重建；重建前不接受请求。
+  - id: tc_reset
+    status: planned
+    acceptance: 各状态复位后 valid/busy 在规定周期内清零，输出为 RESET_VALUE 语义值，随后可重新接受请求。
+  - id: tc_error_inject
+    status: planned
+    acceptance: parity 翻转、last 提前/缺失/重复、beam 计数超限、provider error、epoch 不匹配均返回对应错误码。
+  - id: tc_negative_elab
+    status: planned
+    acceptance: 非法参数组合在 elaboration 阶段被 $error 拒绝（工具非零退出且报出参数诊断，非崩溃）。
+
+matrix:
+  representative: false
+  baseline_configs: []
+  notes: >-
+    C4 由 config-gen 生成 mandatory/boundary/pairwise/negative 配置集后回填真实 config_id；
+    异步模式与切片等价的代表性配置须覆盖 ASYNC_MODE=1 与 SLICE_IMPL=0/1/2。
+
+evidence:
+  static_baseline: build/eda/evidence/g3_static/
+  functional: build/eda/evidence/g4_functional/
+  reports: reports/quality/
+  note: 原始 EDA 日志落 build/（不入库）；脱敏摘要与 Gate 记录落 reports/。

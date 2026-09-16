@@ -1,0 +1,47 @@
+# profiles.yaml — parallel_data_fetch 命名 Profile（切片微架构 + 时钟模式选型）
+# Profile 是经过命名/验证/表征的稳定配置，不等于任意参数组合。
+# 三切片实现共享同一可观察契约（数据/顺序/last/错误语义一致），差异只在面积/时序/功耗。
+profiles:
+  sync_typical:
+    implementation: impl_banked
+    parameters: {DATA_WIDTH: 256, LINK_WIDTH: 32, ASYNC_MODE: 0, SLICE_IMPL: 2, LINK_PIPE_STAGES: 0}
+    optimization_goal: timing
+    support: supported
+    use_case: 典型同步 256→32：A/B 同钟、banked 切片、无长线 pipeline（后端按布局插入）。
+  async_typical:
+    implementation: impl_banked
+    parameters: {DATA_WIDTH: 256, LINK_WIDTH: 32, ASYNC_MODE: 1, SLICE_IMPL: 2, RSP_FIFO_DEPTH: 16, REQ_SYNC_STAGES: 2}
+    optimization_goal: area
+    support: experimental
+    use_case: 典型异步 256→32：A/B 时钟频率相位无关；toggle 同步 + Gray 指针 async FIFO 返回。
+  slice_shift:
+    implementation: impl_shift
+    parameters: {DATA_WIDTH: 256, LINK_WIDTH: 32, SLICE_IMPL: 0}
+    optimization_goal: area
+    support: experimental
+    use_case: 切片结构选型 A——移位寄存器，控制最简、每拍翻转大量寄存器。
+  slice_indexed:
+    implementation: impl_indexed
+    parameters: {DATA_WIDTH: 256, LINK_WIDTH: 32, SLICE_IMPL: 1}
+    optimization_goal: timing
+    support: experimental
+    use_case: 切片结构选型 B——snapshot 不变的索引 MUX，寄存器翻转少但 MUX 深宽随 BEAT_COUNT 增长。
+
+implementation_notes:
+  impl_shift:
+    max_recommended_scale: {DATA_WIDTH: 4096, LINK_WIDTH: 256}
+    dependencies: []
+    characterized_region: {DATA_WIDTH: [256], LINK_WIDTH: [32]}
+    known_limits: [每拍移位翻转率高，功耗随 DATA_WIDTH 线性上升]
+  impl_indexed:
+    max_recommended_scale: {DATA_WIDTH: 4096, LINK_WIDTH: 256}
+    dependencies: []
+    characterized_region: {DATA_WIDTH: [256], LINK_WIDTH: [32]}
+    known_limits: [索引 MUX 深度随 BEAT_COUNT 增长，大 BEAT_COUNT 时序压力大]
+  impl_banked:
+    max_recommended_scale: {DATA_WIDTH: 4096, LINK_WIDTH: 256}
+    dependencies: []
+    characterized_region: {DATA_WIDTH: [256], LINK_WIDTH: [32]}
+    known_limits:
+      - 未表征区域（无标准单元库）默认 experimental；"能编译"不等于"被支持"
+      - CDC 复用组织批准标准结构形态，本版为构件内联同构私有实现（toggle_synchronizer/async_fifo 尚未实现，未声明为运行时 VLNV 依赖）

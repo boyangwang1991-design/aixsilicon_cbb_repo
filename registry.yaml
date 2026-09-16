@@ -1521,6 +1521,17 @@ cbbs:
   status: planned
   version: 0.1.0
   path: components/dsp_ai_datapath/loop_nested_counter_gen
+- id: INT-001
+  name: parallel_data_fetch
+  family: Parallel Data Fetch
+  group: components/interconnect
+  abstraction: A3
+  priority: P2
+  implementation: requester/provider 双端点 + 链路单元；sync/async、shift/indexed/banked 切片
+  description: 单请求远端原子快照经窄链路连续回传并在请求端重组；双端点便于跨区集成（G3 21/15 + G4 12 用例）
+  status: implemented
+  version: 0.1.0
+  path: components/interconnect/parallel_data_fetch
 - id: MEM-001
   name: parameter_register
   family: Parameter Register
@@ -1950,61 +1961,6 @@ cbbs:
   status: planned
   version: 0.1.0
   path: components/monitor_debug/protocol_progress_monitor
-- id: NOC-007
-  name: crossbar_fabric
-  family: Crossbar Fabric
-  group: components/noc_interconnect
-  abstraction: A2/A3
-  priority: P2
-  implementation: full/sparse/multistage
-  description: 布线、Mux、流水
-  status: planned
-  version: 0.1.0
-  path: components/noc_interconnect/crossbar_fabric
-- id: NOC-009
-  name: credit_return_channel
-  family: Credit Return Channel
-  group: components/noc_interconnect
-  abstraction: A3
-  priority: P2
-  implementation: aggregated/per-VC
-  description: 反馈延迟与位宽
-  status: planned
-  version: 0.1.0
-  path: components/noc_interconnect/credit_return_channel
-- id: NOC-010
-  name: link_register_slice
-  family: Link Register Slice
-  group: components/noc_interconnect
-  abstraction: A3
-  priority: P1
-  implementation: forward/reverse/full
-  description: 长距离切时序
-  status: planned
-  version: 0.1.0
-  path: components/noc_interconnect/link_register_slice
-- id: NOC-011
-  name: link_cdc_adapter
-  family: Link CDC Adapter
-  group: components/noc_interconnect
-  abstraction: A3
-  priority: P2
-  implementation: async FIFO/mesochronous
-  description: 时钟关系
-  status: planned
-  version: 0.1.0
-  path: components/noc_interconnect/link_cdc_adapter
-- id: NOC-012
-  name: link_width_converter
-  family: Link Width Converter
-  group: components/noc_interconnect
-  abstraction: A3
-  priority: P2
-  implementation: flit segmentation/assembly
-  description: Buffer与延迟
-  status: planned
-  version: 0.1.0
-  path: components/noc_interconnect/link_width_converter
 - id: QUE-001
   name: sync_fifo
   family: Synchronous FIFO

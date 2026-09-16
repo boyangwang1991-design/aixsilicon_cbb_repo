@@ -48,12 +48,12 @@ python3 scripts/update_registry_readme.py --check
 
 | 指标                             | 数量 |
 |----------------------------------|------|
-| 总条目（cbbs）                   | 297  |
-| implemented/released（已有实现） | 10   |
-| planned（规划候选）              | 287  |
-| 实现率                           | 3.4% |
+| 总条目（cbbs）                   | 293  |
+| implemented/released（已有实现） | 11   |
+| planned（规划候选）              | 282  |
+| 实现率                           | 3.8% |
 
-### 已实现 / 已交付构件（10）
+### 已实现 / 已交付构件（11）
 
 | ID      | 构件                                                                                         | 构件族                   | 抽象  | 优先级 | 版本  | 类别                              |
 |---------|----------------------------------------------------------------------------------------------|--------------------------|-------|--------|-------|-----------------------------------|
@@ -63,6 +63,7 @@ python3 scripts/update_registry_readme.py --check
 | ARB-010 | [packet_locking_arbiter](components/arbitration_scheduling/packet_locking_arbiter/README.md) | Packet-locking Arbiter   | A2/A3 | P1     | 0.1.0 | components/arbitration_scheduling |
 | ARI-001 | [incrementer_decrementer](components/arithmetic_datapath/incrementer_decrementer/README.md)  | Incrementer/Decrementer  | A1    | P0     | 0.1.0 | components/arithmetic_datapath    |
 | COD-001 | [parity_gen_check](components/coding_integrity/parity_gen_check/README.md)                   | Parity Generator/Checker | A1    | P0     | 0.1.0 | components/coding_integrity       |
+| INT-001 | [parallel_data_fetch](components/interconnect/parallel_data_fetch/README.md)                 | Parallel Data Fetch      | A3    | P2     | 0.1.0 | components/interconnect           |
 | QUE-001 | [sync_fifo](components/fifo_queue_buffer/sync_fifo/README.md)                                | Synchronous FIFO         | A2    | P0     | 0.1.0 | components/fifo_queue_buffer      |
 | QUE-007 | [skid_buffer](components/fifo_queue_buffer/skid_buffer/README.md)                            | Skid Buffer              | A3    | P0     | 0.3.0 | components/fifo_queue_buffer      |
 | SAF-005 | [lockstep_comparator](components/interrupt_safety/lockstep_comparator/README.md)             | Lockstep Comparator      | A2    | P2     | 1.0.0 | components/interrupt_safety       |
@@ -83,9 +84,9 @@ python3 scripts/update_registry_readme.py --check
 | components/dft_test               | 0           | 10      | 10   |
 | components/dsp_ai_datapath        | 0           | 12      | 12   |
 | components/fifo_queue_buffer      | 2           | 17      | 19   |
+| components/interconnect           | 1           | 0       | 1    |
 | components/interrupt_safety       | 1           | 23      | 24   |
 | components/monitor_debug          | 0           | 14      | 14   |
-| components/noc_interconnect       | 0           | 5       | 5    |
 | components/register_memory        | 0           | 25      | 25   |
 | components/safety_reliability     | 0           | 1       | 1    |
 | components/selection_decode       | 1           | 19      | 20   |
@@ -101,20 +102,20 @@ python3 scripts/update_registry_readme.py --check
 | A1/A0 | 1    |
 | A1/A2 | 19   |
 | A2    | 164  |
-| A2/A3 | 14   |
+| A2/A3 | 13   |
 | A2/A4 | 3    |
-| A3    | 37   |
+| A3    | 34   |
 
 ### 按优先级分布（implemented / planned）
 
 | 优先级 | implemented | planned | 合计 |
 |--------|-------------|---------|------|
 | P0     | 6           | 59      | 65   |
-| P1     | 2           | 103     | 105  |
-| P2     | 2           | 90      | 92   |
+| P1     | 2           | 102     | 104  |
+| P2     | 3           | 86      | 89   |
 | P3     | 0           | 35      | 35   |
 
-### 全部 CBB 明细（297，按类别拆分）
+### 全部 CBB 明细（293，按类别拆分）
 
 #### adapters（21，implemented=0）
 
@@ -354,6 +355,12 @@ python3 scripts/update_registry_readme.py --check
 | QUE-019 | [replay_retry_buffer](components/fifo_queue_buffer/replay_retry_buffer/README.md)                   | Replay/Retry Buffer          | planned     | A2    | P3     | 0.1.0 | 状态容量和恢复延迟                                                                             |
 | QUE-020 | [broadcast_replication_buffer](components/fifo_queue_buffer/broadcast_replication_buffer/README.md) | Broadcast/Replication Buffer | planned     | A2/A3 | P2     | 0.1.0 | 数据复制与背压                                                                                 |
 
+#### components/interconnect（1，implemented=1）
+
+| ID      | 名称                                                                         | 构件族              | 状态        | 抽象 | 优先级 | 版本  | 功能/描述                                                                                     |
+|---------|------------------------------------------------------------------------------|---------------------|-------------|------|--------|-------|-----------------------------------------------------------------------------------------------|
+| INT-001 | [parallel_data_fetch](components/interconnect/parallel_data_fetch/README.md) | Parallel Data Fetch | implemented | A3   | P2     | 0.1.0 | 单请求远端原子快照经窄链路连续回传并在请求端重组；双端点便于跨区集成（G3 21/15 + G4 12 用例） |
+
 #### components/interrupt_safety（24，implemented=1）
 
 | ID      | 名称                                                                                               | 构件族                         | 状态        | 抽象  | 优先级 | 版本  | 功能/描述                                             |
@@ -401,16 +408,6 @@ python3 scripts/update_registry_readme.py --check
 | MON-012 | [trigger_qualifier](components/monitor_debug/trigger_qualifier/README.md)                   | Trigger/Qualifier          | planned | A2    | P2     | 0.1.0 | 比较网络                               |
 | MON-013 | [snapshot_register_bank](components/monitor_debug/snapshot_register_bank/README.md)         | Snapshot Register Bank     | planned | A2    | P1     | 0.1.0 | 面积和采样一致性                       |
 | MON-014 | [protocol_progress_monitor](components/monitor_debug/protocol_progress_monitor/README.md)   | Protocol Progress Monitor  | planned | A3    | P2     | 0.1.0 | 误报和状态开销                         |
-
-#### components/noc_interconnect（5，implemented=0）
-
-| ID      | 名称                                                                                 | 构件族                | 状态    | 抽象  | 优先级 | 版本  | 功能/描述       |
-|---------|--------------------------------------------------------------------------------------|-----------------------|---------|-------|--------|-------|-----------------|
-| NOC-007 | [crossbar_fabric](components/noc_interconnect/crossbar_fabric/README.md)             | Crossbar Fabric       | planned | A2/A3 | P2     | 0.1.0 | 布线、Mux、流水 |
-| NOC-009 | [credit_return_channel](components/noc_interconnect/credit_return_channel/README.md) | Credit Return Channel | planned | A3    | P2     | 0.1.0 | 反馈延迟与位宽  |
-| NOC-010 | [link_register_slice](components/noc_interconnect/link_register_slice/README.md)     | Link Register Slice   | planned | A3    | P1     | 0.1.0 | 长距离切时序    |
-| NOC-011 | [link_cdc_adapter](components/noc_interconnect/link_cdc_adapter/README.md)           | Link CDC Adapter      | planned | A3    | P2     | 0.1.0 | 时钟关系        |
-| NOC-012 | [link_width_converter](components/noc_interconnect/link_width_converter/README.md)   | Link Width Converter  | planned | A3    | P2     | 0.1.0 | Buffer与延迟    |
 
 #### components/register_memory（25，implemented=0）
 

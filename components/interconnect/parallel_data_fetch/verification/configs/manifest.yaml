@@ -1,0 +1,12 @@
+cbb: parallel_data_fetch
+sets:
+  mandatory: 1
+  boundary: 28
+  pairwise: 147
+  risk: 2
+  consumer: 4
+  random: 0
+  negative: 33
+generation:
+  complete_pairwise: false
+  completion_limit: 10000
