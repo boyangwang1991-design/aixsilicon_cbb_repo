@@ -5,6 +5,21 @@
 ## [Unreleased]
 
 ### Added
+- **INT-001 异步模式（ASYNC_MODE=1）双时钟回归**：新增
+  [`verification/scripts/run_async_sim.sh`](components/interconnect/parallel_data_fetch/verification/scripts/run_async_sim.sh)
+  与 [`verification/simulation/parallel_data_fetch_async_tb.sv`](components/interconnect/parallel_data_fetch/verification/simulation/parallel_data_fetch_async_tb.sv)，
+  覆盖 8 组时钟比例/相位（A 快 B 慢 4×、A 慢 B 快 1/4×、临界 `FIFO==BEAT_COUNT`、同频异相相位
+  0/3/7、互质 7:17、深 FIFO），含事务中 B 端复位 → 错误结束 + link 重建后可继续，**8/8 通过**。
+  验证方案与激励矩阵见 [`docs/design.md`](components/interconnect/parallel_data_fetch/docs/design.md) §8。
+
+### Fixed
+- **异步模式错误后请求复用失配**：契约 §14 要求异步不得立即复用请求 toggle、应先完成 link recovery。
+  原静默窗口按同步量级设定（`BEAT_COUNT + LINK_PIPE_STAGES + REQ_SYNC_STAGES + 2`），
+  在异步下 A 端错误后立即复用请求时会出现 A=HOLD / B=IDLE 失配。现按跨域往返量级保守放大
+  （`2×BEAT_COUNT + 4×REQ_SYNC_STAGES + 16`，见 `parallel_data_fetch_requester.sv` 的 `QUIET_MAX`）；
+  同步模式窗口未变，同步回归（12/12、G3 21/15）复核未受影响。
+
+### Added
 - 新增类别 `components/interconnect` 与 CBB **INT-001 parallel_data_fetch**
   （[`components/interconnect/parallel_data_fetch/`](components/interconnect/parallel_data_fetch/README.md)，A3/P2）——
   单请求远端原子快照经窄链路连续回传并在请求端重组，以传输时延换取长距布线资源。

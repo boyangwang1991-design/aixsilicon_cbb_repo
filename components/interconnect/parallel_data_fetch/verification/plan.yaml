@@ -76,14 +76,18 @@ testcases:
   - id: tc_random
     status: planned
     acceptance: 约束随机参数/数据/provider 延迟/A 端背压下 scoreboard 无失配，无丢无重无混事务。
-# 后续工作（本轮未实现，未纳入本轮 testcases 承诺，故不以 testcase ID 形式声明）：
-#   1) 异步模式定向/随机回归：A 快 B 慢 / A 慢 B 快 / 同频异相；async FIFO 临界 full/empty;
-#   2) 两端独立复位与不同释放顺序下 link_up 失效/重建序列。
-# 异步模式（ASYNC_MODE=1）本版仅提供结构实现与 elaboration 证据（profiles.yaml: experimental）；
-# 在补上上述回归前，支持范围限定为同步模式（见 docs/design.md §7 与 reports/qualification-report.md）。
-pending_work:
-  - 异步模式双时钟定向/随机回归（含 async FIFO 临界 full/empty）
-  - 两端独立复位序列与 link_up 重建回归
+  # 异步模式（ASYNC_MODE=1）双时钟回归；激励矩阵与判据见 docs/design.md §8
+  - id: tc_async_modes
+    status: planned
+    acceptance: >-
+      A 快 B 慢(5:20)/A 慢 B 快(20:5)/临界(11:20, RSP_FIFO_DEPTH==BEAT_COUNT)/同频异相(10:10 相位 0/3/7)
+      四种比例下各 40 次事务：成功结果与 B 端被接受快照逐 bit 一致；无 ERR_TIMEOUT/ERR_FIFO/ERR_PROTOCOL；
+      临界比例下 B 端未获 FIFO 空间时不得发送（reserve_ok 门控生效）。
+  - id: tc_async_reset_order
+    status: planned
+    acceptance: >-
+      三种复位顺序（B 先/A 先/同时但错开释放）下：复位期间两端 link_up 均为 0 且不接受请求；
+      释放后 link_up 重新建立并可完成新事务；事务中任一端复位使本次事务以错误结束且不自动重发。
   - id: tc_reset
     status: planned
     acceptance: 各状态复位后 valid/busy 在规定周期内清零，输出为 RESET_VALUE 语义值，随后可重新接受请求。

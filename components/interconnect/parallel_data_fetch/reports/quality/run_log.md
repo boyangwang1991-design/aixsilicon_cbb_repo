@@ -9,3 +9,5 @@
     修复过程记录：requester 的 link_req_o 悬空(x)导致 toggle 检测失效；TB 数据源 FSM 依赖 fetch_ready 当前值造成死锁；TB 提前拉低 rsp_ready 导致 HOLD 滞留；parity 注入与 BEAT_COUNT=1 竞争。均已修正并有回归证据。
 - `2026-09-16 09:35:39` | **characterize** | G6 | G6 OPTIONAL_UNAVAILABLE：本机无可提交标准单元库快照，PPA 仅为结构推理(E0) | 结果(BLOCKED)
     未伪造门级数据；待库上下文具备后按 characterization/plan.yaml 运行。
+- `2026-09-17 02:15:03` | **verify** | G4 | 异步双时钟回归 8/8（A快B慢/A慢B快/临界/同频异相相位0-3-7/互质/深FIFO） | 结果(PASS)
+    根因：契约 §14 要求异步不得立即复用请求 toggle；原静默窗口按同步量级设定，导致 A 端错误后立即复用请求时 A=HOLD/B=IDLE 失配。修正：异步 QUIET_MAX 放大为 2*BEAT_COUNT+4*REQ_SYNC_STAGES+16（时序参数推导，不改外部接口）；同步窗口未变。另修正 TB 两处相位缺陷：等响应前多余 negedge 导致错拍漏消费；reset 场景 fork 内预置 rsp_ready 造成错拍。

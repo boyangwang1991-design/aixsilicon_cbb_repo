@@ -6,7 +6,7 @@ version: 0.1.0
 status: derived
 basis: existing_yaml
 source_hashes:
-  cbb.yaml: 82ba2a73c1b57c945fe33cca5d4f530d9794df86ec0c96eae27f85e7d99f930d
+  cbb.yaml: 735b379132c2124f2634a8db5256723a3be511556fe6061a16773db261be7658
   behavior.yaml: 2f90b2ea73b5c67bf70470452690a2e50ef165192b08f34116312a71f9ae104b
 ---
 

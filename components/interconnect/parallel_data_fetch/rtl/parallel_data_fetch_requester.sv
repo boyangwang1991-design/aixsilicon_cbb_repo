@@ -60,7 +60,15 @@ module parallel_data_fetch_requester #(
   localparam int BEAT_CNT_W = (BEAT_COUNT <= 1) ? 1 : $clog2(BEAT_COUNT);
   localparam int TMO_W      = (TIMEOUT_CYCLES <= 1) ? 1 : $clog2(TIMEOUT_CYCLES + 1);
   localparam int TMO_MAX    = TIMEOUT_CYCLES - 1;
-  localparam int QUIET_MAX  = BEAT_COUNT + LINK_PIPE_STAGES + REQ_SYNC_STAGES + 2;
+  // 错误后的静默窗口（避免在 B 端仍在途/未消费本次请求时复用请求 toggle）：
+  //   同步模式：B 端与 A 端同钟，覆盖连续发送 + 长线流水即可。
+  //   异步模式：A 端无法观测 B 端进度，契约 §14 要求"先完成 link recovery"；
+  //     窗口按跨域往返量级保守放大——请求 toggle 同步 + B 端连续发送 + FIFO 指针回同步，
+  //     并留出裕量。该窗口是保守等待而非精确握手：最坏情况是 A 端再次超时并报错
+  //     （不会输出错误数据、不会死锁），见 docs/design.md §8.4。
+  localparam int QUIET_MAX  = (ASYNC_MODE == 1)
+                            ? (BEAT_COUNT * 2) + (REQ_SYNC_STAGES * 4) + 16
+                            : BEAT_COUNT + LINK_PIPE_STAGES + REQ_SYNC_STAGES + 2;
   localparam int QUIET_W    = (QUIET_MAX <= 1) ? 1 : $clog2(QUIET_MAX + 1);
 
   localparam logic [2:0] ERR_NONE         = 3'd0;

@@ -1,5 +1,5 @@
 cbb: parallel_data_fetch
-updated: '2026-09-17T01:26:44Z'
+updated: '2026-09-17T02:15:03Z'
 gates:
   G0:
     status: pass
@@ -21,5 +21,5 @@ gates:
       reports/quality/events.jsonl
   G4:
     status: pass
-    evidence: verification/simulation/parallel_data_fetch_tb.sv,reports/qualification-report.md
-    note: 12/12 参数化用例, 52 txn/case, bubbles=0; run-step verify 事件已记录; 异步回归 pending
+    evidence: verification/simulation/parallel_data_fetch_tb.sv,verification/scripts/run_async_sim.sh,reports/qualification-report.md
+    note: 同步 12/12 参数化用例; 异步 8/8 时钟比例/相位(含临界 FIFO==BEAT_COUNT、事务中 B 复位); 执行事件见 reports/quality/events.jsonl

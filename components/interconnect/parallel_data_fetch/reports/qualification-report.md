@@ -11,8 +11,8 @@
 | G1 Contract | pass | [`cbb.yaml`](../cbb.yaml)、[`behavior.yaml`](../behavior.yaml)、[`profiles.yaml`](../profiles.yaml)；`check --phase specify --strict` PASS；[`trace/rtm.yaml`](../trace/rtm.yaml) 22 条 |
 | G2 Architect | pass | [`docs/design.md`](../docs/design.md)、[`docs/detail-design/slice_impl.md`](../docs/detail-design/slice_impl.md) |
 | G3 RTL Static | pass | [`../build/eda/evidence/g3_static/summary.txt`](../build/eda/evidence/g3_static/summary.txt)：positive 21/21，negative 15/15（VCS W-2024.09） |
-| G4 Verify（功能） | pass | [`../verification/simulation/parallel_data_fetch_tb.sv`](../verification/simulation/parallel_data_fetch_tb.sv)：12/12 参数化用例（VCS）；执行事件见 `reports/quality/events.jsonl` |
-| G5 配置空间 | not_run | 219 条配置已生成（mandatory 1 / boundary 28 / pairwise 147 / risk 2 / consumer 4 / negative 33），未跑矩阵回归 |
+| G4 Verify（功能） | pass | 同步 12/12 参数化用例（[`../verification/simulation/parallel_data_fetch_tb.sv`](../verification/simulation/parallel_data_fetch_tb.sv)）；**异步 8/8 时钟比例/相位**（[`../verification/scripts/run_async_sim.sh`](../verification/scripts/run_async_sim.sh)）；执行事件见 `reports/quality/events.jsonl` |
+| G5 配置空间 | not_run | 215 条配置已生成（mandatory 1 / boundary 28 / pairwise 147 / risk 2 / consumer 4 / negative 33），未跑矩阵回归 |
 | G6 Characterize | blocked（OPTIONAL_UNAVAILABLE） | 本机无可提交标准单元库快照；PPA 为结构推理（PPA-E0），未伪造门级数据 |
 | G7 Qualify / G8 Release | not_run | 未发布；`release/manifest.yaml` 为 candidate |
 
@@ -46,7 +46,15 @@ BD 执行事件已通过正式入口登记在 `reports/quality/events.jsonl`（s
 - **切片三实现**：`SLICE_IMPL=0/1/2`（shift/indexed/banked），同一可观察契约，仿真等价比对通过。
 - **错误模型**：`ERR_TIMEOUT/PROVIDER/PARITY/PROTOCOL/REMOTE_RESET/FIFO/INTERNAL` 与优先级合并；
   失败结果输出 RESET_VALUE 语义值。
-- **同步模式**：完整功能验证；异步模式提供结构实现与静态基线（elaboration 通过）。
+- **同步模式**：完整功能验证（12 参数化用例）。
+- **异步模式**：双时钟功能回归 8/8（A 快 B 慢 4×、A 慢 B 快 1/4×、临界 `FIFO==BEAT_COUNT`、
+  同频异相相位 0/3/7、互质 7:17、深 FIFO），含事务中 B 端复位 → 错误结束 + link 重建后可继续；
+  `profiles.yaml` 保持 `experimental`（同步级数 3/4 与时钟停摆场景未逐点覆盖）。
+- **异步根因修复记录**：契约 §14 要求"异步模式不得立即复用请求 toggle，应先完成 link recovery"。
+  原静默窗口按同步量级设定，在 A 端错误后立即复用请求时会出现 A 端 HOLD / B 端 IDLE 的失配。
+  现将异步窗口按跨域往返量级保守放大（`2×BEAT_COUNT + 4×REQ_SYNC_STAGES + 16`，见
+  [`../rtl/parallel_data_fetch_requester.sv`](../rtl/parallel_data_fetch_requester.sv) 的 `QUIET_MAX`），
+  并经 8 组时钟比例回归验证；同步模式窗口未变。
 
 ## 3. 验证覆盖与统计（本轮）
 
@@ -60,7 +68,8 @@ BD 执行事件已通过正式入口登记在 `reports/quality/events.jsonl`（s
 
 | 风险 | 影响 | 处置 |
 |---|---|---|
-| 异步模式（ASYNC_MODE=1）未做定向/随机回归 | 跨域正确性仅有结构与 elaboration 证据（`profiles.yaml`: experimental） | 后续补双时钟 TB（A 快 B 慢 / A 慢 B 快 / 相异相位 / 时钟停摆 / 两端独立复位） |
+| 异步模式同步级数（`REQ_SYNC_STAGES`=3/4）未逐点回归 | 异步下仅默认 2 级（3/4 级由同步模式参数化覆盖） | TB 需把该参数透传 DUT 后拆分编译逐点跑；当前不夸大覆盖 |
+| 异步"时钟停摆"场景未单独激励 | clock gating/掉电下的恢复行为未直接验证 | link_up 语义与 alive 检测已由 `tc_async_reset_order` 覆盖复位子集；停摆场景列入后续 |
 | `pdf_async_fifo` 为构件内联同构实现 | 未复用 registry 中的 async_fifo（QUE-002 仍为 planned、无实现） | 待 QUE-002 通过 G3/G4 后改为 VLNS 依赖（见 profiles.yaml `implementation_notes`） |
 | 无门级 PPA | 无法给出面积/时序/功耗实测（E0） | 在具备库上下文时由 `characterization/plan.yaml` 声明比较点后运行 G6 |
 | 配置集抽样上限 | 13 参数采样域超出 config-gen 有界枚举（10000），未生成 `random` 集合 | 随机激励由 TB 内 `tc_random` 承担；已在 intake §7 与 config-inputs 记录 |

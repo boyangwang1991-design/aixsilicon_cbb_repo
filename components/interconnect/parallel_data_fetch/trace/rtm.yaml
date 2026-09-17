@@ -155,6 +155,7 @@ requirements:
   tests:
   - tc_reset
   - tc_error_inject
+  - tc_async_reset_order
   configs:
   - cfg_data_width256_link_width32_lsb_first1_async_mode1_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
   evidence: []
@@ -200,7 +201,8 @@ requirements:
   description: 依赖与使用约束——CDC 复用组织批准标准结构（toggle 同步器 + Gray 指针 async FIFO）， 只做选型/参数化/实例化；未实现子核不得作为可消费依赖声明；HWIF
     无绑定（本构件不定义 总线协议契约，两端业务接口为原生 ready-valid）。
   properties: []
-  tests: []
+  tests:
+  - tc_async_modes
   configs:
   - cfg_data_width256_link_width32_lsb_first1_async_mode1_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages4_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
   evidence: []
