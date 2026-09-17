@@ -1,7 +1,8 @@
 # 资格评估 — parallel_data_fetch（INT-001）
 
-> 状态：**development_candidate（G0–G4 通过）**；成熟度 **E0**（无门级 PPA 表征）。
+> 状态：**development_candidate（G0–G6 通过）**；成熟度 **E1**（PPA-E1：固定内部库 + tt 单 corner）。
 > 只有 Workflow Gate 可转换 qualified/released；本报告不自行升级状态。
+> G5 采用分层策略（Tier A 已完成，Tier B 建议在 G6 之后由 CI runner 执行，见 §2.1）。
 
 ## 1. 结论摘要
 
@@ -13,15 +14,16 @@
 | G3 RTL Static | pass | [`../build/eda/evidence/g3_static/summary.txt`](../build/eda/evidence/g3_static/summary.txt)：positive 21/21，negative 15/15（VCS W-2024.09） |
 | G4 Verify（功能） | pass | 同步 12/12 参数化用例（[`../verification/simulation/parallel_data_fetch_tb.sv`](../verification/simulation/parallel_data_fetch_tb.sv)）；**异步 8/8 时钟比例/相位**（[`../verification/scripts/run_async_sim.sh`](../verification/scripts/run_async_sim.sh)）；执行事件见 `reports/quality/events.jsonl` |
 | G5 配置空间 | pass（Tier A） | [`../verification/scripts/run_config_matrix_sim.sh`](../verification/scripts/run_config_matrix_sim.sh)：13 个有界代表点逐点 RTL 仿真 **13/13**（4m07s）；215 条配置已由 config-gen 生成（mandatory 1 / boundary 28 / pairwise 147 / risk 2 / consumer 4 / negative 33） |
-| G6 Characterize | blocked（OPTIONAL_UNAVAILABLE） | 本机无可提交标准单元库快照；PPA 为结构推理（PPA-E0），未伪造门级数据 |
+| G6 Characterize | **pass（PPA-E1）** | [`ppa-report.md`](ppa-report.md) + [`ppa_run-20260917-01.png`](ppa_run-20260917-01.png)：GF28LP `sc9_cmos28lp_base_hvt tt_1p00v_25c` + dc_shell V-2023.12-SP3，**10 点真实综合**（10/10 `PPA-DONE`）；单 corner tt，不泛化 |
 | G7 Qualify / G8 Release | not_run | 未发布；`release/manifest.yaml` 为 candidate |
 
 ## 1.1 Gate 记录与 qualification 级检查的区别（重要）
 
-`reports/quality/gates/parallel_data_fetch.yaml` 已登记 **G0–G4 = pass**，证据全部为工程内
+`reports/quality/gates/parallel_data_fetch.yaml` 已登记 **G0–G6 = pass**，证据全部为工程内
 **真实存在**的文件（`docs/intake.md`、`trace/rtm.yaml`、`docs/design.md`、
 `verification/scripts/run_static_checks.sh`、`verification/simulation/parallel_data_fetch_tb.sv`、
-`reports/qualification-report.md`）。
+`verification/scripts/run_async_sim.sh`、`verification/scripts/run_config_matrix_sim.sh`、
+`reports/ppa-report.md`、`reports/ppa_run-20260917-01.png`、`characterization/plan.yaml`）。
 
 `cbb_tool.py gate --check` 会以 **qualification 强度**额外要求：
 
@@ -29,13 +31,13 @@
    baseline + 工具名/版本），而不是脚本路径；
 2. `cbb.yaml` 的 `quality.required_gates`（本工程为 G0–G8）全部有记录。
 
-因此 `gate --check` 当前仍报 `G3/G4: qualification requires content-bound run evidence` 与
-`G5–G8 未记录`。这是**本轮范围的真实反映**：本轮完成到 G4 功能验证（development candidate），
-未执行 G5 配置矩阵、G6 表征、G7 资格与 G8 发布，也未建立 G7 使用的 run manifest。
-本报告不把这四项补成 pass，也不把脚本路径伪装成 run 证据。
+因此 `gate --check` 当前仍报 `G3/G4/G5/G6: qualification requires content-bound run evidence` 与
+`G7/G8 未记录`。这是**本轮范围的真实反映**：本轮完成到 G6 表征（development candidate，PPA-E1），
+未执行 G7 资格与 G8 发布，也未把这些 Gate 的证据转成 run manifest。
+本报告不把它们补成 pass，也不把脚本路径伪装成 run 证据。
 
-BD 执行事件已通过正式入口登记在 `reports/quality/events.jsonl`（step=implement / verify，
-`action: executed`，含输入哈希与输出哈希），可供后续生成 run manifest 复用。
+执行事件（step=implement / verify / characterize / synth，`action: executed`，含输入与输出哈希）
+已通过正式入口登记在 `reports/quality/events.jsonl`，可供后续生成 run manifest 复用。
 
 ### 2.1 G5 分层执行策略（运行时间与阶段前置的平衡）
 
@@ -99,6 +101,9 @@ C4(G4/G5) → C5(G6)，且 `artifact-contract` 要求 C5 前置为"功能 smoke 
 | 风险 | 影响 | 处置 |
 |---|---|---|
 | G5 仅跑 Tier A（13 代表点） | 未逐点覆盖全部 215 条配置；`--complete-pairwise` 全覆盖未执行 | **分层策略**（见 §2.1）：Tier B 扩展扫描 `--full`（32 点）与 complete-pairwise 建议在 G6 PPA 之后由 CI runner 执行——PPA 完成后已知 Pareto 点，可定向加扫而非盲目跑满；依据 C4→C5 阶段顺序与 C5 前置（功能 smoke 通过的候选） |
+| **PPA 仅 tt 单 corner** | ss/ff 差异未测；不作跨 corner 结论 | 换 corner 重跑 sweep；`cbb.yaml` 已标 `COMPLETE_TT_SINGLE_CORNER`，`ppa-report.md` §6 列出 |
+| **无 SAIF 的动态功耗** | 动态功耗为综合默认 activity 估计，非绝对值 | 需门级仿真导 SAIF；`ppa-report.md` §4 已申明不作绝对承诺 |
+| **无布局/拥塞代理** | **本构件核心价值是长距布线资源**，逻辑面积无法体现收益 | 需与"同宽并行总线"做物理对比（`plan.yaml` planned 已列）；当前结论只对逻辑级 PPA 成立 |
 | 异步模式同步级数（`REQ_SYNC_STAGES`=3/4）未逐点回归 | 异步下仅默认 2 级（3/4 级由同步模式参数化覆盖） | TB 需把该参数透传 DUT 后拆分编译逐点跑；当前不夸大覆盖 |
 | 异步"时钟停摆"场景未单独激励 | clock gating/掉电下的恢复行为未直接验证 | link_up 语义与 alive 检测已由 `tc_async_reset_order` 覆盖复位子集；停摆场景列入后续 |
 | `pdf_async_fifo` 为构件内联同构实现 | 未复用 registry 中的 async_fifo（QUE-002 仍为 planned、无实现） | 待 QUE-002 通过 G3/G4 后改为 VLNS 依赖（见 profiles.yaml `implementation_notes`） |

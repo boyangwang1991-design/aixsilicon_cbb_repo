@@ -34,6 +34,11 @@ __pycache__/
 .eggs/
 build/
 dist/
+# DC 综合中间产物（.mr/.pvl 等）应落 build/eda；此处防御其误落组件目录
+*.mr
+*.pvl
+alib-*
+command.log
 .pytest_cache/
 .mypy_cache/
 .ruff_cache/

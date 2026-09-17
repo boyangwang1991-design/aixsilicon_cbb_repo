@@ -13,3 +13,5 @@
     根因：契约 §14 要求异步不得立即复用请求 toggle；原静默窗口按同步量级设定，导致 A 端错误后立即复用请求时 A=HOLD/B=IDLE 失配。修正：异步 QUIET_MAX 放大为 2*BEAT_COUNT+4*REQ_SYNC_STAGES+16（时序参数推导，不改外部接口）；同步窗口未变。另修正 TB 两处相位缺陷：等响应前多余 negedge 导致错拍漏消费；reset 场景 fork 内预置 rsp_ready 造成错拍。
 - `2026-09-17 04:33:15` | **verify** | G5 | G5 Tier A 13/13 代表配置逐点仿真通过；发现并修复异步 pb_ready 接线缺陷 | 结果(PASS)
     缺陷：wrapper 把 pb_ready 接到 link_reserve_ok_i(每拍重估)，当 RSP_FIFO_DEPTH≈BEAT_COUNT 时突发中途停顿、丢 last → ERR_PROTOCOL(4)。修正：reservation 只在启动发送前门控(provider PV_WAIT_DATA 用 link_reserve_ok_i)，发送期改为 ~fifo_full。分层策略：Tier A(默认 13 点,4min) 留在 C4/G5 使 RTL 成为 C5 候选；Tier B(--full 32点) 建议 G6 后执行。实测单配置 ≈20.7s。
+- `2026-09-17 06:12:25` | **characterize** | G6 | G6 PPA-E1 完成：10 点真实综合，推翻两处设计推论并修正文档 | 结果(PASS)
+    库：GF28LP sc9_cmos28lp_base_hvt tt_1p00v_25c（真实库，非伪造）。实测：面积随 DATA_WIDTH 线性(11.4um2/bit)成立；切片三实现面积几乎相同(差<0.6%)且 shift/indexed 时序(0.03/0.04)优于 banked(0.00) —— 推翻原文档'banked 时序更优'；LINK_PIPE_STAGES=8 面积+24% 换 slack 仅+0.02ns（端点内部为瓶颈）。已按 PPA 变更出口纪律修正 design.md §6、slice_impl.md、profiles.yaml（sync_typical optimization_goal timing→area）。未覆盖：ss/ff corner、SAIF 功耗、布局/拥塞（本构件的核心价值是长距布线资源，逻辑面积无法体现）。

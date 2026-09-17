@@ -5,6 +5,27 @@
 ## [Unreleased]
 
 ### Added
+- **INT-001 G6 PPA 表征（PPA-E1，真实综合）**：新增
+  [`characterization/synth_sweep.tcl`](components/interconnect/parallel_data_fetch/characterization/synth_sweep.tcl)
+  （10 点参数×微架构 sweep）与 [`characterization/run_synth_sweep.sh`](components/interconnect/parallel_data_fetch/characterization/run_synth_sweep.sh)（runner）。
+  在 GF 28nm LP `sc9_cmos28lp_base_hvt`（`tt_nominal_max_1p00v_25c`）+ DC `V-2023.12-SP3` 下
+  **10/10 点真实综合完成**（`run-20260917-01`，≈5.5 min）；比较图
+  [`reports/ppa_run-20260917-01.png`](components/interconnect/parallel_data_fetch/reports/ppa_run-20260917-01.png)，
+  报告 [`reports/ppa-report.md`](components/interconnect/parallel_data_fetch/reports/ppa-report.md)。
+  实测标度 **≈11.4 µm²/bit**（64→1024 bit 线性），async FIFO 增量 +41%（FIFO=8）/+80.6%（FIFO=16）。
+
+### Fixed
+- **PPA 实测推翻两处设计推论，已按 PPA 变更出口纪律修正文档与 Profile**：
+  1. 原文称 `banked` 切片时序优于 `shift/indexed`——实测**相反**（banked slack 0.00 vs
+     shift 0.03 / indexed 0.04 ns；三者面积差 <0.6%）。修正
+     [`docs/design.md`](components/interconnect/parallel_data_fetch/docs/design.md)、
+     [`docs/detail-design/slice_impl.md`](components/interconnect/parallel_data_fetch/docs/detail-design/slice_impl.md)；
+     `sync_typical` 的 `optimization_goal` 由 `timing` 改为 `area`；
+     banked 保留为默认的依据改为"连续发送翻转率/功耗潜在优势（待 SAIF 证实）"。
+  2. `LINK_PIPE_STAGES=8` 面积 +24% 但 slack 仅 +0.02 ns——收益在本工艺/约束下**未体现**
+     （关键路径在端点内部：超时/错误合并/重组末拍），已在文档标注。
+
+### Added
 - **INT-001 G5 配置空间验证（分层执行）**：新增
   [`verification/simulation/config_matrix_tb.sv`](components/interconnect/parallel_data_fetch/verification/simulation/config_matrix_tb.sv)
   与 [`verification/scripts/run_config_matrix_sim.sh`](components/interconnect/parallel_data_fetch/verification/scripts/run_config_matrix_sim.sh)。

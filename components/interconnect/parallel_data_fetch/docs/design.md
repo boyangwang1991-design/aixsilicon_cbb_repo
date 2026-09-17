@@ -109,17 +109,25 @@ RDC：`pdf_alive_check` 在 `alive_i=0` 时清零稳定计数，使"对端复位
 
 ## 6. PPA 优化点与预期 Pareto 位置
 
-| 配置 | 主导资源 | 预期 Pareto 位置 | 说明 |
-|---|---|---|---|
-| sync / DATA_WIDTH=256, LINK_WIDTH=32 | 快照 + 重组寄存器各 256 bit，banked MUX | 面积-时序平衡点（默认） | 无 FIFO；长线由后端按布局自行切分 |
-| sync + LINK_PIPE_STAGES=8 | 增加 `8 × (LINK_WIDTH+5)` 寄存器 | 时序优先、面积略增 | 长链路 STA 压力大的布局 |
-| async | + `DEPTH × (LINK_WIDTH+5)` 双口存储 + 指针同步器 | 面积最大，换取跨域能力 | 深度 ≥ BEAT_COUNT |
-| SLICE_IMPL=0/1/2 | shift：翻转率高；indexed：MUX 深宽随 BEAT_COUNT 增长；banked：小位宽索引 | 三者同功能、分散在面积-功耗-时序空间 | 详细论证见 [`detail-design/slice_impl.md`](detail-design/slice_impl.md) |
-| DATA_WIDTH=4096, LINK_WIDTH=1 | 4096 拍连续发送，帧最长 | 延迟最差、链路位最少 | 时序风险点（计数位宽 12 位） |
+> **已实测修正（2026-09-17）**：下表原为结构推理（PPA-E0）。GF 28nm LP /
+> `sc9_cmos28lp_base_hvt tt_1p00v_25c` 的真实综合（10 点，[`../reports/ppa-report.md`](../reports/ppa-report.md)）
+> 修正了其中两处推论，见"实测"列。
 
-**理论下界**：快照 + 重组至少 `2 × DATA_WIDTH` 个数据寄存器；链路每拍至少 `LINK_WIDTH` 位；
-`LINK_PIPE_STAGES` 与 FIFO 深度是可配置的额外代价。综合收敛风险：banked 索引 MUX 的深度取决于
-`BEAT_COUNT`，大 `BEAT_COUNT` 时建议提高 `LINK_WIDTH` 以降低 MUX 级数。
+| 配置 | 主导资源 | 预期 Pareto 位置 | 实测（run-20260917-01） |
+|---|---|---|---|
+| sync / DATA_WIDTH=256, LINK_WIDTH=32 | 快照 + 重组寄存器各 256 bit | 面积-时序平衡点（默认） | 3204.9 µm²，slack **0.00 ns**（400 MHz 恰 MET，即临界） |
+| sync + LINK_PIPE_STAGES=8 | + 寄存器 | 时序优先、面积略增 | 3973.1 µm²（+24%），slack 仅 +0.02 ns → **收益未体现**：关键路径在端点内部（超时/错误合并/重组末拍），不在长线链路 |
+| async | + FIFO 存储 + 指针同步器 | 面积最大，换取跨域能力 | 5787.4 µm²（FIFO=16，**+80.6%**）；FIFO=8 → 4519.7 µm²（**+41.0%**），深度减半约省 22% |
+| SLICE_IMPL=0/1/2 | shift 翻转率高；indexed MUX 深；banked 小位宽索引 | 三者同功能、分散在面积-功耗-时序空间 | 面积 shift 3187.7 / indexed 3187.5 / banked 3204.9 µm²（差 <0.6%）；**时序 shift 0.03 / indexed 0.04 优于 banked 0.00**——与原文"banked 时序更优"**相反** |
+| DATA_WIDTH=4096, LINK_WIDTH=1 | 4096 拍连续发送，帧最长 | 延迟最差、链路位最少 | 未表征（上界到 1024→128：11893.2 µm²，slack 0.15） |
+
+**面积标度**：实测 `DATA_WIDTH` 64→256→512→1024 bit 为 978.7→3204.9→6176.9→11893.2 µm²，
+即 **≈11.4 µm²/bit**、线性度良好，与"至少 `2 × DATA_WIDTH` 数据寄存器"的下界推理一致。
+
+**实现选择修正**：默认 `SLICE_IMPL=2`（banked）的原依据是"时序更优"，实测不成立。
+保留 banked 为默认的**正确依据**是**翻转率/功耗**（每拍只动 1 个 bank；shift 每拍翻转全宽），
+但本构件无 SAIF 功耗数据可证（见 ppa-report §6）。故：**实现选择应按消费者约束决定**，
+`coverage.yaml`/`profiles.yaml` 中的 `support` 保持 `experimental`，不因单次表征升级支持级别。
 
 ## 7. 验证策略映射
 

@@ -1,5 +1,5 @@
 cbb: parallel_data_fetch
-updated: '2026-09-17T04:33:14Z'
+updated: '2026-09-17T06:12:25Z'
 gates:
   G0:
     status: pass
@@ -28,3 +28,9 @@ gates:
     evidence: verification/scripts/run_config_matrix_sim.sh,verification/plan.yaml,reports/qualification-report.md
     note: Tier A 13/13 有界代表点逐点 RTL 仿真(4m07s)；Tier B(--full, 32 点+complete-pairwise)
       建议 G6 后 CI 执行；执行事件见 reports/quality/events.jsonl
+  G6:
+    status: pass
+    evidence: reports/ppa-report.md,reports/ppa_run-20260917-01.png,characterization/plan.yaml,characterization/run_synth_sweep.sh
+    note: 'PPA-E1: GF28LP sc9_cmos28lp_base_hvt tt_1p00v_25c, dc_shell V-2023.12-SP3,
+      10 点真实综合(run-20260917-01, 10/10 PPA-DONE); 单 corner tt 不泛化; SAIF/布局未覆盖; 执行事件见
+      reports/quality/events.jsonl'

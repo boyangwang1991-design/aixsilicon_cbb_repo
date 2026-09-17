@@ -28,19 +28,37 @@
 - 代价：写入侧为 `BEAT_COUNT` 路并行写（解码器 + 位切片），面积与 `DATA_WIDTH` 同阶。
 - 适用：默认推荐；在翻转率与 MUX 深度之间平衡，大 `BEAT_COUNT` 时相对 indexed 的时序优势明显。
 
-## 预期 Pareto 分布
+## Pareto 分布：实测修正（2026-09-17）
 
-| 实现 | 面积 | 动态功耗 | 时序（关键路径） |
-|---|---|---|---|
-| shift | 小（无 bank 阵列） | 高（宽移位翻转） | 浅（输出位固定） |
-| indexed | 中（MUX 网络） | 低 | 深（随 BEAT_COUNT 增长） |
-| banked | 中（阵列 + 写解码） | 低 | 浅（小位宽索引） |
+原表为结构推理（PPA-E0）。GF 28nm LP `sc9_cmos28lp_base_hvt tt_1p00v_25c` 真实综合
+（256→32，10 点之一，见 [`../../reports/ppa-report.md`](../../reports/ppa-report.md)）结果：
 
-三者不构成"实现契约差异"：对外可观察行为（数据、顺序、last、错误）完全一致；
-仅在面积/功耗/时序空间上分散，属 PPA 选型而非功能变体。
+| 实现 | 面积 (µm²) | slack (ns) | 漏电 (nW) | 动态功耗 (µW) |
+|---|---:|---:|---:|---:|
+| shift | 3187.7 | **0.03** | 327.1 | 960.9 |
+| indexed | 3187.5 | **0.04** | 336.3 | 961.0 |
+| banked | 3204.9 | 0.00 | 352.2 | 974.0 |
 
-## 未表征说明
+修正结论：
 
-本机无可提交的标准单元库快照（`characterization.status: OPTIONAL_UNAVAILABLE`），
-上表为**结构推理**（PPA-E0），不是门级综合结论；正式 Pareto 数据需在具备库上下文时由
-`characterization/plan.yaml` 声明比较点后运行 G6。
+1. **面积三者几乎相同（差 <0.6%）**——原推论"shift 面积小、banked 面积中"未成立：
+   banked 的写解码开销被 shift 的全宽移位网络抵消。
+2. **时序上 shift/indexed 反而更好**（0.03/0.04 vs 0.00 ns）——与原文"banked 时序更优"**相反**。
+   原因：banked 需 beat counter 索引 + 每 bank 写解码，在 400 MHz 下成为端点内较紧的路径之一。
+3. **功耗上 banked 略差**（漏电 352.2 vs 327.1/336.3 nW，动态 974.0 vs 960.9/961.0 µW）——
+   翻转率优势**未在综合默认 activity 下体现**；要证实"banked 翻转率更低"必须用 SAIF 实测
+   （当前 `plan.yaml` planned 已列）。
+
+三者仍不构成"实现契约差异"：可观察行为（数据、顺序、last、错误）由 SVA
+`ap_slice_matches_snapshot` 与 G4/G5 等价回归证明完全一致；差异只在 PPA 空间。
+
+**默认实现的处理**：`cbb.yaml` 的 `SLICE_IMPL` 默认仍为 2（banked），但依据从"时序更优"
+改为**翻转率/功耗在连续发送场景的潜在优势（待 SAIF 证实）**；`profiles.yaml` 三个切片 Profile
+的 `support` 保持 `experimental`，不因单次表征升级。
+
+## 表征状态
+
+已用 GF 28nm LP（`sc9_cmos28lp_base_hvt tt_nominal_max_1p00v_25c`）完成真实综合表征
+（PPA-E1，`run-20260917-01`）。仍属**单 corner tt**：ss/ff 差异、SAIF 功耗与布局拥塞
+均未覆盖（见 [`../../reports/ppa-report.md`](../../reports/ppa-report.md) §6 未覆盖清单），
+不得据此声称跨工艺或跨 corner 结论。

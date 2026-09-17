@@ -1,13 +1,20 @@
 # profiles.yaml — parallel_data_fetch 命名 Profile（切片微架构 + 时钟模式选型）
 # Profile 是经过命名/验证/表征的稳定配置，不等于任意参数组合。
 # 三切片实现共享同一可观察契约（数据/顺序/last/错误语义一致），差异只在面积/时序/功耗。
+#
+# PPA 实测（PPA-E1，GF28LP sc9_cmos28lp_base_hvt tt_1p00v_25c，run-20260917-01）：
+#   256→32 下三实现面积几乎相同（3187.5~3204.9 um2，差 <0.6%）；
+#   时序 shift 0.03 / indexed 0.04 略优于 banked 0.00 ns @2.5ns。
+#   故 sync_typical 的 optimization_goal 由 "timing" 修正为 "area"（不夸大 banked 的时序优势）；
+#   banked 作为默认的依据是连续发送的翻转率/功耗潜在优势（待 SAIF 证实）。
+#   详见 reports/ppa-report.md §3。
 profiles:
   sync_typical:
     implementation: impl_banked
     parameters: {DATA_WIDTH: 256, LINK_WIDTH: 32, ASYNC_MODE: 0, SLICE_IMPL: 2, LINK_PIPE_STAGES: 0}
-    optimization_goal: timing
+    optimization_goal: area
     support: supported
-    use_case: 典型同步 256→32：A/B 同钟、banked 切片、无长线 pipeline（后端按布局插入）。
+    use_case: 典型同步 256→32：A/B 同钟、无长线 pipeline（后端按布局插入）；面积 3205 um2、slack 0.00 ns @400MHz。
   async_typical:
     implementation: impl_banked
     parameters: {DATA_WIDTH: 256, LINK_WIDTH: 32, ASYNC_MODE: 1, SLICE_IMPL: 2, RSP_FIFO_DEPTH: 16, REQ_SYNC_STAGES: 2}
@@ -17,15 +24,19 @@ profiles:
   slice_shift:
     implementation: impl_shift
     parameters: {DATA_WIDTH: 256, LINK_WIDTH: 32, SLICE_IMPL: 0}
-    optimization_goal: area
+    optimization_goal: timing
     support: experimental
-    use_case: 切片结构选型 A——移位寄存器，控制最简、每拍翻转大量寄存器。
+    use_case: >-
+      切片结构选型 A——移位寄存器，控制最简、每拍翻转全宽寄存器。
+      实测 3187.7 um2 / slack 0.03 ns / leak 327.1 nW / dyn 960.9 uW。
   slice_indexed:
     implementation: impl_indexed
     parameters: {DATA_WIDTH: 256, LINK_WIDTH: 32, SLICE_IMPL: 1}
     optimization_goal: timing
     support: experimental
-    use_case: 切片结构选型 B——snapshot 不变的索引 MUX，寄存器翻转少但 MUX 深宽随 BEAT_COUNT 增长。
+    use_case: >-
+      切片结构选型 B——snapshot 不变的索引 MUX，寄存器翻转少但 MUX 深宽随 BEAT_COUNT 增长。
+      实测 3187.5 um2 / slack 0.04 ns / leak 336.3 nW / dyn 961.0 uW（本表征下时序最佳）。
 
 implementation_notes:
   impl_shift:

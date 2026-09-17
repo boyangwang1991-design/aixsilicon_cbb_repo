@@ -255,9 +255,15 @@ quality:
 
 # ---------------- PPA 表征 ----------------
 characterization:
-  benchmark_profiles: []
-  measured_region: {DATA_WIDTH: [256, 1024], LINK_WIDTH: [32, 64], ASYNC_MODE: [0, 1]}
-  status: OPTIONAL_UNAVAILABLE      # 尚无本地标准单元库/PDK 扫描；G6 未执行，不伪造门级数据
+  benchmark_profiles: [sync_typical, slice_shift, slice_indexed, async_typical]
+  measured_region: {DATA_WIDTH: [64, 1024], LINK_WIDTH: [32, 128],
+                    ASYNC_MODE: [0, 1], SLICE_IMPL: [0, 1, 2], LINK_PIPE_STAGES: [0, 1, 8]}
+  # PPA-E1（Generic）：GF28LP sc9_cmos28lp_base_hvt tt_nominal_max_1p00v_25c，dc_shell，
+  # 10 点真实综合（run-20260917-01）。**单 corner tt**，不泛化到其它工艺/corner。
+  # 证据：reports/ppa-report.md + reports/ppa_run-20260917-01.png。
+  status: COMPLETE_TT_SINGLE_CORNER
+  evidence_level: PPA-E1
+  comparison_plot: reports/ppa_run-20260917-01.png
 
 release:
   fusesoc_core: aixsilicon:cbb:parallel_data_fetch:0.1.0

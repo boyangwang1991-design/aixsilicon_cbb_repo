@@ -1,8 +1,48 @@
-# 表征计划（Characterization Plan）— parallel_data_fetch
-# G6 PPA：先用 cbb_tool.py pdk-scan 生成 characterization/pdk.yaml（工艺上下文）。
-# pdk-scan 判定 PDK_READY 时必须真实综合表征，禁止降级 OPTIONAL_UNAVAILABLE(E0)；
-# 仅当判定 PDK_UNAVAILABLE 时才标注 OPTIONAL_UNAVAILABLE(E0)，不伪造门级数据（ppa-evidence.md）。
-points: []
-benchmark_profiles: []
-measured_region: {}
-status: PENDING_PDK_SCAN
+# 表征计划（Characterization Plan）— parallel_data_fetch（INT-001）
+#
+# G6 PPA：pdk-scan 判定本机有 GF 28nm LP（CMOS28NM，5 库）+ dc_shell，
+# 已用 sc9_cmos28lp_base_hvt（tt_nominal_max_1p00v_25c）做**真实综合**（10 点）。
+# 证据：reports/ppa-report.md + reports/ppa_run-<id>.png + build/eda/ppa/<run-id>/
+# 等级：PPA-E1（Generic：tt 单 corner，固定内部库；非项目上下文，不泛化到其它工艺）
+#
+# 时钟：同步模式 A/B 同一时钟（1 域，400MHz=2.5ns）；异步模式 A/B 各自时钟（2 域，
+#       跨域结构为 toggle 同步器 + Gray 指针 async FIFO，按 CDC 例外处理，
+#       不伪造跨域 setup slack）。
+# 功耗：无 SAIF，动态功耗来自综合默认 activity 估计；漏电为库报告值。
+#       两者均为**估计**，不作绝对承诺（见 ppa-evidence §1 上下文要求）。
+
+benchmark_profiles:
+  - sync_typical      # DW=256 LW=32 banked（cbb.yaml 默认 Profile）
+  - slice_shift       # 切片实现 A
+  - slice_indexed     # 切片实现 B
+  - async_typical     # ASYNC_MODE=1 典型（含 async FIFO 增量）
+
+measured_region:
+  DATA_WIDTH: [64, 1024]
+  LINK_WIDTH: [32, 128]
+  ASYNC_MODE: [0, 1]
+  SLICE_IMPL: [0, 1, 2]
+  LINK_PIPE_STAGES: [0, 1, 8]
+
+status: COMPLETE_TT_SINGLE_CORNER
+comparison_plot: reports/ppa_run-20260917-01.png
+
+# 比较点（与 synth_sweep.tcl 的 points 一一对应，顺序一致）
+points:
+  - {implementation: impl_banked,  parameters: {DATA_WIDTH: 256,  LINK_WIDTH: 32,  SLICE_IMPL: 2, LINK_PIPE_STAGES: 0, ASYNC_MODE: 0, RSP_FIFO_DEPTH: 16}}
+  - {implementation: impl_shift,   parameters: {DATA_WIDTH: 256,  LINK_WIDTH: 32,  SLICE_IMPL: 0, LINK_PIPE_STAGES: 0, ASYNC_MODE: 0, RSP_FIFO_DEPTH: 16}}
+  - {implementation: impl_indexed, parameters: {DATA_WIDTH: 256,  LINK_WIDTH: 32,  SLICE_IMPL: 1, LINK_PIPE_STAGES: 0, ASYNC_MODE: 0, RSP_FIFO_DEPTH: 16}}
+  - {implementation: impl_banked,  parameters: {DATA_WIDTH: 256,  LINK_WIDTH: 32,  SLICE_IMPL: 2, LINK_PIPE_STAGES: 1, ASYNC_MODE: 0, RSP_FIFO_DEPTH: 16}}
+  - {implementation: impl_banked,  parameters: {DATA_WIDTH: 256,  LINK_WIDTH: 32,  SLICE_IMPL: 2, LINK_PIPE_STAGES: 8, ASYNC_MODE: 0, RSP_FIFO_DEPTH: 16}}
+  - {implementation: impl_banked,  parameters: {DATA_WIDTH: 512,  LINK_WIDTH: 64,  SLICE_IMPL: 2, LINK_PIPE_STAGES: 0, ASYNC_MODE: 0, RSP_FIFO_DEPTH: 16}}
+  - {implementation: impl_banked,  parameters: {DATA_WIDTH: 1024, LINK_WIDTH: 128, SLICE_IMPL: 2, LINK_PIPE_STAGES: 0, ASYNC_MODE: 0, RSP_FIFO_DEPTH: 16}}
+  - {implementation: impl_banked,  parameters: {DATA_WIDTH: 64,   LINK_WIDTH: 32,  SLICE_IMPL: 2, LINK_PIPE_STAGES: 0, ASYNC_MODE: 0, RSP_FIFO_DEPTH: 16}}
+  - {implementation: impl_banked,  parameters: {DATA_WIDTH: 256,  LINK_WIDTH: 32,  SLICE_IMPL: 2, LINK_PIPE_STAGES: 0, ASYNC_MODE: 1, RSP_FIFO_DEPTH: 16}}
+  - {implementation: impl_banked,  parameters: {DATA_WIDTH: 256,  LINK_WIDTH: 32,  SLICE_IMPL: 2, LINK_PIPE_STAGES: 0, ASYNC_MODE: 1, RSP_FIFO_DEPTH: 8}}
+
+planned:
+  - ss/ff corner 补充（当前仅 tt；跨 corner 结论需重跑）
+  - 基于 SAIF 的动态功耗（当前为综合默认 activity 估计）
+  - 布局/拥塞代理指标（本构件核心价值是长距布线资源，需与「同宽并行总线」做物理对比——
+    仅逻辑门面积不能体现其收益，见 docs/design.md §6）
+  - 大 BEAT_COUNT（如 4096→1）的完整表征（当前上界到 1024→128）
