@@ -7,6 +7,7 @@
 - `stale-materials-audit.md`：早期混合 IP/CBB 材料排查及报告边界修复记录。
 - `retired-assets.full.yaml`：精简前完整退出记录。恢复详细规划时按 records[].original.name 查找，再复核当前归属；现行处置以 governance/retired-assets.yaml 为准。
 - `changes.json`：本轮移动文件的原路径、新路径和 SHA-256；删除项仅为零字节 ucli.key。
+- `noc_interconnect/`：NOC-007/009/010/011/012 退出时归档的需求草案与 README 占位（按原路径结构）；退出记录见 `governance/retired-assets.yaml` 的 `archive_path`。仅为审计与显式恢复留存，不作为开发输入。
 
 审查范围为 CBB 仓根及全部 components/adapters 工程的非构建文件（1024 个文件，排除 .git、build、缓存和已有 archive）。297 个登记目录齐全，无未登记 components 工程目录。现有需求、实现、验证/PPA 计划、发布清单和工程内证据仍有关联，保留原位；不按日期删除。构建缓存未作为文档处理。
 

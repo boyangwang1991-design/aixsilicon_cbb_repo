@@ -967,6 +967,61 @@ records:
   source_files: absent
   restore: 复核需求、责任边界及依赖；恢复原 ID，校验后刷新 README。
 - original:
+    id: NOC-007
+    name: crossbar_fabric
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/crossbar_fabric
+  disposition: withdrawn
+  reason: 按需求方要求退出 noc_interconnect 整类规划；退出前仅有需求草案与 README 占位，无实现与证据，未断言与其他资产功能等价。
+  source_files: archived
+  archive_path: docs/archive/2026-09-cbb-materials-review/noc_interconnect/crossbar_fabric
+  restore: 复核需求、责任边界及依赖；恢复原 ID 与归档文件，校验后刷新 README。
+- original:
+    id: NOC-009
+    name: credit_return_channel
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/credit_return_channel
+  disposition: withdrawn
+  reason: 按需求方要求退出 noc_interconnect 整类规划；退出前仅有需求草案与 README 占位，无实现与证据，未断言与其他资产功能等价。
+  source_files: archived
+  archive_path: docs/archive/2026-09-cbb-materials-review/noc_interconnect/credit_return_channel
+  restore: 复核需求、责任边界及依赖；恢复原 ID 与归档文件，校验后刷新 README。
+- original:
+    id: NOC-010
+    name: link_register_slice
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/link_register_slice
+  disposition: withdrawn
+  reason: 按需求方要求退出 noc_interconnect 整类规划；退出前仅有需求草案与 README 占位，无实现与证据，未断言与其他资产功能等价。
+  source_files: archived
+  archive_path: docs/archive/2026-09-cbb-materials-review/noc_interconnect/link_register_slice
+  restore: 复核需求、责任边界及依赖；恢复原 ID 与归档文件，校验后刷新 README。
+- original:
+    id: NOC-011
+    name: link_cdc_adapter
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/link_cdc_adapter
+  disposition: withdrawn
+  reason: 按需求方要求退出 noc_interconnect 整类规划；退出前仅有需求草案与 README 占位，无实现与证据，未断言与其他资产功能等价。
+  source_files: archived
+  archive_path: docs/archive/2026-09-cbb-materials-review/noc_interconnect/link_cdc_adapter
+  restore: 复核需求、责任边界及依赖；恢复原 ID 与归档文件，校验后刷新 README。
+- original:
+    id: NOC-012
+    name: link_width_converter
+    status: planned
+    version: 0.1.0
+    path: components/noc_interconnect/link_width_converter
+  disposition: withdrawn
+  reason: 按需求方要求退出 noc_interconnect 整类规划；退出前仅有需求草案与 README 占位，无实现与证据，未断言与其他资产功能等价。
+  source_files: archived
+  archive_path: docs/archive/2026-09-cbb-materials-review/noc_interconnect/link_width_converter
+  restore: 复核需求、责任边界及依赖；恢复原 ID 与归档文件，校验后刷新 README。
+- original:
     id: QUE-010
     name: frame_buffer_queue
     status: planned
