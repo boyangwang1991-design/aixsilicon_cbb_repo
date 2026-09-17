@@ -11,3 +11,5 @@
     未伪造门级数据；待库上下文具备后按 characterization/plan.yaml 运行。
 - `2026-09-17 02:15:03` | **verify** | G4 | 异步双时钟回归 8/8（A快B慢/A慢B快/临界/同频异相相位0-3-7/互质/深FIFO） | 结果(PASS)
     根因：契约 §14 要求异步不得立即复用请求 toggle；原静默窗口按同步量级设定，导致 A 端错误后立即复用请求时 A=HOLD/B=IDLE 失配。修正：异步 QUIET_MAX 放大为 2*BEAT_COUNT+4*REQ_SYNC_STAGES+16（时序参数推导，不改外部接口）；同步窗口未变。另修正 TB 两处相位缺陷：等响应前多余 negedge 导致错拍漏消费；reset 场景 fork 内预置 rsp_ready 造成错拍。
+- `2026-09-17 04:33:15` | **verify** | G5 | G5 Tier A 13/13 代表配置逐点仿真通过；发现并修复异步 pb_ready 接线缺陷 | 结果(PASS)
+    缺陷：wrapper 把 pb_ready 接到 link_reserve_ok_i(每拍重估)，当 RSP_FIFO_DEPTH≈BEAT_COUNT 时突发中途停顿、丢 last → ERR_PROTOCOL(4)。修正：reservation 只在启动发送前门控(provider PV_WAIT_DATA 用 link_reserve_ok_i)，发送期改为 ~fifo_full。分层策略：Tier A(默认 13 点,4min) 留在 C4/G5 使 RTL 成为 C5 候选；Tier B(--full 32点) 建议 G6 后执行。实测单配置 ≈20.7s。

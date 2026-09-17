@@ -5,6 +5,24 @@
 ## [Unreleased]
 
 ### Added
+- **INT-001 G5 配置空间验证（分层执行）**：新增
+  [`verification/simulation/config_matrix_tb.sv`](components/interconnect/parallel_data_fetch/verification/simulation/config_matrix_tb.sv)
+  与 [`verification/scripts/run_config_matrix_sim.sh`](components/interconnect/parallel_data_fetch/verification/scripts/run_config_matrix_sim.sh)。
+  **Tier A**（默认，C4/G5 内）13 个有界代表点逐点 RTL 仿真 **13/13**（4m07s）；
+  **Tier B**（`--full`，建议 G6 PPA 之后由 CI runner 执行）32 点扩展扫描 + `--complete-pairwise`。
+  分层依据：实测 ≈20.7 s/配置，且 `workflow-policy` 阶段顺序为 C4(G4/G5)→C5(G6)，
+  `artifact-contract` 要求 C5 前置为"功能 smoke 通过的候选"，故不可整体后移。
+
+### Fixed
+- **异步模式 `pb_ready` 接线缺陷（G5 复盘）**：wrapper 原将 `pb_ready` 接 `link_reserve_ok_i`
+  （每拍重估"剩余空间 ≥ BEAT_COUNT"）。当 `RSP_FIFO_DEPTH ≈ BEAT_COUNT` 时，突发中途剩余空间
+  不足一个完整 transaction → `reserve_ok` 拉低 → 连续发送被打断、`last` 丢失（`ERR_PROTOCOL(4)`）。
+  按契约 §7 修正为：reservation 只在**启动发送前**门控（provider 在 `PV_WAIT_DATA` 用
+  `link_reserve_ok_i`），发送期只受 FIFO 满控制（`assign pb_ready = ~fifo_full;`）。
+  该缺陷由 G5 广度验证发现（G4 的 20 用例未覆盖"深度×时钟比"组合）。
+  修复后 `async_crit_fifo`(FIFO=4,BEAT=4) 与 `risk_async_4096_8`(FIFO=512,BEAT=512) 通过。
+
+### Added
 - **INT-001 异步模式（ASYNC_MODE=1）双时钟回归**：新增
   [`verification/scripts/run_async_sim.sh`](components/interconnect/parallel_data_fetch/verification/scripts/run_async_sim.sh)
   与 [`verification/simulation/parallel_data_fetch_async_tb.sv`](components/interconnect/parallel_data_fetch/verification/simulation/parallel_data_fetch_async_tb.sv)，

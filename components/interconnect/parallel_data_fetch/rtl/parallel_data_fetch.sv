@@ -150,7 +150,7 @@ module parallel_data_fetch #(
           .w_error_i    (pb_error),
           .w_parity_i   (pb_parity),
           .w_epoch_i    (pb_epoch),
-          .w_full_o     (),
+          .w_full_o     (fifo_full),
           .w_reserve_ok_o(reserve_ok),
           .r_clk_i      (a_clk_i),
           .r_rst_ni     (a_rst_ni),
@@ -161,7 +161,11 @@ module parallel_data_fetch #(
           .r_error_o    (lr_error),
           .r_parity_o   (lr_parity),
           .r_epoch_o    (lr_epoch));
-      assign pb_ready = reserve_ok;      // 尚有完整事务空间即可连续写
+      // reservation 语义（契约 §7）：provider 在启动发送**前**确认 FIFO 可容纳完整 transaction
+      // （由 link_reserve_ok_i 在 WAIT_DATA 门控）。一旦开始发送，空间已被预留，
+      // 发送期只应受"FIFO 是否已满"约束，**不得**逐拍用 reserve_ok 判定——
+      // 否则当 RSP_FIFO_DEPTH 接近 BEAT_COUNT 时会在突发中途停顿、丢失 last（G5 复盘）。
+      assign pb_ready = ~fifo_full;
     end
   endgenerate
 

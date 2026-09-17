@@ -1,5 +1,5 @@
 cbb: parallel_data_fetch
-updated: '2026-09-17T02:15:03Z'
+updated: '2026-09-17T04:33:14Z'
 gates:
   G0:
     status: pass
@@ -23,3 +23,8 @@ gates:
     status: pass
     evidence: verification/simulation/parallel_data_fetch_tb.sv,verification/scripts/run_async_sim.sh,reports/qualification-report.md
     note: 同步 12/12 参数化用例; 异步 8/8 时钟比例/相位(含临界 FIFO==BEAT_COUNT、事务中 B 复位); 执行事件见 reports/quality/events.jsonl
+  G5:
+    status: pass
+    evidence: verification/scripts/run_config_matrix_sim.sh,verification/plan.yaml,reports/qualification-report.md
+    note: Tier A 13/13 有界代表点逐点 RTL 仿真(4m07s)；Tier B(--full, 32 点+complete-pairwise)
+      建议 G6 后 CI 执行；执行事件见 reports/quality/events.jsonl

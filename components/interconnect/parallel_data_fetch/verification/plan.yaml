@@ -99,11 +99,37 @@ testcases:
     acceptance: 非法参数组合在 elaboration 阶段被 $error 拒绝（工具非零退出且报出参数诊断，非崩溃）。
 
 matrix:
-  representative: false
-  baseline_configs: []
+  methods: [simulation, static]
+  # G5 方法（方案论证）：
+  #   simulation — 代表配置逐点 RTL 仿真（verification/scripts/run_config_matrix_sim.sh）；
+  #   static     — 非法配置由 generate $error 在 elaboration 期拦截（G3 negative 已证）。
+  # G5 代表性放宽（representative=true，沿用 accumulator ARI-006 先例）：
+  #   本构件 13 个参数，采样域规模远超有界枚举上限，逐条跑满 215 条配置不具工程意义。
+  #   G5 证据 = 「代表配置逐点 RTL 仿真 PASS」+「跨参数二元交互覆盖」共同成立，不声称全组合覆盖。
+  # G5 分层执行（运行时间实测 ≈20.7 s/配置）：
+  #   Tier A（默认，C4/G5 内）= 13 个有界代表点，≈4 min；目的 = 使 RTL 成为 C5/G6 合法候选。
+  #   Tier B（--full，**建议 G6 PPA 之后**由 CI runner 执行）= 32 点扩展扫描 + complete-pairwise；
+  #     PPA 后已知 Pareto 点，可定向加扫；依据 PLAN-01 阶段顺序 C4(G4/G5)→C5(G6) 与
+  #     artifact-contract 的 C5 前置（功能 smoke 通过的候选）。
+  representative: true
+  baseline_configs:
+    # 与 cbb.yaml / plan.yaml 中 REQ 引用的 config_id 一一对应（见 verification/configs/）
+    - cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+    - cfg_data_width8_link_width8_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+    - cfg_data_width144_link_width16_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+    - cfg_data_width256_link_width32_lsb_first0_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages8_slice_impl2_reset_default_data0
+    - cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages1_slice_impl2_reset_default_data0
+    - cfg_data_width256_link_width32_lsb_first1_async_mode1_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+    - cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl0_reset_default_data0
+    - cfg_data_width256_link_width32_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl1_reset_default_data0
+    - cfg_data_width1024_link_width128_lsb_first1_async_mode0_parity_en1_odd_parity1_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+    - cfg_data_width256_link_width32_lsb_first1_async_mode1_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages4_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
+    - cfg_data_width4096_link_width1_lsb_first1_async_mode0_parity_en1_odd_parity0_timeout_en1_timeout_cycles65536_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0
   notes: >-
-    C4 由 config-gen 生成 mandatory/boundary/pairwise/negative 配置集后回填真实 config_id；
-    异步模式与切片等价的代表性配置须覆盖 ASYNC_MODE=1 与 SLICE_IMPL=0/1/2。
+    矩阵脚本额外覆盖未在 REQ 中引用的分区点（PARITY_EN=0、TIMEOUT_EN=0、ODD_PARITY=1、
+    SLICE_IMPL 三实现、LINK_PIPE_STAGES=0/1/8、异步临界 FIFO==BEAT_COUNT、宽/窄链路极值等），
+    逐点编译并跑一次事务自检；失败打印 CONFIG_FAIL 并计入证据。
+    未覆盖声明的边界：异步模式 REQ_SYNC_STAGES=3/4 未逐点（见 qualification-report 剩余风险）。
 
 evidence:
   static_baseline: build/eda/evidence/g3_static/
