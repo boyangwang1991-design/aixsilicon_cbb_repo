@@ -61,7 +61,8 @@ elab_negative() {
     echo "FAIL  negative ${label} elaborated but must be rejected" | tee -a "${DETAIL}"
     NEG_FAIL=$((NEG_FAIL+1))
   elif grep -q "parallel_data_fetch" "elab_neg_${label}.log"; then
-    echo "PASS  negative ${label} rejected by \$error" | tee -a "${DETAIL}"
+    # tc_negative_elab：非法参数在 elaboration 期被 generate $error 拒绝
+    echo "PASS  negative ${label} rejected by \$error   [tc_negative_elab]" | tee -a "${DETAIL}"
     NEG_PASS=$((NEG_PASS+1))
   else
     echo "FAIL  negative ${label} failed without parameter diagnostic" | tee -a "${DETAIL}"

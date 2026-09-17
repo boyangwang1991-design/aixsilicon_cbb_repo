@@ -11,10 +11,31 @@
 | G1 Contract | pass | [`cbb.yaml`](../cbb.yaml)、[`behavior.yaml`](../behavior.yaml)、[`profiles.yaml`](../profiles.yaml)；`check --phase specify --strict` PASS；[`trace/rtm.yaml`](../trace/rtm.yaml) 22 条 |
 | G2 Architect | pass | [`docs/design.md`](../docs/design.md)、[`docs/detail-design/slice_impl.md`](../docs/detail-design/slice_impl.md) |
 | G3 RTL Static | pass | [`../build/eda/evidence/g3_static/summary.txt`](../build/eda/evidence/g3_static/summary.txt)：positive 21/21，negative 15/15（VCS W-2024.09） |
-| G4 Verify（功能） | pass | [`../build/eda/evidence/g4_functional/summary.txt`](../build/eda/evidence/g4_functional/summary.txt)：12/12 参数化用例（VCS） |
+| G4 Verify（功能） | pass | [`../verification/simulation/parallel_data_fetch_tb.sv`](../verification/simulation/parallel_data_fetch_tb.sv)：12/12 参数化用例（VCS）；执行事件见 `reports/quality/events.jsonl` |
 | G5 配置空间 | not_run | 219 条配置已生成（mandatory 1 / boundary 28 / pairwise 147 / risk 2 / consumer 4 / negative 33），未跑矩阵回归 |
 | G6 Characterize | blocked（OPTIONAL_UNAVAILABLE） | 本机无可提交标准单元库快照；PPA 为结构推理（PPA-E0），未伪造门级数据 |
 | G7 Qualify / G8 Release | not_run | 未发布；`release/manifest.yaml` 为 candidate |
+
+## 1.1 Gate 记录与 qualification 级检查的区别（重要）
+
+`reports/quality/gates/parallel_data_fetch.yaml` 已登记 **G0–G4 = pass**，证据全部为工程内
+**真实存在**的文件（`docs/intake.md`、`trace/rtm.yaml`、`docs/design.md`、
+`verification/scripts/run_static_checks.sh`、`verification/simulation/parallel_data_fetch_tb.sv`、
+`reports/qualification-report.md`）。
+
+`cbb_tool.py gate --check` 会以 **qualification 强度**额外要求：
+
+1. G3–G8 的证据必须是 `run-<YYYYMMDD>-<NN>` 形式的 content-bound run manifest（输入哈希绑定当前
+   baseline + 工具名/版本），而不是脚本路径；
+2. `cbb.yaml` 的 `quality.required_gates`（本工程为 G0–G8）全部有记录。
+
+因此 `gate --check` 当前仍报 `G3/G4: qualification requires content-bound run evidence` 与
+`G5–G8 未记录`。这是**本轮范围的真实反映**：本轮完成到 G4 功能验证（development candidate），
+未执行 G5 配置矩阵、G6 表征、G7 资格与 G8 发布，也未建立 G7 使用的 run manifest。
+本报告不把这四项补成 pass，也不把脚本路径伪装成 run 证据。
+
+BD 执行事件已通过正式入口登记在 `reports/quality/events.jsonl`（step=implement / verify，
+`action: executed`，含输入哈希与输出哈希），可供后续生成 run manifest 复用。
 
 ## 2. 已实现范围
 

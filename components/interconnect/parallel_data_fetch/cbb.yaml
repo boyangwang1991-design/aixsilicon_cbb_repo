@@ -189,7 +189,7 @@ requirements:
       复位与恢复——A/B 复位可独立断言（异步断言、同步释放）；任一端复位使 link_up 失效且不接受
       请求；事务中对端复位产生 ERR_REMOTE_RESET 并清除部分重组数据，不自动重发旧请求。
     properties: [PROP-PDF_LINKUP-005, PROP-PDF_ERROR-006]
-    tests: [tc_reset, tc_async_reset_order, tc_error_inject]
+    tests: [tc_reset, tc_error_inject]      # 异步两端独立复位（tc_async_reset_order）为后续工作，未落地
     configs: [cfg_data_width256_link_width32_lsb_first1_async_mode1_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages2_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0]
   - id: REQ-005
     description: >-
@@ -218,7 +218,7 @@ requirements:
       只做选型/参数化/实例化；未实现子核不得作为可消费依赖声明；HWIF 无绑定（本构件不定义
       总线协议契约，两端业务接口为原生 ready-valid）。
     properties: []
-    tests: [tc_async_modes]
+    tests: []                                # 结构审查项；异步回归（tc_async_modes）为后续工作，未落地
     configs: [cfg_data_width256_link_width32_lsb_first1_async_mode1_parity_en1_odd_parity0_timeout_en1_timeout_cycles1024_req_sync_stages4_rsp_fifo_depth16_link_pipe_stages0_slice_impl2_reset_default_data0]
   - id: REQ-009
     description: >-

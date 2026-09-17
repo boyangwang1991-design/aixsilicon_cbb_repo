@@ -337,6 +337,8 @@ module parallel_data_fetch_tb #(
              txn_cnt, beats_seen, last_seen, bubble_cnt);
     $display("RESULT: %s (pass=%0d fail=%0d)", (fail_cnt == 0) ? "PASS" : "FAIL", pass_cnt, fail_cnt);
     $display("========================================");
+    // 说明：异步模式（ASYNC_MODE=1）的定向/随机回归尚未实现，未在本 TB 内落地；
+    // 相应 testcase 不在 plan/cbb.yaml 的已落地引用中，登记为后续工作（见 qualification-report）。
     if (fail_cnt != 0) $fatal(1, "parallel_data_fetch G4 functional failed");
     $finish;
   end

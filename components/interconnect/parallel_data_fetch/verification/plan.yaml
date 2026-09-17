@@ -76,12 +76,14 @@ testcases:
   - id: tc_random
     status: planned
     acceptance: 约束随机参数/数据/provider 延迟/A 端背压下 scoreboard 无失配，无丢无重无混事务。
-  - id: tc_async_modes
-    status: planned
-    acceptance: A 快 B 慢、A 慢 B 快、同频异相下事务正确；临界 full/empty 不产生 overflow/underflow。
-  - id: tc_async_reset_order
-    status: planned
-    acceptance: 两端独立复位与不同释放顺序下 link_up 正确失效并重建；重建前不接受请求。
+# 后续工作（本轮未实现，未纳入本轮 testcases 承诺，故不以 testcase ID 形式声明）：
+#   1) 异步模式定向/随机回归：A 快 B 慢 / A 慢 B 快 / 同频异相；async FIFO 临界 full/empty;
+#   2) 两端独立复位与不同释放顺序下 link_up 失效/重建序列。
+# 异步模式（ASYNC_MODE=1）本版仅提供结构实现与 elaboration 证据（profiles.yaml: experimental）；
+# 在补上上述回归前，支持范围限定为同步模式（见 docs/design.md §7 与 reports/qualification-report.md）。
+pending_work:
+  - 异步模式双时钟定向/随机回归（含 async FIFO 临界 full/empty）
+  - 两端独立复位序列与 link_up 重建回归
   - id: tc_reset
     status: planned
     acceptance: 各状态复位后 valid/busy 在规定周期内清零，输出为 RESET_VALUE 语义值，随后可重新接受请求。
